@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Session-scoped intro: redirects to the splash on every fresh visit, but skips while the
+     intro hands off back to the homepage in the same tab (sessionStorage flag set by intro.html).
+     Bypassable via ?skipIntro in the URL, and suppressed for users with prefers-reduced-motion. -->
+<script>
+  (function () {
+    try {
+      var u = new URL(location.href);
+      if (u.searchParams.has('skipIntro') || u.searchParams.get('from') === 'intro') return;
+      if (sessionStorage.getItem('ybn_intro_seen') === '1') return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      location.replace('intro.html');
+    } catch (e) { /* fail-open: show homepage */ }
+  })();
+</script>
+<title>Your Business Name | Sports Massage & Coaching Your City — Owner Full Name</title>
+<meta name="description" content="Sports massage, injury treatment and performance coaching in Your City with Owner Full Name. Tagline · Goes · Here. 5-star rated, 130+ reviews. Book online." />
+<meta name="theme-color" content="#0B0B0B" />
+<link rel="canonical" href="https://yourdomain.co.uk/" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Your Business Name | Sports Massage & Coaching Your City" />
+<meta property="og:description" content="Tagline · Goes · Here. Sports massage, injury treatment & coaching with Owner Full Name in Your City." />
+<meta property="og:image" content="brand_assets/logo.jpeg" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- Preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://cdn.tailwindcss.com" />
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+<link rel="dns-prefetch" href="https://www.openstreetmap.org" />
+
+<!-- Structured Data (LocalBusiness) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HealthAndBeautyBusiness",
+  "name": "Your Business Name",
+  "alternateName": "Owner Full Name | Coaching & Sports Massage",
+  "image": "https://yourdomain.co.uk/brand_assets/logo.jpeg",
+  "url": "https://yourdomain.co.uk/",
+  "telephone": "+44 7376 369795",
+  "email": "owner@example.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Your Street Address (above Landmark Name)",
+    "addressLocality": "Your City",
+    "postalCode": "PC1 1PC",
+    "addressCountry": "GB"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 54.8951, "longitude": -2.9325 },
+  "priceRange": "£25 - £50",
+  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "130" },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Wednesday"], "opens": "08:00", "closes": "20:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday"], "opens": "08:00", "closes": "17:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Thursday","Friday"], "opens": "08:00", "closes": "18:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "08:00", "closes": "12:00" }
+  ],
+  "sameAs": ["https://www.instagram.com/your_instagram_handle/"]
+}
+</script>
+
+<!-- Fonts: Bebas Neue (display condensed) + Inter (body) + JetBrains Mono (data/numbers) -->
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+
+<!-- Tailwind (compiled, ~21KB) -->
+<link rel="stylesheet" href="dist/styles.css" />
+
+<style>
+  :root {
+    --ink: #0A0A0A;
+    --carbon: #141414;
+    --surface: #1A1A1A;
+    --edge: #262626;
+    --pink: #EC0A7E;
+    --bone: #EDEDED;
+    --mute: #9A9A9E;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink);
+    color: var(--bone);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: 'Bebas Neue', Impact, sans-serif; line-height: 0.92; letter-spacing: 0.01em; }
+  ::selection { background: var(--pink); color: #fff; }
+
+  /* SVG noise texture */
+  .noise::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+    opacity: 0.08; pointer-events: none; mix-blend-mode: overlay;
+  }
+
+  /* Hero video background */
+  .hero-video {
+    position: absolute; inset: 0;
+    object-fit: cover;
+    object-position: 60% center;
+    filter: saturate(1.08) contrast(1.04);
+    animation: hero-video-fade-in 1.4s ease-out both;
+  }
+  @media (max-width: 768px) { .hero-video { object-position: 55% center; } }
+  @keyframes hero-video-fade-in { from { opacity: 0; transform: scale(1.05); } to { opacity: 1; transform: scale(1); } }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-video { display: none; }
+  }
+
+  /* Radial gradient backdrop */
+  .radial-pink {
+    background:
+      radial-gradient(circle at 20% 20%, rgba(236,10,126,0.25), transparent 50%),
+      radial-gradient(circle at 80% 60%, rgba(236,10,126,0.12), transparent 55%),
+      linear-gradient(180deg, #0A0A0A 0%, #0A0A0A 100%);
+  }
+
+  /* Pink underline link */
+  .pink-link {
+    position: relative; padding-bottom: 2px;
+    background-image: linear-gradient(var(--pink), var(--pink));
+    background-size: 0% 1px; background-repeat: no-repeat; background-position: left bottom;
+    transition: background-size 250ms ease;
+  }
+  .pink-link:hover { background-size: 100% 1px; }
+
+  /* Pill button */
+  .btn-pill {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 14px 28px; border-radius: 999px;
+    font-weight: 600; font-size: 15px; letter-spacing: 0.02em;
+    transition: transform 180ms cubic-bezier(.2,.9,.3,1.2), background-color 220ms ease, color 220ms ease;
+    will-change: transform;
+  }
+  .btn-pink { background: var(--pink); color: #fff; }
+  .btn-pink:hover { background: #ff2fa0; }
+  .btn-ghost { background: transparent; color: var(--bone); border: 1.5px solid var(--edge); }
+  .btn-ghost:hover { border-color: var(--pink); color: var(--pink); }
+
+  /* Marquee */
+  .marquee {
+    display: flex; gap: 4rem; animation: scroll 28s linear infinite;
+  }
+  @keyframes scroll { to { transform: translateX(-50%); } }
+  @media (max-width: 768px) {
+    .marquee { animation-duration: 16s; }
+  }
+
+  /* Section label */
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    color: var(--pink); font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700;
+  }
+  .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--pink); }
+
+  /* Service card */
+  .service-card {
+    position: relative; overflow: hidden;
+    background: var(--carbon); border: 1px solid var(--edge);
+    border-radius: 24px; padding: 36px 32px;
+    transition: border-color 280ms ease, transform 280ms cubic-bezier(.2,.9,.3,1.2);
+  }
+  .service-card:hover { border-color: var(--pink); transform: translateY(-4px); }
+  .service-card::after {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 100% 0%, rgba(236,10,126,0.18), transparent 55%);
+    opacity: 0; transition: opacity 400ms ease; pointer-events: none;
+  }
+  .service-card:hover::after { opacity: 1; }
+
+  /* Gallery image treatment */
+  .gallery-img {
+    position: relative; overflow: hidden; border-radius: 18px;
+    background: var(--surface);
+  }
+  .gallery-img img {
+    transition: transform 900ms cubic-bezier(.2,.9,.3,1.2), filter 400ms ease;
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(20%) contrast(1.05);
+  }
+  .gallery-img:hover img { transform: scale(1.08); filter: grayscale(0%); }
+  .gallery-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(10,10,10,0.6));
+    pointer-events: none;
+  }
+
+  /* FAQ accordion */
+  .faq-list { display: flex; flex-direction: column; gap: 12px; }
+  .faq-item {
+    background: var(--carbon);
+    border: 1px solid var(--edge);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 220ms ease, background 220ms ease;
+  }
+  .faq-item:hover { border-color: var(--pink); }
+  .faq-item[open] { border-color: var(--pink); background: #181318; }
+  .faq-item summary {
+    list-style: none; cursor: pointer;
+    padding: 22px 26px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; color: var(--bone);
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; border-radius: 12px; }
+  .faq-icon {
+    width: 20px; height: 20px; flex-shrink: 0;
+    color: var(--pink);
+    transition: transform 280ms cubic-bezier(.2,.9,.3,1.2);
+  }
+  .faq-item[open] .faq-icon { transform: rotate(135deg); }
+  .faq-item p {
+    padding: 0 26px 24px;
+    color: rgba(237,237,237,0.75);
+    font-size: 15px; line-height: 1.75;
+    animation: faq-reveal 320ms ease-out both;
+  }
+  .faq-item p a { color: var(--pink); }
+  @keyframes faq-reveal {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Review card */
+  .review-card {
+    background: var(--carbon);
+    border: 1px solid var(--edge);
+    border-radius: 20px;
+    padding: 32px;
+    transition: border-color 280ms ease;
+  }
+  .review-card:hover { border-color: var(--pink); }
+
+  /* Review filter pill */
+  .review-filter {
+    padding: 10px 18px; border-radius: 999px;
+    background: var(--carbon); border: 1px solid var(--edge);
+    color: var(--bone); font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 200ms ease;
+  }
+  .review-filter:hover { border-color: var(--pink); }
+  .review-filter.active { background: var(--pink); border-color: var(--pink); color: #fff; }
+  .review-filter.active .text-pink { color: #fff; opacity: 0.85; }
+
+  /* Small review card (grid) */
+  .review-mini {
+    break-inside: avoid; margin-bottom: 20px;
+    background: var(--ink); border: 1px solid var(--edge);
+    border-radius: 18px; padding: 24px;
+    transition: border-color 260ms ease, transform 260ms ease;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .review-mini:hover { border-color: var(--pink); transform: translateY(-3px); }
+  .review-mini .stars { display: flex; gap: 2px; }
+  .review-mini .body { color: rgba(237,237,237,0.85); line-height: 1.65; font-size: 14.5px; }
+  .review-mini .meta-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 14px; border-top: 1px solid var(--edge); }
+  .review-mini .avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(236,10,126,0.15); border: 1px solid var(--pink);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 14px; color: var(--bone);
+    flex-shrink: 0;
+  }
+  .review-mini .badge {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    padding: 4px 8px; border-radius: 999px; border: 1px solid var(--edge);
+    color: var(--mute); white-space: nowrap;
+  }
+  .review-mini .badge.google { color: #F53A9C; border-color: rgba(245,58,156,0.3); }
+
+  /* Booking form */
+  .field {
+    width: 100%;
+    background: var(--surface);
+    color: var(--bone);
+    border: 1px solid var(--edge);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    transition: border-color 180ms ease, background 180ms ease;
+  }
+  .field:focus { outline: none; border-color: var(--pink); background: var(--carbon); }
+  .field::placeholder { color: var(--mute); }
+  label.lbl { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; font-weight: 700; color: var(--mute); margin-bottom: 8px; }
+
+  .service-option {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 16px 18px; background: var(--surface);
+    border: 1px solid var(--edge); border-radius: 14px;
+    cursor: pointer; transition: all 200ms ease;
+  }
+  .service-option:hover { border-color: var(--pink); }
+  .service-option input { display: none; }
+  .service-option.selected, .service-option:has(input:checked) {
+    border-color: var(--pink); background: rgba(236,10,126,0.08);
+  }
+
+  .time-slot {
+    padding: 12px 14px; background: var(--surface);
+    border: 1px solid var(--edge); border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700;
+    cursor: pointer; transition: all 180ms ease; text-align: center;
+  }
+  .time-slot:hover { border-color: var(--pink); color: var(--pink); }
+  .time-slot.selected { background: var(--pink); border-color: var(--pink); color: #fff; }
+  .time-slot:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  /* Stat ring */
+  .stat-value {
+    font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 8vw, 5rem);
+    line-height: 0.9; color: var(--bone);
+  }
+  .stat-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mute); }
+
+  /* Hero title scale */
+  .hero-title {
+    font-size: clamp(3.5rem, 11vw, 10rem);
+    text-transform: uppercase;
+    line-height: 0.88;
+  }
+  .hero-title .stroke {
+    -webkit-text-stroke: 2px var(--bone);
+    color: transparent;
+  }
+
+  /* Divider */
+  .v-divider { width: 1px; background: var(--edge); }
+
+  /* Ticker dot */
+  .dot-pink { width: 8px; height: 8px; border-radius: 50%; background: var(--pink); box-shadow: 0 0 14px var(--pink); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+  /* Map embed frame */
+  .map-frame { filter: grayscale(85%) invert(92%) hue-rotate(180deg) contrast(0.85); border-radius: 16px; border: 1px solid var(--edge); background: #1A1A1A; }
+
+  /* Mobile nav */
+  @media (max-width: 768px) {
+    .desk-nav { display: none; }
+  }
+  @media (min-width: 769px) {
+    .mobile-menu-btn { display: none; }
+  }
+  .mobile-drawer { transform: translateX(100%); transition: transform 300ms ease; }
+  .mobile-drawer.open { transform: translateX(0); }
+
+  /* Scroll lock */
+  body.no-scroll { overflow: hidden; }
+</style>
+
+<!-- Microsoft Clarity — REPLACE PROJECT_ID per client (create at https://clarity.microsoft.com/projects) -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","CLARITY_PROJECT_ID");
+</script>
+
+<!-- PostHog analytics — REPLACE CLIENT_SLUG per client (project key shared across all AireyAI sites) -->
+<script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_DaeUBM6gujbdQLEAZCSjC5R3kC5ZMRKiK2thoUK3yPSh', {
+        api_host: 'https://eu.i.posthog.com',
+        person_profiles: 'identified_only',
+        capture_pageview: true,
+        capture_pageleave: true,
+        autocapture: true,
+        session_recording: { maskAllInputs: false },
+        loaded: function(ph) { ph.register({ client: 'CLIENT_SLUG' }); }
+    });
+</script>
+</head>
+<body class="antialiased">
+
+<!-- ============================================================
+  ANNOUNCEMENT BAR
+============================================================ -->
+<div class="w-full bg-pink text-white text-xs py-2 overflow-hidden relative">
+  <div class="marquee whitespace-nowrap font-mono font-bold uppercase tracking-widest">
+    <span class="flex items-center gap-3">Tagline · Goes · Here</span>
+    <span class="flex items-center gap-3">★ 5.0 — 130+ reviews</span>
+    <span class="flex items-center gap-3">Based in Your City</span>
+    <span class="flex items-center gap-3">Injury Assessment · Sports Massage · Coaching</span>
+    <span class="flex items-center gap-3">Tagline · Goes · Here</span>
+    <span class="flex items-center gap-3">★ 5.0 — 130+ reviews</span>
+    <span class="flex items-center gap-3">Based in Your City</span>
+    <span class="flex items-center gap-3">Injury Assessment · Sports Massage · Coaching</span>
+  </div>
+</div>
+
+<!-- ============================================================
+  NAVIGATION
+============================================================ -->
+<nav class="sticky top-0 z-50 backdrop-blur-xl bg-ink/80 border-b border-edge">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 py-4 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-3" aria-label="Your Business Name home">
+      <img src="https://placehold.co/120x120/EC0A7E/ffffff.png?text=LOGO" alt="Your Business Name" class="h-11 w-11 rounded-full object-cover border border-edge" />
+      <div class="leading-tight">
+        <div class="font-display text-xl tracking-wider uppercase">Your <span class="text-pink">/</span> Brand</div>
+        <div class="font-mono text-[9px] uppercase tracking-[0.25em] text-mute">Tagline · Goes · Here</div>
+      </div>
+    </a>
+
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <a href="#services" class="pink-link">Services</a>
+      <a href="#about" class="pink-link">About</a>
+      <a href="#gallery" class="pink-link">Gallery</a>
+      <a href="#reviews" class="pink-link">Reviews</a>
+      <a href="#faq" class="pink-link">FAQ</a>
+      <a href="#location" class="pink-link">Location</a>
+      <a href="#book" class="btn-pill btn-pink" data-magnetic>Book Now
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-6-6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <button class="md:hidden p-2" aria-label="Menu" onclick="document.getElementById('mobileDrawer').classList.add('open'); document.body.classList.add('no-scroll')">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile drawer -->
+<div id="mobileDrawer" class="mobile-drawer fixed inset-0 z-[100] bg-ink md:hidden">
+  <div class="flex justify-between items-center p-6 border-b border-edge">
+    <div class="font-display text-2xl uppercase">Menu</div>
+    <button onclick="document.getElementById('mobileDrawer').classList.remove('open'); document.body.classList.remove('no-scroll')" aria-label="Close menu" class="p-2">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="flex flex-col p-8 gap-6 font-display text-4xl uppercase" onclick="document.getElementById('mobileDrawer').classList.remove('open'); document.body.classList.remove('no-scroll')">
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#faq">FAQ</a>
+    <a href="#location">Location</a>
+    <a href="#book" class="text-pink">Book Now →</a>
+    <div class="mt-auto pt-8 border-t border-edge font-sans text-sm text-mute normal-case tracking-normal">
+      <div>00000 000000</div>
+      <div>owner@example.com</div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- ============================================================
+  HERO
+============================================================ -->
+<section id="top" class="relative noise overflow-hidden" style="min-height: 100dvh; background: #0A0A0A;">
+  <!-- Ambient video background -->
+  <div class="absolute inset-0 z-0" aria-hidden="true">
+    <video
+      id="heroVideo"
+      class="hero-video w-full h-full"
+      src=""
+      poster="https://placehold.co/1920x1080/0a0a0a/EC0A7E.png?text=Hero+Poster"
+      autoplay muted loop playsinline preload="metadata"></video>
+    <script>
+      (function(){ const v = document.getElementById('heroVideo'); if (v) { v.playbackRate = 0.75; } })();
+    </script>
+    <!-- Overlay: subtle wash, keeps headline legible without hiding the muscle -->
+    <div class="absolute inset-0"
+         style="background:
+           linear-gradient(90deg, rgba(10,10,10,0.70) 0%, rgba(10,10,10,0.40) 50%, rgba(10,10,10,0.25) 100%),
+           radial-gradient(circle at 12% 32%, rgba(236,10,126,0.20), transparent 55%),
+           linear-gradient(180deg, rgba(10,10,10,0.25) 0%, rgba(10,10,10,0.80) 100%);"></div>
+  </div>
+
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 pt-16 md:pt-24 pb-12 relative z-10">
+
+    <!-- Eyebrow row -->
+    <div class="flex items-center justify-between mb-10" data-appear data-appear-delay="0">
+      <div class="eyebrow">Your City · Since 2020</div>
+      <div class="hidden md:flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-mute">
+        <span class="dot-pink"></span>
+        <span>Taking bookings now</span>
+      </div>
+    </div>
+
+    <!-- Headline -->
+    <h1 class="hero-title font-display">
+      <span class="block overflow-hidden"><span class="inline-block" data-reveal="fade-up">RECOVER.</span></span>
+      <span class="block overflow-hidden"><span class="inline-block stroke" data-reveal="fade-up" data-reveal-delay="0.12">EVOLVE.</span></span>
+      <span class="block overflow-hidden"><span class="inline-block text-pink" data-reveal="fade-up" data-reveal-delay="0.24">PERFORM.</span></span>
+    </h1>
+
+    <div class="mt-10 md:mt-14 grid md:grid-cols-12 gap-8 items-end">
+      <div class="md:col-span-7" data-appear data-appear-delay="0.4">
+        <p class="text-bone/80 text-lg md:text-xl max-w-xl leading-relaxed">
+          Sports massage, injury assessment and performance coaching with <span class="text-bone font-semibold">Owner Full Name</span> in Your City. Hands-on treatment to get you out of pain and back to training — faster.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#book" class="btn-pill btn-pink" data-magnetic>Book a Session
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-6-6l6 6-6 6"/></svg>
+          </a>
+          <a href="#services" class="btn-pill btn-ghost" data-magnetic>View Services</a>
+        </div>
+      </div>
+
+      <!-- Stats strip -->
+      <div class="md:col-span-5 grid grid-cols-3 gap-4 md:gap-6 border-t border-edge pt-8" data-appear data-appear-delay="0.6">
+        <div>
+          <div class="stat-value text-pink">5.0<span class="text-bone">★</span></div>
+          <div class="stat-label">Setmore Rating</div>
+        </div>
+        <div>
+          <div class="stat-value"><span data-counter="130">0</span>+</div>
+          <div class="stat-label">5-Star Reviews</div>
+        </div>
+        <div>
+          <div class="stat-value"><span data-counter="1000">0</span>+</div>
+          <div class="stat-label">Sessions Delivered</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero image slab -->
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 pb-20 relative z-10" data-reveal="fade-up">
+    <div class="relative aspect-[16/8] md:aspect-[16/7] overflow-hidden rounded-3xl border border-edge">
+      <img src="https://placehold.co/1600x900/1a1a1a/EC0A7E.png?text=Hero+Image" alt="Owner Full Name performing sports massage" class="w-full h-full object-cover" data-parallax="-40" loading="eager" />
+      <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-transparent"></div>
+      <div class="absolute bottom-8 left-8 md:bottom-12 md:left-12 max-w-sm">
+        <div class="eyebrow mb-3">Method</div>
+        <p class="font-display text-4xl md:text-6xl uppercase leading-none">Hands-on<br><span class="text-pink">Every Time.</span></p>
+      </div>
+      <div class="absolute top-8 right-8 hidden md:flex items-center gap-2 bg-ink/80 backdrop-blur border border-edge rounded-full px-4 py-2">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+        <span class="font-mono text-[11px] uppercase tracking-widest text-bone">Top-rated Your City therapist</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  BRAND TICKER / TRUST BAR
+============================================================ -->
+<section class="py-10 border-y border-edge bg-carbon overflow-hidden">
+  <div class="marquee whitespace-nowrap font-display text-4xl md:text-6xl uppercase tracking-wide">
+    <span class="flex items-center gap-10"><span>Dry Needling</span><span class="text-pink">●</span><span>Cupping</span><span class="text-pink">●</span><span>Deep Tissue</span><span class="text-pink">●</span><span>Injury Rehab</span><span class="text-pink">●</span><span>Sports Massage</span><span class="text-pink">●</span><span>Performance Coaching</span><span class="text-pink">●</span></span>
+    <span class="flex items-center gap-10"><span>Dry Needling</span><span class="text-pink">●</span><span>Cupping</span><span class="text-pink">●</span><span>Deep Tissue</span><span class="text-pink">●</span><span>Injury Rehab</span><span class="text-pink">●</span><span>Sports Massage</span><span class="text-pink">●</span><span>Performance Coaching</span><span class="text-pink">●</span></span>
+  </div>
+</section>
+
+<!-- ============================================================
+  SERVICES
+============================================================ -->
+<section id="services" class="py-24 md:py-36 relative">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+    <div class="grid md:grid-cols-12 gap-10 mb-16 items-end">
+      <div class="md:col-span-7">
+        <div class="eyebrow mb-5" data-reveal="fade-up">Treatments · 01</div>
+        <h2 class="font-display text-6xl md:text-8xl uppercase leading-[0.9]">
+          <span class="block" data-reveal="fade-up">Built for <span class="text-pink">real</span></span>
+          <span class="block" data-reveal="fade-up" data-reveal-delay="0.1">training.</span>
+        </h2>
+      </div>
+      <div class="md:col-span-5" data-reveal="fade-up" data-reveal-delay="0.2">
+        <p class="text-bone/70 text-lg leading-relaxed">
+          Every session is tailored to where you are in your training cycle. Pick the treatment that matches your goal — I'll handle the rest.
+        </p>
+      </div>
+    </div>
+
+    <!-- Services grid -->
+    <div class="grid md:grid-cols-2 gap-5" data-stagger-parent>
+
+      <!-- 01 Injury Assessment -->
+      <article class="service-card group" data-stagger-child>
+        <div class="flex items-start justify-between mb-10">
+          <div>
+            <div class="font-mono text-pink text-xs tracking-widest uppercase mb-2">01 · 60 Min</div>
+            <h3 class="font-display text-4xl md:text-5xl uppercase leading-none">Injury Assessment<br>& Treatment</h3>
+          </div>
+          <div class="font-display text-5xl md:text-6xl text-pink leading-none">£50</div>
+        </div>
+        <p class="text-bone/70 leading-relaxed mb-8">Full clinical assessment of the problem area, followed by hands-on treatment tailored to reduce pain and get you moving freely again. May include soft tissue work, dry needling, or cupping.</p>
+        <div class="flex items-center justify-between pt-6 border-t border-edge">
+          <ul class="flex flex-wrap gap-2 text-xs font-mono uppercase tracking-wider text-mute">
+            <li class="px-3 py-1 border border-edge rounded-full">Assessment</li>
+            <li class="px-3 py-1 border border-edge rounded-full">Hands-on</li>
+            <li class="px-3 py-1 border border-edge rounded-full">Pain Relief</li>
+          </ul>
+          <a href="#book" class="text-pink font-mono text-xs uppercase tracking-widest pink-link">Book →</a>
+        </div>
+      </article>
+
+      <!-- 02 Maintenance Massage -->
+      <article class="service-card group" data-stagger-child>
+        <div class="flex items-start justify-between mb-10">
+          <div>
+            <div class="font-mono text-pink text-xs tracking-widest uppercase mb-2">02 · 60 Min</div>
+            <h3 class="font-display text-4xl md:text-5xl uppercase leading-none">Maintenance<br>Massage</h3>
+          </div>
+          <div class="font-display text-5xl md:text-6xl text-pink leading-none">£45</div>
+        </div>
+        <p class="text-bone/70 leading-relaxed mb-8">A full hour of sports massage to keep your body in top condition between training blocks. Optional dry cupping or needling included where it helps — tension out, performance in.</p>
+        <div class="flex items-center justify-between pt-6 border-t border-edge">
+          <ul class="flex flex-wrap gap-2 text-xs font-mono uppercase tracking-wider text-mute">
+            <li class="px-3 py-1 border border-edge rounded-full">Deep Tissue</li>
+            <li class="px-3 py-1 border border-edge rounded-full">Dry Cupping</li>
+            <li class="px-3 py-1 border border-edge rounded-full">Needling</li>
+          </ul>
+          <a href="#book" class="text-pink font-mono text-xs uppercase tracking-widest pink-link">Book →</a>
+        </div>
+      </article>
+
+      <!-- 03 Pre Event -->
+      <article class="service-card group" data-stagger-child>
+        <div class="flex items-start justify-between mb-10">
+          <div>
+            <div class="font-mono text-pink text-xs tracking-widest uppercase mb-2">03 · 30 Min</div>
+            <h3 class="font-display text-4xl md:text-5xl uppercase leading-none">Pre-Event<br>Massage</h3>
+          </div>
+          <div class="font-display text-5xl md:text-6xl text-pink leading-none">£25</div>
+        </div>
+        <p class="text-bone/70 leading-relaxed mb-8">A 30-minute session to prime the muscles before a race, match, or heavy training session. Activation work designed to have you feeling switched-on, loose, and ready to go.</p>
+        <div class="flex items-center justify-between pt-6 border-t border-edge">
+          <ul class="flex flex-wrap gap-2 text-xs font-mono uppercase tracking-wider text-mute">
+            <li class="px-3 py-1 border border-edge rounded-full">Activation</li>
+            <li class="px-3 py-1 border border-edge rounded-full">Pre-Race</li>
+            <li class="px-3 py-1 border border-edge rounded-full">Focused</li>
+          </ul>
+          <a href="#book" class="text-pink font-mono text-xs uppercase tracking-widest pink-link">Book →</a>
+        </div>
+      </article>
+
+      <!-- 04 Post Event -->
+      <article class="service-card group" data-stagger-child>
+        <div class="flex items-start justify-between mb-10">
+          <div>
+            <div class="font-mono text-pink text-xs tracking-widest uppercase mb-2">04 · 30 Min</div>
+            <h3 class="font-display text-4xl md:text-5xl uppercase leading-none">Post-Event<br>Massage</h3>
+          </div>
+          <div class="font-display text-5xl md:text-6xl text-pink leading-none">£25</div>
+        </div>
+        <p class="text-bone/70 leading-relaxed mb-8">A 30-minute recovery session to flush out tension picked up during a hard session. Reduce soreness, speed up recovery, and get back to training sooner.</p>
+        <div class="flex items-center justify-between pt-6 border-t border-edge">
+          <ul class="flex flex-wrap gap-2 text-xs font-mono uppercase tracking-wider text-mute">
+            <li class="px-3 py-1 border border-edge rounded-full">Recovery</li>
+            <li class="px-3 py-1 border border-edge rounded-full">Flush</li>
+            <li class="px-3 py-1 border border-edge rounded-full">Back Faster</li>
+          </ul>
+          <a href="#book" class="text-pink font-mono text-xs uppercase tracking-widest pink-link">Book →</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  ABOUT JORD
+============================================================ -->
+<section id="about" class="py-24 md:py-36 bg-carbon border-y border-edge relative noise">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 relative z-10">
+    <div class="grid md:grid-cols-12 gap-12 items-center">
+      <div class="md:col-span-5 relative" data-reveal="fade-right">
+        <div class="aspect-[4/5] overflow-hidden rounded-3xl border border-edge relative" data-tilt>
+          <img src="https://placehold.co/800x1000/1a1a1a/EC0A7E.png?text=Gallery+01" alt="Owner Full Name at DAHM Injury & Rehab, Your City" class="w-full h-full object-cover" />
+          <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between">
+            <div class="bg-ink/80 backdrop-blur border border-edge rounded-full px-4 py-2 font-mono text-[10px] uppercase tracking-widest">Your City, UK</div>
+            <div class="bg-pink rounded-full px-4 py-2 font-mono text-[10px] uppercase tracking-widest text-white font-bold">Est. 2020</div>
+          </div>
+        </div>
+        <!-- Floating signature card (pushed down out of the way on mobile) -->
+        <div class="hidden md:block absolute -bottom-8 -right-10 bg-ink border border-pink rounded-2xl px-6 py-4 shadow-2xl">
+          <div class="font-display text-2xl uppercase leading-none">Owner Full Name</div>
+          <div class="font-mono text-[10px] uppercase tracking-widest text-pink mt-1">Sports Therapist</div>
+        </div>
+      </div>
+
+      <div class="md:col-span-7" data-reveal="fade-left">
+        <div class="eyebrow mb-5">About · 02</div>
+        <h2 class="font-display text-6xl md:text-8xl uppercase leading-[0.9] mb-8">
+          Not just<br>
+          <span class="text-pink">another</span> rub.
+        </h2>
+        <div class="space-y-5 text-bone/80 text-lg leading-relaxed max-w-2xl">
+          <p>Hi, I'm the Owner. I treat athletes, lifters, runners and everyday bodies that just need to work better. Every session starts with <em class="text-bone not-italic font-semibold">understanding the problem</em> — not guessing at it.</p>
+          <p>My approach combines hands-on sports massage with clinical assessment, dry needling and cupping when they help. The goal is simple: you leave moving better than when you walked in, and you know exactly what to do next.</p>
+        </div>
+
+        <!-- Credentials -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 pt-10 border-t border-edge">
+          <div>
+            <div class="font-display text-5xl text-pink leading-none">5★</div>
+            <div class="stat-label mt-2">Client rated</div>
+          </div>
+          <div>
+            <div class="font-display text-5xl leading-none"><span data-counter="130">0</span>+</div>
+            <div class="stat-label mt-2">Reviews</div>
+          </div>
+          <div>
+            <div class="font-display text-5xl leading-none"><span data-counter="5">0</span>yr</div>
+            <div class="stat-label mt-2">Practising</div>
+          </div>
+          <div>
+            <div class="font-display text-5xl leading-none">4</div>
+            <div class="stat-label mt-2">Treatments</div>
+          </div>
+        </div>
+
+        <div class="mt-10">
+          <a href="#book" class="btn-pill btn-pink" data-magnetic>Book a Session
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-6-6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  GALLERY
+============================================================ -->
+<section id="gallery" class="py-24 md:py-36">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+    <div class="flex items-end justify-between mb-14">
+      <div>
+        <div class="eyebrow mb-5" data-reveal="fade-up">Inside · 03</div>
+        <h2 class="font-display text-6xl md:text-8xl uppercase leading-[0.9]" data-reveal="fade-up">
+          In the <span class="text-pink">studio.</span>
+        </h2>
+      </div>
+      <p class="hidden md:block text-bone/60 max-w-xs text-right" data-reveal="fade-up" data-reveal-delay="0.2">
+        Real clients. Real treatment. No stock photos — just hands-on work at my Your City studio.
+      </p>
+    </div>
+
+    <!-- Masonry -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5" data-stagger-parent>
+      <div class="gallery-img aspect-[3/4] md:row-span-2 md:aspect-[3/5]" data-stagger-child>
+        <img src="https://placehold.co/1600x900/1a1a1a/EC0A7E.png?text=Hero+Image" alt="Dry needling treatment" loading="lazy" />
+      </div>
+      <div class="gallery-img aspect-square" data-stagger-child>
+        <img src="https://placehold.co/800x1000/1a1a1a/EC0A7E.png?text=Gallery+01" alt="Owner treating a client" loading="lazy" />
+      </div>
+      <div class="gallery-img aspect-square" data-stagger-child>
+        <img src="https://placehold.co/800x800/1a1a1a/EC0A7E.png?text=Gallery+02" alt="Sports massage session" loading="lazy" />
+      </div>
+      <div class="gallery-img aspect-[4/3] md:col-span-2" data-stagger-child>
+        <img src="https://placehold.co/1200x900/1a1a1a/EC0A7E.png?text=Gallery+04" alt="Muscle assessment" loading="lazy" />
+      </div>
+      <div class="gallery-img aspect-square" data-stagger-child>
+        <img src="https://placehold.co/800x800/1a1a1a/EC0A7E.png?text=Gallery+05" alt="Hands-on treatment" loading="lazy" />
+      </div>
+      <div class="gallery-img aspect-square" data-stagger-child>
+        <img src="https://placehold.co/800x800/1a1a1a/EC0A7E.png?text=Gallery+06" alt="Cupping therapy" loading="lazy" />
+      </div>
+      <div class="gallery-img aspect-square" data-stagger-child>
+        <img src="https://placehold.co/800x800/1a1a1a/EC0A7E.png?text=Gallery+07" alt="Recovery session" loading="lazy" />
+      </div>
+      <div class="gallery-img aspect-square bg-ink border border-edge flex flex-col items-center justify-center p-6 text-center" data-stagger-child>
+        <div class="font-display text-4xl uppercase leading-none text-pink mb-2">Book</div>
+        <div class="font-mono text-[10px] uppercase tracking-widest text-mute">Your Session</div>
+        <a href="#book" class="mt-4 btn-pill btn-pink text-sm" data-magnetic>Reserve →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  REVIEWS
+============================================================ -->
+<section id="reviews" class="py-24 md:py-36 bg-carbon border-y border-edge relative">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+
+    <!-- HEADER ROW -->
+    <div class="grid md:grid-cols-12 gap-10 mb-16 items-end">
+      <div class="md:col-span-7">
+        <div class="eyebrow mb-5" data-reveal="fade-up">Words · 04</div>
+        <h2 class="font-display text-6xl md:text-8xl uppercase leading-[0.9]">
+          <span class="block" data-reveal="fade-up">Rated <span class="text-pink">5★</span></span>
+          <span class="block" data-reveal="fade-up" data-reveal-delay="0.1">by 130+ clients.</span>
+        </h2>
+      </div>
+      <div class="md:col-span-5 flex md:justify-end gap-3 flex-wrap" data-reveal="fade-up" data-reveal-delay="0.2">
+        <div class="inline-flex items-center gap-3 bg-ink border border-edge rounded-full pl-2 pr-5 py-2">
+          <div class="flex">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+          </div>
+          <span class="font-mono text-xs uppercase tracking-widest">5.0 · 130 verified</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURED ROW -->
+    <div class="grid md:grid-cols-3 gap-5 mb-5" data-stagger-parent>
+      <article class="review-card" data-stagger-child>
+        <div class="flex gap-1 mb-5" aria-label="5 out of 5 stars">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+        </div>
+        <p class="font-display text-2xl md:text-3xl uppercase leading-tight mb-8">"An hour with this magician and I can turn my head again… <span class="text-pink">no pain.</span>"</p>
+        <div class="flex items-center gap-3 pt-6 border-t border-edge">
+          <div class="w-10 h-10 rounded-full bg-pink/20 border border-pink flex items-center justify-center font-display text-lg">A</div>
+          <div>
+            <div class="font-semibold text-sm">Alex Taylor</div>
+            <div class="font-mono text-[10px] uppercase tracking-widest text-mute">Setmore · Verified</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="review-card" data-stagger-child>
+        <div class="flex gap-1 mb-5" aria-label="5 out of 5 stars">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+        </div>
+        <p class="font-display text-2xl md:text-3xl uppercase leading-tight mb-8">"Really happy with the service Owner provided. <span class="text-pink">Proper knowledgeable guy.</span>"</p>
+        <div class="flex items-center gap-3 pt-6 border-t border-edge">
+          <div class="w-10 h-10 rounded-full bg-pink/20 border border-pink flex items-center justify-center font-display text-lg">M</div>
+          <div>
+            <div class="font-semibold text-sm">Miguel</div>
+            <div class="font-mono text-[10px] uppercase tracking-widest text-mute">Setmore · Verified</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Aggregate + leave-review card -->
+      <article class="review-card bg-pink text-white border-pink flex flex-col" data-stagger-child>
+        <div class="font-display text-[8rem] md:text-[10rem] leading-[0.8] mb-2">5.0</div>
+        <div class="flex gap-1 mb-4" aria-label="5 out of 5 stars">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+        </div>
+        <p class="font-mono text-xs uppercase tracking-widest opacity-90">Based on 130 verified reviews</p>
+        <p class="opacity-90 mt-3">Join the 130+ athletes, lifters and runners who've trusted Owner with their recovery.</p>
+        <div class="mt-auto pt-6">
+          <a href="reviews.html#write" class="inline-flex items-center gap-2 bg-white text-pink font-semibold text-sm px-5 py-3 rounded-full hover:bg-black hover:text-white transition-colors">
+            Leave a Review
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-6-6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </article>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="flex flex-wrap items-center justify-between gap-4 mt-16 mb-6" data-reveal="fade-up">
+      <div>
+        <div class="eyebrow mb-3">All Reviews</div>
+        <h3 class="font-display text-4xl md:text-5xl uppercase leading-none">Every Word<span class="text-pink">.</span></h3>
+      </div>
+      <div class="flex flex-wrap gap-2" role="tablist" aria-label="Filter reviews">
+        <button class="review-filter active" data-filter="all" aria-pressed="true">All <span class="text-pink">(<span id="countAll">126</span>)</span></button>
+        <button class="review-filter" data-filter="Setmore" aria-pressed="false">Setmore <span class="text-pink">(<span id="countSetmore">0</span>)</span></button>
+        <button class="review-filter" data-filter="Google" aria-pressed="false">Google <span class="text-pink">(<span id="countGoogle">0</span>)</span></button>
+      </div>
+    </div>
+
+    <!-- DYNAMIC REVIEWS GRID -->
+    <div id="reviewsGrid" class="columns-1 md:columns-2 lg:columns-3 gap-5 [column-fill:_balance]" aria-live="polite"></div>
+
+    <!-- VIEW ALL + LEAVE REVIEW CTA -->
+    <div class="mt-10 flex flex-col sm:flex-row items-center justify-between gap-6 pt-10 border-t border-edge">
+      <div class="text-sm text-bone/70 font-mono uppercase tracking-widest">
+        Showing <span id="shownCount" class="text-bone">12</span> of <span id="totalCount" class="text-bone">126</span>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="reviews.html" class="btn-pill btn-ghost" data-magnetic>View All 130 Reviews
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-6-6l6 6-6 6"/></svg>
+        </a>
+        <a href="reviews.html#write" class="btn-pill btn-pink" data-magnetic>Leave a Review
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-6-6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  FAQ
+============================================================ -->
+<section id="faq" class="py-24 md:py-36 bg-ink border-y border-edge">
+  <div class="max-w-[1200px] mx-auto px-6 md:px-10">
+    <div class="grid md:grid-cols-12 gap-10 mb-16 items-end">
+      <div class="md:col-span-7">
+        <div class="eyebrow mb-5" data-reveal="fade-up">FAQ · 05</div>
+        <h2 class="font-display text-6xl md:text-8xl uppercase leading-[0.9]">
+          <span class="block" data-reveal="fade-up">Questions,</span>
+          <span class="block" data-reveal="fade-up" data-reveal-delay="0.1"><span class="text-pink">answered.</span></span>
+        </h2>
+      </div>
+      <div class="md:col-span-5" data-reveal="fade-up" data-reveal-delay="0.2">
+        <p class="text-bone/70 text-lg leading-relaxed">
+          First time seeing Owner? These are the questions most people ask before they book. Anything else, just drop him a message.
+        </p>
+      </div>
+    </div>
+
+    <div class="faq-list" data-stagger-parent>
+      <details class="faq-item" data-stagger-child>
+        <summary>
+          <span>Is sports massage only for athletes?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        </summary>
+        <p>No — sports massage techniques work brilliantly for anyone with tension, pain, postural issues, or who spends long hours at a desk or on their feet. You don't need to lift weights to benefit.</p>
+      </details>
+
+      <details class="faq-item" data-stagger-child>
+        <summary>
+          <span>What should I wear?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        </summary>
+        <p>Come in gym gear — shorts and a t-shirt, or comfortable workout clothes. You'll stay clothed during the session except for the specific area being treated, which will be draped with a towel.</p>
+      </details>
+
+      <details class="faq-item" data-stagger-child>
+        <summary>
+          <span>Does it hurt?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        </summary>
+        <p>It shouldn't be unbearable. There's sometimes a "good pain" when working through tight knots — the kind that feels intense in the moment but brings relief straight after. Owner checks pressure throughout the session. You're in control.</p>
+      </details>
+
+      <details class="faq-item" data-stagger-child>
+        <summary>
+          <span>How often should I come?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        </summary>
+        <p>Most clients book a maintenance session every 4–6 weeks. If you're training for a race, rehabbing an injury, or lifting seriously, weekly or fortnightly sessions work better. Owner will advise after your first session based on what he finds.</p>
+      </details>
+
+      <details class="faq-item" data-stagger-child>
+        <summary>
+          <span>Do I need a GP referral?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        </summary>
+        <p>No — you can book directly. If your issue is medical (recent surgery, active disease, pregnancy, open injury), Owner will ask you to check in with your GP or consultant first before starting treatment.</p>
+      </details>
+
+      <details class="faq-item" data-stagger-child>
+        <summary>
+          <span>What's the difference between a Maintenance Massage and an Injury Assessment?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        </summary>
+        <p><strong class="text-bone">Maintenance Massage</strong> is a full-body sports massage focused on keeping you in good condition between training blocks — tension out, mobility in. <strong class="text-bone">Injury Assessment &amp; Treatment</strong> includes a clinical evaluation of a specific problem area, hands-on treatment (dry needling or cupping where it helps), and a home exercise plan to follow.</p>
+      </details>
+
+      <details class="faq-item" data-stagger-child>
+        <summary>
+          <span>Will cupping leave marks?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        </summary>
+        <p>Dry cupping can leave circular pink or red marks that usually fade within 3–7 days. They're bruises from the suction — not damage — and they're a sign blood flow is being drawn into tight tissue. If you have an event where you don't want visible marks, let Owner know and he'll adjust the treatment.</p>
+      </details>
+
+      <details class="faq-item" data-stagger-child>
+        <summary>
+          <span>How do I pay?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        </summary>
+        <p>Card, bank transfer, or cash — payment is taken after your session. Block bookings and gift vouchers coming soon.</p>
+      </details>
+
+      <details class="faq-item" data-stagger-child>
+        <summary>
+          <span>What's the cancellation policy?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        </summary>
+        <p>Free to cancel or reschedule up to 24 hours before your slot. Cancellations within 24 hours are charged 50% of the session fee. No-shows are charged the full fee — this helps keep the calendar fair for other clients. Full details on the <a href="terms.html" class="pink-link text-pink">terms page</a>.</p>
+      </details>
+
+      <details class="faq-item" data-stagger-child>
+        <summary>
+          <span>Can I book for someone else?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        </summary>
+        <p>Absolutely — just let Owner know at booking that the session is for someone else, and pass on their details. Gift vouchers coming soon.</p>
+      </details>
+    </div>
+
+    <!-- Still-stuck CTA -->
+    <div class="mt-14 flex flex-col sm:flex-row items-center justify-between gap-6 p-6 md:p-8 bg-carbon border border-edge rounded-2xl" data-reveal="fade-up">
+      <div>
+        <div class="font-display text-3xl md:text-4xl uppercase leading-none mb-2">Still have a question?</div>
+        <p class="text-bone/70 text-sm">Drop a WhatsApp or an email and Owner will reply within the day.</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="https://wa.me/440000000000" target="_blank" rel="noopener" class="btn-pill btn-ghost" data-magnetic>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.4A11.8 11.8 0 0012.05 0a11.9 11.9 0 00-10.3 17.9L0 24l6.3-1.65A11.87 11.87 0 0012.05 24h.01c6.57 0 11.9-5.33 11.9-11.9 0-3.2-1.23-6.2-3.46-8.7zM12.05 21.9h-.01a9.87 9.87 0 01-5.04-1.38l-.36-.22-3.74.98 1-3.64-.24-.37A9.88 9.88 0 0112.05 2.1c2.65 0 5.14 1.03 7 2.9a9.87 9.87 0 012.9 7c0 5.43-4.42 9.9-9.9 9.9z"/></svg>
+          WhatsApp
+        </a>
+        <a href="mailto:owner@example.com" class="btn-pill btn-pink" data-magnetic>
+          Email Owner
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-6-6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  BOOKING
+============================================================ -->
+<section id="book" class="py-24 md:py-36 relative noise overflow-hidden">
+  <div class="absolute inset-0 radial-pink opacity-60"></div>
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 relative z-10">
+    <div class="grid md:grid-cols-12 gap-12">
+
+      <!-- Left: pitch -->
+      <div class="md:col-span-5" data-reveal="fade-right">
+        <div class="eyebrow mb-5">Book · 06</div>
+        <h2 class="font-display text-6xl md:text-8xl uppercase leading-[0.9] mb-8">
+          Reserve<br><span class="text-pink">your slot.</span>
+        </h2>
+        <p class="text-bone/80 text-lg leading-relaxed mb-10 max-w-md">
+          Pick a treatment, pick a time. I'll confirm within the hour and add it straight to your calendar.
+        </p>
+
+        <!-- Hours card -->
+        <div class="bg-carbon border border-edge rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="dot-pink"></span>
+            <div class="font-mono text-[11px] uppercase tracking-[0.2em] text-bone">Opening Hours</div>
+          </div>
+          <ul class="space-y-2 font-mono text-sm">
+            <li class="flex justify-between"><span class="text-mute">Mon</span><span>08:00 — 20:00</span></li>
+            <li class="flex justify-between"><span class="text-mute">Tue</span><span>08:00 — 17:00</span></li>
+            <li class="flex justify-between"><span class="text-mute">Wed</span><span>08:00 — 20:00</span></li>
+            <li class="flex justify-between"><span class="text-mute">Thu</span><span>08:00 — 18:00</span></li>
+            <li class="flex justify-between"><span class="text-mute">Fri</span><span>08:00 — 18:00</span></li>
+            <li class="flex justify-between"><span class="text-mute">Sat</span><span>08:00 — 12:00</span></li>
+            <li class="flex justify-between"><span class="text-mute">Sun</span><span class="text-pink">Closed</span></li>
+          </ul>
+        </div>
+
+        <div class="mt-6 text-sm text-bone/60 leading-relaxed">
+          Need urgent help? Call <a href="tel:+440000000000" class="text-pink pink-link">00000 000000</a> or email <a href="mailto:owner@example.com" class="text-pink pink-link">owner@example.com</a>.
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <div class="md:col-span-7" data-reveal="fade-left">
+        <form id="bookingForm" class="bg-carbon border border-edge rounded-3xl p-6 md:p-10 space-y-8" onsubmit="return submitBooking(event)">
+
+          <!-- Step 1: Service -->
+          <fieldset>
+            <legend class="flex items-center gap-3 mb-5">
+              <span class="font-display text-2xl text-pink">01</span>
+              <span class="lbl !mb-0 !text-bone">Choose a treatment</span>
+            </legend>
+            <div class="grid sm:grid-cols-2 gap-3">
+              <label class="service-option">
+                <input type="radio" name="service" value="Injury Assessment & Treatment" data-duration="60" data-price="50" aria-label="Injury Assessment and Treatment, 60 minutes, £50" required />
+                <div>
+                  <div class="font-semibold">Injury Assessment & Treatment</div>
+                  <div class="font-mono text-[10px] uppercase tracking-widest text-mute">60 min</div>
+                </div>
+                <div class="font-display text-2xl text-pink">£50</div>
+              </label>
+              <label class="service-option">
+                <input type="radio" name="service" value="Maintenance Massage" data-duration="60" data-price="45" aria-label="Maintenance Massage, 60 minutes, £45" />
+                <div>
+                  <div class="font-semibold">Maintenance Massage</div>
+                  <div class="font-mono text-[10px] uppercase tracking-widest text-mute">60 min</div>
+                </div>
+                <div class="font-display text-2xl text-pink">£45</div>
+              </label>
+              <label class="service-option">
+                <input type="radio" name="service" value="Pre-Event Massage" data-duration="30" data-price="25" aria-label="Pre-Event Massage, 30 minutes, £25" />
+                <div>
+                  <div class="font-semibold">Pre-Event Massage</div>
+                  <div class="font-mono text-[10px] uppercase tracking-widest text-mute">30 min</div>
+                </div>
+                <div class="font-display text-2xl text-pink">£25</div>
+              </label>
+              <label class="service-option">
+                <input type="radio" name="service" value="Post-Event Massage" data-duration="30" data-price="25" aria-label="Post-Event Massage, 30 minutes, £25" />
+                <div>
+                  <div class="font-semibold">Post-Event Massage</div>
+                  <div class="font-mono text-[10px] uppercase tracking-widest text-mute">30 min</div>
+                </div>
+                <div class="font-display text-2xl text-pink">£25</div>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Step 2: Date -->
+          <div>
+            <label for="bookDate" class="flex items-center gap-3 mb-5">
+              <span class="font-display text-2xl text-pink">02</span>
+              <span class="lbl !mb-0 !text-bone">Pick a date</span>
+            </label>
+            <input type="date" id="bookDate" name="date" class="field" required aria-describedby="dateHint" />
+            <p id="dateHint" class="text-xs text-mute mt-2 font-mono uppercase tracking-widest">Closed Sundays</p>
+          </div>
+
+          <!-- Step 3: Time -->
+          <fieldset>
+            <legend class="flex items-center gap-3 mb-5">
+              <span class="font-display text-2xl text-pink">03</span>
+              <span class="lbl !mb-0 !text-bone">Choose a time</span>
+            </legend>
+            <div id="timeSlots" class="grid grid-cols-3 md:grid-cols-6 gap-2" role="radiogroup" aria-label="Available time slots">
+              <div class="col-span-full text-mute text-sm font-mono uppercase tracking-widest p-4 text-center border border-dashed border-edge rounded-xl">
+                Select a service & date first
+              </div>
+            </div>
+            <input type="hidden" name="time" id="bookTime" required />
+          </fieldset>
+
+          <!-- Step 4: Details -->
+          <div>
+            <div class="flex items-center gap-3 mb-5">
+              <span class="font-display text-2xl text-pink" aria-hidden="true">04</span>
+              <span class="lbl !mb-0 !text-bone">Your details</span>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="lbl" for="fn">Full name</label>
+                <input id="fn" name="name" type="text" class="field" placeholder="Alex Taylor" required autocomplete="name" />
+              </div>
+              <div>
+                <label class="lbl" for="ph">Phone</label>
+                <input id="ph" name="phone" type="tel" class="field" placeholder="07000 000000" required autocomplete="tel" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="lbl" for="em">Email</label>
+                <input id="em" name="email" type="email" class="field" placeholder="you@email.com" required autocomplete="email" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="lbl" for="notes">Anything Owner should know?</label>
+                <textarea id="notes" name="notes" rows="3" class="field" placeholder="Where's the pain, what's the goal, any injuries…"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Summary + submit -->
+          <div class="pt-6 border-t border-edge flex flex-wrap items-center justify-between gap-4">
+            <div class="font-mono text-sm">
+              <div class="text-mute uppercase text-[10px] tracking-widest">Summary</div>
+              <div id="summary" class="text-bone mt-1">Select a service to begin</div>
+            </div>
+            <button type="submit" class="btn-pill btn-pink" data-magnetic>
+              <span id="submitText">Confirm Booking</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-6-6l6 6-6 6"/></svg>
+            </button>
+          </div>
+
+          <p class="text-xs text-mute font-mono uppercase tracking-widest">Your booking lands directly in the Owner's calendar. Confirmation sent within the hour.</p>
+        </form>
+
+        <!-- Success state -->
+        <div id="bookingSuccess" class="hidden bg-carbon border border-pink rounded-3xl p-10 text-center">
+          <div class="font-display text-6xl uppercase leading-none text-pink mb-4">Booked.</div>
+          <p class="text-bone/80 text-lg mb-6">Your session has been requested. You'll get a confirmation email shortly.</p>
+          <button onclick="resetBooking()" class="btn-pill btn-ghost" data-magnetic>Book another</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  LOCATION
+============================================================ -->
+<section id="location" class="py-24 md:py-36 bg-carbon border-y border-edge">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+    <div class="grid md:grid-cols-12 gap-10 mb-14 items-end">
+      <div class="md:col-span-7">
+        <div class="eyebrow mb-5" data-reveal="fade-up">Find Me · 07</div>
+        <h2 class="font-display text-6xl md:text-8xl uppercase leading-[0.9]">
+          <span class="block" data-reveal="fade-up">Above</span>
+          <span class="block text-pink" data-reveal="fade-up" data-reveal-delay="0.1">Landmark Name.</span>
+        </h2>
+      </div>
+      <div class="md:col-span-5" data-reveal="fade-up" data-reveal-delay="0.2">
+        <p class="text-bone/70 text-lg leading-relaxed">
+          Purpose-built treatment room in the heart of Your City. Free parking nearby. First-time clients — ring the buzzer at the main door.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-12 gap-5">
+      <!-- Map -->
+      <div class="md:col-span-8 relative overflow-hidden rounded-2xl border border-edge" data-reveal="fade-up">
+        <iframe
+          class="map-frame w-full h-[500px] !border-0"
+          style="border-radius: 0;"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-2.9360%2C54.8930%2C-2.9290%2C54.8970&amp;layer=mapnik&amp;marker=54.8951%2C-2.9325"
+          loading="lazy"
+          title="Your Business Name — Your City location"></iframe>
+        <!-- Marker pin overlay -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full pointer-events-none z-10">
+          <div class="relative">
+            <div class="absolute inset-0 bg-pink rounded-full blur-xl opacity-60 animate-pulse"></div>
+            <div class="relative bg-pink text-white rounded-full px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] font-bold whitespace-nowrap border-2 border-white shadow-2xl">
+              Your / Brand
+            </div>
+            <svg class="block mx-auto -mt-1" width="14" height="10" viewBox="0 0 14 10"><path d="M7 10L0 0h14z" fill="#EC0A7E" stroke="white" stroke-width="1"/></svg>
+          </div>
+        </div>
+        <!-- CTA button -->
+        <a href="https://www.google.com/maps/search/?api=1&query=1+Lonsdale+Street+Your City+CA1+1BJ" target="_blank" rel="noopener" class="absolute bottom-5 left-5 z-20 btn-pill btn-pink text-sm" data-magnetic>
+          Open in Google Maps
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 7h10v10M7 17L17 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Info cards -->
+      <div class="md:col-span-4 flex flex-col gap-5" data-reveal="fade-up" data-reveal-delay="0.1">
+        <div class="bg-ink border border-edge rounded-2xl p-6">
+          <div class="eyebrow mb-3">Address</div>
+          <div class="font-display text-3xl uppercase leading-tight">1 Lonsdale St<br>Your City<br>PC1 1PC</div>
+          <a href="https://maps.google.com/?q=1+Lonsdale+Street+Your City+CA1+1BJ" target="_blank" rel="noopener" class="text-pink text-sm font-mono uppercase tracking-widest mt-4 inline-flex items-center gap-2 pink-link">
+            Get Directions →
+          </a>
+        </div>
+        <div class="bg-ink border border-edge rounded-2xl p-6">
+          <div class="eyebrow mb-3">Contact</div>
+          <div class="space-y-2">
+            <a href="tel:+440000000000" class="block font-display text-3xl uppercase leading-tight pink-link">00000 000000</a>
+            <a href="mailto:owner@example.com" class="block text-sm text-bone/80 break-all pink-link">owner@example.com</a>
+          </div>
+        </div>
+        <div class="bg-pink rounded-2xl p-6 text-white">
+          <div class="font-mono text-[10px] uppercase tracking-widest mb-2 opacity-80">Follow Owner</div>
+          <a href="https://www.instagram.com/your_instagram_handle/" target="_blank" rel="noopener" class="font-display text-3xl uppercase leading-tight inline-flex items-center gap-3">
+            @your_instagram_handle
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14m-6-6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  FINAL CTA
+============================================================ -->
+<section class="py-24 md:py-36 relative noise overflow-hidden">
+  <div class="absolute inset-0 radial-pink opacity-80"></div>
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 relative z-10 text-center">
+    <div class="eyebrow mx-auto justify-center mb-6" data-reveal="fade-up">Ready?</div>
+    <h2 class="font-display uppercase leading-[0.85] text-[clamp(4rem,15vw,13rem)] mb-10">
+      <span class="block" data-reveal="fade-up">Train. Treat.</span>
+      <span class="block text-pink" data-reveal="fade-up" data-reveal-delay="0.15">Repeat.</span>
+    </h2>
+    <a href="#book" class="btn-pill btn-pink text-lg px-10 py-5" data-magnetic>Book Your Session
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-6-6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================================================
+  FOOTER
+============================================================ -->
+<footer class="bg-ink border-t border-edge py-16">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+    <div class="grid md:grid-cols-12 gap-10 mb-14">
+      <div class="md:col-span-5">
+        <div class="flex items-center gap-3 mb-6">
+          <img src="https://placehold.co/120x120/EC0A7E/ffffff.png?text=LOGO" alt="Your Business Name" class="h-14 w-14 rounded-full object-cover border border-edge" />
+          <div>
+            <div class="font-display text-2xl uppercase tracking-wider">Your <span class="text-pink">/</span> Brand</div>
+            <div class="font-mono text-[10px] uppercase tracking-[0.25em] text-mute">Tagline · Goes · Here</div>
+          </div>
+        </div>
+        <p class="text-bone/60 max-w-md leading-relaxed">Sports massage, injury treatment and performance coaching with Owner Full Name in Your City. Hands-on treatment for athletes, lifters, runners — and everyone in between.</p>
+      </div>
+      <div class="md:col-span-2">
+        <div class="eyebrow mb-4">Explore</div>
+        <ul class="space-y-3 text-sm">
+          <li><a href="#services" class="pink-link">Services</a></li>
+          <li><a href="#about" class="pink-link">About</a></li>
+          <li><a href="#gallery" class="pink-link">Gallery</a></li>
+          <li><a href="reviews.html" class="pink-link">Reviews</a></li>
+          <li><a href="#faq" class="pink-link">FAQ</a></li>
+          <li><a href="#book" class="pink-link">Book</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <div class="eyebrow mb-4">Treatments</div>
+        <ul class="space-y-3 text-sm text-bone/70">
+          <li>Injury Assessment</li>
+          <li>Maintenance Massage</li>
+          <li>Pre-Event</li>
+          <li>Post-Event</li>
+        </ul>
+      </div>
+      <div class="md:col-span-3">
+        <div class="eyebrow mb-4">Contact</div>
+        <ul class="space-y-2 text-sm">
+          <li><a href="tel:+440000000000" class="pink-link">00000 000000</a></li>
+          <li><a href="mailto:owner@example.com" class="pink-link break-all">owner@example.com</a></li>
+          <li class="text-bone/70">1 Lonsdale St, Your City PC1 1PC</li>
+          <li><a href="https://www.instagram.com/your_instagram_handle/" target="_blank" rel="noopener" class="pink-link">Instagram @your_instagram_handle</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-8 border-t border-edge flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono uppercase tracking-widest text-mute">
+      <div>© <span id="year"></span> Your Business Name · Owner Full Name</div>
+      <div class="flex items-center gap-5">
+        <a href="privacy.html" class="pink-link">Privacy</a>
+        <a href="terms.html" class="pink-link">Terms</a>
+        <a href="#" onclick="event.preventDefault(); window.YBNShowConsent && window.YBNShowConsent();" class="pink-link">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+  FLOATING WHATSAPP
+============================================================ -->
+<a href="https://wa.me/440000000000" target="_blank" rel="noopener" aria-label="WhatsApp Owner" class="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M20.5 3.4A11.8 11.8 0 0012.05 0a11.9 11.9 0 00-10.3 17.9L0 24l6.3-1.65A11.87 11.87 0 0012.05 24h.01c6.57 0 11.9-5.33 11.9-11.9 0-3.2-1.23-6.2-3.46-8.7zM12.05 21.9h-.01a9.87 9.87 0 01-5.04-1.38l-.36-.22-3.74.98 1-3.64-.24-.37A9.88 9.88 0 0112.05 2.1c2.65 0 5.14 1.03 7 2.9a9.87 9.87 0 012.9 7c0 5.43-4.42 9.9-9.9 9.9zm5.42-7.4c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.66.15s-.76.96-.93 1.15c-.17.2-.34.22-.64.07-.3-.15-1.25-.46-2.37-1.47a8.95 8.95 0 01-1.64-2.05c-.17-.3-.02-.45.13-.6.14-.13.3-.34.45-.51.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.03 1-1.03 2.46s1.06 2.86 1.2 3.06c.15.2 2.08 3.17 5.03 4.44.7.3 1.25.48 1.68.62.71.22 1.35.19 1.86.12.57-.09 1.75-.72 2-1.4.24-.7.24-1.28.17-1.4-.07-.12-.27-.19-.57-.34z"/></svg>
+</a>
+
+<!-- Back to top -->
+<a href="#top" aria-label="Back to top" class="fixed bottom-[96px] right-6 z-40 w-12 h-12 rounded-full bg-carbon border border-edge flex items-center justify-center hover:border-pink hover:text-pink transition-colors" id="backToTop" style="opacity:0; pointer-events:none; transition: opacity 300ms ease;">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5m-7 7l7-7 7 7"/></svg>
+</a>
+
+<!-- ============================================================
+  SCRIPTS
+============================================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="animations.js"></script>
+<script src="quickbook.js" defer></script>
+<script src="consent.js" defer></script>
+
+<script>
+// ============================================================
+// BOOKING LOGIC
+// ============================================================
+const OPENING_HOURS = {
+  0: null,          // Sun closed
+  1: [8, 20],       // Mon
+  2: [8, 17],       // Tue
+  3: [8, 20],       // Wed
+  4: [8, 18],       // Thu
+  5: [8, 18],       // Fri
+  6: [8, 12]        // Sat
+};
+
+// Aria booking endpoint — Aria server handles owner email, calendar event, client confirmation
+const BOOKING_WEBHOOK = 'https://aria-chatbot-production-12d0.up.railway.app/api/booking';
+const OWNER_EMAIL = 'owner@example.com';
+const OWNER_NAME  = 'Owner';
+const SITE_NAME   = 'Your Business Name';
+// Brand config — shipped with every booking so Aria renders the email in Your Business Name colours, logo and voice
+const BRAND = {
+  brandColor:   '#EC0A7E',
+  brandLogoUrl: 'https://aireyai.github.io/your-slug/brand_assets/logo.jpeg',
+  brandTagline: 'Tagline · Goes · Here',
+  siteUrl:      'https://aireyai.github.io/your-slug/',
+  location:     'Your Street Address, Your City PC1 1PC (above Landmark Name)',
+  mapUrl:       'https://www.google.com/maps/search/?api=1&query=1+Lonsdale+Street+Your City+CA1+1BJ'
+};
+
+const dateInput = document.getElementById('bookDate');
+const timeSlotsEl = document.getElementById('timeSlots');
+const timeField = document.getElementById('bookTime');
+const summaryEl = document.getElementById('summary');
+
+// Set min date to today
+const today = new Date();
+dateInput.min = today.toISOString().split('T')[0];
+// Default to tomorrow
+const tomorrow = new Date(today); tomorrow.setDate(tomorrow.getDate()+1);
+dateInput.value = tomorrow.toISOString().split('T')[0];
+
+function getSelectedService() {
+  return document.querySelector('input[name="service"]:checked');
+}
+
+function formatTime(h, m) {
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+}
+
+function renderTimeSlots() {
+  const svc = getSelectedService();
+  const date = dateInput.value;
+  timeSlotsEl.innerHTML = '';
+  timeField.value = '';
+
+  if (!svc || !date) {
+    timeSlotsEl.innerHTML = '<div class="col-span-full text-mute text-sm font-mono uppercase tracking-widest p-4 text-center border border-dashed border-edge rounded-xl">Select a service & date first</div>';
+    return;
+  }
+
+  const d = new Date(date + 'T00:00');
+  const dow = d.getDay();
+  const hours = OPENING_HOURS[dow];
+
+  if (!hours) {
+    timeSlotsEl.innerHTML = '<div class="col-span-full text-pink text-sm font-mono uppercase tracking-widest p-4 text-center border border-dashed border-pink rounded-xl">Closed on this day — pick another</div>';
+    return;
+  }
+
+  const duration = parseInt(svc.dataset.duration, 10);
+  const [openH, closeH] = hours;
+  const now = new Date();
+  const isToday = d.toDateString() === now.toDateString();
+
+  const slots = [];
+  for (let h = openH; h < closeH; h++) {
+    for (let m = 0; m < 60; m += 30) {
+      const slotEnd = (h * 60 + m) + duration;
+      if (slotEnd > closeH * 60) continue;
+      if (isToday) {
+        const slotStart = new Date(d); slotStart.setHours(h, m, 0, 0);
+        if (slotStart < new Date(now.getTime() + 60*60*1000)) continue; // 1hr buffer
+      }
+      slots.push({ h, m });
+    }
+  }
+
+  if (slots.length === 0) {
+    timeSlotsEl.innerHTML = '<div class="col-span-full text-pink text-sm font-mono uppercase tracking-widest p-4 text-center border border-dashed border-pink rounded-xl">No slots left today — try tomorrow</div>';
+    return;
+  }
+
+  slots.forEach(({h, m}) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'time-slot';
+    btn.textContent = formatTime(h, m);
+    btn.dataset.time = formatTime(h, m);
+    btn.setAttribute('aria-label', `Book at ${formatTime(h, m)}`);
+    btn.setAttribute('role', 'radio');
+    btn.addEventListener('click', () => {
+      timeSlotsEl.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+      btn.classList.add('selected');
+      timeField.value = btn.dataset.time;
+      updateSummary();
+    });
+    timeSlotsEl.appendChild(btn);
+  });
+}
+
+function updateSummary() {
+  const svc = getSelectedService();
+  const date = dateInput.value;
+  const time = timeField.value;
+  if (!svc) { summaryEl.textContent = 'Select a service to begin'; return; }
+  const parts = [svc.value, `£${svc.dataset.price}`, `${svc.dataset.duration} min`];
+  if (date) parts.push(new Date(date + 'T00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }));
+  if (time) parts.push(time);
+  summaryEl.textContent = parts.join(' · ');
+}
+
+document.querySelectorAll('input[name="service"]').forEach(r => r.addEventListener('change', () => { renderTimeSlots(); updateSummary(); }));
+dateInput.addEventListener('change', () => { renderTimeSlots(); updateSummary(); });
+
+async function submitBooking(e) {
+  e.preventDefault();
+  const form = document.getElementById('bookingForm');
+  const submitText = document.getElementById('submitText');
+
+  if (!timeField.value) {
+    alert('Please choose a time slot.');
+    return false;
+  }
+
+  submitText.textContent = 'Sending…';
+  const fd = new FormData(form);
+  const svc = getSelectedService();
+
+  // Build a human-readable datetime ("Mon 21 Apr 2026 at 10:30") for the Aria template
+  const dateObj = new Date(fd.get('date') + 'T' + fd.get('time'));
+  const datetime = dateObj.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) + ' at ' + fd.get('time');
+
+  // Pack service + phone into notes so they appear in the Owner's booking email
+  const clientNotes = fd.get('notes') || '';
+  const packedNotes = [
+    `Service: ${fd.get('service')} — ${svc.dataset.duration} min, £${svc.dataset.price}`,
+    `Phone: ${fd.get('phone')}`,
+    clientNotes ? `Notes from client: ${clientNotes}` : ''
+  ].filter(Boolean).join('\n');
+
+  const payload = {
+    // Aria-required fields
+    ownerEmail: OWNER_EMAIL,
+    ownerName:  OWNER_NAME,
+    siteName:   SITE_NAME,
+    botName:    OWNER_NAME,
+    page:       'Homepage booking form',
+    name:       fd.get('name'),
+    email:      fd.get('email'),
+    datetime:   datetime,
+    notes:      packedNotes,
+    // Preserved for storage + future reporting
+    service:            fd.get('service'),
+    duration_minutes:   parseInt(svc.dataset.duration, 10),
+    price_gbp:          parseInt(svc.dataset.price, 10),
+    date:               fd.get('date'),
+    time:               fd.get('time'),
+    phone:              fd.get('phone'),
+    source:             'yourdomain.co.uk',
+    ...BRAND
+  };
+
+  try {
+    const res = await fetch(BOOKING_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      mode: 'cors'
+    });
+    if (!res.ok) throw new Error('Booking failed');
+    showSuccess();
+  } catch (err) {
+    // Graceful fallback: open an email so the booking isn't lost
+    const subject = encodeURIComponent(`Booking request — ${payload.service}`);
+    const body = encodeURIComponent(
+`New booking request from yourdomain.co.uk
+
+${packedNotes}
+When: ${datetime}
+Name: ${payload.name}
+Email: ${payload.email}`
+    );
+    window.location.href = `mailto:${OWNER_EMAIL}?subject=${subject}&body=${body}`;
+    showSuccess();
+  }
+  return false;
+}
+
+function showSuccess() {
+  document.getElementById('bookingForm').classList.add('hidden');
+  document.getElementById('bookingSuccess').classList.remove('hidden');
+  document.getElementById('bookingSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function resetBooking() {
+  const form = document.getElementById('bookingForm');
+  form.reset();
+  form.classList.remove('hidden');
+  document.getElementById('bookingSuccess').classList.add('hidden');
+  timeField.value = '';
+  renderTimeSlots();
+  updateSummary();
+}
+
+// ============================================================
+// REVIEWS RENDERING
+// ============================================================
+const PAGE_SIZE = 12;
+let allReviews = [];
+let filteredReviews = [];
+let shownCount = PAGE_SIZE;
+let currentFilter = 'all';
+
+const STAR_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>';
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function initials(name) {
+  const parts = name.trim().split(/\s+/);
+  return (parts[0]?.[0] || '') + (parts[1]?.[0] || '');
+}
+
+function renderReview(r) {
+  const badgeClass = r.source === 'Google' ? 'badge google' : 'badge';
+  return `
+    <article class="review-mini">
+      <div class="stars" aria-label="5 out of 5 stars">${STAR_SVG.repeat(5)}</div>
+      <p class="body">${escapeHtml(r.text)}</p>
+      <div class="meta-row">
+        <div class="flex items-center gap-3">
+          <div class="avatar" aria-hidden="true">${escapeHtml(initials(r.name)).toUpperCase()}</div>
+          <div>
+            <div class="font-semibold text-sm text-bone">${escapeHtml(r.name)}</div>
+            <div class="font-mono text-[10px] uppercase tracking-widest text-mute">${escapeHtml(r.date)}</div>
+          </div>
+        </div>
+        <span class="${badgeClass}">${escapeHtml(r.source)}</span>
+      </div>
+    </article>
+  `;
+}
+
+function renderGrid() {
+  const grid = document.getElementById('reviewsGrid');
+  const slice = filteredReviews.slice(0, shownCount);
+  grid.innerHTML = slice.map(renderReview).join('');
+  document.getElementById('shownCount').textContent = slice.length;
+  document.getElementById('totalCount').textContent = filteredReviews.length;
+  const loadBtn = document.getElementById('loadMoreReviews');
+  if (loadBtn) loadBtn.style.display = shownCount >= filteredReviews.length ? 'none' : 'inline-flex';
+}
+
+function applyFilter(filter) {
+  currentFilter = filter;
+  filteredReviews = filter === 'all' ? allReviews : allReviews.filter(r => r.source === filter);
+  shownCount = PAGE_SIZE;
+  renderGrid();
+  document.querySelectorAll('.review-filter').forEach(btn => {
+    const isActive = btn.dataset.filter === filter;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-pressed', String(isActive));
+  });
+}
+
+document.querySelectorAll('.review-filter').forEach(btn => {
+  btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+});
+const loadMoreBtn = document.getElementById('loadMoreReviews');
+if (loadMoreBtn) loadMoreBtn.addEventListener('click', () => { shownCount += PAGE_SIZE; renderGrid(); });
+
+fetch('reviews.json')
+  .then(r => r.json())
+  .then(data => {
+    allReviews = data;
+    filteredReviews = data;
+    document.getElementById('countAll').textContent = data.length;
+    document.getElementById('countSetmore').textContent = data.filter(r => r.source === 'Setmore').length;
+    document.getElementById('countGoogle').textContent = data.filter(r => r.source === 'Google').length;
+    renderGrid();
+  })
+  .catch(() => {
+    document.getElementById('reviewsGrid').innerHTML = '<div class="text-mute text-center p-8">Reviews couldn\'t load. See them on <a href="reviews.html#write" target="_blank" class="text-pink pink-link">Setmore</a>.</div>';
+  });
+
+// ============================================================
+// UTILITY
+// ============================================================
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Back to top visibility
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 600) { backToTop.style.opacity = '1'; backToTop.style.pointerEvents = 'auto'; }
+  else { backToTop.style.opacity = '0'; backToTop.style.pointerEvents = 'none'; }
+}, { passive: true });
+
+// Init time slots default
+renderTimeSlots();
+</script>
+
+</body>
+</html>

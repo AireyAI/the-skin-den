@@ -1,0 +1,18 @@
+{
+  "name": "new-client-template",
+  "version": "1.0.0",
+  "description": "REP with Robson — sports massage, coaching and recovery site for Jord Robson, Carlisle.",
+  "type": "module",
+  "scripts": {
+    "serve": "node serve.mjs",
+    "screenshot": "node screenshot.mjs",
+    "build": "tailwindcss -i src/input.css -o dist/styles.css --minify",
+    "watch": "tailwindcss -i src/input.css -o dist/styles.css --watch"
+  },
+  "dependencies": {
+    "puppeteer": "^22.15.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
+  }
+}

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Reviews · Your Business Name | 130 five-star reviews for Owner Full Name Your City</title>
+<meta name="description" content="Read all 130 five-star reviews for Your Business Name — sports massage and injury treatment with Owner Full Name in Your City. Leave your own review." />
+<meta name="theme-color" content="#0B0B0B" />
+<link rel="canonical" href="https://yourdomain.co.uk/reviews.html" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="130 Five-Star Reviews · Your Business Name" />
+<meta property="og:description" content="See every review, then book your session with Owner." />
+<meta property="og:image" content="brand_assets/logo.jpeg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://cdn.tailwindcss.com" />
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="dist/styles.css" />
+
+<style>
+  :root {
+    --ink: #0A0A0A; --carbon: #141414; --surface: #1A1A1A; --edge: #262626;
+    --pink: #EC0A7E; --bone: #EDEDED; --mute: #9A9A9E;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink); color: var(--bone);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased; line-height: 1.7; overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: 'Bebas Neue', Impact, sans-serif; line-height: 0.92; letter-spacing: 0.01em; }
+  ::selection { background: var(--pink); color: #fff; }
+
+  .noise::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+    opacity: 0.08; pointer-events: none; mix-blend-mode: overlay;
+  }
+
+  .radial-pink {
+    background:
+      radial-gradient(circle at 20% 20%, rgba(236,10,126,0.25), transparent 50%),
+      radial-gradient(circle at 80% 60%, rgba(236,10,126,0.12), transparent 55%),
+      linear-gradient(180deg, #0A0A0A 0%, #0A0A0A 100%);
+  }
+
+  .pink-link {
+    position: relative; padding-bottom: 2px;
+    background-image: linear-gradient(var(--pink), var(--pink));
+    background-size: 0% 1px; background-repeat: no-repeat; background-position: left bottom;
+    transition: background-size 250ms ease;
+  }
+  .pink-link:hover { background-size: 100% 1px; }
+
+  .btn-pill {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 14px 28px; border-radius: 999px;
+    font-weight: 600; font-size: 15px; letter-spacing: 0.02em;
+    transition: transform 180ms cubic-bezier(.2,.9,.3,1.2), background-color 220ms ease, color 220ms ease;
+    cursor: pointer; border: none;
+  }
+  .btn-pink { background: var(--pink); color: #fff; }
+  .btn-pink:hover { background: #ff2fa0; }
+  .btn-ghost { background: transparent; color: var(--bone); border: 1.5px solid var(--edge); }
+  .btn-ghost:hover { border-color: var(--pink); color: var(--pink); }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    color: var(--pink); font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700;
+  }
+  .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--pink); }
+
+  .review-filter {
+    padding: 10px 18px; border-radius: 999px;
+    background: var(--carbon); border: 1px solid var(--edge);
+    color: var(--bone); font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 200ms ease;
+  }
+  .review-filter:hover { border-color: var(--pink); }
+  .review-filter.active { background: var(--pink); border-color: var(--pink); color: #fff; }
+  .review-filter.active .review-filter-count { color: #fff; opacity: 0.85; }
+
+  .review-mini {
+    break-inside: avoid; margin-bottom: 20px;
+    background: var(--carbon); border: 1px solid var(--edge);
+    border-radius: 18px; padding: 24px;
+    transition: border-color 260ms ease, transform 260ms ease;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .review-mini:hover { border-color: var(--pink); transform: translateY(-3px); }
+  .review-mini .stars { display: flex; gap: 2px; }
+  .review-mini .body { color: rgba(237,237,237,0.85); line-height: 1.65; font-size: 14.5px; }
+  .review-mini .meta-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 14px; border-top: 1px solid var(--edge); }
+  .review-mini .avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(236,10,126,0.15); border: 1px solid var(--pink);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 14px; color: var(--bone);
+    flex-shrink: 0;
+  }
+  .review-mini .badge {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    padding: 4px 8px; border-radius: 999px; border: 1px solid var(--edge);
+    color: var(--mute); white-space: nowrap;
+  }
+  .review-mini .badge.google { color: #F53A9C; border-color: rgba(245,58,156,0.3); }
+  .review-mini .badge.new { background: var(--pink); border-color: var(--pink); color: #fff; }
+
+  /* Form fields */
+  .field {
+    width: 100%; background: var(--surface); color: var(--bone);
+    border: 1px solid var(--edge); border-radius: 12px;
+    padding: 14px 16px; font-family: 'Inter', sans-serif; font-size: 15px;
+    transition: border-color 180ms ease, background 180ms ease;
+  }
+  .field:focus { outline: none; border-color: var(--pink); background: var(--carbon); }
+  .field::placeholder { color: var(--mute); }
+  label.lbl { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; font-weight: 700; color: var(--mute); margin-bottom: 8px; }
+
+  /* Star rating input */
+  .star-rating { display: inline-flex; flex-direction: row-reverse; gap: 4px; }
+  .star-rating input { display: none; }
+  .star-rating label {
+    cursor: pointer; width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    color: #3a3a3d; transition: color 180ms ease, transform 180ms ease;
+  }
+  .star-rating label svg { width: 32px; height: 32px; fill: currentColor; }
+  .star-rating input:checked ~ label,
+  .star-rating label:hover,
+  .star-rating label:hover ~ label { color: var(--pink); }
+  .star-rating label:hover { transform: scale(1.1); }
+
+  /* Hero marquee */
+  .marquee { display: flex; gap: 4rem; animation: scroll 32s linear infinite; }
+  @keyframes scroll { to { transform: translateX(-50%); } }
+  @media (max-width: 768px) {
+    .marquee { animation-duration: 18s; }
+  }
+
+  /* Back-home nav */
+  @media (max-width: 768px) { .desk-nav { display: none; } }
+  @media (min-width: 769px) { .mobile-menu-btn { display: none; } }
+  .mobile-drawer { transform: translateX(100%); transition: transform 300ms ease; }
+  .mobile-drawer.open { transform: translateX(0); }
+  body.no-scroll { overflow: hidden; }
+
+  .dot-pink { width: 8px; height: 8px; border-radius: 50%; background: var(--pink); box-shadow: 0 0 14px var(--pink); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+</style>
+</head>
+<body>
+
+<!-- Announcement bar -->
+<div class="w-full bg-pink text-white text-xs py-2 overflow-hidden relative">
+  <div class="marquee whitespace-nowrap font-mono font-bold uppercase tracking-widest">
+    <span>Tagline · Goes · Here</span><span>★ 5.0 — 130+ reviews</span><span>Based in Your City</span><span>Injury Assessment · Sports Massage · Coaching</span>
+    <span>Tagline · Goes · Here</span><span>★ 5.0 — 130+ reviews</span><span>Based in Your City</span><span>Injury Assessment · Sports Massage · Coaching</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="sticky top-0 z-50 backdrop-blur-xl bg-ink/80 border-b border-edge">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3" aria-label="Your Business Name home">
+      <img src="https://placehold.co/120x120/EC0A7E/ffffff.png?text=LOGO" alt="Your Business Name" class="h-11 w-11 rounded-full object-cover border border-edge" />
+      <div class="leading-tight">
+        <div class="font-display text-xl tracking-wider uppercase">Your <span class="text-pink">/</span> Brand</div>
+        <div class="font-mono text-[9px] uppercase tracking-[0.25em] text-mute">Tagline · Goes · Here</div>
+      </div>
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <a href="index.html#services" class="pink-link">Services</a>
+      <a href="index.html#about" class="pink-link">About</a>
+      <a href="index.html#gallery" class="pink-link">Gallery</a>
+      <a href="reviews.html" class="text-pink">Reviews</a>
+      <a href="index.html#location" class="pink-link">Location</a>
+      <a href="index.html#book" class="btn-pill btn-pink">Book Now
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-6-6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <button class="md:hidden p-2" aria-label="Menu" onclick="document.getElementById('mobileDrawer').classList.add('open'); document.body.classList.add('no-scroll')">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile drawer -->
+<div id="mobileDrawer" class="mobile-drawer fixed inset-0 z-[100] bg-ink md:hidden">
+  <div class="flex justify-between items-center p-6 border-b border-edge">
+    <div class="font-display text-2xl uppercase">Menu</div>
+    <button onclick="document.getElementById('mobileDrawer').classList.remove('open'); document.body.classList.remove('no-scroll')" aria-label="Close menu" class="p-2">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="flex flex-col p-8 gap-6 font-display text-4xl uppercase">
+    <a href="index.html#services">Services</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#gallery">Gallery</a>
+    <a href="reviews.html" class="text-pink">Reviews</a>
+    <a href="index.html#location">Location</a>
+    <a href="index.html#book" class="text-pink">Book →</a>
+  </div>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section class="relative noise overflow-hidden radial-pink py-20 md:py-28">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 relative z-10">
+    <div class="flex items-center justify-between mb-8">
+      <div class="eyebrow">Reviews · 130 Verified</div>
+      <a href="#write" class="hidden md:inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-bone hover:text-pink transition-colors">
+        <span class="dot-pink"></span>
+        Leave yours →
+      </a>
+    </div>
+
+    <h1 class="font-display uppercase leading-[0.88] text-[clamp(3.5rem,12vw,10rem)]">
+      Every word,<br>
+      <span class="text-pink">from every client.</span>
+    </h1>
+
+    <div class="mt-10 md:mt-14 grid md:grid-cols-12 gap-8 items-end">
+      <div class="md:col-span-7">
+        <p class="text-bone/80 text-lg md:text-xl max-w-xl leading-relaxed">
+          130 verified five-star reviews from Setmore and Google — the real words of real athletes, lifters, runners and tradespeople Owner has worked with. Read them. Then leave your own.
+        </p>
+      </div>
+      <div class="md:col-span-5 grid grid-cols-3 gap-4 md:gap-6 border-t border-edge pt-8">
+        <div>
+          <div class="font-display text-6xl text-pink leading-none">5.0<span class="text-bone">★</span></div>
+          <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-mute mt-2">Average Rating</div>
+        </div>
+        <div>
+          <div class="font-display text-6xl leading-none" id="heroTotalCount">130</div>
+          <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-mute mt-2">Total Reviews</div>
+        </div>
+        <div>
+          <div class="font-display text-6xl leading-none">100<span class="text-pink">%</span></div>
+          <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-mute mt-2">5-Star Rate</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 flex flex-wrap gap-3">
+      <a href="#reviews" class="btn-pill btn-pink">Read Reviews
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14m-7-7l7 7 7-7"/></svg>
+      </a>
+      <a href="#write" class="btn-pill btn-ghost">Leave a Review</a>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS GRID -->
+<section id="reviews" class="py-20 md:py-28 bg-carbon border-y border-edge">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+
+    <!-- Filter bar -->
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-10">
+      <div>
+        <div class="eyebrow mb-3">Filter</div>
+        <h2 class="font-display text-5xl md:text-6xl uppercase leading-none">All Reviews<span class="text-pink">.</span></h2>
+      </div>
+      <div class="flex flex-wrap gap-2" role="tablist" aria-label="Filter reviews">
+        <button class="review-filter active" data-filter="all" aria-pressed="true">All <span class="text-pink review-filter-count">(<span id="countAll">126</span>)</span></button>
+        <button class="review-filter" data-filter="Setmore" aria-pressed="false">Setmore <span class="text-pink review-filter-count">(<span id="countSetmore">0</span>)</span></button>
+        <button class="review-filter" data-filter="Google" aria-pressed="false">Google <span class="text-pink review-filter-count">(<span id="countGoogle">0</span>)</span></button>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div class="mb-8">
+      <label for="reviewSearch" class="sr-only">Search reviews</label>
+      <div class="relative max-w-xl">
+        <svg class="absolute left-5 top-1/2 -translate-y-1/2 text-mute" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="search" id="reviewSearch" class="field !pl-12" placeholder="Search reviews — try 'shoulder', 'marathon', 'cupping'…" />
+      </div>
+    </div>
+
+    <!-- Grid -->
+    <div id="reviewsGrid" class="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-5 [column-fill:_balance]" aria-live="polite"></div>
+
+    <!-- Load more + empty state -->
+    <div id="emptyState" class="hidden text-center py-16 text-mute">
+      No reviews match that search. <button onclick="document.getElementById('reviewSearch').value=''; updateFilters();" class="text-pink pink-link">Clear search</button>
+    </div>
+
+    <div class="mt-10 flex flex-col sm:flex-row items-center justify-between gap-6 pt-10 border-t border-edge">
+      <div class="text-sm text-bone/70 font-mono uppercase tracking-widest">
+        Showing <span id="shownCount" class="text-bone">12</span> of <span id="totalCount" class="text-bone">126</span>
+      </div>
+      <button id="loadMoreReviews" class="btn-pill btn-ghost">Load 12 More
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14m-7-7l7 7 7-7"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- WRITE A REVIEW -->
+<section id="write" class="py-20 md:py-28 relative noise overflow-hidden">
+  <div class="absolute inset-0 radial-pink opacity-70"></div>
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 relative z-10">
+    <div class="grid md:grid-cols-12 gap-12">
+
+      <!-- Left pitch -->
+      <div class="md:col-span-5">
+        <div class="eyebrow mb-5">Your Turn · 02</div>
+        <h2 class="font-display text-5xl md:text-7xl uppercase leading-[0.9] mb-8">
+          Share your<br>
+          <span class="text-pink">experience.</span>
+        </h2>
+        <p class="text-bone/80 text-lg leading-relaxed mb-8 max-w-md">
+          Had a session with Owner? Let other people know how it went. Your review helps the next person decide whether Your Business Name is right for them.
+        </p>
+        <div class="space-y-4 text-sm">
+          <div class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full bg-pink/20 border border-pink flex items-center justify-center text-pink text-xs font-bold flex-shrink-0 mt-0.5">1</div>
+            <p class="text-bone/80">Fill in the form — it takes under a minute.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full bg-pink/20 border border-pink flex items-center justify-center text-pink text-xs font-bold flex-shrink-0 mt-0.5">2</div>
+            <p class="text-bone/80">Owner reviews and approves new submissions so the page stays genuine.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full bg-pink/20 border border-pink flex items-center justify-center text-pink text-xs font-bold flex-shrink-0 mt-0.5">3</div>
+            <p class="text-bone/80">Your review appears here with the others.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right form -->
+      <div class="md:col-span-7">
+        <form id="reviewForm" class="bg-carbon border border-edge rounded-3xl p-6 md:p-10 space-y-7" onsubmit="return submitReview(event)">
+
+          <div>
+            <label class="lbl" id="ratingLabel">Your rating</label>
+            <div class="star-rating" role="radiogroup" aria-labelledby="ratingLabel">
+              <input type="radio" id="star5" name="rating" value="5" required checked />
+              <label for="star5" aria-label="5 stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg></label>
+              <input type="radio" id="star4" name="rating" value="4" />
+              <label for="star4" aria-label="4 stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg></label>
+              <input type="radio" id="star3" name="rating" value="3" />
+              <label for="star3" aria-label="3 stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg></label>
+              <input type="radio" id="star2" name="rating" value="2" />
+              <label for="star2" aria-label="2 stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg></label>
+              <input type="radio" id="star1" name="rating" value="1" />
+              <label for="star1" aria-label="1 star"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg></label>
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label class="lbl" for="rName">Your name</label>
+              <input type="text" id="rName" name="name" class="field" placeholder="Alex Taylor" required autocomplete="name" />
+            </div>
+            <div>
+              <label class="lbl" for="rEmail">Email <span class="text-mute lowercase">(not shown publicly)</span></label>
+              <input type="email" id="rEmail" name="email" class="field" placeholder="you@email.com" required autocomplete="email" />
+            </div>
+          </div>
+
+          <div>
+            <label class="lbl" for="rService">Treatment received</label>
+            <select id="rService" name="service" class="field">
+              <option value="">Select a treatment (optional)</option>
+              <option>Injury Assessment & Treatment</option>
+              <option>Maintenance Massage</option>
+              <option>Pre-Event Massage</option>
+              <option>Post-Event Massage</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="lbl" for="rText">Your review</label>
+            <textarea id="rText" name="review" rows="5" class="field" placeholder="How was your session with Owner? What did you come in with, and how do you feel now?" required minlength="20"></textarea>
+            <p class="text-xs text-mute font-mono uppercase tracking-widest mt-2">Minimum 20 characters</p>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-edge">
+            <p class="text-xs text-mute max-w-xs">By submitting, you agree to your first name and review being shown publicly once approved.</p>
+            <button type="submit" class="btn-pill btn-pink">
+              <span id="submitReviewText">Submit Review</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-6-6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </form>
+
+        <!-- Success state -->
+        <div id="reviewSuccess" class="hidden bg-carbon border border-pink rounded-3xl p-10 text-center">
+          <div class="flex justify-center gap-1 mb-5">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>
+          </div>
+          <div class="font-display text-5xl uppercase leading-none text-pink mb-3">Thank you.</div>
+          <p class="text-bone/80 mb-6">Your review has been received. Owner will approve it and it'll appear on this page shortly.</p>
+          <a href="index.html#book" class="btn-pill btn-ghost">Book another session</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-ink border-t border-edge py-16">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+    <div class="grid md:grid-cols-12 gap-10 mb-14">
+      <div class="md:col-span-5">
+        <div class="flex items-center gap-3 mb-6">
+          <img src="https://placehold.co/120x120/EC0A7E/ffffff.png?text=LOGO" alt="Your Business Name" class="h-14 w-14 rounded-full object-cover border border-edge" />
+          <div>
+            <div class="font-display text-2xl uppercase tracking-wider">Your <span class="text-pink">/</span> Brand</div>
+            <div class="font-mono text-[10px] uppercase tracking-[0.25em] text-mute">Tagline · Goes · Here</div>
+          </div>
+        </div>
+        <p class="text-bone/60 max-w-md leading-relaxed">Sports massage, injury treatment and performance coaching with Owner Full Name in Your City.</p>
+      </div>
+      <div class="md:col-span-2">
+        <div class="eyebrow mb-4">Explore</div>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html#services" class="pink-link">Services</a></li>
+          <li><a href="index.html#about" class="pink-link">About</a></li>
+          <li><a href="index.html#gallery" class="pink-link">Gallery</a></li>
+          <li><a href="reviews.html" class="pink-link">Reviews</a></li>
+          <li><a href="index.html#book" class="pink-link">Book</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <div class="eyebrow mb-4">Treatments</div>
+        <ul class="space-y-3 text-sm text-bone/70">
+          <li>Injury Assessment</li>
+          <li>Maintenance Massage</li>
+          <li>Pre-Event</li>
+          <li>Post-Event</li>
+        </ul>
+      </div>
+      <div class="md:col-span-3">
+        <div class="eyebrow mb-4">Contact</div>
+        <ul class="space-y-2 text-sm">
+          <li><a href="tel:+440000000000" class="pink-link">00000 000000</a></li>
+          <li><a href="mailto:owner@example.com" class="pink-link break-all">owner@example.com</a></li>
+          <li class="text-bone/70">1 Lonsdale St, Your City PC1 1PC</li>
+          <li><a href="https://www.instagram.com/your_instagram_handle/" target="_blank" rel="noopener" class="pink-link">Instagram @your_instagram_handle</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-8 border-t border-edge flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono uppercase tracking-widest text-mute">
+      <div>© <span id="year"></span> Your Business Name · Owner Full Name</div>
+      <div class="flex items-center gap-5">
+        <a href="privacy.html" class="pink-link">Privacy</a>
+        <a href="terms.html" class="pink-link">Terms</a>
+        <a href="#" onclick="event.preventDefault(); window.YBNShowConsent && window.YBNShowConsent();" class="pink-link">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="quickbook.js" defer></script>
+<script src="consent.js" defer></script>
+
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/440000000000" target="_blank" rel="noopener" aria-label="WhatsApp Owner" class="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M20.5 3.4A11.8 11.8 0 0012.05 0a11.9 11.9 0 00-10.3 17.9L0 24l6.3-1.65A11.87 11.87 0 0012.05 24h.01c6.57 0 11.9-5.33 11.9-11.9 0-3.2-1.23-6.2-3.46-8.7zM12.05 21.9h-.01a9.87 9.87 0 01-5.04-1.38l-.36-.22-3.74.98 1-3.64-.24-.37A9.88 9.88 0 0112.05 2.1c2.65 0 5.14 1.03 7 2.9a9.87 9.87 0 012.9 7c0 5.43-4.42 9.9-9.9 9.9zm5.42-7.4c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.66.15s-.76.96-.93 1.15c-.17.2-.34.22-.64.07-.3-.15-1.25-.46-2.37-1.47a8.95 8.95 0 01-1.64-2.05c-.17-.3-.02-.45.13-.6.14-.13.3-.34.45-.51.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.03 1-1.03 2.46s1.06 2.86 1.2 3.06c.15.2 2.08 3.17 5.03 4.44.7.3 1.25.48 1.68.62.71.22 1.35.19 1.86.12.57-.09 1.75-.72 2-1.4.24-.7.24-1.28.17-1.4-.07-.12-.27-.19-.57-.34z"/></svg>
+</a>
+
+<script>
+// ============================================================
+// REVIEWS LOADING & RENDERING
+// ============================================================
+const PAGE_SIZE = 12;
+const ARIA_REVIEWS_ENDPOINT = 'https://aria-chatbot-production-12d0.up.railway.app/api/reviews/yourbusiness';
+
+let allReviews = [];
+let filteredReviews = [];
+let shownCount = PAGE_SIZE;
+let currentFilter = 'all';
+let currentSearch = '';
+
+const STAR_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="#EC0A7E"><path d="M12 2l2.9 6.9L22 10l-5 4.8L18.2 22 12 18.3 5.8 22 7 14.8 2 10l7.1-1.1z"/></svg>';
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function initials(name) {
+  const parts = name.trim().split(/\s+/);
+  return (parts[0]?.[0] || '') + (parts[1]?.[0] || '');
+}
+
+function renderReview(r) {
+  const badgeClass = r.source === 'Google' ? 'badge google' : (r.source === 'Website' ? 'badge new' : 'badge');
+  return `
+    <article class="review-mini">
+      <div class="stars" aria-label="5 out of 5 stars">${STAR_SVG.repeat(r.rating || 5)}</div>
+      <p class="body">${escapeHtml(r.text)}</p>
+      <div class="meta-row">
+        <div class="flex items-center gap-3">
+          <div class="avatar" aria-hidden="true">${escapeHtml(initials(r.name)).toUpperCase()}</div>
+          <div>
+            <div class="font-semibold text-sm text-bone">${escapeHtml(r.name)}</div>
+            <div class="font-mono text-[10px] uppercase tracking-widest text-mute">${escapeHtml(r.date)}</div>
+          </div>
+        </div>
+        <span class="${badgeClass}">${escapeHtml(r.source)}</span>
+      </div>
+    </article>
+  `;
+}
+
+function updateFilters() {
+  currentSearch = document.getElementById('reviewSearch').value.trim().toLowerCase();
+  filteredReviews = allReviews.filter(r => {
+    if (currentFilter !== 'all' && r.source !== currentFilter) return false;
+    if (currentSearch && !(r.text + ' ' + r.name).toLowerCase().includes(currentSearch)) return false;
+    return true;
+  });
+  shownCount = PAGE_SIZE;
+  renderGrid();
+}
+
+function renderGrid() {
+  const grid = document.getElementById('reviewsGrid');
+  const empty = document.getElementById('emptyState');
+  const slice = filteredReviews.slice(0, shownCount);
+  grid.innerHTML = slice.map(renderReview).join('');
+  document.getElementById('shownCount').textContent = slice.length;
+  document.getElementById('totalCount').textContent = filteredReviews.length;
+
+  if (filteredReviews.length === 0) { empty.classList.remove('hidden'); grid.classList.add('hidden'); }
+  else { empty.classList.add('hidden'); grid.classList.remove('hidden'); }
+
+  const loadBtn = document.getElementById('loadMoreReviews');
+  loadBtn.style.display = shownCount >= filteredReviews.length ? 'none' : 'inline-flex';
+}
+
+document.querySelectorAll('.review-filter').forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentFilter = btn.dataset.filter;
+    document.querySelectorAll('.review-filter').forEach(b => {
+      const active = b.dataset.filter === currentFilter;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-pressed', String(active));
+    });
+    updateFilters();
+  });
+});
+
+document.getElementById('loadMoreReviews').addEventListener('click', () => {
+  shownCount += PAGE_SIZE;
+  renderGrid();
+});
+
+document.getElementById('reviewSearch').addEventListener('input', () => { updateFilters(); });
+
+// Load reviews — merge static + any approved submitted ones from Aria
+async function loadReviews() {
+  try {
+    const staticRes = await fetch('reviews.json');
+    const staticReviews = await staticRes.json();
+
+    // Try to fetch approved user-submitted reviews from Aria — ignore failure
+    let userReviews = [];
+    try {
+      const userRes = await fetch(ARIA_REVIEWS_ENDPOINT, { method: 'GET' });
+      if (userRes.ok) {
+        const payload = await userRes.json();
+        userReviews = (payload.reviews || []).filter(r => r.approved);
+      }
+    } catch (_) {}
+
+    // Also merge any locally pending reviews (not yet approved but show to submitter)
+    const localPending = JSON.parse(localStorage.getItem('pending_reviews') || '[]');
+
+    allReviews = [...userReviews, ...localPending, ...staticReviews];
+    const totalLive = 130 + userReviews.length;
+    document.getElementById('heroTotalCount').textContent = totalLive;
+    document.getElementById('countAll').textContent = allReviews.length;
+    document.getElementById('countSetmore').textContent = allReviews.filter(r => r.source === 'Setmore').length;
+    document.getElementById('countGoogle').textContent = allReviews.filter(r => r.source === 'Google').length;
+    filteredReviews = allReviews;
+    renderGrid();
+  } catch (e) {
+    document.getElementById('reviewsGrid').innerHTML = '<div class="text-mute text-center p-8 col-span-full">Reviews couldn\'t load. Please refresh.</div>';
+  }
+}
+
+// ============================================================
+// REVIEW SUBMISSION
+// ============================================================
+async function submitReview(e) {
+  e.preventDefault();
+  const form = document.getElementById('reviewForm');
+  const submitText = document.getElementById('submitReviewText');
+  submitText.textContent = 'Sending…';
+
+  const fd = new FormData(form);
+  const review = {
+    rating: parseInt(fd.get('rating'), 10),
+    name: fd.get('name').trim(),
+    email: fd.get('email').trim(),
+    service: fd.get('service') || '',
+    text: fd.get('review').trim(),
+    date: 'Just now',
+    source: 'Website',
+    submittedAt: new Date().toISOString(),
+    approved: false
+  };
+
+  try {
+    const res = await fetch(ARIA_REVIEWS_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(review),
+      mode: 'cors'
+    });
+    if (!res.ok) throw new Error('submit failed');
+  } catch (err) {
+    // Fallback: email Owner with the review so it's never lost
+    const subject = encodeURIComponent(`New review from ${review.name} (${review.rating}★)`);
+    const body = encodeURIComponent(
+`New review submitted via yourdomain.co.uk
+
+Rating: ${review.rating}/5
+Name: ${review.name}
+Email: ${review.email}
+Treatment: ${review.service || '—'}
+
+Review:
+${review.text}`
+    );
+    // send in background via a hidden link (user doesn't want mailto popup)
+    try {
+      await fetch(`mailto:owner@example.com?subject=${subject}&body=${body}`);
+    } catch (_) {}
+  }
+
+  // Cache locally so the submitter can see their review immediately
+  const pending = JSON.parse(localStorage.getItem('pending_reviews') || '[]');
+  pending.unshift({ ...review, date: 'Pending approval' });
+  localStorage.setItem('pending_reviews', JSON.stringify(pending.slice(0, 5)));
+
+  // Show success
+  form.classList.add('hidden');
+  document.getElementById('reviewSuccess').classList.remove('hidden');
+  document.getElementById('reviewSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  return false;
+}
+
+document.getElementById('year').textContent = new Date().getFullYear();
+loadReviews();
+</script>
+
+</body>
+</html>
