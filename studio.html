@@ -1188,16 +1188,16 @@
   <div class="container booking__inner">
     <p class="eyebrow">Take the first step</p>
     <h2 style="margin-top: var(--s-4); color: var(--c-ivory);">Ready when you <span class="serif-italic" style="font-style: italic;">are.</span></h2>
-    <p class="lead" style="color: rgba(253,248,238,0.7); max-width: 60ch; margin: var(--s-4) auto 0;">Online booking with card-on-file goes live here this summer. Until then, the quickest way in is a quick message — every consultation is read and replied to by Rachel herself.</p>
+    <p class="lead" style="color: rgba(253,248,238,0.7); max-width: 60ch; margin: var(--s-4) auto 0;">Chat with Aria — Rachel's AI assistant — to share what you'd like to address and book a consultation in under a minute. Every reply still comes from Rachel personally.</p>
 
     <div class="booking__panel">
       <span class="booking__status">Online booking opens summer 2026</span>
       <h3 class="booking__h">Book a consultation</h3>
-      <p class="booking__p">A 50% deposit holds your slot and comes straight off your treatment total on the day. Send a quick message with what you'd like to change about your skin — Rachel will reply personally with a recommendation.</p>
+      <p class="booking__p">Tell Aria what you'd like to change about your skin — she'll suggest the right treatment, then hand you over to Rachel on WhatsApp with all the context. A 50% deposit holds your slot and comes off your treatment total on the day.</p>
 
       <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
-        <a class="btn btn-primary" href="https://wa.me/447568602861?text=Hi%20Rachel%2C%20I%27d%20like%20to%20book%20a%20consultation%20at%20The%20Skin%20Den" target="_blank" rel="noopener" data-magnetic>WhatsApp Rachel <span class="arr">→</span></a>
-        <a class="btn btn-ghost" href="https://www.instagram.com/_theskin_den/" target="_blank" rel="noopener">DM on Instagram</a>
+        <button type="button" class="btn btn-primary" id="aria-book-cta" data-magnetic>Chat with Aria to book <span class="arr">→</span></button>
+        <a class="btn btn-ghost" href="https://wa.me/447568602861?text=Hi%20Rachel%2C%20I%27d%20like%20to%20book%20a%20consultation%20at%20The%20Skin%20Den" target="_blank" rel="noopener">WhatsApp Rachel directly</a>
       </div>
 
       <div class="booking__policy">
@@ -1609,6 +1609,40 @@ document.querySelectorAll('[data-tab]').forEach(btn => {
 </script>
 
 <script src="animations.js"></script>
+<script>
+  // Wire booking CTAs to open Aria with the right context.
+  // Falls back to #book scroll if the chatbot widget hasn't loaded yet.
+  (function () {
+    function openAriaWith(prompt) {
+      if (window.AriaChat && typeof window.AriaChat.open === 'function') {
+        window.AriaChat.open();
+        // Tiny delay so the panel mounts before send() targets its input
+        setTimeout(function () {
+          if (typeof window.AriaChat.send === 'function') window.AriaChat.send(prompt);
+        }, 250);
+        return true;
+      }
+      return false;
+    }
+
+    var bookCta = document.getElementById('aria-book-cta');
+    if (bookCta) {
+      bookCta.addEventListener('click', function (e) {
+        e.preventDefault();
+        openAriaWith("I'd like to book a consultation");
+      });
+    }
+
+    var matcherCta = document.getElementById('matcher-cta');
+    if (matcherCta) {
+      matcherCta.addEventListener('click', function (e) {
+        var recName = (document.getElementById('matcher-rec-name') || {}).textContent || '';
+        var ok = openAriaWith("I'd like to book " + (recName.trim() || 'a consultation') + " — can you help?");
+        if (ok) e.preventDefault(); // only block scroll if chatbot actually opened
+      });
+    }
+  })();
+</script>
 
 </body>
 </html>
