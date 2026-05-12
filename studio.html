@@ -278,7 +278,7 @@
   .hero__image__label { position: absolute; bottom: 24px; left: 24px; right: 24px; display: flex; align-items: flex-end; justify-content: space-between; color: var(--c-ivory); z-index: 2; gap: 16px; }
   .hero__image__label .title { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: 18px; margin: 0 0 4px; letter-spacing: -0.005em; }
   .hero__image__label .meta { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(253,248,238,0.85); font-weight: 500; }
-  .hero__image__label .est { font-family: var(--font-serif); font-style: italic; font-size: 13px; color: var(--c-gold); white-space: nowrap; }
+  .hero__image__label .est { font-family: var(--font-serif); font-style: italic; font-size: 13px; color: var(--c-gold-deep); white-space: nowrap; }
 
   .paths { background: var(--c-cream); position: relative; }
   .paths__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-10); margin-top: var(--s-12); }
@@ -348,7 +348,7 @@
   .why { background: var(--c-charcoal); color: var(--c-ivory); position: relative; overflow: hidden; }
   .why::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 70% at 80% 30%, rgba(197,160,109,0.10), transparent 70%), radial-gradient(ellipse 50% 50% at 10% 90%, rgba(138,113,72,0.12), transparent 70%); }
   .why h2 { color: var(--c-ivory); }
-  .why .eyebrow { color: var(--c-gold); }
+  .why .eyebrow { color: var(--c-gold-deep); }
   .why .eyebrow::before, .why .eyebrow::after { background: var(--c-gold); }
   .why .lead { color: rgba(253, 248, 238, 0.7); }
   .why__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-6); margin-top: var(--s-12); position: relative; z-index: 2; }
@@ -360,8 +360,8 @@
   .why__icon { width: 44px; height: 44px; border-radius: 50%; background: rgba(197, 160, 109, 0.15); border: 1px solid var(--c-gold); display: inline-flex; align-items: center; justify-content: center; color: var(--c-gold); font-family: var(--font-serif); font-style: italic; font-size: 20px; margin-bottom: var(--s-5); }
   .why__card--feature .why__icon { background: var(--c-gold); color: var(--c-charcoal); border-color: var(--c-gold); }
   .why__big { font-family: var(--font-serif); font-size: 32px; font-weight: 500; color: var(--c-ivory); margin: 0 0 var(--s-2); line-height: 1.05; letter-spacing: -0.015em; }
-  .why__big em { font-style: italic; color: var(--c-gold); font-weight: 400; }
-  .why__label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-gold); font-weight: 600; margin: 0 0 var(--s-3); }
+  .why__big em { font-style: italic; color: var(--c-gold-deep); font-weight: 400; }
+  .why__label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-gold-deep); font-weight: 600; margin: 0 0 var(--s-3); }
   .why__sub { font-size: 14px; line-height: 1.6; color: rgba(253, 248, 238, 0.7); margin: 0; }
 
   /* SKIN CONCERNS HUB */
@@ -636,7 +636,7 @@
 <!-- Cookie consent banner (PECR + GDPR for UK) -->
 <aside class="cookie" id="cookie" role="region" aria-label="Cookie consent" hidden>
   <p class="cookie__title">A note on cookies</p>
-  <p class="cookie__body">We use a small amount of analytics to understand which pages people find useful. No advertising trackers, no personal data sold. <a href="policy.html#privacy">Read more</a>.</p>
+  <p class="cookie__body">We use a small amount of analytics to understand which pages people find useful. No advertising trackers, no personal data sold. <a href="policy.html#privacy">Read the full privacy policy</a>.</p>
   <div class="cookie__actions">
     <button class="cookie__btn cookie__btn--accept" id="cookie-accept" type="button">Sounds fine</button>
     <button class="cookie__btn cookie__btn--decline" id="cookie-decline" type="button">No thanks</button>
@@ -1122,7 +1122,7 @@
       <div class="studio__photo" data-reveal="fade-up">
         <img src="brand_assets/fb_cover.jpg" alt="The Skin Den treatment room with cream wood panelling and signature plaque" loading="lazy">
       </div>
-      <div class="studio__info" data-reveal="fade-up" data-reveal-delay="0.1">
+      <dl class="studio__info" data-reveal="fade-up" data-reveal-delay="0.1">
         <div class="studio__detail">
           <dt>Where</dt>
           <dd>Carlisle, Cumbria · CA3</dd>
@@ -1139,7 +1139,7 @@
           <dt>How to book today</dt>
           <dd>DM on Instagram or WhatsApp — Rachel replies personally</dd>
         </div>
-      </div>
+      </dl>
     </div>
   </div>
 </section>
