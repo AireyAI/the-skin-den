@@ -25,8 +25,9 @@
   --c-wood-deep:       #B89978;
   --c-wood-shadow:     #8A7148;
 
-  --c-gold:            #C5A06D;       /* her IG price-list gold accent */
-  --c-gold-deep:       #8A7148;
+  --c-gold:            #C5A06D;       /* her IG price-list gold accent — accents/borders/bg only */
+  --c-gold-deep:       #8A7148;       /* hover/active states, backgrounds */
+  --c-gold-text:       #6F5938;       /* gold used as TEXT — passes WCAG AA on ivory & cream */
   --c-gold-soft:       #DDC59B;
 
   --c-sage:            #A8B5A0;       /* secondary accent (optional) */
