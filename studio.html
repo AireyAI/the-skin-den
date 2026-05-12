@@ -1312,7 +1312,7 @@ if (gallery) {
     btn.setAttribute('data-gallery-index', String(i));
     btn.setAttribute('aria-label', 'Open photo ' + (i + 1) + ' of ' + galleryFiles.length);
     const img = document.createElement('img');
-    img.src = '/brand_assets/photos/' + f;
+    img.src = 'brand_assets/photos/' + f;
     img.alt = 'Real client result — The Skin Den';
     img.loading = 'lazy';
     btn.appendChild(img);
@@ -1340,7 +1340,7 @@ function closeLightbox() {
   document.body.style.overflow = '';
 }
 function renderLightbox() {
-  lbImg.src = '/brand_assets/photos/' + galleryFiles[lbIndex];
+  lbImg.src = 'brand_assets/photos/' + galleryFiles[lbIndex];
   lbImg.alt = 'Real client result — photo ' + (lbIndex + 1) + ' of ' + galleryFiles.length;
   lbCounter.textContent = (lbIndex + 1) + ' / ' + galleryFiles.length;
 }
@@ -1379,7 +1379,7 @@ if (igGrid) {
     a.setAttribute('data-stagger-child', '');
     a.setAttribute('aria-label', 'Open Instagram post ' + (i + 1));
     const img = document.createElement('img');
-    img.src = '/brand_assets/photos/' + f;
+    img.src = 'brand_assets/photos/' + f;
     img.alt = 'Recent post from @_theskin_den';
     img.loading = 'lazy';
     a.appendChild(img);
