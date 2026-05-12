@@ -1,0 +1,11 @@
+import puppeteer from 'puppeteer';
+const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+const page = await browser.newPage();
+await page.setViewport({ width: 1280, height: 900, deviceScaleFactor: 2 });
+await page.goto('http://localhost:3000/studio.html', { waitUntil: 'networkidle2', timeout: 30000 });
+await page.evaluate(() => localStorage.removeItem('tsd-cookie-consent'));
+await page.reload({ waitUntil: 'networkidle2' });
+await new Promise(r => setTimeout(r, 3200));
+await page.screenshot({ path: './temporary screenshots/v8-cookie-shown.png', fullPage: false });
+await browser.close();
+console.log('saved');

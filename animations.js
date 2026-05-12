@@ -1,12 +1,7 @@
 /**
- * AireyAI Animation Toolkit
- * Drop-in premium motion for any website.
- *
- * Includes: scroll reveals, parallax, text splitting, magnetic buttons,
- * smooth counters, tilt cards, and page load sequences.
- *
- * Dependencies: GSAP + ScrollTrigger (loaded via CDN)
- * Usage: Add this script after GSAP in your HTML, then add data attributes.
+ * Animation toolkit — GSAP + ScrollTrigger driven motion.
+ * Scroll reveals, parallax, text splitting, magnetic buttons,
+ * counters, tilt cards, page load sequences.
  */
 
 (function () {

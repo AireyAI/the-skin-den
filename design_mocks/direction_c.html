@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Direction C · The Den · The Skin Den</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Pulled directly from her logo plaque + treatment room wood panelling */
+  --c-wood:#D4B896;          /* wood-panel warm beige */
+  --c-wood-deep:#B89978;
+  --c-cream:#F5EBDA;         /* logo plaque cream */
+  --c-cream-light:#FAF3E5;
+  --c-ivory:#FDF8EE;
+  --c-charcoal:#2A2117;      /* logo text colour */
+  --c-charcoal-soft:#3D3225;
+  --c-gold:#C5A06D;          /* her IG price-list gold accent */
+  --c-gold-deep:#8A7148;
+  --c-muted:#7A6B58;
+  --c-line:rgba(42,33,23,0.10);
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{background:var(--c-ivory)}
+body{
+  background:var(--c-ivory);
+  color:var(--c-charcoal);
+  font-family:"Inter",system-ui,sans-serif;
+  font-weight:400;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* Hidden direction badge */
+.tag{
+  position:fixed;top:0;right:24px;z-index:50;
+  background:var(--c-charcoal);color:var(--c-ivory);
+  padding:8px 16px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+  border-radius:0 0 6px 6px;font-weight:500;
+}
+
+/* Subtle film-grain / paper texture overlay */
+.grain{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.13 0 0 0 0 0.09 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;opacity:0.45;
+}
+
+.nav{
+  position:relative;z-index:5;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:28px clamp(20px,4vw,72px);
+}
+.nav__brand{
+  font-family:"Fraunces",serif;
+  font-size:22px;font-weight:500;letter-spacing:-0.005em;
+  color:var(--c-charcoal);
+}
+.nav__brand em{
+  font-style:italic;font-weight:300;font-size:13px;
+  color:var(--c-gold-deep);letter-spacing:0.06em;
+  margin-left:6px;
+}
+.nav__links{
+  display:flex;gap:36px;
+  font-size:12px;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--c-charcoal-soft);font-weight:500;
+}
+.nav__links a{color:inherit;text-decoration:none;transition:color 200ms}
+.nav__links a:hover{color:var(--c-gold-deep)}
+.nav__cta{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 20px;
+  background:var(--c-charcoal);color:var(--c-ivory);
+  font-size:12px;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;
+  border-radius:999px;text-decoration:none;
+  transition:transform 200ms;
+}
+.nav__cta:hover{transform:translateY(-1px);background:var(--c-gold-deep)}
+@media (max-width:820px){.nav__links{display:none}}
+
+/* Hero — warm cream world with a wood-paneling band on the right */
+.hero{
+  position:relative;
+  min-height:calc(100vh - 88px);
+  overflow:hidden;
+  background:
+    linear-gradient(180deg,var(--c-ivory) 0%,var(--c-cream-light) 100%);
+}
+
+/* Wood panel column behind the image, like her actual treatment room wall */
+.hero__panel{
+  position:absolute;top:0;right:0;bottom:0;width:42%;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(184,153,120,0.0) 0px,
+      rgba(184,153,120,0.0) 28px,
+      rgba(138,113,72,0.07) 28px,
+      rgba(138,113,72,0.07) 30px
+    ),
+    linear-gradient(180deg,var(--c-wood) 0%,var(--c-wood-deep) 100%);
+}
+.hero__panel::after{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 50% 50% at 30% 30%,rgba(253,248,238,0.18),transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%,rgba(42,33,23,0.18),transparent 60%);
+}
+@media (max-width:900px){.hero__panel{display:none}}
+
+.hero__inner{
+  position:relative;z-index:3;
+  max-width:1320px;margin:0 auto;
+  display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(40px,5vw,80px);
+  align-items:center;
+  padding:clamp(48px,7vw,96px) clamp(20px,4vw,72px);
+}
+@media (max-width:900px){.hero__inner{grid-template-columns:1fr;gap:48px}}
+
+.hero__eyebrow{
+  display:inline-flex;align-items:center;gap:14px;
+  font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--c-gold-deep);font-weight:600;
+  margin:0 0 36px;
+}
+.hero__eyebrow::before{
+  content:"";width:36px;height:1px;background:var(--c-gold);
+}
+.hero__eyebrow::after{
+  content:"";width:36px;height:1px;background:var(--c-gold);
+}
+
+.hero__h1{
+  font-family:"Fraunces",serif;
+  font-weight:500;
+  font-size:clamp(56px,8vw,128px);
+  line-height:0.96;
+  letter-spacing:-0.028em;
+  margin:0 0 28px;
+  color:var(--c-charcoal);
+  /* Make the cut "S" feel handled — slight stylistic alternates */
+  font-feature-settings:"ss01" on, "ss02" on;
+}
+.hero__h1 em{
+  font-style:italic;font-weight:400;
+  color:var(--c-gold-deep);
+  /* echo the logo's italic "BY RACHEL" subtitle weight */
+}
+.hero__h1 .l{display:block}
+
+/* A decorative monogram badge that echoes the logo plaque */
+.hero__monogram{
+  display:inline-flex;flex-direction:column;align-items:center;justify-content:center;
+  width:84px;height:84px;border-radius:999px;
+  background:var(--c-cream);
+  border:1px solid var(--c-charcoal);
+  font-family:"Fraunces",serif;color:var(--c-charcoal);
+  line-height:0.98;text-align:center;
+  margin-bottom:32px;
+  box-shadow:
+    inset 0 0 0 6px var(--c-cream),
+    inset 0 0 0 7px var(--c-charcoal),
+    0 12px 24px -12px rgba(42,33,23,0.18);
+}
+.hero__monogram span:first-child{font-size:14px;font-weight:600;letter-spacing:-0.01em}
+.hero__monogram span:last-child{font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--c-gold-deep);margin-top:2px;font-style:italic}
+
+.hero__sub{
+  font-size:clamp(16px,1.35vw,18px);
+  line-height:1.7;
+  max-width:46ch;
+  color:var(--c-charcoal-soft);
+  margin:0 0 44px;
+}
+.hero__sub em{
+  font-family:"Fraunces",serif;font-style:italic;font-weight:400;
+  color:var(--c-charcoal);
+}
+
+.hero__ctas{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:64px}
+.btn{
+  display:inline-flex;align-items:center;gap:12px;
+  padding:18px 30px;border-radius:999px;
+  font-family:"Inter",sans-serif;font-size:13px;font-weight:500;
+  letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;
+  cursor:pointer;border:1px solid transparent;
+  transition:transform 200ms cubic-bezier(.2,.8,.2,1),background 200ms,color 200ms,border-color 200ms;
+}
+.btn--primary{background:var(--c-charcoal);color:var(--c-ivory)}
+.btn--primary:hover{background:var(--c-gold-deep);transform:translateY(-1px)}
+.btn--ghost{background:transparent;color:var(--c-charcoal);border-color:var(--c-charcoal)}
+.btn--ghost:hover{background:var(--c-charcoal);color:var(--c-ivory)}
+.btn .arr{
+  display:inline-flex;width:14px;height:14px;align-items:center;justify-content:center;
+}
+
+.hero__signature{
+  display:flex;gap:32px;align-items:center;
+  padding-top:32px;border-top:1px solid var(--c-line);
+  font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--c-muted);font-weight:500;
+}
+.hero__signature span{display:flex;align-items:center;gap:8px}
+.hero__signature .dot{
+  width:5px;height:5px;border-radius:999px;background:var(--c-gold);
+  box-shadow:0 0 0 3px rgba(197,160,109,0.18);
+}
+
+/* Hero image — framed treatment room photo */
+.hero__image{
+  position:relative;
+  aspect-ratio:3/4;
+  border-radius:6px;
+  overflow:hidden;
+  box-shadow:
+    0 1px 0 rgba(42,33,23,0.04),
+    0 40px 80px -24px rgba(42,33,23,0.32),
+    0 16px 32px -12px rgba(138,113,72,0.24);
+}
+.hero__image img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:saturate(1.02);
+}
+.hero__image::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 55%,rgba(42,33,23,0.40) 100%);
+  pointer-events:none;
+}
+
+.hero__image__label{
+  position:absolute;bottom:24px;left:24px;right:24px;
+  display:flex;align-items:flex-end;justify-content:space-between;
+  color:var(--c-ivory);z-index:2;
+}
+.hero__image__label .title{
+  font-family:"Fraunces",serif;font-style:italic;font-weight:400;
+  font-size:18px;margin:0 0 4px;
+  letter-spacing:-0.005em;
+}
+.hero__image__label .meta{
+  font-size:10px;letter-spacing:0.18em;text-transform:uppercase;
+  color:rgba(253,248,238,0.85);font-weight:500;
+}
+.hero__image__label .est{
+  font-family:"Fraunces",serif;font-style:italic;font-size:13px;
+  color:var(--c-gold);
+}
+
+/* Decorative line ornament — like the dashes around "BY RACHEL" in logo */
+.flourish{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:"Fraunces",serif;font-style:italic;font-weight:300;
+  color:var(--c-gold-deep);font-size:14px;
+  margin-bottom:24px;
+}
+.flourish::before,.flourish::after{
+  content:"";display:inline-block;width:24px;height:1px;background:var(--c-gold);
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="tag">Direction C · The Den</div>
+
+<nav class="nav">
+  <div class="nav__brand">The Skin Den <em>by Rachel</em></div>
+  <div class="nav__links">
+    <a href="#treatments">Treatments</a>
+    <a href="#about">About</a>
+    <a href="#results">Results</a>
+    <a href="#reviews">Reviews</a>
+  </div>
+  <a class="nav__cta" href="#book">Book a consultation →</a>
+</nav>
+
+<section class="hero">
+  <div class="hero__panel"></div>
+
+  <div class="hero__inner">
+    <div>
+      <div class="hero__monogram" aria-label="The Skin Den monogram">
+        <span>tsd</span>
+        <span>· by rachel ·</span>
+      </div>
+
+      <p class="hero__eyebrow">VTCT Qualified · Acne Specialist · Carlisle</p>
+
+      <h1 class="hero__h1">
+        <span class="l">Skin that</span>
+        <span class="l"><em>performs.</em></span>
+        <span class="l">Not pampering.</span>
+      </h1>
+
+      <p class="hero__sub">
+        A quiet, considered skincare studio in Carlisle —
+        <em>advanced facials, regenerative treatments,</em>
+        and an acne specialist who treats the cause, not the surface.
+        Every appointment begins with a personalised plan.
+      </p>
+
+      <div class="hero__ctas">
+        <a class="btn btn--primary" href="#book">Book a consultation <span class="arr">→</span></a>
+        <a class="btn btn--ghost" href="#treatments">View treatments</a>
+      </div>
+
+      <div class="hero__signature">
+        <span><span class="dot"></span> 13 treatments</span>
+        <span><span class="dot"></span> 1.6k on Instagram</span>
+        <span><span class="dot"></span> Carlisle · CA3</span>
+      </div>
+    </div>
+
+    <div class="hero__image">
+      <img src="/brand_assets/fb_cover.jpg" alt="The Skin Den treatment room with cream wood panelling and signature plaque">
+      <div class="hero__image__label">
+        <div>
+          <p class="title">The studio</p>
+          <p class="meta">73 Greymoor Way · Carlisle</p>
+        </div>
+        <div class="est">Est. 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#FDF8EE">
+<title>Booking Policy · The Skin Den</title>
+<meta name="description" content="The Skin Den's booking, cancellation and privacy policy. 50% deposit secures every booking; cancellation tiers at 48h, 24h and no-show.">
+<link rel="canonical" href="https://theskinden.co.uk/policy.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tokens.css">
+
+<style>
+  *,*::before,*::after { box-sizing: border-box; }
+  html,body { margin:0; padding:0; }
+  body { background: var(--c-bg); color: var(--c-text); font-family: var(--font-sans); font-weight: 400; line-height: var(--lh-relaxed); -webkit-font-smoothing: antialiased; }
+  a { color: var(--c-gold-deep); text-decoration: none; border-bottom: 1px solid var(--c-gold); transition: color var(--d-fast); }
+  a:hover { color: var(--c-charcoal); }
+  img { max-width: 100%; height: auto; }
+
+  .grain { position: fixed; inset: 0; z-index: 1; pointer-events: none; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.13 0 0 0 0 0.09 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); mix-blend-mode: multiply; opacity: 0.42; }
+
+  .nav { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(10px); background: rgba(253, 248, 238, 0.85); border-bottom: 1px solid var(--c-line-soft); }
+  .nav__inner { display: flex; align-items: center; justify-content: space-between; padding: 18px var(--section-x); max-width: var(--container-max); margin-inline: auto; }
+  .nav__brand { font-family: var(--font-serif); font-size: 20px; font-weight: 500; color: var(--c-charcoal); text-decoration: none; border-bottom: none; }
+  .nav__brand em { font-style: italic; font-weight: 300; font-size: 12px; color: var(--c-gold-deep); letter-spacing: 0.06em; margin-left: 6px; }
+  .nav__back { font-size: var(--fs-micro); letter-spacing: var(--ls-wider); text-transform: uppercase; color: var(--c-charcoal-soft); border-bottom: none; }
+  .nav__back:hover { color: var(--c-gold-deep); }
+
+  .container { max-width: 820px; margin-inline: auto; padding: clamp(48px, 8vw, 120px) var(--section-x) var(--s-20); }
+
+  .eyebrow { display: inline-flex; align-items: center; gap: 14px; font-size: var(--fs-micro); letter-spacing: var(--ls-widest); text-transform: uppercase; color: var(--c-gold-deep); font-weight: 600; margin-bottom: var(--s-6); }
+  .eyebrow::before, .eyebrow::after { content:""; display:inline-block; width:36px; height:1px; background:var(--c-gold); }
+
+  h1 { font-family: var(--font-serif); font-weight: 500; font-size: clamp(40px, 5vw, 64px); line-height: 1.05; letter-spacing: -0.02em; color: var(--c-charcoal); margin: 0 0 var(--s-4); }
+  h1 em { font-style: italic; color: var(--c-gold-deep); font-weight: 400; }
+  h2 { font-family: var(--font-serif); font-weight: 500; font-size: clamp(24px, 2.6vw, 32px); color: var(--c-charcoal); margin: var(--s-12) 0 var(--s-4); letter-spacing: -0.01em; }
+  h3 { font-family: var(--font-serif); font-weight: 600; font-size: clamp(18px, 1.6vw, 20px); color: var(--c-charcoal); margin: var(--s-6) 0 var(--s-3); }
+
+  .effective { display: inline-block; padding: 6px 14px; background: var(--c-cream); border: 1px solid var(--c-line); border-radius: var(--r-pill); font-size: var(--fs-tiny); letter-spacing: var(--ls-wider); text-transform: uppercase; color: var(--c-charcoal-soft); font-weight: 500; margin-bottom: var(--s-8); }
+
+  .lead { font-size: 19px; line-height: 1.7; color: var(--c-charcoal-soft); margin: var(--s-6) 0 var(--s-12); font-family: var(--font-serif); font-style: italic; max-width: 60ch; }
+
+  p { font-size: 16px; line-height: 1.75; color: var(--c-charcoal-soft); margin: var(--s-3) 0; max-width: 65ch; }
+  p strong { color: var(--c-charcoal); font-weight: 600; }
+
+  .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-4); margin: var(--s-6) 0; }
+  @media (max-width: 700px) { .tiers { grid-template-columns: 1fr; } }
+  .tier { padding: var(--s-6); background: var(--c-surface); border-radius: var(--r-md); border-left: 3px solid var(--c-gold); }
+  .tier__h { font-family: var(--font-serif); font-size: 22px; font-weight: 600; color: var(--c-gold-deep); margin: 0 0 var(--s-2); }
+  .tier__p { font-size: 14px; color: var(--c-charcoal-soft); line-height: 1.55; margin: 0; }
+
+  .callout { padding: var(--s-8); background: var(--c-cream); border: 1px solid var(--c-line); border-radius: var(--r-md); margin: var(--s-8) 0; }
+  .callout p:first-child { margin-top: 0; }
+  .callout p:last-child { margin-bottom: 0; }
+
+  ul { padding-left: 0; list-style: none; margin: var(--s-4) 0; }
+  ul li { position: relative; padding-left: 24px; margin: var(--s-2) 0; font-size: 16px; line-height: 1.7; color: var(--c-charcoal-soft); max-width: 65ch; }
+  ul li::before { content: "—"; position: absolute; left: 0; color: var(--c-gold); font-weight: 600; }
+
+  hr { border: none; height: 1px; background: var(--c-line); margin: var(--s-12) 0; }
+
+  .footer-cta { margin-top: var(--s-20); padding: var(--s-12) var(--s-8); background: var(--c-charcoal); color: var(--c-ivory); border-radius: var(--r-lg); text-align: center; }
+  .footer-cta h3 { font-family: var(--font-serif); font-size: clamp(24px, 3vw, 36px); color: var(--c-ivory); margin: 0 0 var(--s-4); font-weight: 500; }
+  .footer-cta p { color: rgba(253,248,238,0.7); margin: 0 auto var(--s-6); max-width: 50ch; }
+  .footer-cta a.cta { display: inline-flex; align-items: center; gap: 12px; padding: 16px 28px; background: var(--c-gold); color: var(--c-charcoal); border-radius: var(--r-pill); font-size: 13px; font-weight: 600; letter-spacing: var(--ls-wider); text-transform: uppercase; border-bottom: none; transition: all var(--d-normal); }
+  .footer-cta a.cta:hover { background: var(--c-ivory); transform: translateY(-1px); }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a class="nav__brand" href="/">The Skin Den <em>by Rachel</em></a>
+    <a class="nav__back" href="/">← Back to site</a>
+  </div>
+</nav>
+
+<main class="container">
+  <p class="eyebrow">Policy</p>
+  <h1>Booking & cancellation <em>policy</em>.</h1>
+  <p class="lead">A small, considered studio means every appointment is a held slot — these policies make sure that slot is honoured, and that I can keep doing this work the way I want to do it.</p>
+
+  <span class="effective">Effective 1st January 2026</span>
+
+  <p>At The Skin Den, I truly value your custom and kindly ask that you respect my scheduling policies. These updates ensure fairness, protect my time, and support the smooth running of my small business. Please read through before booking — by securing an appointment, you agree to the terms below.</p>
+
+  <h2>Deposits</h2>
+  <p>For <strong>first-time clients, a 50% deposit is required</strong> to secure your booking. Deposits are deducted from your treatment total on the day. Returning clients may book without a deposit at my discretion — repeated late cancellations or no-shows will move you back onto the deposit list.</p>
+
+  <h2>Cancellations</h2>
+  <p>Cancellations are tiered by notice given. The fee is charged against the deposit (or invoiced separately for returning clients without a deposit on file):</p>
+
+  <div class="tiers">
+    <div class="tier">
+      <p class="tier__h">48+ hours</p>
+      <p class="tier__p">Free reschedule or full deposit refund.</p>
+    </div>
+    <div class="tier">
+      <p class="tier__h">&lt; 48 hours</p>
+      <p class="tier__p">50% of the treatment fee.</p>
+    </div>
+    <div class="tier">
+      <p class="tier__h">&lt; 24h / no-show</p>
+      <p class="tier__p">100% of the treatment fee.</p>
+    </div>
+  </div>
+
+  <h2>Why this policy matters</h2>
+  <p>Over recent months, there has been an increase in last-minute cancellations. This has a direct impact on my business — treatment time is lost and the slot often cannot be filled at short notice.</p>
+  <p>I completely understand that emergencies happen, and I always aim to be understanding — but <strong>notice is essential</strong> so the appointment can be offered to another client who's waiting.</p>
+
+  <h2>Late arrivals</h2>
+  <p>If you arrive more than 15 minutes late, your treatment may need to be shortened to keep the day on schedule — the full treatment fee still applies. If lateness means the treatment can't be done safely or to standard, it will be rescheduled and treated as a late cancellation.</p>
+
+  <h2>Suitability & medical disclosure</h2>
+  <p>Please always disclose pregnancy, breastfeeding, active skin conditions, recent surgery, recent injectables, and any medications when booking — particularly retinoids, steroids, anticoagulants and isotretinoin (Roaccutane). Some treatments are contraindicated; there's almost always a safe alternative we can plan together at consultation.</p>
+  <p>If you withhold information that puts safety or treatment results at risk, the appointment may be cancelled on the day at the full treatment fee.</p>
+
+  <h2>Children & guests</h2>
+  <p>The studio is set up for one client at a time, in a calm and uninterrupted space. Please don't bring children or additional guests to your appointment — there isn't space to safely accommodate them.</p>
+
+  <h2>Rescheduling</h2>
+  <p>You can reschedule freely with 48+ hours notice — your deposit moves with you to the new date. Inside 48 hours, the cancellation fees above apply, and a fresh deposit will be needed for the new slot.</p>
+
+  <div class="callout">
+    <p><strong>Thank you for understanding.</strong> This policy ensures that appointments run smoothly and allows me to maintain a fair and reliable service for all clients at The Skin Den.</p>
+  </div>
+
+  <hr>
+
+  <h2 id="privacy">Privacy</h2>
+  <p>The Skin Den is a sole-trader business owned and operated by Rachel in Carlisle, Cumbria. We collect the minimum personal information needed to deliver treatment and contact you about your bookings.</p>
+  <h3>What we collect</h3>
+  <ul>
+    <li>Name, phone number, email and (where given) date of birth — for booking and contact.</li>
+    <li>Skin and medical history disclosed at consultation — used solely to plan safe, effective treatment.</li>
+    <li>Before-and-after photographs — only with your explicit consent at the time, and only used as agreed (e.g. in-clinic record only, or marketing with permission).</li>
+    <li>Card or bank details for deposit collection — handled by our payment provider, never stored on our systems.</li>
+    <li>Messages exchanged via WhatsApp, Instagram and email — retained as needed for service continuity.</li>
+  </ul>
+  <h3>How we use it</h3>
+  <p>Personal information is used to: confirm bookings, send reminders, deliver and record treatment safely, process payments, and respond to your enquiries. We never sell your information to third parties.</p>
+  <h3>How long we keep it</h3>
+  <p>Treatment records are retained for 7 years from your last appointment, in line with UK insurance and professional standards. You can request access, correction or deletion of your personal information at any time by messaging the studio.</p>
+  <h3>Cookies & analytics</h3>
+  <p>The website uses minimal first-party analytics (page views, device type) to understand how the site is used. No personally-identifiable advertising trackers are used. By using this site, you consent to this limited analytics collection.</p>
+
+  <hr>
+
+  <h2 id="terms">Terms of service</h2>
+  <p>By booking an appointment at The Skin Den, you confirm that:</p>
+  <ul>
+    <li>You are 18 or over (treatments are not offered to under-18s).</li>
+    <li>You've read and accepted the cancellation policy above.</li>
+    <li>The information you've disclosed about your skin, health and medication is accurate and complete to the best of your knowledge.</li>
+    <li>You understand results vary between individuals — Rachel will give an honest assessment of what's realistic at consultation.</li>
+    <li>You'll follow agreed home-care and post-treatment guidance to give the work the best chance of success.</li>
+  </ul>
+  <p>The Skin Den is fully insured and VTCT qualified. All treatments are delivered following the standards set by the relevant qualifying bodies. If anything about a treatment or product concerns you, please raise it with Rachel directly so it can be put right.</p>
+
+  <div class="footer-cta">
+    <h3>Questions about any of this?</h3>
+    <p>Message Rachel directly — every enquiry is replied to personally.</p>
+    <a class="cta" href="https://wa.me/447568602861?text=Hi%20Rachel%2C%20I%20have%20a%20question%20about%20your%20booking%20policy" target="_blank" rel="noopener">WhatsApp Rachel →</a>
+  </div>
+
+</main>
+
+</body>
+</html>

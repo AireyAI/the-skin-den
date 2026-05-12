@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Don't index helpers, scrapes, or scratch files
+Disallow: /brand_assets/scrape/
+Disallow: /design_mocks/
+Disallow: /temporary*/
+Disallow: /node_modules/
+
+Sitemap: https://theskinden.co.uk/sitemap.xml

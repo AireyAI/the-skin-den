@@ -16,9 +16,9 @@
   const SITE_NAME   = 'Your Business Name';
   const BRAND = {
     brandColor:   '#EC0A7E',
-    brandLogoUrl: 'https://aireyai.github.io/your-slug/brand_assets/logo.jpeg',
+    brandLogoUrl: 'https://aireyai.github.io/the-skin-den/brand_assets/logo.jpeg',
     brandTagline: 'Tagline · Goes · Here',
-    siteUrl:      'https://aireyai.github.io/your-slug/',
+    siteUrl:      'https://aireyai.github.io/the-skin-den/',
     location:     'Your Street Address, Your City PC1 1PC (above Landmark Name)',
     mapUrl:       'https://www.google.com/maps/search/?api=1&query=1+Lonsdale+Street+Your City+CA1+1BJ'
   };

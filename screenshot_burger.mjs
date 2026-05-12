@@ -1,0 +1,11 @@
+import puppeteer from 'puppeteer';
+const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+const page = await browser.newPage();
+await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
+await page.goto('http://localhost:3000/studio.html', { waitUntil: 'networkidle2', timeout: 30000 });
+await new Promise(r => setTimeout(r, 1500));
+await page.evaluate(() => document.getElementById('burger').click());
+await new Promise(r => setTimeout(r, 800));
+await page.screenshot({ path: './temporary screenshots/v6m-burger-open.png', fullPage: false });
+await browser.close();
+console.log('burger screenshot saved');

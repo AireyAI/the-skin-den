@@ -1,0 +1,146 @@
+/*
+ * The Skin Den — Design Tokens
+ * Derived from her real brand assets (logo plaque + treatment room + IG price list)
+ * Locked 2026-05-11. Do not change without updating the constitution.
+ */
+
+:root {
+  /* ── Palette ──────────────────────────────────────────────────────────── */
+  /* Pulled directly from her circular logo plaque + wood-panelled studio   */
+
+  --c-charcoal:        #2A2117;       /* logo text colour */
+  --c-charcoal-soft:   #3D3225;
+  --c-text:            var(--c-charcoal);
+  --c-text-muted:      #7A6B58;
+  --c-text-subtle:     #A89C8A;
+
+  --c-cream:           #F5EBDA;       /* logo plaque cream */
+  --c-cream-light:     #FAF3E5;
+  --c-ivory:           #FDF8EE;       /* page background */
+  --c-bg:              var(--c-ivory);
+  --c-surface:         var(--c-cream-light);
+  --c-surface-elev:    #FFFFFF;
+
+  --c-wood:            #D4B896;       /* wood-panel wall */
+  --c-wood-deep:       #B89978;
+  --c-wood-shadow:     #8A7148;
+
+  --c-gold:            #C5A06D;       /* her IG price-list gold accent */
+  --c-gold-deep:       #8A7148;
+  --c-gold-soft:       #DDC59B;
+
+  --c-sage:            #A8B5A0;       /* secondary accent (optional) */
+  --c-sage-deep:       #7E8E76;
+
+  --c-line:            rgba(42, 33, 23, 0.10);
+  --c-line-soft:       rgba(42, 33, 23, 0.06);
+  --c-line-strong:     rgba(42, 33, 23, 0.20);
+
+  /* ── Typography ───────────────────────────────────────────────────────── */
+
+  --font-serif:        "Fraunces", "Times New Roman", Georgia, serif;
+  --font-sans:         "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --fs-display:        clamp(56px, 8vw, 128px);   /* hero h1 */
+  --fs-h1:             clamp(40px, 5vw, 72px);    /* section h1 */
+  --fs-h2:             clamp(28px, 3.5vw, 44px);  /* section h2 */
+  --fs-h3:             clamp(22px, 2.5vw, 32px);  /* subhead */
+  --fs-h4:             clamp(18px, 1.8vw, 22px);
+  --fs-h5:             clamp(15px, 1.4vw, 17px);
+
+  --fs-body-lg:        clamp(17px, 1.4vw, 19px);
+  --fs-body:           16px;
+  --fs-small:          14px;
+  --fs-tiny:           12px;
+  --fs-micro:          11px;
+
+  --lh-tight:          0.96;
+  --lh-snug:           1.2;
+  --lh-normal:         1.55;
+  --lh-relaxed:        1.7;
+
+  --ls-display:        -0.028em;
+  --ls-tight:          -0.015em;
+  --ls-normal:         0;
+  --ls-wide:           0.05em;
+  --ls-wider:          0.12em;
+  --ls-widest:         0.22em;
+
+  /* ── Spacing (4px grid) ───────────────────────────────────────────────── */
+
+  --s-0:               0;
+  --s-1:               4px;
+  --s-2:               8px;
+  --s-3:               12px;
+  --s-4:               16px;
+  --s-5:               20px;
+  --s-6:               24px;
+  --s-8:               32px;
+  --s-10:              40px;
+  --s-12:              48px;
+  --s-16:              64px;
+  --s-20:              80px;
+  --s-24:              96px;
+  --s-32:              128px;
+  --s-40:              160px;
+
+  --section-y:         clamp(64px, 9vw, 144px);
+  --section-x:         clamp(20px, 4vw, 72px);
+  --container-max:     1320px;
+
+  /* ── Radii ────────────────────────────────────────────────────────────── */
+
+  --r-sm:              4px;
+  --r-md:              8px;
+  --r-lg:              14px;
+  --r-xl:              22px;
+  --r-pill:            999px;
+
+  /* ── Shadows (layered, tinted with brand colours) ─────────────────────── */
+
+  --sh-sm:
+    0 1px 0 rgba(42, 33, 23, 0.04),
+    0 2px 6px -2px rgba(42, 33, 23, 0.08);
+  --sh-md:
+    0 1px 0 rgba(42, 33, 23, 0.04),
+    0 8px 24px -8px rgba(42, 33, 23, 0.14),
+    0 4px 8px -4px rgba(138, 113, 72, 0.10);
+  --sh-lg:
+    0 1px 0 rgba(42, 33, 23, 0.04),
+    0 24px 64px -16px rgba(42, 33, 23, 0.22),
+    0 12px 24px -8px rgba(138, 113, 72, 0.18);
+  --sh-xl:
+    0 1px 0 rgba(42, 33, 23, 0.05),
+    0 40px 80px -24px rgba(42, 33, 23, 0.30),
+    0 16px 32px -12px rgba(138, 113, 72, 0.24);
+  --sh-gold:
+    0 12px 24px -8px rgba(197, 160, 109, 0.42);
+
+  /* ── Motion ───────────────────────────────────────────────────────────── */
+
+  --ease-out:          cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring:       cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out:       cubic-bezier(0.65, 0, 0.35, 1);
+  --d-fast:            150ms;
+  --d-normal:          250ms;
+  --d-slow:            400ms;
+
+  /* ── Layers ───────────────────────────────────────────────────────────── */
+
+  --z-base:            1;
+  --z-elev:            10;
+  --z-nav:             50;
+  --z-overlay:         100;
+  --z-modal:           200;
+  --z-toast:           300;
+}
+
+/* ── Reduced-motion respect ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --d-fast: 1ms;
+    --d-normal: 1ms;
+    --d-slow: 1ms;
+  }
+  *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
+}

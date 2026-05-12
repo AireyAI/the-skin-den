@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Direction B · Warm Clinical · The Skin Den</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --c-primary:#C5A06D;
+  --c-primary-dark:#8A7148;
+  --c-primary-deep:#5C4A30;
+  --c-bg:#0F0D0B;        /* deep charcoal */
+  --c-surface:#F5EFE6;   /* cream */
+  --c-cream:#FAF7F2;
+  --c-text:#FAF7F2;
+  --c-text-dark:#2A2520;
+  --c-muted:rgba(250,247,242,0.62);
+  --c-line:rgba(250,247,242,0.12);
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--c-bg);
+  color:var(--c-text);
+  font-family:"DM Sans",system-ui,sans-serif;
+  font-weight:400;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+
+.tag{
+  position:absolute;top:0;right:24px;z-index:50;
+  background:var(--c-primary);color:var(--c-text-dark);
+  padding:8px 16px;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;font-weight:600;
+  border-radius:0 0 8px 8px;
+}
+.tag::before{content:"●";font-size:9px}
+
+.nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:24px clamp(20px,4vw,56px);
+  position:absolute;top:0;left:0;right:0;z-index:10;
+}
+.nav__brand{
+  font-family:"DM Serif Display",serif;
+  font-size:22px;font-weight:400;letter-spacing:-0.01em;
+  color:var(--c-cream);
+}
+.nav__brand em{font-style:italic;color:var(--c-primary);font-size:14px;margin-left:8px;letter-spacing:0.02em}
+.nav__links{display:flex;gap:32px;font-size:13px;color:var(--c-muted);text-transform:uppercase;letter-spacing:0.1em;font-weight:500}
+.nav__links a{color:inherit;text-decoration:none}
+.nav__links a:hover{color:var(--c-cream)}
+.nav__cta{
+  padding:10px 18px;border:1px solid var(--c-primary);color:var(--c-primary);
+  border-radius:999px;text-decoration:none;font-size:13px;letter-spacing:0.06em;
+  text-transform:uppercase;font-weight:500;
+  transition:all 200ms;
+}
+.nav__cta:hover{background:var(--c-primary);color:var(--c-text-dark)}
+@media (max-width:720px){.nav__links{display:none}}
+
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:grid;grid-template-columns:1.05fr 1fr;
+  overflow:hidden;
+}
+@media (max-width:900px){.hero{grid-template-columns:1fr;grid-template-rows:auto 1fr}}
+
+.hero__left{
+  padding:clamp(120px,12vw,180px) clamp(28px,5vw,72px) clamp(56px,8vw,96px);
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;
+  background:
+    radial-gradient(ellipse 80% 60% at 0% 100%, rgba(197,160,109,0.18), transparent 65%),
+    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(92,74,48,0.30), transparent 70%),
+    var(--c-bg);
+}
+.hero__left::before{
+  content:"";position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.97 0 0 0 0 0.97 0 0 0 0 0.95 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:0.5;mix-blend-mode:overlay;pointer-events:none;
+}
+
+.hero__eyebrow{
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--c-primary);font-weight:600;
+  margin:0 0 32px;
+  padding:8px 16px 8px 12px;border:1px solid var(--c-primary);
+  border-radius:999px;align-self:flex-start;
+}
+.hero__eyebrow::before{content:"";width:6px;height:6px;border-radius:999px;background:var(--c-primary);box-shadow:0 0 12px rgba(197,160,109,0.8)}
+
+.hero__h1{
+  font-family:"DM Serif Display",serif;
+  font-weight:400;
+  font-size:clamp(56px,9vw,140px);
+  line-height:0.92;
+  letter-spacing:-0.035em;
+  margin:0 0 28px;
+  color:var(--c-cream);
+}
+.hero__h1 em{font-style:italic;color:var(--c-primary);font-weight:400}
+.hero__h1 .l{display:block}
+
+.hero__sub{
+  font-size:clamp(17px,1.5vw,20px);
+  line-height:1.55;
+  max-width:50ch;
+  color:var(--c-muted);
+  margin:0 0 44px;
+}
+.hero__sub strong{color:var(--c-cream);font-weight:500}
+
+.hero__ctas{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:64px}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:18px 28px;
+  font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;
+  letter-spacing:0.05em;text-transform:uppercase;
+  text-decoration:none;border:1px solid transparent;
+  cursor:pointer;
+  transition:all 220ms cubic-bezier(.2,.8,.2,1);
+}
+.btn--primary{background:var(--c-primary);color:var(--c-text-dark);border-radius:999px}
+.btn--primary:hover{background:var(--c-cream);transform:translateY(-2px);box-shadow:0 12px 24px -8px rgba(197,160,109,0.4)}
+.btn--ghost{background:transparent;color:var(--c-cream);border:1px solid var(--c-line);border-radius:999px}
+.btn--ghost:hover{border-color:var(--c-cream)}
+
+.hero__stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  padding-top:32px;border-top:1px solid var(--c-line);
+}
+.stat__num{
+  font-family:"DM Serif Display",serif;
+  font-size:clamp(28px,3.5vw,40px);line-height:1;
+  color:var(--c-cream);
+  margin:0 0 8px;
+}
+.stat__num em{font-style:italic;color:var(--c-primary)}
+.stat__label{
+  font-size:11px;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--c-muted);font-weight:500;
+}
+
+.hero__right{
+  position:relative;
+  background:var(--c-primary-deep);
+  overflow:hidden;
+}
+.hero__right img{
+  width:100%;height:100%;object-fit:cover;
+  filter:saturate(1.05) contrast(1.05);
+}
+.hero__right::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(120deg,rgba(15,13,11,0.40) 0%,transparent 35%,transparent 65%,rgba(15,13,11,0.45) 100%);
+  pointer-events:none;
+}
+
+.hero__plaque{
+  position:absolute;bottom:40px;left:40px;right:40px;
+  display:flex;align-items:flex-end;justify-content:space-between;
+  color:var(--c-cream);
+  z-index:2;
+}
+.hero__plaque__title{
+  font-family:"DM Serif Display",serif;font-style:italic;
+  font-size:20px;font-weight:400;
+  margin:0 0 6px;
+}
+.hero__plaque__detail{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(250,247,242,0.7);font-weight:500}
+.hero__plaque__est{
+  text-align:right;
+  font-family:"DM Serif Display",serif;font-style:italic;font-size:14px;
+  color:var(--c-primary);
+}
+
+.scroll{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  z-index:5;display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:var(--c-muted);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;
+}
+.scroll::after{content:"";width:1px;height:32px;background:linear-gradient(180deg,var(--c-primary),transparent)}
+@media (max-width:900px){.scroll{display:none}}
+</style>
+</head>
+<body>
+
+<div class="tag">Direction B · Warm Clinical</div>
+
+<nav class="nav">
+  <div class="nav__brand">The Skin Den <em>by Rachel</em></div>
+  <div class="nav__links">
+    <a href="#treatments">Treatments</a>
+    <a href="#about">About</a>
+    <a href="#results">Results</a>
+    <a href="#reviews">Reviews</a>
+  </div>
+  <a class="nav__cta" href="#book">Book a consultation</a>
+</nav>
+
+<section class="hero">
+  <div class="hero__left">
+    <p class="hero__eyebrow">VTCT Qualified · Acne Specialist · Carlisle</p>
+    <h1 class="hero__h1">
+      <span class="l">Skin that</span>
+      <span class="l"><em>performs.</em></span>
+      <span class="l">Not pampering.</span>
+    </h1>
+    <p class="hero__sub">
+      Advanced, results-driven skincare in Carlisle.
+      <strong>Personalised treatment plans</strong>,
+      regenerative skin work, and an acne specialist who treats
+      the cause — not the surface.
+    </p>
+    <div class="hero__ctas">
+      <a class="btn btn--primary" href="#book">Book a consultation →</a>
+      <a class="btn btn--ghost" href="#treatments">View treatments</a>
+    </div>
+    <div class="hero__stats">
+      <div>
+        <p class="stat__num">13<em>+</em></p>
+        <p class="stat__label">Treatments</p>
+      </div>
+      <div>
+        <p class="stat__num">1.6<em>k</em></p>
+        <p class="stat__label">Instagram</p>
+      </div>
+      <div>
+        <p class="stat__num">100<em>%</em></p>
+        <p class="stat__label">Results-led</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__right">
+    <img src="/brand_assets/fb_cover.jpg" alt="The Skin Den treatment room with branded plaque">
+    <div class="hero__plaque">
+      <div>
+        <p class="hero__plaque__title">The studio</p>
+        <p class="hero__plaque__detail">73 Greymoor Way · Carlisle · CA3</p>
+      </div>
+      <div class="hero__plaque__est">Est. 2025</div>
+    </div>
+  </div>
+
+  <div class="scroll">Scroll</div>
+</section>
+
+</body>
+</html>

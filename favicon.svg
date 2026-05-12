@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <style>
+      .plate { fill: #F5EBDA; }
+      .ring  { fill: none; stroke: #2A2117; stroke-width: 2; }
+      .ring-inner { fill: none; stroke: #2A2117; stroke-width: 1; }
+      .text  { fill: #2A2117; font-family: "Fraunces", "Times New Roman", serif; font-weight: 700; }
+      .accent { fill: #8A7148; font-family: "Fraunces", "Times New Roman", serif; font-style: italic; }
+    </style>
+  </defs>
+  <circle class="plate" cx="32" cy="32" r="30"/>
+  <circle class="ring" cx="32" cy="32" r="29.5"/>
+  <circle class="ring-inner" cx="32" cy="32" r="26"/>
+  <!-- Stacked letters: T S D -->
+  <text class="text" x="32" y="29" text-anchor="middle" font-size="13" letter-spacing="-0.5">The Skin</text>
+  <text class="text" x="32" y="44" text-anchor="middle" font-size="17" letter-spacing="-1">Den</text>
+  <text class="accent" x="32" y="54" text-anchor="middle" font-size="5" letter-spacing="1.2">· BY RACHEL ·</text>
+</svg>
