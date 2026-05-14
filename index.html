@@ -5,18 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0F0C08">
 
-<script>
-  // Returning-visitor short-circuit: if they saw the intro in the last 30 days,
-  // redirect to studio.html before paint. New + lapsed visitors get the full cinematic.
-  // Override with ?intro=1 in the URL.
-  (function () {
-    try {
-      if (new URLSearchParams(location.search).has('intro')) return;
-      var last = parseInt(localStorage.getItem('tsd-intro-seen') || '0', 10);
-      if (last && Date.now() - last < 2592000000) location.replace('studio.html');
-    } catch (_) {}
-  })();
-</script>
 <title>Welcome · The Skin Den · Carlisle</title>
 <meta name="description" content="Welcome to The Skin Den — Carlisle's advanced skincare and acne specialist studio. Step inside.">
 <link rel="canonical" href="https://aireyai.github.io/the-skin-den/">
@@ -344,10 +332,6 @@
     }
   });
 
-  // Mark intro as "seen" after 4s on page (filters out drive-by closes that don't watch)
-  setTimeout(() => {
-    try { localStorage.setItem('tsd-intro-seen', String(Date.now())); } catch (_) {}
-  }, 4000);
 </script>
 
 </body>
