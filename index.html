@@ -237,7 +237,8 @@
   <!-- Poster is always-visible LCP element; video lazy-loads + fades in after page paint -->
   <img class="stage__bg-img" src="brand_assets/fb_cover.jpg" alt="" fetchpriority="high">
   <video class="stage__bg-video"
-         muted loop playsinline preload="none"
+         muted loop playsinline webkit-playsinline preload="none"
+         disablepictureinpicture disableremoteplayback
          data-src="brand_assets/video/welcome-loop.mp4"
          aria-hidden="true"></video>
 
@@ -288,17 +289,24 @@
     if (skip) skip.addEventListener('click', (e) => fadeAndGo(e, skip.href));
   })();
 
-  // Lazy-load welcome video AFTER first paint — poster image wins LCP, video fades in
+  // Lazy-load welcome video AFTER first paint — poster image wins LCP, video fades in.
+  // iOS Safari sometimes fires "play" but not "playing" for muted+playsinline videos,
+  // so trigger visibility on the first of several events.
   (function () {
     const v = document.querySelector('.stage__bg-video');
     if (!v) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let revealed = false;
+    const reveal = () => { if (!revealed) { revealed = true; v.classList.add('is-playing'); } };
     const start = () => {
       v.src = v.dataset.src;
       v.load();
+      ['loadeddata', 'canplay', 'playing'].forEach(evt => v.addEventListener(evt, reveal, { once: true }));
+      // Safety net: even if no event fires (extreme iOS edge cases), reveal after 2.5s
+      // as long as the element has buffered data — otherwise the poster stays.
+      setTimeout(() => { if (v.readyState >= 2) reveal(); }, 2500);
       const p = v.play();
       if (p && p.catch) p.catch(() => {});
-      v.addEventListener('playing', () => v.classList.add('is-playing'), { once: true });
     };
     if (document.readyState === 'complete') start();
     else window.addEventListener('load', start);
