@@ -20,12 +20,14 @@
 <meta property="og:image:alt" content="The Skin Den — Acne specialist and skin expert in Carlisle, Cumbria">
 
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="apple-touch-icon" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="brand_assets/fb_cover.jpg" fetchpriority="high">
+<!-- Modern browsers preload the WebP variant (~half the bytes), JPG is the picture fallback below -->
+<link rel="preload" as="image" type="image/webp" href="brand_assets/fb_cover.webp" fetchpriority="high">
 <!-- Pre-warm studio.html so "Enter the studio" transition feels instant -->
 <link rel="prefetch" href="studio.html">
 <link rel="prefetch" href="animations.js">
@@ -234,8 +236,12 @@
 <a class="skip" href="studio.html">Skip intro →</a>
 
 <div class="stage">
-  <!-- Poster is always-visible LCP element; video lazy-loads + fades in after page paint -->
-  <img class="stage__bg-img" src="brand_assets/fb_cover.jpg" alt="" fetchpriority="high">
+  <!-- Poster is always-visible LCP element; video lazy-loads + fades in after page paint.
+       <picture> serves WebP to modern browsers (~half the bytes) with JPG fallback. -->
+  <picture>
+    <source type="image/webp" srcset="brand_assets/fb_cover.webp">
+    <img class="stage__bg-img" src="brand_assets/fb_cover.jpg" alt="" fetchpriority="high">
+  </picture>
   <video class="stage__bg-video"
          muted loop playsinline webkit-playsinline preload="none"
          disablepictureinpicture disableremoteplayback
