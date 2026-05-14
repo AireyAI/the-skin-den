@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="The Skin Den">
 <meta property="og:title" content="The Skin Den · Advanced Skincare & Acne Specialist · Carlisle">
 <meta property="og:description" content="Made to perform. Not to pamper. Personalised plans, advanced treatments, and an acne specialist who treats the cause — not the surface.">
-<meta property="og:image" content="https://aireyai.github.io/the-skin-den/brand_assets/og-image.jpg">
+<meta property="og:image" content="https://theskinden.co.uk/brand_assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="The Skin Den — Acne specialist and skin expert in Carlisle, Cumbria">
@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The Skin Den · Carlisle">
 <meta name="twitter:description" content="Made to perform. Not to pamper.">
-<meta name="twitter:image" content="https://aireyai.github.io/the-skin-den/brand_assets/og-image.jpg">
+<meta name="twitter:image" content="https://theskinden.co.uk/brand_assets/og-image.jpg">
 
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="favicon.svg">
@@ -62,7 +62,7 @@
   "@type": "BeautySalon",
   "name": "The Skin Den",
   "description": "Advanced skincare studio and acne specialist in Carlisle, Cumbria.",
-  "image": "https://aireyai.github.io/the-skin-den/brand_assets/fb_cover.jpg",
+  "image": "https://theskinden.co.uk/brand_assets/fb_cover.jpg",
   "telephone": "+447568602861",
   "priceRange": "££",
   "address": {
@@ -401,8 +401,10 @@
   .treatment__price { font-family: var(--font-serif); font-size: 26px; font-weight: 600; color: var(--c-gold-text); white-space: nowrap; }
   .treatment__desc { color: var(--c-charcoal-soft); font-size: 15px; line-height: var(--lh-relaxed); margin: 0; }
   .treatment__tag { display: inline-block; padding: 4px 10px; background: var(--c-gold-soft); color: var(--c-charcoal); border-radius: var(--r-pill); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; margin-bottom: var(--s-3); }
-  /* max-width keeps the note centered and away from the bottom-right floating button column */
-  .treatments__note { margin: var(--s-10) auto 0; text-align: center; font-family: var(--font-serif); font-style: italic; color: var(--c-text-muted); font-size: 15px; max-width: 560px; padding: 0 var(--s-6); }
+  /* max-width keeps the note centered and away from the bottom-right floating button column.
+     margin-top must absorb the 50px translateY initial state on data-stagger-child cards
+     in case ScrollTrigger doesn't fire (hash-anchor jumps, tab switches). */
+  .treatments__note { margin: var(--s-16) auto 0; text-align: center; font-family: var(--font-serif); font-style: italic; color: var(--c-text-muted); font-size: 15px; max-width: 560px; padding: 0 var(--s-6); }
 
   .gallery__grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-flow: dense; gap: 14px; margin-top: var(--s-10); }
   @media (max-width: 900px) { .gallery__grid { grid-template-columns: repeat(2, 1fr); } }
@@ -1666,6 +1668,27 @@ document.querySelectorAll('[data-tab]').forEach(btn => {
 </script>
 
 <script src="animations.js"></script>
+<script>
+  // Safety net for stagger-child cards getting stuck at translateY(50px):
+  // (a) hash-anchor navigation jumps past the ScrollTrigger before it fires
+  // (b) tab switches reveal cards whose ScrollTrigger never re-evaluates
+  (function () {
+    if (!window.gsap) return;
+    if (window.ScrollTrigger) {
+      window.addEventListener('load', () => {
+        requestAnimationFrame(() => window.ScrollTrigger.refresh());
+      });
+    }
+    document.querySelectorAll('[data-tab]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        requestAnimationFrame(() => {
+          const panel = document.querySelector(`[data-tab-panel="${btn.dataset.tab}"]`);
+          if (panel) gsap.set(panel.querySelectorAll('[data-stagger-child]'), { clearProps: 'transform,opacity' });
+        });
+      });
+    });
+  })();
+</script>
 <script>
   // Wire booking CTAs to open Aria with the right context.
   // Falls back to #book scroll if the chatbot widget hasn't loaded yet.
