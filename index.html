@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0F0C08">
 
+<script>
+  // Returning-visitor short-circuit: if they saw the intro in the last 30 days,
+  // redirect to studio.html before paint. New + lapsed visitors get the full cinematic.
+  // Override with ?intro=1 in the URL.
+  (function () {
+    try {
+      if (new URLSearchParams(location.search).has('intro')) return;
+      var last = parseInt(localStorage.getItem('tsd-intro-seen') || '0', 10);
+      if (last && Date.now() - last < 2592000000) location.replace('studio.html');
+    } catch (_) {}
+  })();
+</script>
 <title>Welcome · The Skin Den · Carlisle</title>
 <meta name="description" content="Welcome to The Skin Den — Carlisle's advanced skincare and acne specialist studio. Step inside.">
 <link rel="canonical" href="https://aireyai.github.io/the-skin-den/">
@@ -26,6 +38,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="brand_assets/fb_cover.jpg" fetchpriority="high">
+<!-- Pre-warm studio.html so "Enter the studio" transition feels instant -->
+<link rel="prefetch" href="studio.html">
+<link rel="prefetch" href="animations.js">
 <link rel="stylesheet" href="tokens.css">
 
 <style>
@@ -200,6 +215,14 @@
   .sound { position: fixed; bottom: 24px; right: 24px; z-index: 5; width: 44px; height: 44px; border-radius: 50%; background: rgba(15, 12, 8, 0.55); border: 1px solid rgba(253, 248, 238, 0.2); color: var(--c-ivory); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(8px); transition: background var(--d-normal), border-color var(--d-normal), transform var(--d-normal); opacity: 0; animation: fadeUp 800ms 2200ms ease forwards; }
   .sound:hover { background: rgba(15, 12, 8, 0.8); border-color: var(--c-gold); transform: scale(1.08); }
   .sound svg { width: 18px; height: 18px; }
+  /* First-visit hint: pulsing ring inviting users to unmute the welcome video */
+  .sound::after { content: ""; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid var(--c-gold); opacity: 0; pointer-events: none; }
+  .sound.is-hinting::after { animation: soundPulse 1.8s ease-out infinite; }
+  .sound.is-on::after, .sound.has-interacted::after { animation: none; opacity: 0; }
+  @keyframes soundPulse {
+    0%   { opacity: 0.85; transform: scale(1); }
+    100% { opacity: 0;    transform: scale(1.55); }
+  }
   .sound__on { display: none; }
   .sound.is-on .sound__on { display: inline; }
   .sound.is-on .sound__off { display: none; }
@@ -293,7 +316,8 @@
     else window.addEventListener('load', start);
   })();
 
-  // Sound toggle — unmute the welcome video on demand
+  // Sound toggle — unmute the welcome video on demand. First-visit pulse hint
+  // teaches users that audio is available; stops on first interaction or 14s.
   (function () {
     const btn = document.getElementById('sound-toggle');
     const video = document.querySelector('.stage__bg-video');
@@ -301,10 +325,29 @@
     btn.addEventListener('click', () => {
       video.muted = !video.muted;
       btn.classList.toggle('is-on', !video.muted);
+      btn.classList.add('has-interacted');
+      btn.classList.remove('is-hinting');
       btn.setAttribute('aria-pressed', String(!video.muted));
       if (!video.muted) video.play().catch(() => {});
     });
+    // Start hinting once the button has faded in (it has 2200ms animation delay)
+    setTimeout(() => btn.classList.add('is-hinting'), 3400);
+    setTimeout(() => btn.classList.remove('is-hinting'), 14000);
   })();
+
+  // Keyboard shortcut: Enter / Space / S to enter the studio
+  document.addEventListener('keydown', (e) => {
+    if (e.target.matches('button, input, textarea, a')) return;
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 's' || e.key === 'S') {
+      e.preventDefault();
+      document.getElementById('enter-cta')?.click();
+    }
+  });
+
+  // Mark intro as "seen" after 4s on page (filters out drive-by closes that don't watch)
+  setTimeout(() => {
+    try { localStorage.setItem('tsd-intro-seen', String(Date.now())); } catch (_) {}
+  }, 4000);
 </script>
 
 </body>
