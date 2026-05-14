@@ -25,6 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="brand_assets/fb_cover.jpg" fetchpriority="high">
 <link rel="stylesheet" href="tokens.css">
 
 <style>
@@ -45,11 +46,18 @@
     display: grid; place-items: center;
   }
 
-  .stage__bg-video, .stage__bg-img {
+  .stage__bg-img, .stage__bg-video {
     position: absolute; inset: 0; width: 100%; height: 100%;
-    object-fit: cover; z-index: 0;
+    object-fit: cover;
     filter: saturate(1.05);
   }
+  .stage__bg-img { z-index: 0; }
+  .stage__bg-video {
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .stage__bg-video.is-playing { opacity: 1; }
 
   .stage__veil {
     position: absolute; inset: 0; z-index: 1; pointer-events: none;
@@ -215,15 +223,12 @@
 <a class="skip" href="studio.html">Skip intro →</a>
 
 <div class="stage">
-  <!-- Video first (fallback to poster image if video fails or is loading) -->
+  <!-- Poster is always-visible LCP element; video lazy-loads + fades in after page paint -->
+  <img class="stage__bg-img" src="brand_assets/fb_cover.jpg" alt="" fetchpriority="high">
   <video class="stage__bg-video"
-         autoplay muted loop playsinline preload="auto"
-         poster="brand_assets/fb_cover.jpg"
-         aria-hidden="true"
-         onerror="this.style.display='none'; document.querySelector('.stage__bg-img').style.display='block';">
-    <source src="brand_assets/video/welcome-loop.mp4" type="video/mp4">
-  </video>
-  <img class="stage__bg-img" src="brand_assets/fb_cover.jpg" alt="" style="display:none;">
+         muted loop playsinline preload="none"
+         data-src="brand_assets/video/welcome-loop.mp4"
+         aria-hidden="true"></video>
 
   <div class="stage__veil"></div>
   <div class="stage__grain"></div>
@@ -270,6 +275,22 @@
     }
     if (enter) enter.addEventListener('click', (e) => fadeAndGo(e, enter.href));
     if (skip) skip.addEventListener('click', (e) => fadeAndGo(e, skip.href));
+  })();
+
+  // Lazy-load welcome video AFTER first paint — poster image wins LCP, video fades in
+  (function () {
+    const v = document.querySelector('.stage__bg-video');
+    if (!v) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const start = () => {
+      v.src = v.dataset.src;
+      v.load();
+      const p = v.play();
+      if (p && p.catch) p.catch(() => {});
+      v.addEventListener('playing', () => v.classList.add('is-playing'), { once: true });
+    };
+    if (document.readyState === 'complete') start();
+    else window.addEventListener('load', start);
   })();
 
   // Sound toggle — unmute the welcome video on demand
