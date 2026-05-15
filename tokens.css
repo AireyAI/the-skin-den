@@ -134,6 +134,11 @@
   --z-overlay:         100;
   --z-modal:           200;
   --z-toast:           300;
+
+  /* iOS safe-area inset — adds extra bottom space on iPhones with home indicator.
+     Use in `calc()` on every bottom-fixed element so FABs / cookie / sticky CTAs
+     never sit on top of the home indicator. */
+  --safe-bottom:       env(safe-area-inset-bottom, 0px);
 }
 
 /* ── Reduced-motion respect ─────────────────────────────────────────────── */
