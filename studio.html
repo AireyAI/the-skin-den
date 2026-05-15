@@ -240,7 +240,7 @@
   .mobile-drawer__footer a:hover { color: var(--c-gold-text); }
 
   /* Sticky mobile book CTA (always visible at bottom on mobile) */
-  .mobile-book-fab { display: none; position: fixed; left: 16px; right: 96px; bottom: 16px; z-index: 9997; padding: 14px 22px; background: var(--c-charcoal); color: var(--c-ivory); border-radius: var(--r-pill); text-align: center; font-size: 13px; letter-spacing: var(--ls-wider); text-transform: uppercase; font-weight: 600; text-decoration: none; box-shadow: 0 12px 28px -10px rgba(42,33,23,0.45); transition: background var(--d-normal), opacity var(--d-normal), transform var(--d-normal); opacity: 0; transform: translateY(16px); pointer-events: none; }
+  .mobile-book-fab { display: none; position: fixed; left: 16px; right: 96px; bottom: calc(16px + var(--safe-bottom)); z-index: 9997; padding: 14px 22px; background: var(--c-charcoal); color: var(--c-ivory); border-radius: var(--r-pill); text-align: center; font-size: 13px; letter-spacing: var(--ls-wider); text-transform: uppercase; font-weight: 600; text-decoration: none; box-shadow: 0 12px 28px -10px rgba(42,33,23,0.45); transition: background var(--d-normal), opacity var(--d-normal), transform var(--d-normal); opacity: 0; transform: translateY(16px); pointer-events: none; }
   .mobile-book-fab:hover { background: var(--c-gold-deep); }
   body.past-hero .mobile-book-fab { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
@@ -480,7 +480,7 @@
   .faq__item { border-bottom: 1px solid var(--c-line); }
   .faq__item summary { padding: var(--s-6) 0; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); font-family: var(--font-serif); font-size: clamp(18px, 1.8vw, 22px); font-weight: 500; color: var(--c-charcoal); list-style: none; }
   .faq__item summary::-webkit-details-marker { display: none; }
-  .faq__item summary::after { content: "+"; font-family: var(--font-serif); font-weight: 300; font-size: 32px; color: var(--c-gold-text); transition: transform var(--d-normal); width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .faq__item summary::after { content: "+"; font-family: var(--font-serif); font-weight: 300; font-size: 32px; color: var(--c-gold-text); transition: transform var(--d-normal); width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .faq__item[open] summary::after { transform: rotate(45deg); }
   .faq__body { padding-bottom: var(--s-6); color: var(--c-charcoal-soft); line-height: var(--lh-relaxed); max-width: 70ch; }
 
@@ -524,10 +524,10 @@
   .footer__bottom { display: flex; justify-content: space-between; align-items: center; padding-top: var(--s-8); border-top: 1px solid var(--c-line); font-size: var(--fs-tiny); color: var(--c-text-muted); letter-spacing: var(--ls-wide); flex-wrap: wrap; gap: var(--s-4); }
 
   /* WhatsApp sits ABOVE the Aria chatbot (Aria is at bottom: 20-24px). 76px clearance avoids overlap on every viewport. */
-  .wa-fab { position: fixed; bottom: 96px; right: 24px; z-index: 9998; width: 52px; height: 52px; border-radius: 50%; background: #25D366; color: white; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px -4px rgba(37, 211, 102, 0.5); text-decoration: none; transition: transform var(--d-normal) var(--ease-spring), box-shadow var(--d-normal); }
+  .wa-fab { position: fixed; bottom: calc(96px + var(--safe-bottom)); right: 24px; z-index: 9998; width: 52px; height: 52px; border-radius: 50%; background: #25D366; color: white; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px -4px rgba(37, 211, 102, 0.5); text-decoration: none; transition: transform var(--d-normal) var(--ease-spring), box-shadow var(--d-normal); }
   .wa-fab:hover { transform: scale(1.08); box-shadow: 0 12px 32px -4px rgba(37, 211, 102, 0.7); }
   .wa-fab svg { width: 26px; height: 26px; }
-  @media (max-width: 540px) { .wa-fab { bottom: 88px; right: 18px; width: 48px; height: 48px; } }
+  @media (max-width: 540px) { .wa-fab { bottom: calc(88px + var(--safe-bottom)); right: 18px; width: 48px; height: 48px; } }
 
   /* gsap.from() handles initial hidden state — no CSS gating, content visible if JS fails */
   [data-reveal], [data-stagger-child] { will-change: opacity, transform; }
@@ -547,7 +547,7 @@
 
   /* Cookie consent banner */
   .cookie {
-    position: fixed; left: 24px; bottom: 24px; z-index: 9996;
+    position: fixed; left: 24px; bottom: calc(24px + var(--safe-bottom)); z-index: 9996;
     max-width: 380px;
     background: var(--c-ivory); color: var(--c-charcoal);
     border: 1px solid var(--c-line);
@@ -587,11 +587,12 @@
     .path, .treatment, .why__card, .studio__info { padding: var(--s-6); }
     .gallery__grid { gap: 10px; }
     .gallery__item:first-child { grid-column: span 2; grid-row: span 1; aspect-ratio: 16/10; }
-    .cookie { left: 12px; right: 12px; bottom: 12px; max-width: none; padding: 14px 16px; }
+    .cookie { left: 12px; right: 12px; bottom: calc(12px + var(--safe-bottom)); max-width: none; padding: 14px 16px; }
     .cookie__title { font-size: 14px; margin: 0 0 4px; }
     .cookie__body { font-size: 12px; line-height: 1.45; margin: 0 0 10px; }
     .cookie__actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .cookie__btn { min-width: 0; padding: 10px 12px; font-size: 10px; text-align: center; white-space: nowrap; }
+    /* 14px vertical padding + 11px font = ~44px touch target (WCAG AAA) */
+    .cookie__btn { min-width: 0; padding: 14px 12px; font-size: 11px; text-align: center; white-space: nowrap; }
   }
   /* While cookie banner is visible, hide the mobile book FAB to prevent bottom-clutter */
   body.has-cookie-open .mobile-book-fab { display: none !important; }

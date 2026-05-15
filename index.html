@@ -202,7 +202,7 @@
   .audio-note .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--c-gold); animation: pulse 1.8s ease-in-out infinite; }
 
   /* Sound toggle */
-  .sound { position: fixed; bottom: 24px; right: 24px; z-index: 5; width: 44px; height: 44px; border-radius: 50%; background: rgba(15, 12, 8, 0.55); border: 1px solid rgba(253, 248, 238, 0.2); color: var(--c-ivory); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(8px); transition: background var(--d-normal), border-color var(--d-normal), transform var(--d-normal); opacity: 0; animation: fadeUp 800ms 2200ms ease forwards; }
+  .sound { position: fixed; bottom: calc(24px + var(--safe-bottom)); right: 24px; z-index: 5; width: 44px; height: 44px; border-radius: 50%; background: rgba(15, 12, 8, 0.55); border: 1px solid rgba(253, 248, 238, 0.2); color: var(--c-ivory); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(8px); transition: background var(--d-normal), border-color var(--d-normal), transform var(--d-normal); opacity: 0; animation: fadeUp 800ms 2200ms ease forwards; }
   .sound:hover { background: rgba(15, 12, 8, 0.8); border-color: var(--c-gold); transform: scale(1.08); }
   .sound svg { width: 18px; height: 18px; }
   /* First-visit hint: pulsing ring inviting users to unmute the welcome video */
@@ -216,7 +216,7 @@
   .sound__on { display: none; }
   .sound.is-on .sound__on { display: inline; }
   .sound.is-on .sound__off { display: none; }
-  @media (max-width: 540px) { .sound { bottom: 16px; right: 16px; } }
+  @media (max-width: 540px) { .sound { bottom: calc(16px + var(--safe-bottom)); right: 16px; } }
   @keyframes pulse {
     0%, 100% { opacity: 0.4; transform: scale(1); }
     50% { opacity: 1; transform: scale(1.3); }
