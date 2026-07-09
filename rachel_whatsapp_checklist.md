@@ -32,11 +32,14 @@ Paste this to her on WhatsApp (07568 602861). Pick up replies as she sends them 
 >
 > **7. The cancellation policy I've put on the site uses your real wording from IG (50% deposit for new clients, 50% under 48h, 100% under 24h / no-show). Is that still your current policy?**
 >
-> **8. Online booking — Fresha when you're ready?**
-> Site currently says "Online booking opens summer 2026". When you're ready (whenever), I'll set up Fresha for you — free for you, free for clients, card-on-file means no more wasted slots. Takes 10 min to set up.
+> **8. Online booking + deposit payments — let's switch this on now.**
+> The site's ready for it — I just need two things from you to set up Fresha (free for you, free for clients, takes deposits automatically so no more wasted slots):
+>   a) An email address for the Fresha business account (can be a new one just for this)
+>   b) Your bank details, entered directly into Fresha when you connect payouts — I never see or handle these, Fresha takes them straight from you
+> Once your account exists, I'll add all 13 treatments + your exact 50%/48h/24h cancellation policy and plug your booking link straight into the site. 10 min of your time, 10 min of mine.
 >
 > **9. Domain — happy with `theskinden.co.uk`?**
-> If yes, I'll register it when you're ready (£10-£12/year). Site will live there.
+> That's the one I'll register (£10-£12/year) unless you'd rather have `theskindenbyrachel.co.uk` or something else — quick thumbs up either way and I'll get it live.
 >
 > **10. Anything I've got wrong?**
 > Have a scroll through when I send you the preview link. Anything you'd word differently, miss out, or want highlighted differently — tell me. This is yours.
@@ -47,6 +50,8 @@ Paste this to her on WhatsApp (07568 602861). Pick up replies as she sends them 
 
 ## Internal notes (don't send to Rachel)
 
+- 2026-07-09: Fresha CTA is now actually wired in `studio.html` — search for `FRESHA_BOOKING_URL` (in the booking-CTA script near the bottom). Paste her real Fresha public booking page URL into that one constant and the #book panel auto-switches: status pill, copy, and a new "Book & pay deposit online" primary CTA all update themselves. No other edits needed.
+- Fresha's deposit/card-on-file is real payment processing tied to Rachel's own bank details — she has to connect that herself inside Fresha (Settings → Payments). Neither Kyle nor Claude can do this step on her behalf.
 - We can swap in real Fresha embed in 5 mins when she's ready — the slot is already designed and reserved on the booking section.
 - The Aria chatbot has been pre-trained with her treatments, prices, policy and contact info — it'll route serious enquiries to her WhatsApp automatically.
 - We have her real 50% deposit / 48h / 24h policy live on `/policy.html` — this matches what she has on her IG story.
