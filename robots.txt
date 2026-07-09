@@ -7,4 +7,4 @@ Disallow: /design_mocks/
 Disallow: /temporary*/
 Disallow: /node_modules/
 
-Sitemap: https://aireyai.github.io/the-skin-den/sitemap.xml
+Sitemap: https://theskinden.co.uk/sitemap.xml
