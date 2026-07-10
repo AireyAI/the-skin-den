@@ -523,8 +523,7 @@
   }
   .footer__bottom { display: flex; justify-content: space-between; align-items: center; padding-top: var(--s-8); border-top: 1px solid var(--c-line); font-size: var(--fs-tiny); color: var(--c-text-muted); letter-spacing: var(--ls-wide); flex-wrap: wrap; gap: var(--s-4); }
 
-  /* WhatsApp sits ABOVE the Aria chatbot (Aria is at bottom: 20-24px). 76px clearance avoids overlap on every viewport. */
-  .wa-fab { position: fixed; bottom: calc(96px + var(--safe-bottom)); right: 24px; z-index: 9998; width: 52px; height: 52px; border-radius: 50%; background: #25D366; color: white; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px -4px rgba(37, 211, 102, 0.5); text-decoration: none; transition: transform var(--d-normal) var(--ease-spring), box-shadow var(--d-normal); }
+  .wa-fab { position: fixed; bottom: calc(24px + var(--safe-bottom)); right: 24px; z-index: 9998; width: 52px; height: 52px; border-radius: 50%; background: #25D366; color: white; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px -4px rgba(37, 211, 102, 0.5); text-decoration: none; transition: transform var(--d-normal) var(--ease-spring), box-shadow var(--d-normal); }
   .wa-fab:hover { transform: scale(1.08); box-shadow: 0 12px 32px -4px rgba(37, 211, 102, 0.7); }
   .wa-fab svg { width: 26px; height: 26px; }
   @media (max-width: 540px) { .wa-fab { bottom: calc(88px + var(--safe-bottom)); right: 18px; width: 48px; height: 48px; } }
@@ -596,12 +595,7 @@
   }
   /* While cookie banner is visible, hide the mobile book FAB to prevent bottom-clutter */
   body.has-cookie-open .mobile-book-fab { display: none !important; }
-  body.has-cookie-open .wa-fab,
-  body.has-cookie-open #aria-chatbot,
-  body.has-cookie-open .aria-chatbot,
-  body.has-cookie-open .aria-chatbot-launcher,
-  body.has-cookie-open [data-aria-chatbot],
-  body.has-cookie-open button[aria-label*="chat" i] { opacity: 0 !important; pointer-events: none !important; }
+  body.has-cookie-open .wa-fab { opacity: 0 !important; pointer-events: none !important; }
 </style>
 </head>
 <body>
@@ -1232,16 +1226,16 @@
   <div class="container booking__inner">
     <p class="eyebrow">Take the first step</p>
     <h2 style="margin-top: var(--s-4); color: var(--c-ivory);">Ready when you <span class="serif-italic" style="font-style: italic;">are.</span></h2>
-    <p class="lead" style="color: rgba(253,248,238,0.7); max-width: 60ch; margin: var(--s-4) auto 0;">Chat with Aria — Rachel's AI assistant — to share what you'd like to address and book a consultation in under a minute. Every reply still comes from Rachel personally.</p>
+    <p class="lead" style="color: rgba(253,248,238,0.7); max-width: 60ch; margin: var(--s-4) auto 0;">Message Rachel directly to share what you'd like to address and book your consultation. Every reply comes from Rachel personally.</p>
 
     <div class="booking__panel" id="booking-panel">
-      <span class="booking__status" id="booking-status">Booking is going online — WhatsApp or Aria get you sorted today</span>
+      <span class="booking__status" id="booking-status">Booking is going online — WhatsApp gets you sorted today</span>
       <h3 class="booking__h">Book a consultation</h3>
-      <p class="booking__p" id="booking-copy">Tell Aria what you'd like to change about your skin — she'll suggest the right treatment, then hand you over to Rachel on WhatsApp with all the context. A 50% deposit holds your slot and comes off your treatment total on the day.</p>
+      <p class="booking__p" id="booking-copy">Message Rachel on WhatsApp with what you'd like to change about your skin and she'll suggest the right treatment. A 50% deposit holds your slot and comes off your treatment total on the day.</p>
 
       <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;" id="booking-ctas">
-        <button type="button" class="btn btn-primary" id="aria-book-cta" data-magnetic>Chat with Aria to book <span class="arr">→</span></button>
-        <a class="btn btn-ghost" href="https://wa.me/447568602861?text=Hi%20Rachel%2C%20I%27d%20like%20to%20book%20a%20consultation%20at%20The%20Skin%20Den" target="_blank" rel="noopener">WhatsApp Rachel directly</a>
+        <a class="btn btn-primary" href="https://wa.me/447568602861?text=Hi%20Rachel%2C%20I%27d%20like%20to%20book%20a%20consultation%20at%20The%20Skin%20Den" target="_blank" rel="noopener" data-magnetic>WhatsApp Rachel to book <span class="arr">→</span></a>
+        <a class="btn btn-ghost" href="tel:+447568602861">Call · 07568 602861</a>
       </div>
 
       <div class="booking__policy">
@@ -1324,15 +1318,6 @@
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
-<script src="https://aria-chatbot-production-12d0.up.railway.app/chatbot.js"
-  data-name="Aria"
-  data-color="#C5A06D"
-  data-colorDark="#8A7148"
-  data-server="https://aria-chatbot-production-12d0.up.railway.app"
-  data-type="clinic"
-  data-handoff-wa="+447568602861"
-  data-prompt="You are Aria, the warm, professional AI assistant for The Skin Den — Rachel's advanced skincare studio in Carlisle, Cumbria (CA3). Rachel is a VTCT-qualified Acne Specialist and Skin Expert. The studio offers 13 treatments split into Facials (£45-£65), Advanced treatments including Microneedling and Polynucleotides (£60-£110), and Skin Boosters (£100-£125). Every booking starts with a consultation. Rachel sees one client at a time in a calm, private studio — no rushed appointments, no upselling. A 50% deposit secures every booking; cancellations under 48hrs forfeit 50%, under 24hrs or no-show forfeit 100%. Online booking (with secure deposit payment) is being set up now; until it goes live clients book via WhatsApp on 07568 602861 or DM @_theskin_den on Instagram. Be helpful, warm but precise. If asked about prices, share them. If asked something Rachel needs to answer personally (medical questions, suitability with conditions/pregnancy/medications), warmly tell them to message Rachel directly via WhatsApp. Always try to capture: their first name, what they're hoping to address (acne, ageing, hydration, glow, etc.), and a contact method so Rachel can follow up. Sign off with a soft prompt to message Rachel via WhatsApp for the actual booking."
-></script>
 
 <script>
 // Render gallery — hand-triaged from her 123 FB photos. Real treatment + result shots only.
@@ -1456,32 +1441,6 @@ if (igGrid) {
     igGrid.appendChild(a);
   });
 }
-
-// Defend against Aria chatbot auto-scrolling page to bottom on mount/open.
-// Three layers: (1) disable browser scroll restoration, (2) force top on load,
-// (3) poll for first 3s — if Aria scrolls us before the user did, snap back.
-if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-
-(function () {
-  let userScrolled = false;
-  const markScrolled = () => { userScrolled = true; };
-  window.addEventListener('wheel', markScrolled, { passive: true, once: true });
-  window.addEventListener('touchmove', markScrolled, { passive: true, once: true });
-  window.addEventListener('keydown', (e) => {
-    if (['ArrowDown','ArrowUp','PageDown','PageUp','End','Home',' '].includes(e.key)) markScrolled();
-  }, { once: true });
-
-  function forceTop() {
-    if (window.location.hash) return; // respect deep links
-    if (!userScrolled && window.scrollY > 100) {
-      window.scrollTo(0, 0);
-    }
-  }
-  // Layer 2 — on load
-  window.addEventListener('load', forceTop);
-  // Layer 3 — poll for 3 seconds (Aria mounts asynchronously)
-  [100, 400, 800, 1500, 2500].forEach(ms => setTimeout(forceTop, ms));
-})();
 
 // Scroll progress bar — thin gold line at top
 (function () {
@@ -1702,7 +1661,7 @@ document.querySelectorAll('[data-tab]').forEach(btn => {
     var copyEl = document.getElementById('booking-copy');
     var ctasEl = document.getElementById('booking-ctas');
     if (statusEl) statusEl.textContent = 'Online booking is live — instant confirmation';
-    if (copyEl) copyEl.textContent = "Pick your treatment and a time that suits you — Fresha confirms instantly and takes your 50% deposit securely online. Prefer to talk it through first? Aria or WhatsApp still work too.";
+    if (copyEl) copyEl.textContent = "Pick your treatment and a time that suits you — Fresha confirms instantly and takes your 50% deposit securely online. Prefer to talk it through first? WhatsApp still works too.";
     if (ctasEl) {
       var freshaLink = document.createElement('a');
       freshaLink.className = 'btn btn-primary';
@@ -1715,37 +1674,16 @@ document.querySelectorAll('[data-tab]').forEach(btn => {
     }
   }
 
-  // Wire booking CTAs to open Aria with the right context.
-  // Falls back to #book scroll if the chatbot widget hasn't loaded yet.
+  // Matcher CTA opens WhatsApp pre-filled with the recommended treatment.
   (function () {
-    function openAriaWith(prompt) {
-      if (window.AriaChat && typeof window.AriaChat.open === 'function') {
-        window.AriaChat.open();
-        // Tiny delay so the panel mounts before send() targets its input
-        setTimeout(function () {
-          if (typeof window.AriaChat.send === 'function') window.AriaChat.send(prompt);
-        }, 250);
-        return true;
-      }
-      return false;
-    }
-
-    var bookCta = document.getElementById('aria-book-cta');
-    if (bookCta) {
-      bookCta.addEventListener('click', function (e) {
-        e.preventDefault();
-        openAriaWith("I'd like to book a consultation");
-      });
-    }
-
     var matcherCta = document.getElementById('matcher-cta');
-    if (matcherCta) {
-      matcherCta.addEventListener('click', function (e) {
-        var recName = (document.getElementById('matcher-rec-name') || {}).textContent || '';
-        var ok = openAriaWith("I'd like to book " + (recName.trim() || 'a consultation') + " — can you help?");
-        if (ok) e.preventDefault(); // only block scroll if chatbot actually opened
-      });
-    }
+    if (!matcherCta) return;
+    matcherCta.addEventListener('click', function (e) {
+      e.preventDefault();
+      var recName = (document.getElementById('matcher-rec-name') || {}).textContent || '';
+      var text = "Hi Rachel, I'd like to book " + (recName.trim() || 'a consultation') + " — can you help?";
+      window.open('https://wa.me/447568602861?text=' + encodeURIComponent(text), '_blank', 'noopener');
+    });
   })();
 </script>
 
