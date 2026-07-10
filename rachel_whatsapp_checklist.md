@@ -33,13 +33,10 @@ Paste this to her on WhatsApp (07568 602861). Pick up replies as she sends them 
 > **7. The cancellation policy I've put on the site uses your real wording from IG (50% deposit for new clients, 50% under 48h, 100% under 24h / no-show). Is that still your current policy?**
 >
 > **8. Online booking + deposit payments — let's switch this on now.**
-> The site's ready for it — I just need two things from you to set up Fresha (free for you, free for clients, takes deposits automatically so no more wasted slots):
->   a) An email address for the Fresha business account (can be a new one just for this)
->   b) Your bank details, entered directly into Fresha when you connect payouts — I never see or handle these, Fresha takes them straight from you
-> Once your account exists, I'll add all 13 treatments + your exact 50%/48h/24h cancellation policy and plug your booking link straight into the site. 10 min of your time, 10 min of mine.
+> The site's ready for it — I've written you a full step-by-step guide to set up Fresha yourself (~15-20 min, one sitting): [see `rachel_fresha_setup_guide.md` — send that as its own message/doc]. It's free for you, free for clients, and takes your 50% deposit automatically so no more wasted slots. Once you're done, send me the booking link it gives you at the end and I'll have it live on the site same day.
 >
-> **9. Domain — happy with `theskinden.co.uk`?**
-> That's the one I'll register (£10-£12/year) unless you'd rather have `theskindenbyrachel.co.uk` or something else — quick thumbs up either way and I'll get it live.
+> **9. Domain — sorted.**
+> `theskinden.co.uk` is bought and live — the site's officially on its real domain now.
 >
 > **10. Anything I've got wrong?**
 > Have a scroll through when I send you the preview link. Anything you'd word differently, miss out, or want highlighted differently — tell me. This is yours.
