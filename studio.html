@@ -1229,12 +1229,19 @@
     <p class="lead" style="color: rgba(253,248,238,0.7); max-width: 60ch; margin: var(--s-4) auto 0;">Message Rachel directly to share what you'd like to address and book your consultation. Every reply comes from Rachel personally.</p>
 
     <div class="booking__panel" id="booking-panel">
-      <span class="booking__status" id="booking-status">Booking is going online — WhatsApp gets you sorted today</span>
+      <span class="booking__status" id="booking-status">Book instantly online — secure deposit included</span>
       <h3 class="booking__h">Book a consultation</h3>
-      <p class="booking__p" id="booking-copy">Message Rachel on WhatsApp with what you'd like to change about your skin and she'll suggest the right treatment. A 50% deposit holds your slot and comes off your treatment total on the day.</p>
+      <p class="booking__p" id="booking-copy">Pick your treatment and a time that suits you — confirmed instantly, with your 50% deposit taken securely online. Prefer to talk it through first? WhatsApp still works too.</p>
 
-      <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;" id="booking-ctas">
-        <a class="btn btn-primary" href="https://wa.me/447568602861?text=Hi%20Rachel%2C%20I%27d%20like%20to%20book%20a%20consultation%20at%20The%20Skin%20Den" target="_blank" rel="noopener" data-magnetic>WhatsApp Rachel to book <span class="arr">→</span></a>
+      <iframe
+        src="https://airey-bookings.vercel.app/m/the-skin-den/book"
+        title="Book an appointment at The Skin Den"
+        loading="lazy"
+        style="width:100%; max-width:560px; min-height:900px; margin:var(--s-5) auto 0; display:block; border:1px solid var(--c-line); border-radius:var(--radius-lg, 12px); background:var(--c-surface-elev, #fff);"
+      ></iframe>
+
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: var(--s-4);" id="booking-ctas">
+        <a class="btn btn-ghost" href="https://wa.me/447568602861?text=Hi%20Rachel%2C%20I%27d%20like%20to%20book%20a%20consultation%20at%20The%20Skin%20Den" target="_blank" rel="noopener" data-magnetic>WhatsApp Rachel instead <span class="arr">→</span></a>
         <a class="btn btn-ghost" href="tel:+447568602861">Call · 07568 602861</a>
       </div>
 
@@ -1648,32 +1655,6 @@ document.querySelectorAll('[data-tab]').forEach(btn => {
   })();
 </script>
 <script>
-  // Fresha booking + deposit-payment link. Fresha handles the online calendar,
-  // card-on-file deposit capture, and enforces Rachel's 50%/48h/24h cancellation
-  // tiers natively — this is the "payment system" for the site.
-  // Once Rachel's Fresha business is live: Fresha dashboard → Settings → Online
-  // booking → copy her public booking page URL and paste it below. That's the
-  // whole swap — everything else on this panel updates itself.
-  var FRESHA_BOOKING_URL = '';
-
-  if (FRESHA_BOOKING_URL) {
-    var statusEl = document.getElementById('booking-status');
-    var copyEl = document.getElementById('booking-copy');
-    var ctasEl = document.getElementById('booking-ctas');
-    if (statusEl) statusEl.textContent = 'Online booking is live — instant confirmation';
-    if (copyEl) copyEl.textContent = "Pick your treatment and a time that suits you — Fresha confirms instantly and takes your 50% deposit securely online. Prefer to talk it through first? WhatsApp still works too.";
-    if (ctasEl) {
-      var freshaLink = document.createElement('a');
-      freshaLink.className = 'btn btn-primary';
-      freshaLink.href = FRESHA_BOOKING_URL;
-      freshaLink.target = '_blank';
-      freshaLink.rel = 'noopener';
-      freshaLink.setAttribute('data-magnetic', '');
-      freshaLink.innerHTML = 'Book & pay deposit online <span class="arr">→</span>';
-      ctasEl.insertBefore(freshaLink, ctasEl.firstChild);
-    }
-  }
-
   // Matcher CTA opens WhatsApp pre-filled with the recommended treatment.
   (function () {
     var matcherCta = document.getElementById('matcher-cta');
