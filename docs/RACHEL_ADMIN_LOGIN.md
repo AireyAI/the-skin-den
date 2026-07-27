@@ -22,8 +22,12 @@
 ## Booking admin (treatment calendar)
 
 - https://clockwork-bookings.vercel.app/m/the-skin-den/admin  
-- Same email/password once Clockwork merchant is seeded on production (Kyle to confirm).
+- **Same email/password** as studio admin (bootstrapped on production).
 
-## Support
+## Stripe (bookings on the website — 5% platform fee)
+
+1. Studio admin → **Set up payouts**, or open directly:  
+   https://clockwork-bookings.vercel.app/platform/the-skin-den/connect  
+2. Finish Stripe Connect once; paid bookings on the embedded widget split **95% / 5%**.
 
 If sign-in fails after a deploy, hard-refresh the page. API: `https://platform-api-production-3d5f.up.railway.app/health` should return OK.
