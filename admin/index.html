@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#2A2117">
+  <title>Studio admin | The Skin Den</title>
+  <link rel="icon" href="../favicon.svg" sizes="any">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=optional" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=optional"></noscript>
+  <link rel="stylesheet" href="../tokens.css">
+  <link rel="stylesheet" href="./admin-tokens.css">
+  <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+  <div id="admin-gate" class="gate" hidden>
+    <div class="gate-card">
+      <img src="../apple-touch-icon.png" width="88" height="88" alt="">
+      <h1>The Skin Den</h1>
+      <p class="gate-lede">Studio admin — clients, bookings, deposits, and outreach.</p>
+      <form id="gate-form" novalidate>
+        <label class="gate-field" for="gate-email">Email</label>
+        <input class="gate-input" type="email" id="gate-email" autocomplete="username" value="rachel@theskinden.co.uk" required>
+        <label class="gate-field" for="gate-password">Password</label>
+        <input class="gate-input" type="password" id="gate-password" autocomplete="current-password" required>
+        <button type="submit" class="btn btn--primary btn--block">Sign in</button>
+        <p id="gate-status" class="gate-status" role="status"></p>
+      </form>
+      <p class="gate-foot"><a href="../studio.html">← Public site</a></p>
+    </div>
+  </div>
+
+  <div id="admin-app" class="admin-shell" hidden>
+    <header class="admin-top">
+      <div class="admin-brand">
+        <img src="../apple-touch-icon.png" width="40" height="40" alt="">
+        <div>
+          <p class="admin-eyebrow">Studio admin</p>
+          <p class="admin-title">The Skin Den</p>
+        </div>
+      </div>
+      <div class="admin-top-actions">
+        <button type="button" class="btn btn--ghost" id="tour-btn">Guide</button>
+        <button type="button" class="btn btn--ghost" id="refresh-btn">Refresh</button>
+      </div>
+    </header>
+
+    <p id="live-status" class="live-status" hidden role="status">Live studio data</p>
+    <nav id="site-quick-links" class="site-quick-links" aria-label="Public site links"></nav>
+
+    <div id="stripe-banner" class="stripe-banner" hidden role="region" aria-labelledby="stripe-banner-heading">
+      <div class="stripe-banner__copy">
+        <p id="stripe-banner-heading" class="stripe-banner__title">Connect your bank</p>
+        <p id="stripe-banner-text" class="stripe-banner__lede"></p>
+      </div>
+      <button type="button" class="btn btn--primary stripe-banner__cta" id="stripe-connect-btn">Set up payouts</button>
+    </div>
+
+    <nav id="admin-tab-bar" class="admin-tab-bar" role="tablist" aria-label="Admin sections">
+      <button type="button" class="admin-tab is-active" data-tab="members" role="tab" aria-selected="true">Members</button>
+      <button type="button" class="admin-tab" data-tab="checkin" role="tab" aria-selected="false">Scanner</button>
+      <button type="button" class="admin-tab" data-tab="bookings" role="tab" aria-selected="false">Bookings</button>
+      <button type="button" class="admin-tab" data-tab="schedule" role="tab" aria-selected="false">Services</button>
+      <button type="button" class="admin-tab" data-tab="payments" role="tab" aria-selected="false">Payments</button>
+    </nav>
+
+    <div class="admin-layout">
+      <main class="admin-main">
+        <section class="section-block" aria-labelledby="kpi-heading">
+          <h2 id="kpi-heading" class="section-title">Overview</h2>
+          <div id="kpi-grid" class="kpi-grid"></div>
+          <h3 class="subsection-title">Studio activity</h3>
+          <div id="activity-grid" class="activity-grid"></div>
+        </section>
+
+        <div id="panel-members">
+        <section class="section-block" aria-labelledby="members-heading">
+          <div class="section-head-row">
+            <h2 id="members-heading" class="section-title">Members</h2>
+            <div id="filter-bar" class="filter-bar" role="toolbar" aria-label="Filter members">
+              <button type="button" class="filter-btn is-active" data-filter="attention" aria-pressed="true">Needs attention</button>
+              <button type="button" class="filter-btn" data-filter="all" aria-pressed="false">All</button>
+              <button type="button" class="filter-btn" data-filter="subscription" aria-pressed="false">Subscriptions</button>
+              <button type="button" class="filter-btn" data-filter="pack" aria-pressed="false">Packs</button>
+              <button type="button" class="filter-btn" data-filter="failed" aria-pressed="false">Failed pay</button>
+              <button type="button" class="filter-btn" data-filter="expiring" aria-pressed="false">Expiring</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="members-table">
+              <thead>
+                <tr>
+                  <th scope="col">Member</th>
+                  <th scope="col">Plan</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Renewal / pack</th>
+                  <th scope="col">Payment</th>
+                  <th scope="col"><span class="sr-only">Actions</span></th>
+                </tr>
+              </thead>
+              <tbody id="members-body"></tbody>
+            </table>
+          </div>
+        </section>
+        </div>
+
+        
+        <div id="panel-schedule" hidden>
+        <section class="section-block" aria-labelledby="schedule-heading">
+          <div class="section-head-row">
+            <h2 id="schedule-heading" class="section-title">Services &amp; prices</h2>
+            <div class="schedule-actions">
+              <button type="button" class="btn btn--ghost btn--sm" id="schedule-reload-btn">Reload</button>
+              <button type="button" class="btn btn--ghost btn--sm" id="schedule-reset-seed-btn">Load official timetable</button>
+              <button type="button" class="btn btn--primary btn--sm" id="schedule-save-btn">Save to website</button>
+            </div>
+          </div>
+          <p class="section-lede">These slots power the public <a href="../studio.html#book">Book a treatment</a> page. Finish Stripe setup before taking payments.</p>
+          <label class="schedule-meta-label" for="schedule-venue">Venue line</label>
+          <input class="schedule-meta-input" type="text" id="schedule-venue" autocomplete="off">
+          <label class="schedule-meta-label" for="schedule-policy">Cancellation policy</label>
+          <textarea class="schedule-meta-input" id="schedule-policy" rows="2"></textarea>
+          <p id="schedule-status" class="schedule-status" role="status"></p>
+          <div class="table-wrap">
+            <table class="members-table schedule-table">
+              <thead>
+                <tr>
+                  <th scope="col">Slot ID</th>
+                  <th scope="col">Day</th>
+                  <th scope="col">Time</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Price (£)</th>
+                  <th scope="col">Capacity</th>
+                  <th scope="col">Live</th>
+                </tr>
+              </thead>
+              <tbody id="schedule-body"></tbody>
+            </table>
+          </div>
+        </section>
+        </div>
+
+
+        <div id="panel-bookings" hidden>
+        <section class="section-block" aria-labelledby="bookings-heading">
+          <div class="section-head-row">
+            <h2 id="bookings-heading" class="section-title">Class bookings</h2>
+            <label class="filter-select-wrap">
+              <span class="sr-only">Filter bookings</span>
+              <select id="booking-filter" class="filter-select">
+                <option value="all">All statuses</option>
+                <option value="paid">Paid</option>
+                <option value="pending">Pending</option>
+              </select>
+            </label>
+          </div>
+          <div class="table-wrap">
+            <table class="members-table">
+              <thead>
+                <tr>
+                  <th scope="col">Customer</th>
+                  <th scope="col">Class</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Booking fee</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">When</th>
+                </tr>
+              </thead>
+              <tbody id="bookings-body"></tbody>
+            </table>
+          </div>
+        </section>
+        </div>
+
+
+        <div id="panel-checkin" hidden>
+        <section class="section-block checkin-section" aria-labelledby="checkin-heading">
+          <h2 id="checkin-heading" class="section-title">Scanner</h2>
+          <p class="section-lede">Scan each member’s wallet QR at the door. Class packs drop by one per successful scan (same member within 20 minutes won’t deduct twice). You can also paste a QR link below.</p>
+          <div class="checkin-scanner">
+            <div class="checkin-video-wrap">
+              <video id="checkin-video" class="checkin-video" playsinline muted aria-label="Camera preview"></video>
+              <canvas id="checkin-canvas" class="checkin-canvas" hidden></canvas>
+            </div>
+            <div class="checkin-controls">
+              <button type="button" class="btn btn--primary" id="checkin-start-camera">Start camera</button>
+              <button type="button" class="btn btn--ghost" id="checkin-stop-camera" hidden>Stop camera</button>
+              <p id="checkin-status" class="checkin-status" role="status"></p>
+              <div id="checkin-result" class="checkin-result" hidden></div>
+            </div>
+          </div>
+          <div class="checkin-manual">
+            <label class="schedule-meta-label" for="checkin-manual">Paste QR URL or token</label>
+            <div class="checkin-manual-row">
+              <input class="schedule-meta-input" type="text" id="checkin-manual" autocomplete="off" placeholder="https://theskinden.co.uk/v/checkin?t=…">
+              <button type="button" class="btn btn--ghost btn--sm" id="checkin-manual-btn">Scan</button>
+            </div>
+          </div>
+          <h3 class="section-subtitle">Recent scans</h3>
+          <div class="table-wrap">
+            <table class="members-table">
+              <thead>
+                <tr>
+                  <th scope="col">Member</th>
+                  <th scope="col">When</th>
+                  <th scope="col">Deducted</th>
+                  <th scope="col">Balance after</th>
+                  <th scope="col">Result</th>
+                </tr>
+              </thead>
+              <tbody id="checkin-recent-body"></tbody>
+            </table>
+          </div>
+
+          <h3 class="section-subtitle">Memberships waiting to be linked</h3>
+          <p class="section-lede">Someone paid but their plan is not attached to a login yet — usually because they signed up with a different email, or used Apple’s Hide My Email. Link it here once you know who they are.</p>
+          <div class="table-wrap">
+            <table class="members-table">
+              <thead>
+                <tr>
+                  <th scope="col">Member</th>
+                  <th scope="col">Paid with</th>
+                  <th scope="col">Plan</th>
+                  <th scope="col">Link to account email</th>
+                </tr>
+              </thead>
+              <tbody id="checkin-unlinked-body"></tbody>
+            </table>
+          </div>
+          <p id="checkin-unlinked-status" class="checkin-status" role="status"></p>
+        </section>
+        </div>
+
+        <div id="panel-payments" hidden>
+        <section class="section-block" aria-labelledby="payments-heading">
+          <h2 id="payments-heading" class="section-title">Payment ledger</h2>
+          <p class="section-lede">Every completed checkout and webhook-settled charge (newest first).</p>
+          <div class="table-wrap">
+            <table class="members-table">
+              <thead>
+                <tr>
+                  <th scope="col">When</th>
+                  <th scope="col">Source</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Booking fee</th>
+                  <th scope="col">Customer</th>
+                </tr>
+              </thead>
+              <tbody id="payments-body"></tbody>
+            </table>
+          </div>
+        </section>
+        </div>
+      </main>
+
+      <aside id="copilot-panel" class="copilot-panel" aria-label="Aria priorities">
+        <header class="copilot-header">
+          <h2>Aria</h2>
+          <p>Today’s priorities — chat with Aria using the bubble (bottom right).</p>
+        </header>
+        <div id="copilot-messages" class="copilot-messages" role="log" aria-live="polite"></div>
+        <div class="copilot-compose" hidden>
+          <label class="sr-only" for="copilot-input">Message copilot</label>
+          <textarea id="copilot-input" rows="2" placeholder="Ask: Who needs chasing today?"></textarea>
+          <div class="copilot-compose-actions">
+            <button type="button" class="btn btn--ghost btn--icon" id="copilot-voice" aria-label="Speak" aria-pressed="false" title="Voice input (Chrome / Safari)">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 14a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v5a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2Z"/></svg>
+            </button>
+            <button type="button" class="btn btn--primary" id="copilot-send">Send</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
+  <aside id="member-drawer" class="member-drawer" hidden aria-labelledby="drawer-name">
+    <button type="button" class="drawer-close" id="drawer-close" aria-label="Close">×</button>
+    <h2 id="drawer-name"></h2>
+    <div id="drawer-meta"></div>
+    <div id="drawer-insight" class="drawer-insight" hidden>
+      <p class="drawer-insight-label">Copilot note</p>
+      <p id="drawer-insight-text"></p>
+    </div>
+    <dl id="drawer-facts" class="drawer-facts"></dl>
+    <div class="drawer-actions">
+      <button type="button" class="btn btn--primary" id="drawer-whatsapp">WhatsApp member</button>
+      <button type="button" class="btn btn--ghost" id="drawer-mark-contacted">Mark contacted</button>
+    </div>
+  </aside>
+
+  <script src="../platform-client.js"></script>
+  <script type="module">
+    import { SITE_CONFIG } from "../site-config.js";
+    window.SITE_CONFIG = SITE_CONFIG;
+    const h = location.hostname;
+    let apiUrl = (SITE_CONFIG.platformApiUrl || "").replace(/\/$/, "");
+    if (h === "localhost" || h === "127.0.0.1") {
+      apiUrl = "http://localhost:3220";
+    }
+    if (apiUrl) {
+      window.KK_PLATFORM_API = apiUrl;
+      window.KK_ADMIN_API_BASE = `${apiUrl}/v1/admin`;
+    }
+    window.__kkApplyPlatformConfig?.();
+    import "./js/app.js";
+  </script>
+</body>
+</html>

@@ -4,3 +4,4 @@ temporary screenshots/
 *.log
 .env
 .env.local
+*.admin-coach-password.local

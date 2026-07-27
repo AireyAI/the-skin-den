@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-07-27T12:00:00.000Z",
+  "currency": "GBP",
+  "members": [
+    {
+      "id": "cli_01",
+      "name": "Emma Lawson",
+      "email": "emma.lawson@example.com",
+      "phone": "+447700900201",
+      "plan": "Acne course — 6 treatments",
+      "planType": "pack",
+      "status": "active",
+      "renewalDate": "2026-09-15",
+      "autoRenew": false,
+      "lastPaymentStatus": "succeeded",
+      "lastPaymentAt": "2026-07-20",
+      "packCredits": 4,
+      "joinedAt": "2026-05-01",
+      "needsAttention": true,
+      "attentionReason": "Pack expiring in 14 days — 2 sessions left"
+    },
+    {
+      "id": "cli_02",
+      "name": "Sophie Reid",
+      "email": "sophie.reid@example.com",
+      "phone": "+447700900202",
+      "plan": "Skin booster course (3)",
+      "planType": "pack",
+      "status": "active",
+      "renewalDate": "2026-08-30",
+      "autoRenew": false,
+      "lastPaymentStatus": "succeeded",
+      "lastPaymentAt": "2026-07-15",
+      "packCredits": 1,
+      "joinedAt": "2026-06-10",
+      "needsAttention": false
+    },
+    {
+      "id": "cli_03",
+      "name": "Hannah Brooks",
+      "email": "hannah.brooks@example.com",
+      "phone": "+447700900203",
+      "plan": "Advanced facial — monthly",
+      "planType": "subscription",
+      "status": "past_due",
+      "renewalDate": "2026-07-25",
+      "autoRenew": true,
+      "lastPaymentStatus": "failed",
+      "lastPaymentAt": "2026-07-25",
+      "joinedAt": "2026-03-12",
+      "needsAttention": true,
+      "attentionReason": "Failed payment — follow up before next visit"
+    }
+  ],
+  "bookings": [
+    {
+      "id": "bk_01",
+      "customerName": "Emma Lawson",
+      "customerEmail": "emma.lawson@example.com",
+      "title": "Acne consultation & treatment",
+      "startsAt": "2026-07-29T10:00:00.000Z",
+      "amountCents": 6500,
+      "bookingFeeCents": 325,
+      "status": "paid",
+      "createdAt": "2026-07-22T09:12:00.000Z"
+    },
+    {
+      "id": "bk_02",
+      "customerName": "Laura Chen",
+      "customerEmail": "laura.chen@example.com",
+      "title": "New client consultation + facial",
+      "startsAt": "2026-07-30T14:00:00.000Z",
+      "amountCents": 5000,
+      "bookingFeeCents": 250,
+      "status": "pending",
+      "createdAt": "2026-07-27T08:40:00.000Z"
+    }
+  ],
+  "paymentEvents": [
+    {
+      "id": "pay_01",
+      "createdAt": "2026-07-20T11:05:00.000Z",
+      "source": "checkout",
+      "amountCents": 6500,
+      "bookingFeeCents": 325,
+      "customerEmail": "emma.lawson@example.com"
+    }
+  ],
+  "revenue": {
+    "mrr": 0,
+    "failedCount": 1,
+    "expiringPackCount": 1,
+    "attentionCount": 2
+  },
+  "activity": {
+    "paidBookings7d": 6,
+    "pendingCheckouts": 1,
+    "paymentsRecorded7d": 5,
+    "lastClassPaymentAt": "2026-07-20T11:05:00.000Z"
+  },
+  "schedule": {
+    "venue": "The Skin Den · Carlisle (appointment-only address on confirmation)",
+    "policy": "48+ hours: free reschedule. Under 48 hours: 50% fee. Under 24 hours or no-show: 100%.",
+    "slots": [
+      {
+        "id": "tue-am",
+        "weekday": 2,
+        "time": "10:00",
+        "title": "Advanced facial",
+        "pricePence": 4500,
+        "capacity": 1,
+        "published": true
+      },
+      {
+        "id": "wed-pm",
+        "weekday": 3,
+        "time": "14:00",
+        "title": "Acne consultation & treatment",
+        "pricePence": 6500,
+        "capacity": 1,
+        "published": true
+      },
+      {
+        "id": "sat-am",
+        "weekday": 6,
+        "time": "09:30",
+        "title": "New client consultation + facial",
+        "pricePence": 5000,
+        "capacity": 1,
+        "published": true
+      }
+    ]
+  }
+}

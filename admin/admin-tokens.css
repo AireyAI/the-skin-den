@@ -1,0 +1,41 @@
+/*
+ * Studio admin — token bridge for admin.css on The Skin Den marketing site.
+ * Keeps the public ivory palette in tokens.css; admin shell uses a warm charcoal desk.
+ */
+:root {
+  --color-primary: var(--c-gold);
+  --color-primary-dark: var(--c-gold-deep);
+  --color-primary-light: var(--c-gold-soft);
+  --color-accent: var(--c-sage);
+  --color-bg: #14110d;
+  --color-surface: #1f1914;
+  --color-text: var(--c-cream-light);
+  --color-muted: #a89c8a;
+
+  --font-display: var(--font-serif);
+  --font-body: var(--font-sans);
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --fs-h1: clamp(2.5rem, 6vw, 4rem);
+  --fs-h2: clamp(1.75rem, 4vw, 2.75rem);
+  --fs-h3: clamp(1.25rem, 2.5vw, 1.75rem);
+  --fs-h4: 1.25rem;
+  --fs-h5: 1.0625rem;
+  --fs-body: 1rem;
+  --fs-small: 0.8125rem;
+  --leading-body: 1.55;
+  --tracking-display-uppercase: 0.04em;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+
+  --shadow-sm: none;
+  --shadow-md: 8px 8px 0 color-mix(in srgb, var(--c-gold) 22%, transparent);
+  --shadow-lg: 12px 12px 0 color-mix(in srgb, var(--c-gold) 28%, transparent);
+  --border-hairline: 1px solid color-mix(in srgb, var(--color-text) 14%, transparent);
+  --border-thick: 2px solid color-mix(in srgb, var(--c-gold) 45%, transparent);
+}
