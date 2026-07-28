@@ -1,22 +1,32 @@
-# Rachel — studio admin login (The Skin Den)
+# Rachel — studio admin (handoff for Kyle)
 
-**Send this to Rachel** after Kyle sets her password on the platform API (today).
+**Do not commit passwords.** Kyle keeps the live password in `.admin-coach-password.local` (gitignored).
 
-## Studio dashboard (same flow as Kettle Kulture)
+## Links (send these to Rachel)
 
-- **URL:** https://theskinden.co.uk/admin/
+| What | URL |
+|------|-----|
+| **Studio admin** (sign in, bookings, Stripe) | **https://theskinden.co.uk/admin/** |
+| Public website | https://theskinden.co.uk/studio.html |
+| Public booking page | https://clockwork-bookings.vercel.app/m/the-skin-den/book |
+
+## Sign in
+
 - **Email:** `rachel@theskinden.co.uk`
-- **Password:** *(Kyle sets this on Railway `KK_COACH_PASSWORD` — not stored in git)*
+- **Password:** *(Kyle — see `.admin-coach-password.local` or your password manager)*
 
-## Stripe payouts (one click, in the dashboard)
+## Connect Stripe Express (same as Kettle Kulture)
 
-1. Sign in at **https://theskinden.co.uk/admin/**
-2. Tap **Set up payouts** on the banner (or open **Payments**).
-3. Stripe opens in the browser; add bank details and ID (~5 minutes).
-4. You return to **theskinden.co.uk/admin** automatically. When setup is complete, the banner clears and treatment payments are live (**95% to Rachel / 5% platform**).
+1. Open **https://theskinden.co.uk/admin/**
+2. Sign in with the email and password above.
+3. Tap **Set up payouts** on the yellow banner (top of the dashboard).
+4. Complete Stripe’s form (bank + ID, ~5 minutes).
+5. You land back on **theskinden.co.uk/admin** — when the banner clears, online deposits are live (**95% to you / 5% platform**).
 
-The dashboard connects the **same Stripe account the booking system pays into**, so
-the account she onboards is always the account that receives her money. Payout setup
-is only ever done from this dashboard.
+No separate Clockwork URL — everything is inside her admin on **theskinden.co.uk**.
 
-If sign-in fails after a deploy, hard-refresh. API health: `https://platform-api-production-3d5f.up.railway.app/health`
+## If something fails
+
+- Hard refresh (Cmd+Shift+R) after a site update.
+- Booking/payout API health: https://clockwork-bookings.vercel.app/api/health  
+- Studio dashboard API: https://platform-api-production-3d5f.up.railway.app/health  
