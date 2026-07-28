@@ -1,0 +1,28 @@
+{
+  "formatVersion": 1,
+  "passTypeIdentifier": "pass.co.uk.kettlekulture.membership",
+  "teamIdentifier": "TEAMID",
+  "organizationName": "Kettle Kulture",
+  "description": "Kettle Kulture membership",
+  "logoText": "Kettle Kulture",
+  "foregroundColor": "rgb(244, 242, 236)",
+  "backgroundColor": "rgb(3, 25, 29)",
+  "labelColor": "rgb(62, 240, 212)",
+  "storeCard": {
+    "primaryFields": [],
+    "secondaryFields": [],
+    "auxiliaryFields": [],
+    "backFields": [
+      {
+        "key": "studio",
+        "label": "Check-in",
+        "value": "Show the QR code at the studio door. Pack memberships deduct one class per scan."
+      },
+      {
+        "key": "support",
+        "label": "Account",
+        "value": "https://kettlekulture.co.uk/account/"
+      }
+    ]
+  }
+}

@@ -54,7 +54,17 @@ export const SITE_CONFIG = Object.freeze({
     propertyId: "",
     reportUrl: ""
   }),
-  admin: Object.freeze({})
+  admin: Object.freeze({
+    theme: "salon",
+    hideScanner: true,
+    hideGymMemberFilters: true
+  }),
+  clientAccount: Object.freeze({
+    /** Treatment appointments (Clockwork), not platform-api class_bookings. */
+    bookingsUrl:
+      "https://clockwork-bookings.vercel.app/api/m/the-skin-den/member/bookings",
+    appleRedirectUri: "https://theskinden.co.uk/account/"
+  })
 });
 
 if (typeof window !== "undefined") {

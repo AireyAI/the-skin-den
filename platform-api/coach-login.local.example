@@ -1,0 +1,6 @@
+# Copy to .coach-login.local (gitignored). Real credentials are generated on Railway only.
+KK_COACH_EMAIL=kettle.kulture@outlook.com
+KK_COACH_PASSWORD=
+# Same value as Vercel env STUDIO_HANDOFF_TOKEN (unguessable; enables email PDF link)
+KK_HANDOFF_TOKEN=
+ADMIN_URL=https://kettle-kulture.vercel.app/admin/

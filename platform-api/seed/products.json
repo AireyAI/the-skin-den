@@ -1,0 +1,35 @@
+{
+  "products": [
+    {
+      "id": "class-pack-8",
+      "name": "8-class block",
+      "description": "Eight coached sessions — valid for 1 month from the day you purchase.",
+      "type": "pack",
+      "pricePence": 7000,
+      "priceLabel": "£70.00",
+      "packCredits": 8,
+      "packValidityDays": 30,
+      "published": true
+    },
+    {
+      "id": "class-pack-5",
+      "name": "5-class pack",
+      "description": "Legacy pack — use within 90 days.",
+      "type": "pack",
+      "pricePence": 6500,
+      "priceLabel": "£65.00",
+      "packCredits": 5,
+      "packValidityDays": 90,
+      "published": false
+    },
+    {
+      "id": "membership-unlimited",
+      "name": "Monthly membership",
+      "description": "Unlimited group sessions — rolling monthly, cancel anytime.",
+      "type": "subscription",
+      "pricePence": 5500,
+      "priceLabel": "£55.00/mo",
+      "published": false
+    }
+  ]
+}

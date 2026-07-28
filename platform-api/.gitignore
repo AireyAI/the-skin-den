@@ -1,0 +1,17 @@
+data/
+*.sqlite
+*.sqlite-*
+node_modules/
+
+# Secrets. .env is loaded by src/config.mjs and holds live Stripe keys on a dev box —
+# it was missing from this list, so one `git add .` would have committed it.
+.env
+.env.*
+!.env.example
+.coach-login.local
+.stripe-provision.local
+.google-provision.local
+.wallet-sa.json
+.wallet-keygen/
+.wallet-proxy-secret
+.apple-pass/

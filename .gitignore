@@ -6,3 +6,11 @@ temporary screenshots/
 .env.local
 *.admin-coach-password.local
 .clockwork-bootstrap-secret.local
+
+# platform-api local/runtime
+platform-api/node_modules/
+platform-api/data/*
+!platform-api/data/.gitignore
+platform-api/.env
+platform-api/.env.*
+!platform-api/.env.example

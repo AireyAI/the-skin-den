@@ -1,0 +1,21 @@
+{
+  "name": "the-skin-den-platform-api",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "dev": "node --watch src/server.mjs",
+    "seed": "node src/seed.mjs",
+    "test": "node --test --test-concurrency=1 test/*.test.mjs"
+  },
+  "dependencies": {
+    "google-auth-library": "^9.15.1",
+    "passkit-generator": "^3.5.0",
+    "qrcode": "^1.5.4",
+    "stripe": "^17.7.0"
+  },
+  "description": "The Skin Den studio platform API (clients, Apple sign-in, admin CRM). Isolated tenant \u2014 not shared with other studios."
+}

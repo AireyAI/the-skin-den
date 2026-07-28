@@ -1,0 +1,157 @@
+{
+  "venue": "Atlas Works \u00b7 Nelson Street, Denton Holme, Carlisle",
+  "cancelPolicy": "Cancel at least 48 hours before your class for a credit back to your pack. Drop-ins are non-refundable once paid.",
+  "offerings": [
+    {
+      "id": "womens-mon-0600",
+      "day": "Mon",
+      "time": "6am",
+      "title": "Women's kettlebell class",
+      "note": "Women's \u00b7 All levels",
+      "pricePence": 1000,
+      "capacity": 30,
+      "active": true
+    },
+    {
+      "id": "womens-mon-0730",
+      "day": "Mon",
+      "time": "7:30am",
+      "title": "Women's kettlebell class",
+      "note": "Women's \u00b7 All levels",
+      "pricePence": 1000,
+      "capacity": 30,
+      "active": true
+    },
+    {
+      "id": "womens-mon-1830",
+      "day": "Mon",
+      "time": "6:30pm",
+      "title": "Women's kettlebell class",
+      "note": "Women's \u00b7 All levels",
+      "pricePence": 1000,
+      "capacity": 30,
+      "active": true
+    },
+    {
+      "id": "mixed-tue-0600",
+      "day": "Tue",
+      "time": "6am",
+      "title": "Mixed kettlebell class",
+      "note": "Mixed \u00b7 Coached throughout",
+      "pricePence": 1000,
+      "capacity": 30,
+      "active": true
+    },
+    {
+      "id": "mixed-tue-0730",
+      "day": "Tue",
+      "time": "7:30am",
+      "title": "Mixed kettlebell class",
+      "note": "Mixed \u00b7 Coached throughout",
+      "pricePence": 1000,
+      "capacity": 30,
+      "active": true
+    },
+    {
+      "id": "mixed-tue-1830",
+      "day": "Tue",
+      "time": "6:30pm",
+      "title": "Mixed kettlebell class",
+      "note": "Mixed \u00b7 Coached throughout",
+      "pricePence": 1000,
+      "capacity": 30,
+      "active": true
+    },
+    {
+      "id": "womens-wed-0600",
+      "day": "Wed",
+      "time": "6am",
+      "title": "Women's kettlebell class",
+      "note": "Women's \u00b7 All levels",
+      "pricePence": 1000,
+      "capacity": 30,
+      "active": true
+    },
+    {
+      "id": "womens-wed-0730",
+      "day": "Wed",
+      "time": "7:30am",
+      "title": "Women's kettlebell class",
+      "note": "Women's \u00b7 All levels",
+      "pricePence": 1000,
+      "capacity": 30,
+      "active": true
+    },
+    {
+      "id": "womens-wed-1830",
+      "day": "Wed",
+      "time": "6:30pm",
+      "title": "Women's kettlebell class",
+      "note": "Women's \u00b7 All levels",
+      "pricePence": 1000,
+      "capacity": 30,
+      "active": true
+    },
+    {
+      "id": "mixed-thu-0600",
+      "day": "Thu",
+      "time": "6am",
+      "title": "Mixed kettlebell class",
+      "note": "Mixed \u00b7 Coached throughout",
+      "pricePence": 1000,
+      "capacity": 30,
+      "active": true
+    },
+    {
+      "id": "mixed-thu-0730",
+      "day": "Thu",
+      "time": "7:30am",
+      "title": "Mixed kettlebell class",
+      "note": "Mixed \u00b7 Coached throughout",
+      "pricePence": 1000,
+      "capacity": 30,
+      "active": true
+    },
+    {
+      "id": "mixed-thu-1830",
+      "day": "Thu",
+      "time": "6:30pm",
+      "title": "Mixed kettlebell class",
+      "note": "Mixed \u00b7 Coached throughout",
+      "pricePence": 1000,
+      "capacity": 30,
+      "active": true
+    },
+    {
+      "id": "mixed-sat-0830",
+      "day": "Sat",
+      "time": "8:30am",
+      "title": "Mixed kettlebell class",
+      "note": "Mixed \u00b7 Weekend session",
+      "pricePence": 1000,
+      "capacity": 30,
+      "active": true
+    },
+    {
+      "id": "womens-sat-1000",
+      "day": "Sat",
+      "time": "10am",
+      "title": "Women's kettlebell class",
+      "note": "Women's \u00b7 Weekend session",
+      "pricePence": 1000,
+      "capacity": 30,
+      "active": true
+    },
+    {
+      "id": "mixed-sun-0900",
+      "day": "Sun",
+      "time": "9am",
+      "title": "Mixed kettlebell class",
+      "note": "Mixed \u00b7 Sunday session",
+      "pricePence": 1000,
+      "capacity": 30,
+      "active": true
+    }
+  ],
+  "scheduleSeedId": "kk-official-timetable-2026-07"
+}
