@@ -78,8 +78,62 @@ export function fetchPayments() {
   return adminGet("/payments");
 }
 
-export function fetchStripeStatus() {
-  return adminGet("/stripe/status");
+const BOOKING_TOKEN_KEY = "cw-admin-token";
+
+function bookingApi() {
+  return window.SITE_CONFIG?.booking?.apiUrl?.replace(/\/$/, "") || "";
+}
+
+function bookingConnectUrl() {
+  const slug = window.SITE_CONFIG?.booking?.slug || "";
+  return `${bookingApi()}/api/m/${encodeURIComponent(slug)}/connect/link`;
+}
+
+export function getBookingToken() {
+  return localStorage.getItem(BOOKING_TOKEN_KEY);
+}
+
+export function setBookingToken(token) {
+  if (token) localStorage.setItem(BOOKING_TOKEN_KEY, token);
+  else localStorage.removeItem(BOOKING_TOKEN_KEY);
+}
+
+/**
+ * Signs in to the booking system as well, so payout setup targets the Stripe
+ * account that actually receives treatment payments. Same credentials.
+ */
+export async function signInToBookingSystem(email, password) {
+  const base = bookingApi();
+  if (!base) return null;
+  const res = await fetch(`${base}/api/auth?action=token`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password })
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || !data.token) {
+    throw new Error(data.error || `Booking sign-in failed (${res.status})`);
+  }
+  setBookingToken(data.token);
+  return data.token;
+}
+
+/** Payout readiness read from the system that takes the money. */
+export async function fetchStripeStatus() {
+  const base = bookingApi();
+  const token = getBookingToken();
+  if (!base) return adminGet("/stripe/status");
+  if (!token) {
+    return { configured: true, connected: false, chargesEnabled: false, readyForCheckout: false, detailsSubmitted: false, needsReauth: true };
+  }
+  const res = await fetch(bookingConnectUrl(), { headers: { Authorization: `Bearer ${token}` } });
+  if (res.status === 401) {
+    setBookingToken(null);
+    return { configured: true, connected: false, chargesEnabled: false, readyForCheckout: false, detailsSubmitted: false, needsReauth: true };
+  }
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || `Payout status failed (${res.status})`);
+  return data;
 }
 
 export function fetchCheckIns() {
@@ -161,38 +215,37 @@ export async function saveSchedule(doc) {
 }
 
 export async function requestStripeConnectLink() {
-  const platform = window.KK_PLATFORM_API?.replace(/\/$/, "");
-  if (!platform) throw new Error("Platform API not configured");
-  const res = await fetch(`${platform}/v1/admin/stripe/connect-link`, {
+  const base = bookingApi();
+  if (!base) throw new Error("Booking API not configured");
+  const token = getBookingToken();
+  if (!token) {
+    throw new Error("Payout setup needs a fresh sign-in — sign out, sign back in, then try again.");
+  }
+  const returnOrigin = (
+    window.SITE_CONFIG?.siteOrigin ||
+    window.SITE_CONFIG?.publicOrigin ||
+    window.location.origin
+  ).replace(/\/$/, "");
+
+  const res = await fetch(bookingConnectUrl(), {
     method: "POST",
-    headers: authHeaders()
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ returnOrigin })
   });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || "Connect link failed");
+  const data = await res.json().catch(() => ({}));
+  if (res.status === 401) {
+    setBookingToken(null);
+    throw new Error("Payout setup needs a fresh sign-in — sign out, sign back in, then try again.");
+  }
+  if (!res.ok) throw new Error(data.error || "Could not open payout setup");
   return data;
 }
 
-/** One click → Stripe-hosted payout setup; returns when redirect is blocked. */
+/** One click → Stripe-hosted payout setup (same as Kettle Kulture). */
 export async function startStripePayoutSetup() {
-  const cw = window.SITE_CONFIG?.booking?.clockworkConnectUrl;
-  try {
-    const { url } = await requestStripeConnectLink();
-    if (url) {
-      window.location.assign(url);
-      return;
-    }
-  } catch (err) {
-    if (cw) {
-      window.location.assign(cw);
-      return;
-    }
-    throw err;
-  }
-  if (cw) {
-    window.location.assign(cw);
-    return;
-  }
-  throw new Error("No Stripe link returned");
+  const { url } = await requestStripeConnectLink();
+  if (!url) throw new Error("No Stripe link returned");
+  window.location.assign(url);
 }
 
 const ADMIN_TOKEN_KEY = "kk-admin-token";

@@ -41,7 +41,7 @@ export function handleStripeReturnQuery() {
     showToast("Checking payout setup…");
     void refreshStripeBanner().then((ready) => {
       if (ready) {
-        showToast("You’re live — treatment payments on the website will go to your bank.");
+        showToast("Payments are live — you’re connected. No further setup needed.");
       } else {
         showToast("If Stripe asked for more info, tap Set up payouts again to finish.");
       }
@@ -74,16 +74,12 @@ function renderQuickLinks(websiteAnalytics) {
   wrap.replaceChildren();
 
   const bookUrl = window.SITE_CONFIG?.booking?.clockworkBookUrl || `${base}/studio.html#book`;
-  const cwAdmin = window.SITE_CONFIG?.booking?.clockworkAdminUrl;
   const links = [
     { href: `${base}/studio.html`, label: "View website" },
     { href: bookUrl, label: "Book treatments (public)", external: Boolean(window.SITE_CONFIG?.booking?.clockworkBookUrl) },
     { href: "./reviews.html", label: "Review moderation" },
     { href: analyticsHref, label: "Website visits (Analytics)", external: true }
   ];
-  if (cwAdmin) {
-    links.splice(2, 0, { href: cwAdmin, label: "Booking admin (Clockwork)", external: true });
-  }
 
   for (const item of links) {
     const a = document.createElement("a");

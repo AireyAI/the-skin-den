@@ -1,4 +1,4 @@
-import { fetchDashboardSnapshot, markMemberContacted, setAdminToken, getAdminToken } from "./api.js";
+import { fetchDashboardSnapshot, markMemberContacted, setAdminToken, getAdminToken, setBookingToken, signInToBookingSystem } from "./api.js";
 import {
   computeInsights,
   computeKpis,
@@ -101,6 +101,13 @@ async function boot() {
       }
       if (!res.ok) throw new Error(data.error || `Login failed (${res.status})`);
       setAdminToken(data.token);
+      // Payout setup lives on the booking system; mint its token with the same
+      // credentials so "Set up payouts" never needs a second password prompt.
+      try {
+        await signInToBookingSystem(email, password);
+      } catch (bookingErr) {
+        console.error("[admin] booking system sign-in failed", bookingErr);
+      }
       if (statusEl) { statusEl.textContent = ""; statusEl.className = "gate-status"; }
       showApp();
       void load().catch((loadErr) => console.error("[admin] load after login", loadErr));
@@ -176,6 +183,7 @@ async function load() {
     console.error(err);
     if (String(err.message || "").includes("Session expired")) {
       setAdminToken(null);
+      setBookingToken(null);
       els.app.hidden = true;
       els.gate.hidden = false;
       const statusEl = document.getElementById("gate-status");

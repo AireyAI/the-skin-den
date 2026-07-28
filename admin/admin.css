@@ -1253,3 +1253,13 @@ label,
     outline-offset: 3px;
   }
 }
+.stripe-connect-error {
+  margin: 0 var(--space-5) var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: color-mix(in srgb, #c44 92%, var(--color-text));
+  background: color-mix(in srgb, #c44 12%, var(--color-surface));
+  border: 1px solid color-mix(in srgb, #c44 35%, transparent);
+  border-radius: var(--radius-md);
+}

@@ -5,7 +5,7 @@ import {
   fetchBookings,
   fetchPayments,
   fetchStripeStatus,
-  startStripePayoutSetup
+  requestStripeConnectLink
 } from "./api.js";
 
 let els = {};
@@ -43,10 +43,26 @@ async function goStripeSetup(btn) {
   btn.disabled = true;
   const label = btn.textContent;
   btn.textContent = "Opening Stripe…";
+  const errEl = document.getElementById("stripe-connect-error");
+  if (errEl) {
+    errEl.hidden = true;
+    errEl.textContent = "";
+  }
   try {
-    await startStripePayoutSetup();
+    const data = await requestStripeConnectLink();
+    if (data.readyForCheckout && data.linkKind === "express_dashboard") {
+      await refreshStripeBanner();
+    }
+    if (!data.url) throw new Error("No Stripe link returned — try again or contact support.");
+    window.location.href = data.url;
   } catch (err) {
-    alert(err.message || "Could not open payout setup.");
+    const msg = err.message || "Could not open payout setup.";
+    if (errEl) {
+      errEl.hidden = false;
+      errEl.textContent = msg;
+    } else {
+      alert(msg);
+    }
     btn.disabled = false;
     btn.textContent = label;
   }
@@ -92,7 +108,7 @@ export async function refreshStripeBanner() {
       status.detailsSubmitted && !status.readyForCheckout;
     els.bannerText.textContent = needsMore
       ? "Stripe needs a few more details before you can take payments. Tap the button to finish — usually under five minutes."
-      : "One step left: tell Stripe where to send your class payments. Bank details and ID — about five minutes, then you’re live.";
+      : "One step left: tell Stripe where to send your treatment payments. Bank details and ID — about five minutes, then you’re live.";
     els.connectBtn.hidden = !status.configured;
     els.connectBtn.textContent = needsMore ? "Finish payout setup" : "Set up payouts";
     return false;

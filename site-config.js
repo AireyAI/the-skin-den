@@ -29,10 +29,15 @@ export const SITE_CONFIG = Object.freeze({
     whatsappUrl: "https://wa.me/447568602861"
   },
   booking: {
-    /** Public booking embed (Clockwork) — also linked from admin quick links. */
+    /** Public booking page embed. */
     clockworkBookUrl: "https://clockwork-bookings.vercel.app/m/the-skin-den/book",
-    clockworkAdminUrl: "https://clockwork-bookings.vercel.app/m/the-skin-den/admin",
-    clockworkConnectUrl: "https://clockwork-bookings.vercel.app/platform/the-skin-den/connect",
+    /**
+     * Booking + payments API. Payout setup MUST go through this system: it holds
+     * the Stripe account that every booking payment is routed to, so connecting
+     * anything else would put treatment money in an account she never onboarded.
+     */
+    apiUrl: "https://clockwork-bookings.vercel.app",
+    slug: "the-skin-den",
     schedulePublished: true
   },
   forge: {

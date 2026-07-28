@@ -1,33 +1,22 @@
 # Rachel — studio admin login (The Skin Den)
 
-**Send this to Rachel** (change password after first sign-in if you prefer).
+**Send this to Rachel** after Kyle sets her password on the platform API (today).
 
-## Studio dashboard (members, bookings, payouts, Aria)
+## Studio dashboard (same flow as Kettle Kulture)
 
-- **URL:** https://theskinden.co.uk/admin/  
-  (After the site deploy finishes; locally: http://localhost:3000/admin/)
+- **URL:** https://theskinden.co.uk/admin/
 - **Email:** `rachel@theskinden.co.uk`
-- **Password:** *(see Kyle — stored in `.admin-coach-password.local`, not in git)*
+- **Password:** *(Kyle sets this on Railway `KK_COACH_PASSWORD` — not stored in git)*
 
-## First-time Stripe setup (5% platform fee on paid bookings)
+## Stripe payouts (one click, in the dashboard)
 
-1. Sign in at the admin URL above.
-2. Tap **Set up payouts** on the banner (or **Connect Stripe to get paid** in Payments).
-3. Complete Stripe’s short form (bank + ID).  
-   - **Booking deposits on the website** (Clockwork embed) use:  
-     https://clockwork-bookings.vercel.app/platform/the-skin-den/connect  
-   - The admin banner tries the studio API first, then opens Clockwork Connect if needed.
-4. When Stripe shows **charges enabled**, paid bookings on the site will split **95% to Rachel / 5% platform**.
+1. Sign in at **https://theskinden.co.uk/admin/**
+2. Tap **Set up payouts** on the banner (or open **Payments**).
+3. Stripe opens in the browser; add bank details and ID (~5 minutes).
+4. You return to **theskinden.co.uk/admin** automatically. When setup is complete, the banner clears and treatment payments are live (**95% to Rachel / 5% platform**).
 
-## Booking admin (treatment calendar)
+The dashboard connects the **same Stripe account the booking system pays into**, so
+the account she onboards is always the account that receives her money. Payout setup
+is only ever done from this dashboard.
 
-- https://clockwork-bookings.vercel.app/m/the-skin-den/admin  
-- **Same email/password** as studio admin (bootstrapped on production).
-
-## Stripe (bookings on the website — 5% platform fee)
-
-1. Studio admin → **Set up payouts**, or open directly:  
-   https://clockwork-bookings.vercel.app/platform/the-skin-den/connect  
-2. Finish Stripe Connect once; paid bookings on the embedded widget split **95% / 5%**.
-
-If sign-in fails after a deploy, hard-refresh the page. API: `https://platform-api-production-3d5f.up.railway.app/health` should return OK.
+If sign-in fails after a deploy, hard-refresh. API health: `https://platform-api-production-3d5f.up.railway.app/health`

@@ -1,25 +1,32 @@
-# Studio admin dashboard (The Skin Den)
+# The Skin Den — studio admin
 
-Coach UI lives at `/admin/` on the marketing site (`noindex`). Same stack as Kettle Kulture: platform-api + Aria copilot sidebar.
+Same Kettle Kulture stack: static admin on the client domain + **platform-api** on Railway.
 
-## Local
+## URLs
 
-1. Start `platform-api` on port **3220** (Skin Den tenant env when deployed).
-2. `node serve.mjs` on port **3000**.
-3. Open http://localhost:3000/admin/ and sign in with coach credentials from `platform-api/.env`.
+| What | URL |
+|------|-----|
+| Admin (Rachel) | https://theskinden.co.uk/admin/ |
+| Platform API | https://platform-api-production-3d5f.up.railway.app |
+| Public site | https://theskinden.co.uk/studio.html |
 
-On localhost, `platform-client.js` sets:
+## Stripe Connect
 
-- `KK_PLATFORM_API` → `http://localhost:3220`
-- `KK_ADMIN_API_BASE` → `http://localhost:3220/v1/admin`
+Identical to KK: coach signs in → **Set up payouts** → `POST /v1/admin/stripe/connect-link` → Stripe onboarding → return to `https://theskinden.co.uk/admin/?stripe=return`.
 
-If the API is not running locally, the dashboard loads **demo data** from `admin/data/members.demo.json` so Rachel can tour the UI.
+Railway must have:
 
-## Quick links
+- `KK_PUBLIC_SITE_ORIGIN=https://theskinden.co.uk`
+- `KK_CORS_ORIGINS` including `https://theskinden.co.uk`
+- `STRIPE_SECRET_KEY` = platform **sk_live_** (not restricted `rk_`)
+- `PLATFORM_FEE_BPS=500` (5%)
 
-- **Review moderation (legacy):** `/admin/reviews.html`
-- **Clockwork booking admin:** configured in `site-config.js` → `booking.clockworkAdminUrl`
+## Login
 
-## Production
+Set `KK_COACH_EMAIL` and `KK_COACH_PASSWORD` on the Skin Den **platform-api** service. Admin uses `POST /v1/auth/coach/login`.
 
-Set `platformApiUrl` in `site-config.js` to the deployed Skin Den platform-api URL when live.
+## Code
+
+- Admin UI: `admin/` (copied from Kettle Kulture website admin)
+- Site wiring: `site-config.js` → `platformApiUrl`, `publicOrigin`
+- Booking embed (public only): `site-config.js` → `booking.clockworkBookUrl`
