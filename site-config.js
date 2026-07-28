@@ -45,8 +45,8 @@ export const SITE_CONFIG = Object.freeze({
     gatewayApiKey: ""
   },
   /**
-   * Live platform-api (same stack as Kettle Kulture). Deploy a Skin Den instance
-   * and set this URL — until then, localhost falls back to demo data when API is down.
+   * Skin Den ONLY platform-api (Railway project skin-den-platform).
+   * Never point this at another studio's URL — SQLite + JWT are tenant-isolated.
    */
   platformApiUrl: "https://platform-api-production-3d5f.up.railway.app",
   analytics: Object.freeze({
