@@ -10,6 +10,7 @@ import {
 } from "./membership-dates.js";
 import { renderMemberBookings } from "./member-bookings.js";
 import { fetchMemberBookings } from "../member-session.js";
+import { mountAccountBooking } from "./account-book.js";
 import {
   TOKEN_KEY,
   setMemberToken,
@@ -154,11 +155,18 @@ function updateOAuthUi() {
   const orEl = document.getElementById("acct-or");
   const googleStack = document.getElementById("google-oauth-stack");
   const appleBtn = document.getElementById("btn-apple-signin");
-  const show = oauthAvailable();
+  const appleHint = document.getElementById("apple-setup-hint");
+  const salon = salonAccountMode();
+  const show = oauthAvailable() || salon;
   if (wrap) wrap.hidden = !show;
-  if (orEl) orEl.hidden = !show;
+  if (orEl) orEl.hidden = false;
   if (googleStack) googleStack.hidden = !googleClientId;
-  if (appleBtn) appleBtn.hidden = !appleClientId;
+  if (appleBtn) {
+    appleBtn.hidden = false;
+    appleBtn.disabled = !appleClientId;
+    appleBtn.setAttribute("aria-disabled", appleClientId ? "false" : "true");
+  }
+  if (appleHint) appleHint.hidden = Boolean(appleClientId);
   if (googleClientId) queueGoogleButtonRender();
 }
 
@@ -184,8 +192,12 @@ function queueGoogleButtonRender() {
 
 function bindAppleSignInButton() {
   const btn = document.getElementById("btn-apple-signin");
-  if (!btn || btn.dataset.kkBound === "1" || !window.AppleID) return;
+  if (!btn || btn.dataset.kkBound === "1") return;
   btn.addEventListener("click", () => {
+    if (!appleClientId || !window.AppleID) {
+      setStatus("Apple Sign In is finishing setup — create an account with email for now.", "error");
+      return;
+    }
     setAppleSignInBusy(true);
     AppleID.auth.signIn().catch((err) => {
       setAppleSignInBusy(false);
@@ -363,6 +375,16 @@ function showMember(data, bookingsPayload) {
 
   const bookingsRoot = document.getElementById("member-bookings");
   renderMemberBookings(bookingsPayload, bookingsRoot);
+
+  const bookRoot = document.getElementById("account-book");
+  if (bookRoot && salonAccountMode()) {
+    void mountAccountBooking(bookRoot, {
+      user,
+      onBooked: () => {
+        void refresh();
+      }
+    });
+  }
 }
 
 async function refresh() {
