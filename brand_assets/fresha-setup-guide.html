@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fresha Setup Guide — The Skin Den</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@144,400;144,500;144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --c-charcoal: #2A2117;
+    --c-charcoal-soft: #3D3225;
+    --c-text-muted: #7A6B58;
+    --c-cream: #F5EBDA;
+    --c-cream-light: #FAF3E5;
+    --c-ivory: #FDF8EE;
+    --c-gold: #C5A06D;
+    --c-gold-deep: #8A7148;
+    --c-gold-text: #6F5938;
+    --c-gold-soft: #DDC59B;
+    --c-line: rgba(42, 33, 23, 0.12);
+    --font-serif: "Fraunces", Georgia, serif;
+    --font-sans: "Inter", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans);
+    color: var(--c-charcoal);
+    background: var(--c-ivory);
+    font-size: 13px;
+    line-height: 1.55;
+    font-variant-ligatures: none;
+    font-kerning: none;
+    -webkit-font-feature-settings: "liga" 0, "clig" 0, "kern" 0, "calt" 0;
+    font-feature-settings: "liga" 0, "clig" 0, "kern" 0, "calt" 0;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm 18mm;
+    page-break-after: always;
+  }
+  .page:last-child { page-break-after: avoid; }
+
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, var(--c-cream-light) 0%, var(--c-ivory) 60%);
+  }
+  .cover .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-gold-text);
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .cover h1 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 40px;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 18px;
+  }
+  .cover h1 em { font-style: italic; color: var(--c-gold-deep); }
+  .cover p.lede {
+    max-width: 420px;
+    color: var(--c-text-muted);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+  .cover .stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 20px;
+  }
+  .cover .stat { text-align: center; }
+  .cover .stat b { display: block; font-family: var(--font-serif); font-size: 24px; color: var(--c-gold-deep); }
+  .cover .stat span { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--c-text-muted); }
+  .cover .footer-note {
+    position: absolute;
+    bottom: 20mm;
+    font-size: 11px;
+    color: var(--c-text-muted);
+  }
+
+  .kicker {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-gold-text);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  h2.step-title {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 24px;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--c-charcoal);
+    color: var(--c-ivory);
+    font-family: var(--font-serif);
+    font-size: 15px;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+  .step-header { display: flex; align-items: center; margin-bottom: 18px; }
+  .step-body { padding-left: 44px; }
+  p { margin-bottom: 12px; color: var(--c-charcoal-soft); }
+  .card {
+    background: var(--c-cream-light);
+    border: 1px solid var(--c-line);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+  }
+  .card b { color: var(--c-charcoal); }
+  .field-list { list-style: none; }
+  .field-list li { padding: 5px 0; border-bottom: 1px solid var(--c-line); font-size: 12.5px; }
+  .field-list li:last-child { border-bottom: none; }
+  .field-list li b { color: var(--c-gold-text); font-weight: 600; }
+
+  table.treatments { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 11.5px; }
+  table.treatments th {
+    text-align: left; text-transform: uppercase; letter-spacing: 0.05em; font-size: 9.5px;
+    color: var(--c-text-muted); font-weight: 600; padding: 6px 8px; border-bottom: 1.5px solid var(--c-charcoal);
+  }
+  table.treatments td { padding: 7px 8px; border-bottom: 1px solid var(--c-line); }
+  table.treatments tr:last-child td { border-bottom: none; }
+  table.treatments td.price { color: var(--c-gold-text); font-weight: 600; white-space: nowrap; }
+  table.treatments td.dur { color: var(--c-text-muted); white-space: nowrap; text-align: right; }
+  .category-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--c-charcoal); margin: 16px 0 6px;
+  }
+  .category-label:first-of-type { margin-top: 0; }
+
+  .policy-tiers { display: flex; gap: 10px; margin: 14px 0; }
+  .tier { flex: 1; background: var(--c-charcoal); color: var(--c-ivory); border-radius: 8px; padding: 12px 10px; text-align: center; }
+  .tier b { display: block; font-family: var(--font-serif); font-size: 15px; color: var(--c-gold-soft); margin-bottom: 4px; }
+  .tier span { font-size: 10.5px; color: rgba(253,248,238,0.75); }
+
+  .note {
+    border-left: 3px solid var(--c-gold); background: var(--c-cream-light);
+    padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 12px; color: var(--c-charcoal-soft); margin-top: 8px;
+  }
+  .final-cta {
+    background: var(--c-charcoal); color: var(--c-ivory); border-radius: 14px; padding: 28px 26px; text-align: center; margin-top: 30px;
+  }
+  .final-cta h3 { font-family: var(--font-serif); font-size: 20px; font-weight: 500; margin-bottom: 10px; color: var(--c-ivory); }
+  .final-cta p { color: rgba(253,248,238,0.8); margin-bottom: 0; }
+  .brand-mark { font-family: var(--font-serif); font-size: 15px; font-weight: 500; }
+  .page-footer {
+    position: absolute; bottom: 14mm; left: 18mm; right: 18mm;
+    display: flex; justify-content: space-between; font-size: 9.5px; color: var(--c-text-muted);
+    border-top: 1px solid var(--c-line); padding-top: 8px;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 — COVER -->
+<div class="page cover" style="position: relative;">
+  <p class="eyebrow">The Skin Den · by Rachel</p>
+  <h1>Getting your booking<br>&amp; deposits <em>set up</em></h1>
+  <p class="lede">A step-by-step guide to switching on online booking and automatic deposit protection on your website — no more chasing no-shows.</p>
+  <div class="stats">
+    <div class="stat"><b>7</b><span>Simple steps</span></div>
+    <div class="stat"><b>~20</b><span>Minutes total</span></div>
+    <div class="stat"><b>£0</b><span>Cost to you</span></div>
+  </div>
+  <p class="footer-note">Prepared for Rachel · The Skin Den, Carlisle</p>
+</div>
+
+<!-- PAGE 2 — STEPS 1-2 -->
+<div class="page" style="position: relative;">
+  <p class="kicker">Before you start</p>
+  <h2 class="step-title" style="margin-bottom: 24px;">Why Fresha</h2>
+  <p style="margin-bottom: 24px;">It's free for you and free for your clients, it's built specifically for beauty and skincare businesses, and — most importantly — it takes a card-on-file deposit automatically at the point of booking. That means your existing 50% deposit and cancellation policy finally enforces itself instead of you having to chase it.</p>
+
+  <div class="step-header"><span class="step-num">1</span><h2 class="step-title">Create your account</h2></div>
+  <div class="step-body">
+    <p>Go to <b>fresha.com</b> → click <b>"For business"</b> → sign up with an email address. This can be a brand new one just for the business, or one you already use.</p>
+  </div>
+
+  <div class="step-header" style="margin-top: 30px;"><span class="step-num">2</span><h2 class="step-title">Set up your business profile</h2></div>
+  <div class="step-body">
+    <ul class="field-list">
+      <li><b>Business name</b> — The Skin Den (by Rachel)</li>
+      <li><b>Category</b> — Skin care / Facial studio / Acne treatment</li>
+      <li><b>Phone</b> — 07568 602861</li>
+      <li><b>Address</b> — 73 Greymoor Way, Carlisle, CA3 0FQ</li>
+    </ul>
+    <div class="note">Fresha has a privacy toggle so only the general area ("Carlisle, CA3") shows publicly, and your exact address stays hidden until someone actually books — matches what the website already says.</div>
+  </div>
+
+  <div class="page-footer"><span>The Skin Den — Fresha Setup Guide</span><span>Page 1 of 4</span></div>
+</div>
+
+<!-- PAGE 3 — STEP 3-4 (TREATMENTS + DEPOSITS) -->
+<div class="page" style="position: relative;">
+  <div class="step-header"><span class="step-num">3</span><h2 class="step-title">Add your treatments</h2></div>
+  <div class="step-body">
+    <p>Go to <b>Catalogue → Services</b> and add each of these. The price is what matters most — durations below are our best guess, so change them to whatever actually matches your real appointment slots.</p>
+
+    <p class="category-label">Facials</p>
+    <table class="treatments">
+      <tr><th>Treatment</th><th></th><th></th></tr>
+      <tr><td>Skin Consultation &amp; Advanced Facial (New Clients)</td><td class="price">£50</td><td class="dur">~75 min</td></tr>
+      <tr><td>Advanced Facial</td><td class="price">£45</td><td class="dur">~60 min</td></tr>
+      <tr><td>Advanced Facial &amp; Dermaplaning</td><td class="price">£55</td><td class="dur">~75 min</td></tr>
+      <tr><td>Acne Consultation &amp; Treatment</td><td class="price">£65</td><td class="dur">~75 min</td></tr>
+    </table>
+
+    <p class="category-label">Advanced treatments</p>
+    <table class="treatments">
+      <tr><th>Treatment</th><th></th><th></th></tr>
+      <tr><td>Microneedling</td><td class="price">£70</td><td class="dur">~60 min</td></tr>
+      <tr><td>Microneedling x Polynucleotides</td><td class="price">£110</td><td class="dur">~75 min</td></tr>
+      <tr><td>Chemical Peel</td><td class="price">£60</td><td class="dur">~45 min</td></tr>
+      <tr><td>BioRePeel</td><td class="price">£65</td><td class="dur">~45 min</td></tr>
+      <tr><td>BioRePeel x Dermaplaning</td><td class="price">£75</td><td class="dur">~60 min</td></tr>
+      <tr><td>Hydradermabrasion Facial</td><td class="price">£55</td><td class="dur">~60 min</td></tr>
+    </table>
+
+    <p class="category-label">Skin boosters <span style="text-transform:none; font-weight:400; color:var(--c-text-muted);">(course of 3 advised)</span></p>
+    <table class="treatments">
+      <tr><th>Treatment</th><th></th><th></th></tr>
+      <tr><td>Seventy Hyal</td><td class="price">£100</td><td class="dur">~45 min</td></tr>
+      <tr><td>Lumi Pro</td><td class="price">£115</td><td class="dur">~45 min</td></tr>
+      <tr><td>Revs Pro 32</td><td class="price">£125</td><td class="dur">~45 min</td></tr>
+    </table>
+  </div>
+
+  <div class="page-footer"><span>The Skin Den — Fresha Setup Guide</span><span>Page 2 of 4</span></div>
+</div>
+
+<!-- PAGE 4 — STEP 4 (DEPOSITS) -->
+<div class="page" style="position: relative;">
+  <div class="step-header"><span class="step-num">4</span><h2 class="step-title">Turn on deposits</h2></div>
+  <div class="step-body">
+    <p style="margin-bottom: 10px;">Go to <b>Settings → No-show protection</b> (sometimes called "Booking protection" or "Deposits") and turn on <b>"Require card details / deposit for new clients"</b>, set to <b>50%</b> of the service price.</p>
+    <div class="policy-tiers">
+      <div class="tier"><b>48+ hrs</b><span>Free reschedule</span></div>
+      <div class="tier"><b>&lt; 48 hrs</b><span>50% charged</span></div>
+      <div class="tier"><b>&lt; 24 hrs / no-show</b><span>100% charged</span></div>
+    </div>
+    <div class="note">This is exactly the policy already on your website and Instagram — Fresha now enforces it automatically instead of you having to chase anyone.</div>
+  </div>
+
+  <div class="page-footer"><span>The Skin Den — Fresha Setup Guide</span><span>Page 3 of 4</span></div>
+</div>
+
+<!-- PAGE 5 — STEPS 5-7 + CTA -->
+<div class="page" style="position: relative;">
+  <div class="step-header"><span class="step-num">5</span><h2 class="step-title">Connect your payouts</h2></div>
+  <div class="step-body">
+    <p><b>Settings → Payments</b> — connect your bank account so deposits land with you. This step is between you and Fresha directly; neither Kyle nor Claude ever sees your bank details. You may need to verify your ID — standard for any payment provider.</p>
+  </div>
+
+  <div class="step-header" style="margin-top: 26px;"><span class="step-num">6</span><h2 class="step-title">Set your working hours</h2></div>
+  <div class="step-body">
+    <p><b>Settings → Business hours</b> — whatever days and times you actually take clients. This is what stops anyone booking a slot you're not available for.</p>
+  </div>
+
+  <div class="step-header" style="margin-top: 26px;"><span class="step-num">7</span><h2 class="step-title">Send back your booking link</h2></div>
+  <div class="step-body">
+    <p><b>Settings → Online booking</b> (or <b>Marketing → Sales channels</b>) — copy your public booking link. It'll look something like <b>fresha.com/book-now/the-skin-den-xxxxx</b>.</p>
+  </div>
+
+  <div class="final-cta">
+    <h3>That's the last piece</h3>
+    <p>Send that link back to Kyle and your "Book a consultation" button goes live the same day — with real online booking and automatic deposits.</p>
+  </div>
+
+  <p style="margin-top: 22px; font-size: 12px; color: var(--c-text-muted);">Any step confusing, just message and we'll jump on a call and walk through it together.</p>
+
+  <div class="page-footer"><span class="brand-mark">The Skin Den</span><span>Page 4 of 4</span></div>
+</div>
+
+</body>
+</html>
