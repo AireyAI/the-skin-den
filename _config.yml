@@ -1,0 +1,3 @@
+# Keep the Apple Sign in with Apple domain association available on GitHub Pages.
+include:
+  - .well-known
