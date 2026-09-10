@@ -63,7 +63,7 @@ Card-B: **"Investing in long-term skin health?"** → scrolls to advanced treatm
 - Credentials row: VTCT Qualified • Insured • Carlisle-based • [years trading]
 
 ### Treatments & prices
-Full 13-treatment list from §3 of `client_intake.md`. Three tabs: **Facials / Advanced / Skin Boosters**.
+Full 17-treatment list from §3 of `client_intake.md`. Four tabs: **Facials / Advanced / Skin Boosters / Polynucleotides**.
 
 ### Results gallery
 8–12 best images from `brand_assets/photos/` (we'll triage out the branded quote cards). Lightbox on click. Discreet caption noting "actual client, with permission" or anonymised.
@@ -72,7 +72,7 @@ Full 13-treatment list from §3 of `client_intake.md`. Three tabs: **Facials / A
 3–5 reviews from §6 of intake — pending Rachel's confirmation of permission.
 
 ### FAQ (draft, Rachel verifies)
-1. *Is consultation included in my first treatment?* — Yes, the New Client option is a combined consultation + advanced facial for £50.
+1. *Is consultation included in my first treatment?* — Yes, the Skin Consultation & Advanced Facial is a combined consultation + advanced facial for £60.
 2. *Will there be downtime after a peel/microneedling?* — Depends on strength; typically minor redness 24–48h.
 3. *Do you do courses for acne?* — Yes, after consultation if results need stacking.
 4. *Can I book without a deposit?* — A £20 deposit secures every booking. Fully refundable up to 48h before.

@@ -3,7 +3,7 @@
  */
 import { setTab } from "./ledger.js";
 
-const STORAGE_KEY = "kk-admin-tour-v1-done";
+const STORAGE_KEY = "tsd-admin-tour-salon-v1-done";
 
 const STEPS = [
   {
@@ -17,40 +17,40 @@ const STEPS = [
     target: "#kpi-grid",
     title: "Overview numbers",
     body:
-      "Class revenue and online booking fees (last 30 days), paid bookings, pending checkouts, active subscriptions, and failed payments.",
+      "Treatment revenue and online booking fees (last 30 days), paid bookings, pending checkouts, active subscriptions, and failed payments.",
     tab: "members"
   },
   {
     target: "#admin-tab-bar",
     title: "Tabs",
     body:
-      "Members, Scanner (door check-in), Bookings, Classes (times and prices on the public site), and Payments.",
+      "Clients, Bookings, Treatments (menu and slots on the public site), and Payments.",
     tab: "members"
   },
   {
     target: "#filter-bar",
-    title: "Member filters",
+    title: "Client filters",
     body:
       "Start with Needs attention for renewals, failed payments, and low pack credits.",
     tab: "members"
   },
   {
     target: "#panel-members .members-table",
-    title: "Member list",
+    title: "Client list",
     body:
       "Tap a row to see details, suggested messages, WhatsApp, and Mark contacted.",
     tab: "members"
   },
   {
     target: "#schedule-heading",
-    title: "Class times and prices",
+    title: "Treatment menu and slots",
     body:
       "Set days, times, prices, and capacity. Save to website updates the public booking page.",
     tab: "schedule"
   },
   {
     target: "#bookings-heading",
-    title: "Class bookings",
+    title: "Treatment bookings",
     body:
       "Website bookings appear here — Pending until Stripe checkout completes, then Paid.",
     tab: "bookings"
@@ -64,9 +64,9 @@ const STEPS = [
   },
   {
     target: "#stripe-banner",
-    title: "Get paid online",
+    title: "Online payouts",
     body:
-      "Tap Set up payouts once. Stripe asks for bank and ID (~5 minutes). When done, this banner goes away.",
+      "Card deposits are paused while we move to a new payments platform. This banner stays until payouts are live again — there is no Stripe Express button for now.",
     tab: "members",
     skipIfHidden: true
   },
@@ -74,7 +74,7 @@ const STEPS = [
     target: "#copilot-panel",
     title: "Aria priorities",
     body:
-      "Summarises who to contact today from your live data. Ask about failed payments or renewals.",
+      "Summarises who to contact today. Tap Open Aria chat when you want her — she stays closed until then.",
     tab: "members"
   },
   {

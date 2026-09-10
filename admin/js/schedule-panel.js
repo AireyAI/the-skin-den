@@ -1,10 +1,32 @@
 /**
- * Class times and prices — synced to the public booking page via platform API.
+ * Treatment menu and booking slots — synced to the public booking page via platform API.
  */
 import { fetchSchedule, saveSchedule, resetScheduleFromSeed } from "./api.js";
+import { TREATMENT_MENU } from "./treatment-catalog.js";
 
 let els = {};
 let docCache = null;
+
+
+function paintTreatmentMenuRef() {
+  const wrap = document.getElementById("treatment-menu-ref");
+  if (!wrap) return;
+  wrap.hidden = false;
+  wrap.replaceChildren();
+  const details = document.createElement("details");
+  details.open = true;
+  const summary = document.createElement("summary");
+  summary.textContent = "Full treatment menu (theskinden.co.uk)";
+  details.append(summary);
+  const ul = document.createElement("ul");
+  for (const t of TREATMENT_MENU) {
+    const li = document.createElement("li");
+    li.innerHTML = `${t.title} — <span class="price">${t.priceLabel || `£${t.price}`}</span>`;
+    ul.append(li);
+  }
+  details.append(ul);
+  wrap.append(details);
+}
 
 export function initSchedulePanel() {
   els = {
@@ -20,6 +42,8 @@ export function initSchedulePanel() {
 
   els.saveBtn?.addEventListener("click", () => void persistSchedule());
   els.reloadBtn?.addEventListener("click", () => void loadSchedule(true));
+  paintTreatmentMenuRef();
+
   els.resetSeedBtn?.addEventListener("click", () => {
     if (!window.confirm("Replace all service slots with the default Skin Den menu prices?")) return;
     void (async () => {
@@ -57,7 +81,7 @@ async function loadSchedule(force) {
     paintForm(docCache);
     return;
   }
-  setStatus("Loading class schedule…");
+  setStatus("Loading treatment slots…");
   els.body.replaceChildren(row("Loading…", 7));
   try {
     docCache = await fetchSchedule();
@@ -75,7 +99,7 @@ function paintForm(doc) {
   els.body.replaceChildren();
   const offerings = doc.offerings || [];
   if (!offerings.length) {
-    els.body.append(row("No classes yet — add a row below.", 7));
+    els.body.append(row("No treatment slots yet — add a row below.", 7));
   }
   for (let i = 0; i < offerings.length; i += 1) {
     els.body.append(buildRow(offerings[i], i));
@@ -86,16 +110,16 @@ function paintForm(doc) {
   const addBtn = document.createElement("button");
   addBtn.type = "button";
   addBtn.className = "btn btn--ghost btn--sm";
-  addBtn.textContent = "+ Add class slot";
+  addBtn.textContent = "+ Add treatment slot";
   addBtn.addEventListener("click", () => {
     docCache.offerings.push({
-      id: `class-${Date.now()}`,
+      id: `treatment-${Date.now()}`,
       day: "Mon",
-      time: "6:30pm",
-      title: "Advanced facial",
+      time: "10:00am",
+      title: "Advanced Facial",
       note: "",
       pricePence: 1500,
-      capacity: 12,
+      capacity: 1,
       active: true
     });
     paintForm(docCache);
@@ -193,9 +217,9 @@ function fieldCapacity(cap, index) {
   input.type = "number";
   input.min = "1";
   input.max = "99";
-  input.value = String(cap ?? 12);
+  input.value = String(cap ?? 1);
   input.addEventListener("change", () => {
-    docCache.offerings[index].capacity = Number(input.value) || 12;
+    docCache.offerings[index].capacity = Number(input.value) || 1;
   });
   td.append(input);
   return td;
@@ -213,7 +237,7 @@ async function persistSchedule() {
   setStatus("Saving…");
   try {
     docCache = await saveSchedule(docCache);
-    setStatus("Saved — public booking page will show these times and prices.");
+    setStatus("Saved — the public booking page will show these treatments and times.");
     paintForm(docCache);
   } catch (err) {
     setStatus(err.message || "Save failed", true);

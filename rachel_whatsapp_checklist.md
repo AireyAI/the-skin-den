@@ -36,7 +36,7 @@ Paste this to her on WhatsApp (07568 602861). Pick up replies as she sends them 
 > The site's ready for it — I just need two things from you to set up Fresha (free for you, free for clients, takes deposits automatically so no more wasted slots):
 >   a) An email address for the Fresha business account (can be a new one just for this)
 >   b) Your bank details, entered directly into Fresha when you connect payouts — I never see or handle these, Fresha takes them straight from you
-> Once your account exists, I'll add all 13 treatments + your exact 50%/48h/24h cancellation policy and plug your booking link straight into the site. 10 min of your time, 10 min of mine.
+> Rachel has now supplied the 17-treatment menu and current prices; the public menu and admin reference have been updated. The 50%/48h/24h cancellation policy and booking link remain separate release items.
 >
 > **9. Domain — happy with `theskinden.co.uk`?**
 > That's the one I'll register (£10-£12/year) unless you'd rather have `theskindenbyrachel.co.uk` or something else — quick thumbs up either way and I'll get it live.

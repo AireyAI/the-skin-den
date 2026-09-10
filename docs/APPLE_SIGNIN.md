@@ -1,20 +1,37 @@
 # Sign in with Apple — The Skin Den
 
-## Identifiers created (App Store Connect API)
+## Current identifiers (App Store Connect)
 
-- App ID: `com.theskinden.app` (Primary)
-- Web ID: `com.theskinden.web` (Sign in with Apple enabled)
-- Railway: `APPLE_CLIENT_ID=com.theskinden.web`
+| ID | Platform | Role |
+|----|----------|------|
+| `com.theskinden.app` | UNIVERSAL | Primary App ID — Sign in with Apple **enabled** |
+| `com.theskinden.web` | UNIVERSAL | **Wrong type** for web SIWA (created as App ID, not Services ID). SIWA capability was removed so it does not steal primary consent. |
+| Railway `APPLE_CLIENT_ID` | — | Still `com.theskinden.web` until a real Services ID exists |
 
-## Finish in Apple Developer (required for the button to work)
+App Store Connect API no longer accepts `platform: SERVICES` on `/bundleIds`. **Services IDs must be created in the Apple Developer portal.**
 
-Services IDs for web often need portal domain config that the API does not fully expose:
+## Finish in Apple Developer (required)
 
-1. Open [Identifiers](https://developer.apple.com/account/resources/identifiers/list) → **com.theskinden.web**
-2. Confirm type is suitable for **Sign in with Apple** (web). If Apple only shows it as App ID, create a **Services ID** `com.theskinden.web` in the Services IDs list (or rename/register), Primary App ID = `com.theskinden.app`.
-3. Domains: `theskinden.co.uk`
-4. Return URLs (exact):
-   - `https://theskinden.co.uk/account/`
-5. Download domain association → save as `.well-known/apple-developer-domain-association.txt` and deploy.
-6. Redeploy Skin Den site + confirm:
-   `curl -s https://platform-api-production-3d5f.up.railway.app/v1/public/config`
+1. Open [Services IDs](https://developer.apple.com/account/resources/identifiers/list/serviceId) (team `8W4NK3AJQN`)
+2. Register a Services ID, e.g. `com.theskinden.signin` (preferred) or reclaim naming if you delete the mistaken UNIVERSAL `com.theskinden.web` later
+3. Enable **Sign in with Apple** → Configure  
+   - Primary App ID: `com.theskinden.app`  
+   - Domains: `theskinden.co.uk`  
+   - Return URL: `https://theskinden.co.uk/account/`
+4. Download domain association if offered → overwrite  
+   `.well-known/apple-developer-domain-association.txt` (repo already has a `webcredentials` starter for `8W4NK3AJQN.com.theskinden.app`)
+5. Deploy the site so `https://theskinden.co.uk/.well-known/apple-developer-domain-association.txt` returns that file (not a 404 HTML page)
+6. Set Railway `APPLE_CLIENT_ID` to the new Services ID identifier
+7. Confirm: `curl -s https://platform-api-production-3d5f.up.railway.app/v1/public/config` → `appleSignInEnabled: true` and matching `appleClientId`
+
+## Helper script
+
+```bash
+node platform-api/scripts/apple-siwa-setup.mjs
+```
+
+Ensures primary SIWA on `com.theskinden.app` and writes the domain association starter. Services ID + domains still need the portal step above.
+
+## Until Services ID is done
+
+Email create/sign-in on `/account/` works. Apple button may fail with `invalid_client` until the Services ID + return URL are live.

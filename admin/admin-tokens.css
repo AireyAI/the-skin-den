@@ -1,16 +1,16 @@
 /*
  * Studio admin — token bridge for admin.css on The Skin Den marketing site.
- * Keeps the public ivory palette in tokens.css; admin shell uses a warm charcoal desk.
+ * Salon desk uses the same ivory / cream palette as the public site.
  */
 :root {
-  --color-primary: var(--c-gold);
-  --color-primary-dark: var(--c-gold-deep);
+  --color-primary: var(--c-gold-deep);
+  --color-primary-dark: var(--c-wood-shadow);
   --color-primary-light: var(--c-gold-soft);
-  --color-accent: var(--c-sage);
-  --color-bg: #14110d;
-  --color-surface: #1f1914;
-  --color-text: var(--c-cream-light);
-  --color-muted: #a89c8a;
+  --color-accent: var(--c-sage-deep);
+  --color-bg: var(--c-ivory);
+  --color-surface: var(--c-cream-light);
+  --color-text: var(--c-charcoal);
+  --color-muted: var(--c-text-muted);
 
   --font-display: var(--font-serif);
   --font-body: var(--font-sans);
@@ -33,9 +33,9 @@
   --space-5: 32px;
   --space-6: 48px;
 
-  --shadow-sm: none;
-  --shadow-md: 8px 8px 0 color-mix(in srgb, var(--c-gold) 22%, transparent);
-  --shadow-lg: 12px 12px 0 color-mix(in srgb, var(--c-gold) 28%, transparent);
-  --border-hairline: 1px solid color-mix(in srgb, var(--color-text) 14%, transparent);
-  --border-thick: 2px solid color-mix(in srgb, var(--c-gold) 45%, transparent);
+  --shadow-sm: 0 1px 2px color-mix(in srgb, var(--c-charcoal) 6%, transparent);
+  --shadow-md: 0 8px 24px color-mix(in srgb, var(--c-charcoal) 8%, transparent);
+  --shadow-lg: 0 16px 40px color-mix(in srgb, var(--c-charcoal) 10%, transparent);
+  --border-hairline: 1px solid var(--c-line);
+  --border-thick: 1px solid color-mix(in srgb, var(--c-gold) 40%, transparent);
 }

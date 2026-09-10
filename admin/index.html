@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow">
-  <meta name="theme-color" content="#2A2117">
+  <meta name="theme-color" content="#FDF8EE">
   <title>Studio admin | The Skin Den</title>
   <link rel="icon" href="../favicon.svg" sizes="any">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,13 +14,14 @@
   <link rel="stylesheet" href="../tokens.css">
   <link rel="stylesheet" href="./admin-tokens.css">
   <link rel="stylesheet" href="./admin.css">
+  <link rel="stylesheet" href="./skin-den-desk.css">
 </head>
 <body>
   <div id="admin-gate" class="gate" hidden>
     <div class="gate-card">
       <img src="../apple-touch-icon.png" width="88" height="88" alt="">
       <h1>The Skin Den</h1>
-      <p class="gate-lede">Studio admin — clients, bookings, deposits, and outreach.</p>
+      <p class="gate-lede">Your studio desk — clients, treatment bookings, and payouts. Same look and menu as theskinden.co.uk.</p>
       <form id="gate-form" novalidate>
         <label class="gate-field" for="gate-email">Email</label>
         <input class="gate-input" type="email" id="gate-email" autocomplete="username" value="rachel@theskinden.co.uk" required>
@@ -38,7 +39,7 @@
       <div class="admin-brand">
         <img src="../apple-touch-icon.png" width="40" height="40" alt="">
         <div>
-          <p class="admin-eyebrow">Studio admin</p>
+          <p class="admin-eyebrow">Advanced skincare · Carlisle</p>
           <p class="admin-title">The Skin Den</p>
         </div>
       </div>
@@ -61,10 +62,10 @@
     <p id="stripe-connect-error" class="stripe-connect-error" hidden role="alert"></p>
 
     <nav id="admin-tab-bar" class="admin-tab-bar" role="tablist" aria-label="Admin sections">
-      <button type="button" class="admin-tab is-active" data-tab="members" role="tab" aria-selected="true">Members</button>
-      <button type="button" class="admin-tab" data-tab="checkin" role="tab" aria-selected="false">Scanner</button>
+      <button type="button" class="admin-tab is-active" data-tab="members" role="tab" aria-selected="true">Clients</button>
+      <button type="button" class="admin-tab admin-tab--hidden" data-tab="checkin" hidden role="tab" aria-selected="false">Scanner</button>
       <button type="button" class="admin-tab" data-tab="bookings" role="tab" aria-selected="false">Bookings</button>
-      <button type="button" class="admin-tab" data-tab="schedule" role="tab" aria-selected="false">Services</button>
+      <button type="button" class="admin-tab" data-tab="schedule" role="tab" aria-selected="false">Treatments</button>
       <button type="button" class="admin-tab" data-tab="payments" role="tab" aria-selected="false">Payments</button>
     </nav>
 
@@ -73,29 +74,29 @@
         <section class="section-block" aria-labelledby="kpi-heading">
           <h2 id="kpi-heading" class="section-title">Overview</h2>
           <div id="kpi-grid" class="kpi-grid"></div>
-          <h3 class="subsection-title">Studio activity</h3>
+          <h3 class="subsection-title">Recent studio activity</h3>
           <div id="activity-grid" class="activity-grid"></div>
         </section>
 
         <div id="panel-members">
         <section class="section-block" aria-labelledby="members-heading">
           <div class="section-head-row">
-            <h2 id="members-heading" class="section-title">Members</h2>
-            <div id="filter-bar" class="filter-bar" role="toolbar" aria-label="Filter members">
+            <h2 id="members-heading" class="section-title">Clients</h2>
+            <div id="filter-bar" class="filter-bar" role="toolbar" aria-label="Filter clients">
               <button type="button" class="filter-btn is-active" data-filter="attention" aria-pressed="true">Needs attention</button>
               <button type="button" class="filter-btn" data-filter="all" aria-pressed="false">All</button>
-              <button type="button" class="filter-btn" data-filter="subscription" aria-pressed="false">Subscriptions</button>
-              <button type="button" class="filter-btn" data-filter="pack" aria-pressed="false">Packs</button>
+              <button type="button" class="filter-btn filter-btn--hidden" data-filter="subscription" aria-pressed="false">Subscriptions</button>
+              <button type="button" class="filter-btn filter-btn--hidden" data-filter="pack" aria-pressed="false">Packs</button>
               <button type="button" class="filter-btn" data-filter="failed" aria-pressed="false">Failed pay</button>
-              <button type="button" class="filter-btn" data-filter="expiring" aria-pressed="false">Expiring</button>
+              <button type="button" class="filter-btn filter-btn--hidden" data-filter="expiring" aria-pressed="false">Expiring</button>
             </div>
           </div>
           <div class="table-wrap">
             <table class="members-table">
               <thead>
                 <tr>
-                  <th scope="col">Member</th>
-                  <th scope="col">Plan</th>
+                  <th scope="col">Client</th>
+                  <th scope="col">Plan / package</th>
                   <th scope="col">Status</th>
                   <th scope="col">Renewal / pack</th>
                   <th scope="col">Payment</th>
@@ -112,14 +113,15 @@
         <div id="panel-schedule" hidden>
         <section class="section-block" aria-labelledby="schedule-heading">
           <div class="section-head-row">
-            <h2 id="schedule-heading" class="section-title">Services &amp; prices</h2>
+            <h2 id="schedule-heading" class="section-title">Treatment menu &amp; booking slots</h2>
             <div class="schedule-actions">
               <button type="button" class="btn btn--ghost btn--sm" id="schedule-reload-btn">Reload</button>
-              <button type="button" class="btn btn--ghost btn--sm" id="schedule-reset-seed-btn">Load official timetable</button>
+              <button type="button" class="btn btn--ghost btn--sm" id="schedule-reset-seed-btn">Load menu from website prices</button>
               <button type="button" class="btn btn--primary btn--sm" id="schedule-save-btn">Save to website</button>
             </div>
           </div>
-          <p class="section-lede">These slots power the public <a href="../studio.html#book">Book a treatment</a> page. Finish Stripe setup before taking payments.</p>
+          <p class="section-lede">Match Rachel’s treatment list and prices on <a href="../studio.html#treatments">the public menu</a>. Slots power <a href="../studio.html#book">Book a treatment</a>. Online card deposits are paused until the new payments platform is live.</p>
+          <div id="treatment-menu-ref" class="treatment-menu-ref" hidden></div>
           <label class="schedule-meta-label" for="schedule-venue">Venue line</label>
           <input class="schedule-meta-input" type="text" id="schedule-venue" autocomplete="off">
           <label class="schedule-meta-label" for="schedule-policy">Cancellation policy</label>
@@ -129,12 +131,12 @@
             <table class="members-table schedule-table">
               <thead>
                 <tr>
-                  <th scope="col">Slot ID</th>
+                  <th scope="col">Service ID</th>
                   <th scope="col">Day</th>
                   <th scope="col">Time</th>
-                  <th scope="col">Title</th>
+                  <th scope="col">Treatment</th>
                   <th scope="col">Price (£)</th>
-                  <th scope="col">Capacity</th>
+                  <th scope="col">Spots</th>
                   <th scope="col">Live</th>
                 </tr>
               </thead>
@@ -148,7 +150,7 @@
         <div id="panel-bookings" hidden>
         <section class="section-block" aria-labelledby="bookings-heading">
           <div class="section-head-row">
-            <h2 id="bookings-heading" class="section-title">Class bookings</h2>
+            <h2 id="bookings-heading" class="section-title">Treatment bookings</h2>
             <label class="filter-select-wrap">
               <span class="sr-only">Filter bookings</span>
               <select id="booking-filter" class="filter-select">
@@ -163,8 +165,8 @@
               <thead>
                 <tr>
                   <th scope="col">Customer</th>
-                  <th scope="col">Class</th>
-                  <th scope="col">Date</th>
+                  <th scope="col">Treatment</th>
+                  <th scope="col">Appointment</th>
                   <th scope="col">Amount</th>
                   <th scope="col">Booking fee</th>
                   <th scope="col">Status</th>
@@ -206,7 +208,7 @@
             <table class="members-table">
               <thead>
                 <tr>
-                  <th scope="col">Member</th>
+                  <th scope="col">Client</th>
                   <th scope="col">When</th>
                   <th scope="col">Deducted</th>
                   <th scope="col">Balance after</th>
@@ -223,9 +225,9 @@
             <table class="members-table">
               <thead>
                 <tr>
-                  <th scope="col">Member</th>
+                  <th scope="col">Client</th>
                   <th scope="col">Paid with</th>
-                  <th scope="col">Plan</th>
+                  <th scope="col">Plan / package</th>
                   <th scope="col">Link to account email</th>
                 </tr>
               </thead>
@@ -261,7 +263,8 @@
       <aside id="copilot-panel" class="copilot-panel" aria-label="Aria priorities">
         <header class="copilot-header">
           <h2>Aria</h2>
-          <p>Today’s priorities — chat with Aria using the bubble (bottom right).</p>
+          <p>Today’s priorities from your live data. Aria only opens when you choose — she won’t pop up on her own.</p>
+          <button type="button" class="btn btn--primary btn--sm" id="aria-open-btn">Open Aria chat</button>
         </header>
         <div id="copilot-messages" class="copilot-messages" role="log" aria-live="polite"></div>
         <div class="copilot-compose" hidden>
@@ -289,7 +292,7 @@
     </div>
     <dl id="drawer-facts" class="drawer-facts"></dl>
     <div class="drawer-actions">
-      <button type="button" class="btn btn--primary" id="drawer-whatsapp">WhatsApp member</button>
+      <button type="button" class="btn btn--primary" id="drawer-whatsapp">WhatsApp client</button>
       <button type="button" class="btn btn--ghost" id="drawer-mark-contacted">Mark contacted</button>
     </div>
   </aside>

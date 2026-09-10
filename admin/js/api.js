@@ -215,6 +215,12 @@ export async function saveSchedule(doc) {
 }
 
 export async function requestStripeConnectLink() {
+  if (window.SITE_CONFIG?.payments?.stripeConnectEnabled !== true) {
+    throw new Error(
+      window.SITE_CONFIG?.payments?.bannerLede ||
+        "Stripe Express is disabled — the previous payments account is closed."
+    );
+  }
   const base = bookingApi();
   if (!base) throw new Error("Booking API not configured");
   const token = getBookingToken();

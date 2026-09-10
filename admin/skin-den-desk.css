@@ -1,0 +1,142 @@
+/* Skin Den admin — matches public ivory / wood / gold desk (not gym dark mode) */
+
+body {
+  background: var(--color-bg);
+}
+
+.gate {
+  background:
+    radial-gradient(ellipse 90% 60% at 50% 0%, color-mix(in srgb, var(--c-wood) 35%, transparent), transparent),
+    linear-gradient(180deg, var(--c-cream-light) 0%, var(--c-ivory) 100%);
+}
+
+.gate-card {
+  border-radius: var(--r-lg, 12px);
+  border: 1px solid var(--c-line);
+  box-shadow: 0 12px 40px color-mix(in srgb, var(--c-charcoal) 8%, transparent);
+}
+
+.gate-card h1 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: var(--ls-tight, -0.015em);
+  color: var(--c-charcoal);
+}
+
+.gate-lede {
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed, 1.7);
+}
+
+.admin-top {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--c-wood) 55%, var(--c-cream)) 0%,
+    var(--c-cream-light) 45%,
+    var(--c-ivory) 100%
+  );
+  border-bottom: 1px solid var(--c-line);
+}
+
+.admin-eyebrow {
+  color: var(--c-gold-text);
+  letter-spacing: var(--ls-wider, 0.12em);
+}
+
+.admin-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  color: var(--c-charcoal);
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  color: var(--c-charcoal);
+}
+
+.kpi-card,
+.activity-card {
+  background: var(--color-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md, 8px);
+  box-shadow: none;
+}
+
+.kpi-label {
+  color: var(--c-text-muted);
+  letter-spacing: 0.06em;
+}
+
+.stripe-banner {
+  background: var(--c-cream-light);
+  border: 1px solid color-mix(in srgb, var(--c-gold) 35%, transparent);
+  border-radius: var(--r-md, 8px);
+}
+
+.admin-tab.is-active {
+  color: var(--c-charcoal);
+  border-color: var(--c-gold);
+}
+
+.admin-tab-bar {
+  border-color: var(--c-line);
+}
+
+.members-table th {
+  color: var(--c-gold-text);
+  font-size: var(--fs-micro, 11px);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.treatment-menu-ref {
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--c-cream-light);
+  border: 1px solid var(--c-line-soft);
+  border-radius: var(--r-md, 8px);
+}
+
+.treatment-menu-ref summary {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--c-charcoal);
+}
+
+.treatment-menu-ref ul {
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+  columns: 2;
+  gap: var(--space-4);
+  font-size: var(--fs-small);
+}
+
+@media (max-width: 640px) {
+  .treatment-menu-ref ul {
+    columns: 1;
+  }
+}
+
+.treatment-menu-ref li {
+  break-inside: avoid;
+  padding: var(--space-1) 0;
+  color: var(--c-charcoal-soft);
+}
+
+.treatment-menu-ref .price {
+  font-family: var(--font-serif);
+  color: var(--c-gold-text);
+  font-weight: 600;
+}
+
+.filter-btn--hidden {
+  display: none !important;
+}
+
+.admin-tab--hidden {
+  display: none !important;
+}

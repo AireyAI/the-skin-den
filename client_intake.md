@@ -50,34 +50,44 @@ Not a generic "facials & massage" salon. Closer to medical-aesthetic than spa.
 
 ---
 
-## 3. Treatment menu & prices (FULL — scraped from IG Price list highlight)
+## 3. Treatment menu & prices (Rachel supplied 10 September 2026)
 
-### Facials
+### Consultations & bespoke facials
 | Treatment | Price | Description |
 |---|---|---|
-| **Skin Consultation & Advanced Facial (New Clients)** | **£50** | Comprehensive skin consultation to understand concerns, lifestyle and goals. Detailed assessment + personalised advanced facial + home-care plan. *Recommended for all new clients* |
-| **Advanced Facial** | **£45** | Results-driven facial tailored to current skin condition. Focuses on improving skin health, texture and clarity while supporting the skin barrier. |
-| **Advanced Facial & Dermaplaning** | **£55** | Personalised advanced facial combined with dermaplaning to remove dead skin cells and peach fuzz. Improves smoothness, radiance and product absorption. |
-| **Acne Consultation & Treatment** | **£65** | For clients experiencing acne, breakouts, congestion or inflamed skin. In-depth consultation (triggers, lifestyle, contributing factors) + targeted treatment. *Further plans/courses may be recommended.* |
+| **Skin Consultation & Advanced Facial** | **£60** | A comprehensive first appointment combining an in-depth skin consultation with a personalised advanced facial. Your skin, concerns and goals will be carefully assessed to create a tailored treatment and home-care plan. |
+| **Advanced Facial** | **£50** | A results-focused facial tailored to your skin’s current needs. Each treatment is personalised to support concerns including dehydration, congestion, dullness, sensitivity and uneven texture. |
+| **Advanced Facial & Dermaplaning** | **£60** | A personalised advanced facial combined with dermaplaning to gently remove dead skin cells and peach fuzz. Skin is left feeling smoother, looking brighter and beautifully refreshed. |
+| **Acne Consultation & Treatment** | **£70** | A specialist appointment for clients experiencing acne, breakouts or congestion. Your skin and concerns will be assessed before a targeted treatment is selected to support your individual needs. |
+| **Leave It Up To Rachel** | **Treatment Dependent** | Your skin will be assessed on the day, allowing a completely bespoke treatment to be selected based on its current condition, concerns and goals. |
 
-### Advanced treatments
+### Advanced skin treatments
 | Treatment | Price | Description |
 |---|---|---|
-| **Microneedling** | **£70** | Minimally invasive treatment using tiny controlled needles to create micro-channels, stimulating natural healing. Boosts collagen and elastin, fades acne scars, improves texture, tone and fine lines. *Targeted areas only.* |
-| **Microneedling x Polynucleotides** | **£110** | Advanced regenerative treatment combining microneedling with polynucleotides (DNA fragments) to restore hydration, elasticity and tissue integrity. Smooths texture, improves scarring, revitalises dull/tired skin. |
-| **Chemical Peel** | **£60** | Professional exfoliating peel targeting the superficial skin layers. Improves pigmentation, acne, dullness and uneven texture. *Strength selected per client.* |
-| **BioRePeel** | **£65** | Advanced bio-stimulating peel for texture, tone and radiance. Supports cell renewal while maintaining hydration and barrier function. |
-| **BioRePeel x Dermaplaning** | **£75** | "Dynamic duo" — enhances product absorption, immediate smoothness and a radiant glow. |
-| **Hydradermabrasion Facial** | **£55** | Gentle machine that deeply cleans skin while delivering hydrating serums. Removes dead skin, boosts moisture, relaxing treatment, no downtime. |
+| **Fusion Facial with Electroporation** | **£60** | A results-focused facial using electroporation technology to help infuse targeted serums into the skin. Tailored to your individual needs, this treatment supports hydration, radiance and overall skin health, leaving your complexion refreshed and revitalised. |
+| **Microneedling** | **£80** | A collagen-stimulating treatment that uses tiny micro-channels in the skin to support natural skin renewal. Microneedling can help improve the appearance of uneven texture, scarring, fine lines and overall skin quality. |
+| **Microneedling × Polynucleotides** | **£115** | An advanced combination treatment pairing microneedling with polynucleotides to support skin repair and regeneration. Ideal for improving overall skin quality while supporting concerns such as uneven texture and scarring. |
+| **Chemical Peel** | **£65** | A professional skin treatment designed to encourage exfoliation and skin renewal. Your peel will be selected according to your skin’s needs and can help support concerns including acne, congestion, pigmentation, dullness and uneven texture. |
+| **BioRePeel** | **£70** | An advanced bio-stimulating peel designed to encourage skin renewal while supporting improved texture, tone and radiance. An excellent choice for refreshing and revitalising the complexion. |
+| **BioRePeel × Dermaplaning** | **£80** | A combination treatment pairing dermaplaning with BioRePeel to enhance skin smoothness, radiance and overall skin renewal. Skin is left looking fresh, refined and luminous. |
+| **Hydradermabrasion Facial** | **£55** | A deep-cleansing facial combining gentle exfoliation with hydration. It helps remove surface build-up and impurities, leaving the skin feeling clean, smooth and refreshed. |
 
-### Skin Boosters *(course of 3 advised for optimal results)*
+### Skin boosters
+Course recommendations may be advised for optimal results.
+
 | Treatment | Price | Description |
 |---|---|---|
-| **Seventy Hyal** | **£100** | Concentrated hyaluronic acid booster for intense hydration + smooth, plump "glass skin" finish. No volume. Ideal pre-event. |
-| **Lumi Pro** | **£115** | Advanced booster for luminosity, smoother texture, visibly refreshed complexion. For tired/lacklustre skin. |
-| **Revs Pro 32** | **£125** | High-strength hyaluronic booster — deep hydration, elasticity, structural support. Ideal for dehydration, dullness, early firmness loss. |
+| **Seventy Hyal** | **£100** | A hyaluronic acid skin booster designed to deeply hydrate the skin while supporting improved glow and suppleness. Skin can appear smoother, plumper and more radiant. |
+| **Revs Pro 32** | **£135** | An advanced hyaluronic acid skin booster designed to support hydration, elasticity and firmness while enhancing overall skin quality. |
+| **Ejal 40** | **£140** | A bio-revitalising injectable treatment designed to support hydration, elasticity and skin firmness, helping the complexion appear smoother and healthier. |
+| **Profhilo** | **£200** | An injectable bio-remodelling treatment designed to deeply hydrate the skin while supporting improved firmness, elasticity and overall skin quality. |
 
-**Price range:** £45 (Advanced Facial) → £125 (Revs Pro 32). **Average ticket: ~£75.**
+### Polynucleotides
+| Treatment | Price | Description |
+|---|---|---|
+| **Vitaran Eyes** | **£120** | A targeted polynucleotide treatment designed specifically for the delicate eye area. It supports skin regeneration, hydration and elasticity while helping to improve overall skin quality around the eyes. |
+
+All injectable treatments are subject to consultation and suitability assessment.
 
 ---
 

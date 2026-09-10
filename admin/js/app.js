@@ -10,7 +10,7 @@ import {
 import { createCopilot } from "./copilot.js";
 import { initLedgerPanel, refreshStripeBanner, renderRevenueKpis } from "./ledger.js";
 import { initCheckinPanel } from "./checkin-panel.js";
-import { ensureAriaCoachAssistant } from "./aria-admin.js";
+import { prepareAriaCoachContext, initAriaOpenControl } from "./aria-admin.js";
 import { initOnboardingTour, maybeStartOnboarding, isAppReady } from "./onboarding.js";
 import { renderClientStatus, handleStripeReturnQuery } from "./site-strip.js";
 import { initSchedulePanel, hydrateScheduleFromDashboard } from "./schedule-panel.js";
@@ -134,7 +134,7 @@ async function boot() {
   document.getElementById("drawer-close")?.addEventListener("click", closeDrawer);
 
   initLedgerPanel();
-  initCheckinPanel();
+  if (!window.SITE_CONFIG?.admin?.hideScanner) initCheckinPanel();
   initOnboardingTour();
   initSchedulePanel();
   handleStripeReturnQuery();
@@ -175,7 +175,8 @@ async function load() {
     renderKpis();
     renderTable();
     await refreshStripeBanner();
-    await ensureAriaCoachAssistant(snapshot, { email: window.SITE_CONFIG?.contact?.email });
+    await prepareAriaCoachContext(snapshot, { email: window.SITE_CONFIG?.contact?.email });
+    initAriaOpenControl();
     copilot?.setContext(state.members);
     if (state.selectedId) openDrawer(state.selectedId);
     if (isAppReady()) maybeStartOnboarding({ mode: snapshot.mode === "demo" ? "demo" : "live" });
@@ -221,12 +222,12 @@ function statusBadge(member) {
 
 function emptyMembersMessage() {
   if (state.filter === "attention") {
-    return "Nothing needs attention — no members on file yet, or everyone is up to date.";
+    return "Nothing needs attention — no clients on file yet, or everyone is up to date.";
   }
   if (state.members.length === 0) {
-    return "No members yet. Real members appear here after sign-up, checkout, or when you add someone.";
+    return "No clients yet. People appear here after sign-up, checkout, or when you add someone.";
   }
-  return "No members in this view.";
+  return "No clients in this view.";
 }
 
 function renderTable() {
@@ -338,7 +339,7 @@ function openDrawer(id) {
   const factsEl = document.getElementById("drawer-facts");
   clearChildren(factsEl);
   const facts = [
-    ["Last class", m.lastClassAt ? formatDate(m.lastClassAt) : "—"],
+    ["Last visit", m.lastClassAt ? formatDate(m.lastClassAt) : "—"],
     ["Joined", formatDate(m.joinedAt)],
     [
       "Renewal / pack",

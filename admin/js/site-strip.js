@@ -37,6 +37,10 @@ export function handleStripeReturnQuery() {
   if (!stripe) return;
   const clean = window.location.pathname + window.location.hash;
   window.history.replaceState({}, "", clean);
+  if (window.SITE_CONFIG?.payments?.stripeConnectEnabled !== true) {
+    showToast("Online payouts are paused — Stripe Express is not available.");
+    return;
+  }
   if (stripe === "return") {
     showToast("Checking payout setup…");
     void refreshStripeBanner().then((ready) => {
@@ -108,7 +112,7 @@ function renderActivity(activity, websiteAnalytics) {
     { label: "Paid bookings (7d)", value: String(activity.paidBookings7d ?? 0) },
     { label: "Pending checkouts", value: String(activity.pendingCheckouts ?? 0) },
     { label: "Payments logged (7d)", value: String(activity.paymentsRecorded7d ?? 0) },
-    { label: "Last class payment", value: last }
+    { label: "Last treatment payment", value: last }
   ];
 
   if (websiteAnalytics?.liveInDashboard && websiteAnalytics.activeUsers7d != null) {

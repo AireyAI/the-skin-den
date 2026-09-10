@@ -29,7 +29,14 @@ http.createServer((req, res) => {
   let urlPath = req.url.split('?')[0].split('#')[0];
   if (urlPath === '/' || urlPath === '') urlPath = '/index.html';
   urlPath = decodeURIComponent(urlPath);
-  const filePath = path.join(__dirname, urlPath);
+  if (urlPath.endsWith('/')) urlPath += 'index.html';
+
+  const filePath = path.resolve(__dirname, `.${urlPath}`);
+  if (!filePath.startsWith(`${__dirname}${path.sep}`)) {
+    res.writeHead(403);
+    res.end('Forbidden');
+    return;
+  }
   const ext = path.extname(filePath).toLowerCase();
 
   fs.readFile(filePath, (err, data) => {

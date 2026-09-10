@@ -1,0 +1,7 @@
+{
+  "webcredentials": {
+    "apps": [
+      "8W4NK3AJQN.com.theskinden.app"
+    ]
+  }
+}

@@ -2,7 +2,7 @@ export const SITE_CONFIG = Object.freeze({
   identity: {
     name: "The Skin Den",
     short: "TSD",
-    tagline: "Made to perform. Not to pamper.",
+    tagline: "Every appointment, tailored to you.",
     description:
       "Advanced skincare and acne specialist studio in Carlisle. VTCT-qualified, results-driven treatments."
   },
@@ -29,17 +29,24 @@ export const SITE_CONFIG = Object.freeze({
     whatsappUrl: "https://wa.me/447568602861"
   },
   booking: {
-    /** Public booking page embed. */
+    /** Public booking page opened from the website. */
     clockworkBookUrl: "https://clockwork-bookings.vercel.app/m/the-skin-den/book",
     /**
-     * Booking + payments API. Payout setup MUST go through this system: it holds
-     * the Stripe account that every booking payment is routed to, so connecting
-     * anything else would put treatment money in an account she never onboarded.
+     * Booking calendar API (Clockwork). Online card/Apple Pay is paused —
+     * the previous Stripe platform account is closed; a replacement payouts
+     * provider is pending. Do not re-enable stripeConnectEnabled until then.
      */
     apiUrl: "https://clockwork-bookings.vercel.app",
     slug: "the-skin-den",
     schedulePublished: true
   },
+  payments: Object.freeze({
+    /** Stripe Express / Connect CTA in admin — OFF while platform Stripe is closed. */
+    stripeConnectEnabled: false,
+    bannerTitle: "Online payouts paused",
+    bannerLede:
+      "Card and Apple Pay deposits are paused while we move to a new payments platform. Booking times still work — take payment by bank transfer or WhatsApp for now."
+  }),
   forge: {
     gatewayUrl: "https://gateway-production-12ac.up.railway.app",
     gatewayApiKey: ""

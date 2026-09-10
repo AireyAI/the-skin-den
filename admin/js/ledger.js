@@ -1,5 +1,6 @@
 import { showSchedulePanel } from "./schedule-panel.js";
 import { showCheckinPanel, teardownCheckinPanel } from "./checkin-panel.js";
+import { labelOffering, isSalonAdmin } from "./treatment-catalog.js";
 import {
   authHeaders,
   fetchBookings,
@@ -38,12 +39,25 @@ export function initLedgerPanel() {
   });
 }
 
+function stripeConnectEnabled() {
+  return window.SITE_CONFIG?.payments?.stripeConnectEnabled === true;
+}
+
 async function goStripeSetup(btn) {
   if (!btn) return;
+  const errEl = document.getElementById("stripe-connect-error");
+  if (!stripeConnectEnabled()) {
+    if (errEl) {
+      errEl.hidden = false;
+      errEl.textContent =
+        "Stripe Express is disabled — the previous payments account is closed. A new payouts platform is being set up.";
+    }
+    btn.disabled = true;
+    return;
+  }
   btn.disabled = true;
   const label = btn.textContent;
   btn.textContent = "Opening Stripe…";
-  const errEl = document.getElementById("stripe-connect-error");
   if (errEl) {
     errEl.hidden = true;
     errEl.textContent = "";
@@ -97,6 +111,23 @@ function setTab(tab) {
 
 export async function refreshStripeBanner() {
   if (!els.banner || !window.KK_ADMIN_API_BASE) return false;
+
+  // Platform Stripe account closed — never offer Express onboarding.
+  if (!stripeConnectEnabled()) {
+    const pay = window.SITE_CONFIG?.payments || {};
+    const title = document.getElementById("stripe-banner-heading");
+    if (title) title.textContent = pay.bannerTitle || "Online payouts paused";
+    els.banner.hidden = false;
+    els.bannerText.textContent =
+      pay.bannerLede ||
+      "Card deposits are paused while we move to a new payments platform.";
+    if (els.connectBtn) {
+      els.connectBtn.hidden = true;
+      els.connectBtn.disabled = true;
+    }
+    return false;
+  }
+
   try {
     const status = await fetchStripeStatus();
     if (status.readyForCheckout) {
@@ -110,6 +141,7 @@ export async function refreshStripeBanner() {
       ? "Stripe needs a few more details before you can take payments. Tap the button to finish — usually under five minutes."
       : "One step left: tell Stripe where to send your treatment payments. Bank details and ID — about five minutes, then you’re live.";
     els.connectBtn.hidden = !status.configured;
+    els.connectBtn.disabled = false;
     els.connectBtn.textContent = needsMore ? "Finish payout setup" : "Set up payouts";
     return false;
   } catch {
@@ -131,8 +163,10 @@ export function renderRevenueKpis(revenue, kpiGrid, computeMemberKpis) {
       value: String(revenue.pendingCheckoutCount ?? 0),
       warn: (revenue.pendingCheckoutCount ?? 0) > 0
     },
-    { label: "Active subs", value: String(k.activeSubscriptions) }
   ];
+  if (!isSalonAdmin()) {
+    cards.push({ label: "Active subs", value: String(k.activeSubscriptions) });
+  }
   if (k.paymentFailures > 0) {
     cards.push({
       label: "Failed payments",
@@ -188,7 +222,7 @@ function buildBookingRow(b) {
 
   const cells = [
     nameCell,
-    td(b.offeringId),
+    td(labelOffering(b.offeringId)),
     td(b.slotDate),
     td(b.priceLabel),
     td(b.platformFeeLabel),

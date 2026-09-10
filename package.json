@@ -1,7 +1,7 @@
 {
-  "name": "new-client-template",
+  "name": "the-skin-den",
   "version": "1.0.0",
-  "description": "REP with Robson — sports massage, coaching and recovery site for Jord Robson, Carlisle.",
+  "description": "The Skin Den by Rachel — advanced skincare and acne specialist studio in Carlisle.",
   "type": "module",
   "scripts": {
     "serve": "node serve.mjs",

@@ -115,19 +115,23 @@ export async function mountAccountBooking(root, ctx) {
   const note = document.createElement("p");
   note.className = catalog.paymentReady ? "acct-muted" : "acct-book-banner";
   if (catalog.paymentReady) {
-    note.textContent = `50% deposit secures your booking (${catalog.depositPercent || 50}% of treatment).`;
+    note.textContent = `50% deposit secures your booking (${catalog.depositPercent || 50}% of treatment). Apple Pay appears in Safari when your Wallet has a card.`;
   } else {
     note.append(
       document.createTextNode(
-        "Online card deposits unlock once Rachel finishes Stripe payout setup. You can still reserve a time — or "
+        "Online deposits (card / Apple Pay) are paused while we move to a new payments platform. Meanwhile "
       )
     );
     const wa = document.createElement("a");
     wa.href = "https://wa.me/447568602861";
-    wa.textContent = "WhatsApp";
-    note.append(wa, document.createTextNode(" to book."));
+    wa.textContent = "WhatsApp to book";
+    note.append(wa, document.createTextNode("."));
   }
   root.append(note);
+
+  if (!catalog.paymentReady) {
+    return;
+  }
 
   const grid = document.createElement("div");
   grid.className = "acct-treat-grid";
@@ -342,7 +346,9 @@ async function showStripePay(root, opts) {
   await loadStripeJs();
   const stripe = window.Stripe(publishableKey);
   const elements = stripe.elements({ clientSecret });
-  const paymentElement = elements.create("payment");
+  const paymentElement = elements.create("payment", {
+    wallets: { applePay: "auto", googlePay: "auto" },
+  });
   paymentElement.mount("#acct-payment-element");
 
   form.addEventListener("submit", async (e) => {
