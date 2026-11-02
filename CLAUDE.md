@@ -10,3 +10,5 @@ Use `.specify/memory/constitution.md` for current client/design rules. `docs/PRO
 Local preview: run `node preview-safe.mjs` at http://127.0.0.1:4318. It serves tracked public HTML/assets plus generated dist/styles.css, denies private directories and binds only to loopback. New public files must be deliberately included before they appear. Do not use the old serve.mjs.
 
 For websites, backend features and staff dashboards apply `.claude/reference/product-delivery.md` proportionally. Use automatic designer routing on this Mac; report missing designer/skills in hosted environments instead of silently substituting.
+
+For substantial design use the research handoff in `.claude/reference/design-search.md`: parent → design-researcher (Sonnet/medium) → parent → designer (Opus/xhigh). Use Haiku for bounded official-document fact extraction. Reuse existing research on small changes.

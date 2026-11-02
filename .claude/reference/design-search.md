@@ -24,3 +24,6 @@ Before an approved launch check actual production build output, important route 
 - Helpful content https://developers.google.com/search/docs/fundamentals/creating-helpful-content
 - Core Web Vitals https://developers.google.com/search/docs/appearance/core-web-vitals
 - Structured data https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
+
+## Research handoff
+For substantial new website/dashboard design, the parent reuses existing source-linked research or commissions design-researcher (Sonnet/medium) before briefing designer (Opus/xhigh). Haiku docs-researcher handles bounded factual extraction from supplied official URLs. Do not spawn Haiku for trivial lookups the parent can do directly. The parent passes a compact research brief to designer, owns saved project notes and prevents repeated browsing. Agents never spawn one another. Small edits skip fresh competitor research. No idle research or scheduled inference. Escalate a missing browser capability explicitly.
