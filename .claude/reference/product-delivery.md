@@ -30,3 +30,5 @@ Measure performance proportionally. Aim for real-user p75 LCP <=2.5s, INP <=200m
 Report changed files, completed checks, unresolved blockers and local versus deployed state. Do not publish, deploy, spend, send real customer messages or alter production without approval. Deterministic checks run directly; delegate only when the bounded reasoning/summarisation benefit justifies the extra model context.
 
 For new public websites, substantial redesigns and SEO work read `.claude/reference/design-search.md`. Apply bounded competitor research and search checks automatically.
+
+For search-facing public work, read `.claude/reference/search-visibility.md` through the design-search workflow and record unresolved crawler/indexing/account checks.
