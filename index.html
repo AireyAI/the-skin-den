@@ -25,328 +25,125 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<!-- Modern browsers preload the WebP variant (~half the bytes), JPG is the picture fallback below -->
-<link rel="preload" as="image" type="image/webp" href="brand_assets/fb_cover.webp" fetchpriority="high">
-<!-- Pre-warm studio.html so "Enter the studio" transition feels instant -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400..600&display=swap" rel="stylesheet">
+<!-- The real clinic photo is the LCP element; WebP with a JPG fallback -->
+<link rel="preload" as="image" type="image/webp" href="brand_assets/clinic-room.webp" fetchpriority="high">
+<!-- Pre-warm studio.html so "Enter the studio" feels instant -->
 <link rel="prefetch" href="studio.html">
-<link rel="prefetch" href="animations.js">
 <link rel="stylesheet" href="tokens.css">
 
 <style>
-  *,*::before,*::after { box-sizing: border-box; }
-  html,body { margin: 0; padding: 0; height: 100%; }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
   body {
-    background: #0F0C08;
-    color: var(--c-ivory);
-    font-family: var(--font-sans);
-    overflow: hidden;
-    -webkit-font-smoothing: antialiased;
-    min-height: 100dvh;
-    min-height: 100vh;
+    background: #0F0C08; color: var(--c-ivory);
+    font-family: var(--font-sans); -webkit-font-smoothing: antialiased;
   }
-
   .stage {
-    position: fixed; inset: 0; overflow: hidden;
-    display: grid; place-items: center;
+    position: relative; display: grid; place-items: center; overflow: hidden;
+    min-height: 100vh; min-height: 100dvh;
   }
-
-  .stage__bg-img, .stage__bg-video {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    object-fit: cover;
-    filter: saturate(1.05);
-  }
-  .stage__bg-img { z-index: 0; }
-  .stage__bg-video {
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .stage__bg-video.is-playing { opacity: 1; }
-
+  .stage__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; }
   .stage__veil {
-    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    position: absolute; inset: 0; pointer-events: none;
     background:
       radial-gradient(ellipse 55% 50% at 50% 52%, rgba(15, 12, 8, 0.55) 0%, rgba(15, 12, 8, 0.72) 100%),
       linear-gradient(180deg, rgba(15, 12, 8, 0.45) 0%, rgba(15, 12, 8, 0.35) 35%, rgba(15, 12, 8, 0.65) 100%);
   }
-
-  .stage__grain {
-    position: absolute; inset: 0; z-index: 2; pointer-events: none;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.97 0 0 0 0 0.93 0 0 0 0 0.85 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    mix-blend-mode: overlay; opacity: 0.5;
-  }
-
   .stage__content {
-    position: relative; z-index: 3;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center; padding: clamp(24px, 6vw, 80px);
-    max-width: 900px; gap: clamp(20px, 3vw, 36px);
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; align-items: center; gap: clamp(20px, 3vw, 32px);
+    max-width: 900px; padding: 88px clamp(24px, 6vw, 80px) 72px; text-align: center;
   }
-
-  /* Brand plaque — large, centerpiece */
+  .eyebrow { margin: 0; font: 600 13px/1.4 var(--font-sans); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-gold); }
+  /* Brand plaque: the one signature entrance on the site */
   .plaque {
-    width: clamp(180px, 22vw, 240px);
-    height: clamp(180px, 22vw, 240px);
-    border-radius: 50%;
-    background: var(--c-cream);
-    border: 2px solid var(--c-charcoal);
-    display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
-    font-family: var(--font-serif); color: var(--c-charcoal);
-    line-height: 0.96; text-align: center; gap: 4px;
-    box-shadow:
-      inset 0 0 0 12px var(--c-cream),
-      inset 0 0 0 13px var(--c-charcoal),
-      0 32px 64px -20px rgba(0, 0, 0, 0.6),
-      0 12px 24px -12px rgba(138, 113, 72, 0.5);
-    opacity: 0;
-    transform: scale(0.88);
-    animation: plaqueIn 1400ms 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    width: clamp(168px, 20vw, 220px); height: clamp(168px, 20vw, 220px); border-radius: 50%;
+    background: var(--c-cream); border: 2px solid var(--c-charcoal);
+    box-shadow: inset 0 0 0 12px var(--c-cream), inset 0 0 0 13px var(--c-charcoal), 0 32px 64px -20px rgba(0, 0, 0, 0.6);
+    font-family: var(--font-serif); line-height: 0.96; color: var(--c-charcoal); text-align: center;
   }
-  .plaque__top { font-size: clamp(28px, 3.2vw, 38px); font-weight: 600; letter-spacing: -0.015em; padding-top: 6px; }
-  .plaque__big { font-size: clamp(38px, 4.4vw, 52px); font-weight: 700; letter-spacing: -0.025em; margin-top: -6px; }
-  .plaque__sub { font-size: clamp(11px, 1vw, 13px); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-gold-text); margin-top: 8px; font-style: italic; }
-
-  @keyframes plaqueIn {
-    0% { opacity: 0; transform: scale(0.88) translateY(8px); }
-    100% { opacity: 1; transform: scale(1) translateY(0); }
-  }
-
+  .plaque__top { padding-top: 6px; font-size: clamp(26px, 3vw, 34px); font-weight: 600; letter-spacing: -0.015em; }
+  .plaque__big { margin-top: -6px; font-size: clamp(36px, 4vw, 48px); font-weight: 700; letter-spacing: -0.025em; }
+  .plaque__sub { margin-top: 8px; font-size: clamp(11px, 1vw, 13px); font-style: italic; letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-gold-text); }
   .tagline {
-    font-family: var(--font-serif);
-    font-size: clamp(28px, 4.5vw, 56px);
-    font-weight: 400;
-    line-height: 1.06;
-    letter-spacing: -0.02em;
-    color: var(--c-ivory);
-    margin: 0;
-    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.4);
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 1200ms 900ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    max-width: 22ch;
+    max-width: 22ch; margin: 0;
+    font: 400 clamp(32px, 4.5vw, 56px)/1.06 var(--font-serif); letter-spacing: -0.02em;
+    color: var(--c-ivory); text-shadow: 0 2px 24px rgba(0, 0, 0, 0.4); text-wrap: balance;
   }
-  .tagline em { font-style: italic; color: var(--c-gold); font-weight: 400; }
-
-  .eyebrow {
-    display: inline-flex; align-items: center; gap: 14px;
-    font-size: clamp(10px, 1vw, 12px); letter-spacing: 0.22em;
-    text-transform: uppercase; color: var(--c-gold); font-weight: 600;
-    opacity: 0; transform: translateY(20px);
-    animation: fadeUp 1100ms 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-  .eyebrow::before, .eyebrow::after {
-    content: ""; display: inline-block; width: 36px; height: 1px;
-    background: var(--c-gold);
-  }
-
-  @keyframes fadeUp {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-
+  .tagline em { font-style: italic; color: var(--c-gold); }
   .enter {
-    display: inline-flex; align-items: center; gap: 14px;
-    padding: 20px 36px;
-    background: var(--c-gold);
-    color: var(--c-charcoal);
-    font-family: var(--font-sans);
-    font-size: 14px; font-weight: 600;
-    letter-spacing: 0.18em; text-transform: uppercase;
-    border-radius: 999px;
-    text-decoration: none;
-    border: 0; cursor: pointer;
-    transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
-                background 300ms,
-                box-shadow 300ms;
-    box-shadow: 0 16px 40px -12px rgba(197, 160, 109, 0.55),
-                0 8px 20px -8px rgba(0, 0, 0, 0.4);
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 1200ms 1500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    margin-top: clamp(8px, 1.5vw, 16px);
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 56px; padding: 0 32px; margin-top: 8px; border-radius: 999px;
+    background: var(--c-gold); color: var(--c-charcoal);
+    font: 500 16px/1 var(--font-sans); letter-spacing: 0.01em; text-decoration: none;
+    box-shadow: 0 16px 40px -12px rgba(197, 160, 109, 0.5);
+    transition: background-color 150ms var(--ease), color 150ms var(--ease);
   }
-  .enter:hover {
-    background: var(--c-ivory);
-    transform: translateY(-2px);
-    box-shadow: 0 20px 48px -12px rgba(253, 248, 238, 0.4),
-                0 12px 24px -8px rgba(0, 0, 0, 0.5);
-  }
-  .enter .arr { font-family: var(--font-serif); font-style: italic; font-size: 18px; line-height: 1; transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1); }
-  .enter:hover .arr { transform: translateX(6px); }
-
-  /* Skip button (top-right) */
+  .enter:hover { background: var(--c-ivory); }
   .skip {
-    position: fixed; top: 24px; right: 24px; z-index: 10;
-    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: rgba(253, 248, 238, 0.7); font-weight: 500;
-    text-decoration: none;
-    padding: 8px 14px; border: 1px solid rgba(253, 248, 238, 0.2);
-    border-radius: 999px;
-    transition: all 200ms;
-    background: rgba(15, 12, 8, 0.4);
-    backdrop-filter: blur(8px);
-    opacity: 0;
-    animation: fadeUp 800ms 1800ms ease forwards;
+    position: absolute; top: 16px; right: 16px; z-index: 2;
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
+    border: 1px solid rgba(253, 248, 238, 0.3); border-radius: 999px;
+    background: rgba(15, 12, 8, 0.4); color: rgba(253, 248, 238, 0.85);
+    font: 500 14px/1 var(--font-sans); text-decoration: none;
+    transition: color 150ms var(--ease), border-color 150ms var(--ease);
   }
-  .skip:hover { color: var(--c-ivory); border-color: rgba(253, 248, 238, 0.5); }
-
+  .skip:hover { color: var(--c-ivory); border-color: rgba(253, 248, 238, 0.6); }
   .audio-note {
-    position: fixed; bottom: 24px; left: 24px; z-index: 4;
-    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
-    color: rgba(253, 248, 238, 0.4); font-weight: 500;
+    position: absolute; left: 24px; bottom: calc(24px + var(--safe-bottom)); z-index: 1;
     display: flex; align-items: center; gap: 8px;
-    opacity: 0;
-    animation: fadeUp 800ms 2000ms ease forwards;
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(253, 248, 238, 0.6);
   }
-  .audio-note .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--c-gold); animation: pulse 1.8s ease-in-out infinite; }
+  .audio-note .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c-gold); }
+  :focus:not(:focus-visible) { outline: none; }
+  :focus-visible { outline: 2px solid var(--c-ivory); outline-offset: 4px; }
+  @media (max-width: 540px) { .audio-note { display: none; } }
 
-  /* Sound toggle */
-  .sound { position: fixed; bottom: calc(24px + var(--safe-bottom)); right: 24px; z-index: 5; width: 44px; height: 44px; border-radius: 50%; background: rgba(15, 12, 8, 0.55); border: 1px solid rgba(253, 248, 238, 0.2); color: var(--c-ivory); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(8px); transition: background var(--d-normal), border-color var(--d-normal), transform var(--d-normal); opacity: 0; animation: fadeUp 800ms 2200ms ease forwards; }
-  .sound:hover { background: rgba(15, 12, 8, 0.8); border-color: var(--c-gold); transform: scale(1.08); }
-  .sound svg { width: 18px; height: 18px; }
-  /* First-visit hint: pulsing ring inviting users to unmute the welcome video */
-  .sound::after { content: ""; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid var(--c-gold); opacity: 0; pointer-events: none; }
-  .sound.is-hinting::after { animation: soundPulse 1.8s ease-out infinite; }
-  .sound.is-on::after, .sound.has-interacted::after { animation: none; opacity: 0; }
-  @keyframes soundPulse {
-    0%   { opacity: 0.85; transform: scale(1); }
-    100% { opacity: 0;    transform: scale(1.55); }
-  }
-  .sound__on { display: none; }
-  .sound.is-on .sound__on { display: inline; }
-  .sound.is-on .sound__off { display: none; }
-  @media (max-width: 540px) { .sound { bottom: calc(16px + var(--safe-bottom)); right: 16px; } }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.4; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.3); }
-  }
-  @media (max-width: 540px) { .audio-note { display: none; } .skip { top: 16px; right: 16px; } }
-
-  /* Reduced motion */
+  /* Entrance: plaque settles, then copy and the Enter button (all visible by ~0.6s) */
+  @keyframes plaqueIn { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: none; } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .plaque { animation: plaqueIn 500ms var(--ease) both; }
+  .eyebrow { animation: fadeUp 400ms var(--ease) 60ms both; }
+  .tagline { animation: fadeUp 400ms var(--ease) 120ms both; }
+  .enter { animation: fadeUp 400ms var(--ease) 180ms both; }
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; }
-    .stage__bg-video { display: none; }
-    .stage__bg-img { display: block; }
+    .plaque, .eyebrow, .tagline, .enter { animation: none; }
+    .enter, .skip { transition: none; }
   }
 </style>
 </head>
 <body>
 
-<a class="skip" href="studio.html">Skip intro →</a>
+<header>
+  <a class="skip" href="studio.html">Skip intro →</a>
+</header>
 
-<div class="stage">
-  <!-- Poster is always-visible LCP element; video lazy-loads + fades in after page paint.
-       <picture> serves WebP to modern browsers (~half the bytes) with JPG fallback. -->
+<main class="stage">
   <picture>
-    <source type="image/webp" srcset="brand_assets/fb_cover.webp">
-    <img class="stage__bg-img" src="brand_assets/fb_cover.jpg" alt="" fetchpriority="high">
+    <source type="image/webp" srcset="brand_assets/clinic-room.webp">
+    <img class="stage__bg" src="brand_assets/clinic-room.jpg" width="942" height="1660" alt="" fetchpriority="high">
   </picture>
-  <video class="stage__bg-video"
-         muted loop playsinline webkit-playsinline preload="none"
-         disablepictureinpicture disableremoteplayback
-         data-src="brand_assets/video/welcome-loop.mp4"
-         aria-hidden="true"></video>
-
   <div class="stage__veil"></div>
-  <div class="stage__grain"></div>
-
   <div class="stage__content">
     <p class="eyebrow">A studio in Carlisle</p>
-
     <div class="plaque" aria-hidden="true">
       <span class="plaque__top">The Skin</span>
       <span class="plaque__big">Den</span>
       <span class="plaque__sub">· by rachel ·</span>
     </div>
-
     <h1 class="tagline">
       Every appointment,<br>
       <em>tailored to you.</em>
     </h1>
-
-    <a class="enter" href="studio.html" id="enter-cta">Enter the studio <span class="arr">→</span></a>
+    <a class="enter" href="studio.html" id="enter-cta">Enter the studio</a>
   </div>
-</div>
-
-<div class="audio-note" aria-hidden="true">
-  <span class="dot"></span>
-  <span>The studio · Carlisle</span>
-</div>
-
-<button class="sound" id="sound-toggle" type="button" aria-label="Toggle sound" aria-pressed="false">
-  <svg class="sound__off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-  <svg class="sound__on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
-</button>
-
-<script>
-  // Smooth fade-out before navigation
-  (function () {
-    const enter = document.getElementById('enter-cta');
-    const skip = document.querySelector('.skip');
-    function fadeAndGo(e, href) {
-      e.preventDefault();
-      document.body.style.transition = 'opacity 450ms ease, filter 450ms ease';
-      document.body.style.opacity = '0';
-      document.body.style.filter = 'blur(8px)';
-      setTimeout(() => { window.location.href = href; }, 460);
-    }
-    if (enter) enter.addEventListener('click', (e) => fadeAndGo(e, enter.href));
-    if (skip) skip.addEventListener('click', (e) => fadeAndGo(e, skip.href));
-  })();
-
-  // Lazy-load welcome video AFTER first paint — poster image wins LCP, video fades in.
-  // iOS Safari sometimes fires "play" but not "playing" for muted+playsinline videos,
-  // so trigger visibility on the first of several events.
-  (function () {
-    const v = document.querySelector('.stage__bg-video');
-    if (!v) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    let revealed = false;
-    const reveal = () => { if (!revealed) { revealed = true; v.classList.add('is-playing'); } };
-    const start = () => {
-      v.src = v.dataset.src;
-      v.load();
-      ['loadeddata', 'canplay', 'playing'].forEach(evt => v.addEventListener(evt, reveal, { once: true }));
-      // Safety net: even if no event fires (extreme iOS edge cases), reveal after 2.5s
-      // as long as the element has buffered data — otherwise the poster stays.
-      setTimeout(() => { if (v.readyState >= 2) reveal(); }, 2500);
-      const p = v.play();
-      if (p && p.catch) p.catch(() => {});
-    };
-    if (document.readyState === 'complete') start();
-    else window.addEventListener('load', start);
-  })();
-
-  // Sound toggle — unmute the welcome video on demand. First-visit pulse hint
-  // teaches users that audio is available; stops on first interaction or 14s.
-  (function () {
-    const btn = document.getElementById('sound-toggle');
-    const video = document.querySelector('.stage__bg-video');
-    if (!btn || !video) return;
-    btn.addEventListener('click', () => {
-      video.muted = !video.muted;
-      btn.classList.toggle('is-on', !video.muted);
-      btn.classList.add('has-interacted');
-      btn.classList.remove('is-hinting');
-      btn.setAttribute('aria-pressed', String(!video.muted));
-      if (!video.muted) video.play().catch(() => {});
-    });
-    // Start hinting once the button has faded in (it has 2200ms animation delay)
-    setTimeout(() => btn.classList.add('is-hinting'), 3400);
-    setTimeout(() => btn.classList.remove('is-hinting'), 14000);
-  })();
-
-  // Keyboard shortcut: Enter / Space / S to enter the studio
-  document.addEventListener('keydown', (e) => {
-    if (e.target.matches('button, input, textarea, a')) return;
-    if (e.key === 'Enter' || e.key === ' ' || e.key === 's' || e.key === 'S') {
-      e.preventDefault();
-      document.getElementById('enter-cta')?.click();
-    }
-  });
-
-</script>
+  <div class="audio-note" aria-hidden="true">
+    <span class="dot"></span>
+    <span>The studio · Carlisle</span>
+  </div>
+</main>
 
 </body>
 </html>

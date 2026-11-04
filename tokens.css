@@ -139,6 +139,28 @@
      Use in `calc()` on every bottom-fixed element so FABs / cookie / sticky CTAs
      never sit on top of the home indicator. */
   --safe-bottom:       env(safe-area-inset-bottom, 0px);
+
+  /* ── v1.1 refresh additions (2026-11-04) — additive only ─────────────── */
+  --c-focus:           #6F5938;       /* focus ring on light surfaces, 6.3:1 on ivory */
+  --c-rule-wood:       rgba(138, 113, 72, 0.34);
+
+  /* Five-step type scale (375 → 1280) plus named UI roles */
+  --t-display:         clamp(44px, 6.6vw + 19px, 84px);
+  --t-h2:              clamp(32px, 2.6vw + 22px, 52px);
+  --t-h3:              clamp(20px, 0.45vw + 18.3px, 24px);
+  --t-body:            clamp(17px, 0.12vw + 16.5px, 18px);
+  --t-lead:            clamp(18px, 0.4vw + 16.5px, 20px);
+  --t-ui:              15px;
+  --t-meta:            14px;
+  --t-small:           13px;
+
+  /* One section rhythm unit */
+  --section:           clamp(64px, 7vw + 38px, 112px);
+  --gutter:            clamp(20px, 4vw, 64px);
+  --container:         1240px;
+
+  --ease:              cubic-bezier(0.2, 0.7, 0.2, 1);
+  --d-base:            220ms;
 }
 
 /* ── Reduced-motion respect ─────────────────────────────────────────────── */
