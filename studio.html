@@ -87,47 +87,79 @@
 }
 </script>
 
-<style>
-  /* Studio page — v1.1 refresh. Shared components live in site.css. */
 
-  /* Hero */
-  .hero { background: var(--c-ivory); }
-  .hero__grid {
-    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    min-height: min(calc(100vh - 72px), 860px);
-    min-height: min(calc(100svh - 72px), 860px);
+<style>
+  /* Studio page — v1.4 editorial layout. Shared components live in site.css. */
+
+  /* Display type: Fraunces at its lighter weights carries the large editorial serif */
+  .display { font-weight: 300; letter-spacing: -0.03em; line-height: 1.02; }
+  .display em { display: block; font-style: italic; }
+  .on-dark h2, .on-dark h3 { color: var(--c-on-dark); }
+  .arrow { flex: none; width: 18px; height: 18px; transition: transform var(--d-base) var(--ease); }
+
+  /* Text link with a small diagonal arrow */
+  .link--arrow { gap: 14px; }
+  .link--arrow:hover .arrow { transform: translate(3px, -3px); }
+
+  /* Light outline button for charcoal surfaces */
+  .btn--outline-light { background: transparent; color: var(--c-on-dark); border-color: var(--c-edge-on-dark); }
+  .btn--outline-light:hover { background: var(--c-wash-on-dark); border-color: var(--c-on-dark); }
+  .on-dark .link { color: var(--c-on-dark); text-decoration-color: var(--c-gold); }
+  .on-dark .link:hover { text-decoration-color: var(--c-on-dark); }
+
+  /* ── Nav over the hero ───────────────────────────────────────────────
+     At the top of the page the nav has no surface and sits on the photograph in light type. Once the
+     page scrolls, site.js adds .nav--floating and the usual ivory glass capsule draws in. JS-only, so
+     without the script the nav keeps its solid ivory bar for the whole page. */
+  .js .nav--over-hero:not(.nav--floating)::before { background-color: transparent; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .nav--over-hero .brand, .nav--over-hero .nav__burger { transition: color 460ms var(--ease-out), border-color 460ms var(--ease-out), translate 460ms var(--ease-out); }
+  .js .nav--over-hero:not(.nav--floating) :is(.brand, .nav__links a, .nav__burger) { color: var(--c-on-dark); }
+  .js .nav--over-hero:not(.nav--floating) .brand__by { color: var(--c-gold-soft); }
+  .js .nav--over-hero:not(.nav--floating) .nav__links a:hover { border-bottom-color: var(--c-gold-soft); }
+  .js .nav--over-hero:not(.nav--floating) .nav__burger { border-color: var(--c-edge-on-dark); }
+  .js .nav--over-hero:not(.nav--floating) .nav__cta { background: var(--c-ivory); color: var(--c-charcoal); }
+  .js .nav--over-hero:not(.nav--floating) .nav__cta:hover { background: var(--c-cream); }
+  .js .nav--over-hero:not(.nav--floating) :focus-visible { outline-color: var(--c-gold-soft); }
+
+  /* ── Hero: the clinic room, full bleed under a charcoal scrim ─────── */
+  .hero {
+    position: relative; isolation: isolate; overflow: hidden;
+    display: grid; align-items: center;
+    min-height: clamp(560px, 100vh, 1040px); min-height: clamp(560px, 100svh, 1040px);
+    margin-top: calc(-1 * var(--nav-h));
+    padding-block: calc(var(--nav-h) + 48px) 64px;
+    background: var(--c-charcoal); color: var(--c-on-dark);
   }
-  .hero__copy {
-    align-self: center;
-    padding-block: 72px;
-    padding-left: max(var(--gutter), calc((100vw - var(--container)) / 2));
-    padding-right: clamp(32px, 5vw, 80px);
-  }
-  /* In the two-column hero the headline also scales with the half-width column */
-  .hero__title { margin: 0 0 24px; font-size: min(var(--t-display), 5.2vw); line-height: 1.04; letter-spacing: -0.022em; }
-  .hero__title span { display: block; text-wrap: balance; }
-  .hero__title em { font-style: italic; color: var(--c-gold-text); }
-  .hero__sub { max-width: 34ch; margin-bottom: 36px; font-size: clamp(18px, 0.5vw + 16px, 21px); line-height: 1.55; color: var(--c-charcoal-soft); }
-  .hero__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; }
-  .hero__media { position: relative; margin: 0; overflow: hidden; background: var(--c-wood); }
-  .hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 8%; }
+  .hero__media { position: absolute; inset: 0; z-index: -1; margin: 0; }
+  .hero > .container { width: 100%; }
+  .hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 4%; }
+  /* The room is a portrait photograph, so on wide screens it fills the right of the frame and melts
+     into the charcoal on the left, where the words sit */
+  .hero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--c-charcoal), var(--c-scrim-deep) 22%, var(--c-scrim-mid) 52%, var(--c-scrim-light)); }
+  @media (min-width: 901px) { .hero__media { left: auto; width: 60%; } }
+  .hero__copy { max-width: 860px; }
+  .hero .label { color: var(--c-on-dark); }
+  .hero__title { margin: 24px 0 28px; font-size: clamp(44px, 4.6vw + 24px, 92px); line-height: 1; color: var(--c-on-dark); }
+  .hero__title span { display: block; }
+  .hero__title em { font-style: italic; color: var(--c-gold-soft); }
+  .hero__sub { max-width: 34ch; font-size: var(--t-lead); line-height: 1.55; color: var(--c-on-dark); }
+  .hero__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: 32px; }
   @media (max-width: 900px) {
-    .hero__grid { grid-template-columns: 1fr; min-height: 0; }
-    .hero__title { font-size: var(--t-display); }
-    .hero__copy { padding: 40px var(--gutter) 32px; }
-    .hero__media { margin: 0 var(--gutter); aspect-ratio: 4 / 3; border-radius: var(--r-lg); }
-  }
-  @media (max-width: 600px) {
-    .hero__ctas .btn { width: 100%; }
-    .hero__ctas .link { margin-inline: auto; }
-    .hero__media { aspect-ratio: 4 / 5; }
+    .hero { align-items: end; padding-block: calc(var(--nav-h) + 40px) 48px; }
+    .hero__media img { object-position: 90% 0%; }
+    /* Darker under the nav, lighter across the plaque, deepest behind the words */
+    .hero__media::after { background: linear-gradient(180deg, var(--c-scrim-mid) 0, var(--c-scrim-light) 16%, var(--c-scrim-mid) 28%, var(--c-scrim-deep) 44%, var(--c-scrim-deep)); }
+    /* On the photograph's brightest strip the gold "by Rachel" reads in ivory instead */
+    .js .nav--over-hero:not(.nav--floating) .brand__by { color: var(--c-on-dark); }
   }
   /* Hero entrance, the page's one orchestrated moment: the room clears like steam lifting off the
      facial steamer, and the three promises come into focus one line at a time. The photo is painted
      from the first frame (it is the LCP image); everything is settled by about 1.3s. */
   @media (prefers-reduced-motion: no-preference) {
     .hero__media img { animation: hero-clear 1700ms var(--ease-out) both; }
-    .hero .label, .hero__title > span, .hero__sub, .hero__ctas { animation: focus-in 900ms var(--ease-out) both; }
+    .hero .label, .hero__sub, .hero__ctas { animation: focus-in 900ms var(--ease-out) both; }
+    /* The headline is painted from the first frame (it is the mobile LCP element) and only sharpens */
+    .hero__title > span { animation: focus-sharpen 900ms var(--ease-out) both; }
     .hero__title > span:nth-child(1) { animation-delay: 90ms; }
     .hero__title > span:nth-child(2) { animation-delay: 200ms; }
     .hero__title > span:nth-child(3) { animation-delay: 310ms; }
@@ -136,87 +168,112 @@
   }
   @keyframes hero-clear { from { filter: blur(12px) saturate(0.8) brightness(1.08); scale: 1.07; } }
   @keyframes focus-in { from { opacity: 0; filter: blur(8px); translate: 0 0.32em; } }
+  @keyframes focus-sharpen { from { filter: blur(10px); translate: 0 0.24em; } }
 
-  /* Philosophy: one statement beside the clinic room, on the cream band */
-  .philosophy { background: linear-gradient(180deg, var(--c-ivory), var(--c-cream) var(--section)); }
-  .philosophy__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 40px clamp(40px, 8vw, 120px); align-items: center; }
-  .philosophy__copy h2 { max-width: 14ch; margin-bottom: 24px; }
-  .philosophy__copy .lead { max-width: 46ch; }
-  /* The source photo has a dark phone-status strip along its top edge; the bottom-anchored zoom crops it out */
-  .philosophy__media { max-width: 360px; margin: 0; overflow: hidden; aspect-ratio: 4 / 5; border-radius: var(--r-lg); background: var(--c-wood); }
-  .philosophy__media img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); transform-origin: 50% 100%; }
-  @media (max-width: 900px) {
-    .philosophy__grid { grid-template-columns: 1fr; }
-    .philosophy__media { max-width: 480px; aspect-ratio: 4 / 3; }
+  /* ── Credentials strip ────────────────────────────────────────────── */
+  .trust {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px;
+    min-height: 88px; margin: 0; padding: 20px 0; list-style: none;
+    border-bottom: 1px solid var(--c-line);
+    font: 500 var(--t-meta)/1.4 var(--font-sans); letter-spacing: 0.02em; color: var(--c-charcoal-soft);
   }
-  .philosophy__copy .lead { --reveal-delay: 140ms; }
+  @media (max-width: 600px) { .trust { justify-content: flex-start; gap: 6px 22px; min-height: 0; padding: 22px 0; } }
 
-  /* Editorial photos settle into focus as they scroll in: a slight lens pull tied to scroll position.
-     Scale only (never translate), using the individual `scale` property so it composes with the
-     philosophy photo's crop transform. Browsers without scroll-driven animations show the still photo. */
+  /* ── Meet Rachel: portrait left, words right ──────────────────────── */
+  .intro { position: relative; }
+  .anchor-alias { position: absolute; top: 0; }
+  .intro__grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr); gap: 40px clamp(48px, 9vw, 144px); align-items: center; }
+  .intro__portrait { max-width: 470px; margin: 0 0 0 clamp(0px, 2.4vw, 30px); }
+  .intro__frame { aspect-ratio: 4 / 5; overflow: hidden; background: var(--c-wood); }
+  .intro__frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+  .intro__portrait figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; padding-top: 16px; font: italic 400 24px/1.2 var(--font-serif); color: var(--c-charcoal); }
+  .intro__portrait figcaption span { font: 400 var(--t-small)/1.5 var(--font-sans); color: var(--c-text-muted); }
+  .intro__copy { max-width: 560px; }
+  .intro__copy h2 { margin-bottom: 28px; font-size: clamp(52px, 3.4vw + 34px, 88px); }
+  .intro__copy > p { max-width: 52ch; color: var(--c-charcoal-soft); }
+  .intro__copy > p + p { margin-top: 18px; }
+  .intro__copy > p.intro__lead { font-size: var(--t-lead); line-height: 1.6; color: var(--c-charcoal); }
+  .intro__link { margin-top: 20px; }
+  .intro__note { max-width: 24ch; margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--c-rule-wood); font: italic 300 clamp(24px, 0.8vw + 19px, 30px)/1.3 var(--font-serif); color: var(--c-charcoal); }
+  @media (max-width: 767px) {
+    .intro__grid { grid-template-columns: 1fr; gap: 36px; }
+    .intro__portrait { width: 82%; margin: 0; }
+    .intro__frame { aspect-ratio: 4 / 4.5; }
+    .intro__copy { margin-left: 20px; }
+  }
+  /* The portrait settles into focus as it scrolls in: a slight lens pull tied to scroll position.
+     Browsers without scroll-driven animations show the still photo. */
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
-      .philosophy__media img, .about__frame img {
-        animation: lens-settle linear both;
-        animation-timeline: view();
-        animation-range: entry 0% entry 100%;
-      }
+      .intro__frame img { animation: lens-settle linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
     }
   }
   @keyframes lens-settle { from { scale: 1.09; } to { scale: 1; } }
 
-  /* About */
-  #about { background: linear-gradient(180deg, var(--c-cream), var(--c-ivory) var(--section)); }
-  .about { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 48px clamp(40px, 8vw, 120px); align-items: center; }
-  .about__figure { position: sticky; top: 104px; margin: 0; }
-  .about__frame { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--r-lg); background: var(--c-wood); }
-  .about__frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
-  .about__text h2 { margin-bottom: 28px; }
-  .about__text > p:not(.label) { max-width: 60ch; color: var(--c-charcoal-soft); }
-  .about__text > p:not(.label) + p { margin-top: 18px; }
-  .about__text > p.about__first { font: 400 clamp(22px, 0.8vw + 18px, 28px)/1.35 var(--font-serif); color: var(--c-charcoal); }
-  .credentials { display: flex; flex-wrap: wrap; gap: 12px 32px; margin: 32px 0; padding: 20px 0; list-style: none; border-block: 1px solid var(--c-line); }
-  .credentials li { display: flex; align-items: center; gap: 10px; font-size: 16px; color: var(--c-charcoal); }
-  .credentials svg { flex: none; width: 18px; height: 18px; color: var(--c-gold-text); }
-  @media (max-width: 900px) {
-    .about { grid-template-columns: 1fr; }
-    .about__figure { position: static; max-width: 520px; }
+  /* ── Pathways: three tall photographs into the menu ───────────────── */
+  .paths { padding-top: clamp(24px, 3vw, 48px); }
+  .paths__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px 48px; margin-bottom: clamp(32px, 4vw, 48px); }
+  .paths__title { font-size: clamp(52px, 9vw + 20px, 148px); line-height: 0.95; letter-spacing: -0.045em; }
+  .paths__intro { max-width: 40ch; padding-bottom: 0.6em; font-size: 16px; line-height: 1.7; color: var(--c-charcoal-soft); }
+  .paths__rail { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin: 0; padding: 0; list-style: none; }
+  .paths__rail > li { min-width: 0; }
+  .path { display: block; color: inherit; text-decoration: none; }
+  .path__media { display: block; aspect-ratio: 4 / 5; overflow: hidden; background: var(--c-cream); }
+  .path__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--ease-out); }
+  .path:hover .path__media img { transform: scale(1.035); }
+  /* The source has letterbox bars and the plaque above the steam: a slight zoom keeps only the steam */
+  .path__media--steam img { object-position: 50% 80%; scale: 1.22; transform-origin: 50% 84%; }
+  .path__title { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 2px 16px; margin-top: 22px; }
+  .path__title h3 { font: 300 clamp(30px, 1.6vw + 22px, 46px)/1.1 var(--font-serif); letter-spacing: -0.025em; }
+  @media (max-width: 1040px) { .path__title { flex-direction: column; align-items: flex-start; } }
+  .path__price { font: 500 var(--t-meta)/1.4 var(--font-sans); font-variant-numeric: lining-nums tabular-nums; color: var(--c-gold-text); }
+  .path__action { display: inline-flex; align-items: center; gap: 14px; min-height: 44px; margin-top: 6px; font: 500 var(--t-meta)/1.3 var(--font-sans); text-decoration: underline; text-decoration-color: var(--c-gold); text-underline-offset: 5px; }
+  .path:hover .path__action .arrow { transform: translate(3px, -3px); }
+  .path:focus-visible { outline-offset: 6px; }
+  .paths__rail > li:nth-child(2) { --reveal-delay: 120ms; }
+  .paths__rail > li:nth-child(3) { --reveal-delay: 240ms; }
+  @media (max-width: 767px) {
+    .paths__rail {
+      display: flex; gap: 16px; overflow-x: auto;
+      margin-inline: calc(-1 * var(--gutter)); padding: 0 var(--gutter) 8px;
+      scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none;
+    }
+    .paths__rail::-webkit-scrollbar { display: none; }
+    .paths__rail > li { flex: 0 0 78%; scroll-snap-align: start; }
+    /* Room for the focus ring inside the scrolling rail, and no entrance for cards that arrive mid-swipe */
+    .paths__rail { margin-block: -10px; padding-block: 10px 18px; }
+    .reveal-ready .paths__rail > li[data-reveal] { opacity: 1; filter: none; translate: none; }
   }
 
-  /* Treatments: the price-list sheet with Rachel's gold spine */
-  .treatments { position: relative; background: linear-gradient(180deg, var(--c-ivory), var(--c-cream) var(--section)); }
-  .treatments__title { text-align: center; }
-  .anchor-alias { position: absolute; top: 0; }
-  .menu {
-    display: grid; grid-template-columns: 76px minmax(0, 1fr);
-    max-width: 1000px; margin: clamp(40px, 5vw, 64px) auto 0;
-    /* clip, not hidden: it rounds the corners without becoming a scroll container, so the tab bar can stick */
-    overflow: hidden; overflow: clip;
-    background: var(--c-ivory); border-radius: 6px;
-    box-shadow: 0 1px 0 rgba(42, 33, 23, 0.04), 0 24px 48px -28px rgba(42, 33, 23, 0.28);
+  /* ── Treatments & prices: the charcoal band ──────────────────────── */
+  .treatments { position: relative; background: var(--c-charcoal); color: var(--c-on-dark); }
+  .treatments__grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.25fr); gap: 48px clamp(48px, 7vw, 96px); align-items: start; }
+  .treatments__title { margin-bottom: 32px; font-size: clamp(46px, 3vw + 26px, 80px); }
+  .treatments__photo { max-width: 420px; margin: 44px 0 0; aspect-ratio: 5 / 4; overflow: hidden; background: var(--c-charcoal-soft); }
+  .treatments__photo img { width: 100%; height: 100%; object-fit: cover; }
+  @media (min-width: 901px) and (min-height: 760px) {
+    .treatments__aside { position: sticky; top: calc(var(--nav-h) + 40px); }
   }
-  .menu__spine { display: flex; align-items: center; justify-content: center; background: var(--c-gold); color: var(--c-charcoal); }
-  .menu__spine span { writing-mode: vertical-rl; transform: rotate(180deg); font: 300 40px/1 var(--font-serif); letter-spacing: 0.34em; white-space: nowrap; }
-  .menu__body { --menu-pad-x: clamp(20px, 5vw, 64px); padding: clamp(28px, 4vw, 56px) var(--menu-pad-x) clamp(28px, 4vw, 48px); }
-  /* The category tabs stay within reach while a long list scrolls: a glass strip that sticks under the
-     nav, spanning the sheet so items and photos frost as they pass beneath it. */
-  /* The glass reaches up behind the nav (pulled up by the same amount it is padded, so the tabs keep
-     their place); while stuck, list text never peeks out around the floating nav capsule. */
+  .menu { min-width: 0; }
+  /* The category tabs stay within reach while a long list scrolls: a dark glass strip that sticks under
+     the nav. It reaches up behind the nav (pulled up by the same amount it is padded, so the tabs keep
+     their place), so list text never peeks out around the floating nav capsule. */
+  /* flow-root stops the bar's negative margin collapsing through to .menu, so the tab script measures true positions */
+  .menu__body { --bar-bleed: 16px; display: flow-root; }
   .tabs-bar {
-    position: sticky; top: 0; z-index: 2;
-    margin: calc(-1 * var(--nav-h)) calc(-1 * var(--menu-pad-x)) 8px; padding: var(--nav-h) var(--menu-pad-x) 0;
-    background-color: rgba(253, 248, 238, 0.86);
+    position: sticky; top: 0; z-index: 2; pointer-events: none;
+    margin: calc(-1 * var(--nav-h)) calc(-1 * var(--bar-bleed)) 4px; padding: var(--nav-h) var(--bar-bleed) 0;
+    background-color: var(--c-glass-dark);
     -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
   }
   .no-js .tabs-bar { display: none; }
-  .tabs { position: relative; display: flex; gap: 32px; overflow-x: auto; border-bottom: 1px solid var(--c-line); scrollbar-width: none; scroll-snap-type: x proximity; }
+  .tabs { position: relative; display: flex; gap: 32px; overflow-x: auto; pointer-events: auto; border-bottom: 1px solid var(--c-line-on-dark); scrollbar-width: none; scroll-snap-type: x proximity; }
   .tabs::-webkit-scrollbar { display: none; }
-  .no-js .tabs { display: none; }
-  /* One indicator that slides to the chosen category (site script sets its position and width) */
+  /* One indicator that slides to the chosen category (page script sets its position and width) */
   .tabs.has-indicator .tab[aria-selected="true"] { border-bottom-color: transparent; }
   .tabs.has-indicator::after {
     content: ""; position: absolute; left: 0; bottom: 0; width: 1px; height: 2px;
-    background: var(--c-charcoal); transform-origin: 0 50%;
+    background: var(--c-gold); transform-origin: 0 50%;
     transform: translateX(var(--ind-x, 0px)) scaleX(var(--ind-w, 0));
   }
   .tabs.indicator-live::after { transition: transform 420ms var(--ease-out); }
@@ -225,40 +282,40 @@
   }
   @keyframes panel-in { from { opacity: 0; translate: 0 10px; } }
   .tab {
-    flex: none; min-height: 48px; padding: 0; margin-bottom: -1px; scroll-snap-align: start;
+    flex: none; min-height: 52px; padding: 0; margin-bottom: -1px; scroll-snap-align: start;
     background: none; border: 0; border-bottom: 2px solid transparent;
-    /* A step darker than --c-text-muted so unselected tabs keep 4.5:1 on the glass bar over passing photos */
-    font: 500 var(--t-ui)/1 var(--font-sans); color: #5A4C3B; cursor: pointer;
+    font: 500 var(--t-ui)/1 var(--font-sans); color: var(--c-on-dark-muted); cursor: pointer;
     transition: color var(--d-fast) var(--ease), border-color var(--d-base) var(--ease);
   }
-  .tab:hover { color: var(--c-charcoal); }
-  .tab[aria-selected="true"] { color: var(--c-charcoal); border-bottom-color: var(--c-charcoal); }
+  .tab:hover, .tab[aria-selected="true"] { color: var(--c-on-dark); }
+  .tab[aria-selected="true"] { border-bottom-color: var(--c-gold); }
   .no-js .menu__panel[hidden] { display: block; }
   .menu__cat { display: none; }
-  .no-js .menu__cat { display: block; margin-top: 32px; }
+  .no-js .menu__cat { display: block; margin: 40px 0 0; }
+  .no-js .menu__panel:first-of-type .menu__cat { margin-top: 0; }
   .menu__panel:focus-visible { outline-offset: 6px; }
-  .menu__media { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 28px 0 8px; }
-  .menu__media img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 6px; background: var(--c-cream); }
   .item {
     display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "tag tag" "name price" "desc desc" "results results";
-    column-gap: 32px; align-items: start; padding: 26px 0; border-bottom: 1px solid var(--c-line);
+    column-gap: 32px; align-items: baseline; padding: 26px 0; border-bottom: 1px solid var(--c-line-on-dark);
   }
-  .item:last-of-type { border-bottom: 0; }
-  .item__tag { grid-area: tag; margin-bottom: 6px; font: 600 12px/1.4 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-gold-text); }
-  .item__name { grid-area: name; }
-  .item__price { grid-area: price; font: 500 var(--t-h3)/1.25 var(--font-serif); font-variant-numeric: lining-nums tabular-nums; color: var(--c-charcoal); text-align: right; white-space: nowrap; }
-  .item__price--text { padding-top: 3px; font: italic 400 17px/1.3 var(--font-serif); }
-  .item__desc { grid-area: desc; max-width: 60ch; margin-top: 8px; font-size: 16px; line-height: 1.6; color: var(--c-charcoal-soft); }
+  .item__tag { grid-area: tag; margin-bottom: 6px; font: 600 12px/1.4 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-gold); }
+  .item__name { grid-area: name; font: 300 clamp(24px, 0.8vw + 19px, 32px)/1.15 var(--font-serif); letter-spacing: -0.015em; }
+  .item__price { grid-area: price; font: 400 clamp(20px, 0.4vw + 18px, 24px)/1.25 var(--font-serif); font-variant-numeric: lining-nums tabular-nums; color: var(--c-on-dark); text-align: right; white-space: nowrap; }
+  .item__price--text { font: italic 400 17px/1.3 var(--font-serif); }
+  .item__desc { grid-area: desc; max-width: 56ch; margin-top: 8px; font-size: 16px; line-height: 1.6; color: var(--c-on-dark-muted); }
   .item__results { grid-area: results; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; }
-  .result { width: 72px; height: 72px; padding: 0; overflow: hidden; background: var(--c-cream); border: 0; border-radius: 6px; cursor: zoom-in; }
+  .result { width: 72px; height: 72px; padding: 0; overflow: hidden; background: var(--c-charcoal-soft); border: 0; border-radius: 4px; cursor: zoom-in; }
   .result img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--d-base) var(--ease); }
   .result:hover img { transform: scale(1.04); }
-  .item__results-label { margin-left: 6px; font-size: var(--t-meta); color: var(--c-text-muted); }
-  .menu__note { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--c-rule-wood); font: italic 400 16px/1.5 var(--font-serif); color: var(--c-text-muted); }
+  .item__results-label { margin-left: 6px; font-size: var(--t-meta); color: var(--c-on-dark-muted); }
+  .menu__note { padding-top: 20px; font: italic 400 16px/1.5 var(--font-serif); color: var(--c-on-dark-muted); }
+  @media (max-width: 900px) {
+    .treatments__grid { grid-template-columns: 1fr; gap: 72px; }
+    .treatments__title { margin-bottom: 28px; }
+    .treatments__photo { display: none; }
+    .menu__body { --bar-bleed: var(--gutter); }
+  }
   @media (max-width: 600px) {
-    .menu { grid-template-columns: 30px minmax(0, 1fr); margin-inline: calc(-1 * var(--gutter)); border-radius: 0; }
-    .menu__spine span { font-size: 16px; letter-spacing: 0.3em; }
-    .menu__body { --menu-pad-x: 20px; }
     .tabs { gap: 24px; -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent); mask-image: linear-gradient(90deg, #000 82%, transparent); }
     .item { column-gap: 16px; }
     .item__price--text { max-width: 10ch; white-space: normal; }
@@ -319,56 +376,63 @@
   ::view-transition-group(lb-photo) { animation-duration: 440ms; animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1); }
   ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 300ms; }
 
-  /* Booking */
-  .book { background: var(--c-charcoal); color: var(--c-ivory); }
-  .book__head { max-width: 720px; margin-inline: auto; text-align: center; }
-  .book__head h2 { color: var(--c-ivory); }
-  .panel {
-    max-width: 800px; margin: clamp(36px, 5vw, 56px) auto 0;
-    padding: clamp(32px, 5vw, 60px) clamp(22px, 6vw, 72px);
-    background: var(--c-ivory); color: var(--c-charcoal); border-radius: var(--r-lg); text-align: center;
-  }
-  .panel__copy { max-width: 46ch; margin: 0 auto 28px; font-size: var(--t-lead); line-height: 1.55; color: var(--c-charcoal); }
-  .panel__ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
-  .panel__help { max-width: 54ch; margin: 16px auto 0; font-size: var(--t-meta); line-height: 1.55; color: var(--c-text-muted); }
-  .panel__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 32px; margin-top: 12px; font-size: 16px; }
-  .policy { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--c-line); text-align: left; }
-  .policy__title { margin-bottom: 16px; font: 500 19px/1.3 var(--font-serif); }
-  .policy__note { margin-top: 18px; font-size: var(--t-ui); line-height: 1.6; color: var(--c-charcoal-soft); }
-  .policy__note a { color: var(--c-gold-text); text-decoration: underline; text-decoration-color: var(--c-gold); text-underline-offset: 4px; }
-  @media (max-width: 600px) {
-    .panel__ctas .btn { width: 100%; }
-  }
-
-  /* Reviews: a featured pull-quote with two supporting quotes */
-  .reviews { background: linear-gradient(180deg, var(--c-cream) calc(100% - var(--section)), var(--c-ivory)); }
-  .reviews__title { margin-bottom: clamp(36px, 5vw, 64px); }
-  .quotes { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); grid-template-rows: auto auto; gap: 40px clamp(40px, 6vw, 96px); }
-  .quote { margin: 0; padding-top: 24px; border-top: 1px solid var(--c-rule-wood); }
-  .quote blockquote { margin: 0; font: 400 clamp(19px, 0.4vw + 17px, 21px)/1.55 var(--font-serif); color: var(--c-charcoal); }
+  /* ── Reviews: two editorial columns ───────────────────────────────── */
+  .reviews { background: var(--c-cream); }
+  .reviews__title { margin-bottom: clamp(36px, 5vw, 56px); font-size: clamp(46px, 3vw + 26px, 80px); }
+  .quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(40px, 5vw, 64px); align-items: start; }
+  .quote { margin: 0; padding: 28px 0 36px; border-top: 1px solid var(--c-rule-wood); }
+  .quote--feature { grid-row: span 2; }
+  .quote blockquote { margin: 0; font: 400 clamp(21px, 0.6vw + 18px, 26px)/1.45 var(--font-serif); color: var(--c-charcoal); }
+  .quote--feature blockquote { font-size: clamp(24px, 0.9vw + 19px, 31px); line-height: 1.38; letter-spacing: -0.01em; }
   .quote blockquote::before { content: "“"; }
   .quote blockquote::after { content: "”"; }
-  .quote--feature { grid-row: span 2; padding-top: 32px; border-top: 2px solid var(--c-gold); }
-  .quote--feature blockquote { font-size: clamp(26px, 1.4vw + 20px, 38px); line-height: 1.3; letter-spacing: -0.01em; }
   .quote figcaption { margin-top: 20px; font-size: var(--t-ui); font-weight: 600; color: var(--c-charcoal); }
   .quote__role { display: block; margin-top: 2px; font-size: var(--t-meta); font-weight: 400; color: var(--c-gold-text); }
-  @media (max-width: 900px) {
+  @media (max-width: 767px) {
     .quotes { grid-template-columns: 1fr; }
     .quote--feature { grid-row: auto; }
+    .quote { padding: 24px 0 32px; }
   }
   /* The three reviews come into focus in reading order */
   .quote:nth-child(2) { --reveal-delay: 160ms; }
   .quote:nth-child(3) { --reveal-delay: 320ms; }
 
+  /* ── Booking: the closing charcoal band ──────────────────────────── */
+  .book { background: var(--c-charcoal); color: var(--c-on-dark); }
+  .book__grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 32px clamp(48px, 7vw, 96px); align-items: center; }
+  .book__title { font-size: clamp(48px, 3.6vw + 30px, 96px); line-height: 1; letter-spacing: -0.035em; }
+  .panel__copy { max-width: 40ch; margin-bottom: 28px; font-size: var(--t-lead); line-height: 1.55; color: var(--c-on-dark); }
+  .panel__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .panel__help { max-width: 52ch; margin-top: 16px; font-size: var(--t-meta); line-height: 1.55; color: var(--c-on-dark-muted); }
+  .panel__links { display: flex; flex-wrap: wrap; gap: 0 32px; margin-top: 8px; font-size: 16px; }
+  .policy { margin-top: clamp(56px, 7vw, 96px); padding-top: 32px; border-top: 1px solid var(--c-line-on-dark); }
+  .policy__title { margin-bottom: 20px; font: 400 22px/1.3 var(--font-serif); color: var(--c-on-dark); }
+  .policy .tiers { max-width: 880px; }
+  .book .tier__h { color: var(--c-gold-soft); }
+  .book .tier__p { color: var(--c-on-dark-muted); }
+  .policy__note { margin-top: 20px; font-size: var(--t-ui); line-height: 1.6; color: var(--c-on-dark-muted); }
+  .policy__note a { color: var(--c-gold-soft); text-decoration: underline; text-decoration-color: var(--c-gold); text-underline-offset: 4px; }
+  .policy__note a:hover { color: var(--c-on-dark); }
+  @media (max-width: 900px) {
+    .book__grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .panel__ctas .btn { width: 100%; }
+  }
+
   /* Glass falls back to solid surfaces when transparency is reduced or more contrast is requested */
   @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
-    .tabs-bar { background-color: var(--c-ivory); -webkit-backdrop-filter: none; backdrop-filter: none; }
+    .tabs-bar { background-color: var(--c-charcoal); -webkit-backdrop-filter: none; backdrop-filter: none; }
     .lightbox { background: rgba(42, 33, 23, 0.97); -webkit-backdrop-filter: none; backdrop-filter: none; }
     .lightbox__nav, .lightbox__counter { background: var(--c-charcoal); }
   }
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .tabs-bar { background-color: var(--c-ivory); }
+    .tabs-bar { background-color: var(--c-charcoal); }
     .lightbox { background: rgba(42, 33, 23, 0.95); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .path:hover .path__media img, .result:hover img { transform: none; }
+    .link--arrow:hover .arrow, .path:hover .path__action .arrow { transform: none; }
   }
 </style>
 </head>
@@ -376,7 +440,7 @@
 
 <a class="skip-to-main" href="#main">Skip to main content</a>
 
-<header class="nav">
+<header class="nav nav--over-hero">
   <div class="container nav__inner">
     <a class="brand" href="#top" aria-label="The Skin Den by Rachel, home">
       <span class="brand__name">The Skin Den</span> <span class="brand__by">by Rachel</span>
@@ -425,72 +489,103 @@
 
 <main id="main">
 
-<section class="hero" id="top">
-  <div class="hero__grid">
+<section class="hero on-dark" id="top">
+  <figure class="hero__media">
+    <picture>
+      <source type="image/webp" srcset="brand_assets/clinic-room.webp">
+      <img src="brand_assets/clinic-room.jpg" width="942" height="1660" alt="The Skin Den treatment room with cream wood panelling and signature plaque" fetchpriority="high">
+    </picture>
+  </figure>
+  <div class="container">
     <div class="hero__copy">
       <p class="label">Private clinic · Carlisle · Cumbria</p>
-      <h1 class="hero__title">
+      <h1 class="hero__title display">
         <span>Advanced skincare.</span>
         <span>Personalised treatments.</span>
         <span><em>Healthier skin.</em></span>
       </h1>
       <p class="hero__sub">One-to-one skin treatments with acne specialist Rachel.</p>
       <div class="hero__ctas">
-        <a class="btn btn--primary" href="#book">Book a consultation</a>
+        <a class="btn btn--light" href="#book">Book a consultation</a>
         <a class="link" href="#treatments">View treatments</a>
       </div>
     </div>
-    <figure class="hero__media">
-      <picture>
-        <source type="image/webp" srcset="brand_assets/clinic-room.webp">
-        <img src="brand_assets/clinic-room.jpg" width="942" height="1660" alt="The Skin Den treatment room with cream wood panelling and signature plaque" fetchpriority="high">
-      </picture>
-    </figure>
   </div>
 </section>
 
-<!-- The clinic philosophy, stated once. #paths stays as an anchor for older links. -->
-<section class="section philosophy" id="clinic">
-  <div class="container philosophy__grid" id="paths">
-    <div class="philosophy__copy">
-      <h2 data-reveal>Every treatment starts with your skin.</h2>
-      <p class="lead" data-reveal>Each appointment begins with a thorough skin analysis in a calm, private space. From there, Rachel builds a plan around what your skin needs.</p>
-    </div>
-    <figure class="philosophy__media">
-      <img src="brand_assets/photos/fb_518283822_122105828282935999.jpg" width="414" height="414" alt="The Skin Den treatment room with its signature plaque and treatment lamp" loading="lazy">
-    </figure>
-  </div>
-</section>
+<div class="container">
+  <ul class="trust" aria-label="Credentials">
+    <li>VTCT Qualified</li>
+    <li>Fully Insured</li>
+    <li>Acne Practitioner</li>
+  </ul>
+</div>
 
-<section class="section" id="about">
-  <div class="container about">
-    <figure class="about__figure">
-      <div class="about__frame">
+<!-- Rachel and the clinic philosophy. #clinic stays as an anchor for older links. -->
+<section class="section intro" id="about">
+  <span class="anchor-alias" id="clinic" aria-hidden="true"></span>
+  <div class="container intro__grid">
+    <figure class="intro__portrait">
+      <div class="intro__frame">
         <img src="brand_assets/photos/rachel.jpg" width="1024" height="1536" alt="Rachel, the skincare practitioner behind The Skin Den, standing in her Carlisle clinic" loading="lazy">
       </div>
+      <figcaption>Rachel <span>Skincare practitioner &amp; acne specialist</span></figcaption>
     </figure>
-    <div class="about__text">
-      <h2>Meet Rachel.</h2>
-      <p class="about__first">I’m Rachel, a VTCT-qualified, fully insured skincare practitioner and acne specialist based in Carlisle.</p>
+    <div class="intro__copy">
+      <h2 class="display">Meet Rachel.</h2>
+      <p class="intro__lead">I’m Rachel, a VTCT-qualified, fully insured skincare practitioner and acne specialist based in Carlisle.</p>
       <p>I created The Skin Den for people who feel overwhelmed, confused or stuck with their skin. Whether it’s acne, congestion, dehydration, pigmentation or ageing, I take the time to understand your skin and what you want to achieve.</p>
       <p>My goal is simple: to help you understand your skin, feel confident in it and work towards healthier skin.</p>
-      <ul class="credentials">
-        <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="8.5"/><path d="M6.5 10.2l2.3 2.3 4.7-4.9"/></svg>VTCT Qualified</li>
-        <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="8.5"/><path d="M6.5 10.2l2.3 2.3 4.7-4.9"/></svg>Fully Insured</li>
-        <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="8.5"/><path d="M6.5 10.2l2.3 2.3 4.7-4.9"/></svg>Acne Practitioner</li>
-      </ul>
-      <a class="btn btn--secondary" href="#book">Book a consultation</a>
+      <a class="link link--arrow intro__link" href="#book">Book a consultation <svg class="arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14L14 6M7.5 6H14v6.5"/></svg></a>
+      <p class="intro__note" data-reveal>Every treatment starts with your skin.</p>
     </div>
   </div>
 </section>
 
-<section class="section treatments" id="treatments">
-  <span class="anchor-alias" id="before-afters" aria-hidden="true"></span>
+<section class="section paths" id="paths" aria-labelledby="paths-title">
   <div class="container">
-    <h2 class="treatments__title">Treatments &amp; prices</h2>
+    <div class="paths__head">
+      <h2 class="paths__title display" id="paths-title">Treatments</h2>
+      <p class="paths__intro">Each appointment begins with a thorough skin analysis in a calm, private space. From there, Rachel builds a plan around what your skin needs.</p>
+    </div>
+    <ul class="paths__rail">
+      <li data-reveal>
+        <a class="path" href="#panel-facials">
+          <span class="path__media path__media--steam"><img src="brand_assets/photos/fb_530465494_122118155594935999.jpg" width="942" height="2048" alt="Facial steamer in use" loading="lazy"></span>
+          <span class="path__title"><h3>Facials</h3><span class="path__price">From £50</span></span>
+          <span class="path__action">View facials <svg class="arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14L14 6M7.5 6H14v6.5"/></svg></span>
+        </a>
+      </li>
+      <li data-reveal>
+        <a class="path" href="#panel-advanced">
+          <span class="path__media"><img src="brand_assets/photos/fb_518351655_122107256444935999.jpg" width="414" height="414" alt="A chemical peel being applied in clinic" loading="lazy"></span>
+          <span class="path__title"><h3>Advanced</h3><span class="path__price">From £55</span></span>
+          <span class="path__action">View advanced treatments <svg class="arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14L14 6M7.5 6H14v6.5"/></svg></span>
+        </a>
+      </li>
+      <li data-reveal>
+        <a class="path" href="#acne">
+          <span class="path__media"><img src="brand_assets/photos/fb_637411259_122157358220935999.jpg" width="414" height="414" alt="Client before and after acne treatment" loading="lazy"></span>
+          <span class="path__title"><h3>Acne</h3><span class="path__price">£70</span></span>
+          <span class="path__action">View acne treatment <svg class="arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14L14 6M7.5 6H14v6.5"/></svg></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="section treatments on-dark" id="treatments" aria-labelledby="treatments-title">
+  <span class="anchor-alias" id="before-afters" aria-hidden="true"></span>
+  <div class="container treatments__grid">
+    <div class="treatments__aside">
+      <h2 class="treatments__title display" id="treatments-title">Treatments <em>&amp; prices.</em></h2>
+      <a class="btn btn--light" href="#book">Book a consultation</a>
+      <figure class="treatments__photo">
+        <img src="brand_assets/photos/fb_581812689_122141261762935999.jpg" width="414" height="414" alt="RestoraPlex professional peel solutions in the treatment room" loading="lazy">
+      </figure>
+    </div>
 
     <div class="menu" id="treatment-menu">
-      <div class="menu__spine" aria-hidden="true"><span>THE SKIN DEN</span></div>
       <div class="menu__body">
         <div class="tabs-bar">
           <div class="tabs" role="tablist" aria-label="Treatment categories">
@@ -503,10 +598,6 @@
 
         <div class="menu__panel" role="tabpanel" id="panel-facials" aria-labelledby="tab-facials" tabindex="0">
           <p class="label menu__cat">Facials</p>
-          <div class="menu__media">
-            <img src="brand_assets/photos/fb_530465494_122118155594935999.jpg" width="414" height="414" alt="Facial steamer in use beside The Skin Den plaque" loading="lazy">
-            <img src="brand_assets/photos/fb_563451956_122135005844935999.jpg" width="414" height="414" alt="Dermaplaning during an advanced facial" loading="lazy">
-          </div>
           <div class="item">
             <p class="item__tag">Start here</p>
             <h3 class="item__name">Skin Consultation &amp; Advanced Facial</h3>
@@ -523,7 +614,7 @@
             <p class="item__price">£60</p>
             <p class="item__desc">An advanced facial with dermaplaning to remove dead skin and peach fuzz, for smoother, brighter skin.</p>
           </div>
-          <div class="item">
+          <div class="item" id="acne" tabindex="-1">
             <p class="item__tag">Acne specialist</p>
             <h3 class="item__name">Acne Consultation &amp; Treatment</h3>
             <p class="item__price">£70</p>
@@ -545,10 +636,6 @@
 
         <div class="menu__panel" role="tabpanel" id="panel-advanced" hidden aria-labelledby="tab-advanced" tabindex="0">
           <p class="label menu__cat">Advanced</p>
-          <div class="menu__media">
-            <img src="brand_assets/photos/fb_518351655_122107256444935999.jpg" width="414" height="414" alt="A chemical peel being applied in clinic" loading="lazy">
-            <img src="brand_assets/photos/fb_581812689_122141261762935999.jpg" width="414" height="414" alt="RestoraPlex professional peel solutions in the treatment room" loading="lazy">
-          </div>
           <div class="item">
             <h3 class="item__name">Fusion Facial with Electroporation</h3>
             <p class="item__price">£60</p>
@@ -625,51 +712,9 @@
   </div>
 </section>
 
-<section class="section book" id="book">
+<section class="section reviews" id="reviews" aria-labelledby="reviews-title">
   <div class="container">
-    <div class="book__head on-dark">
-      <h2>Book a consultation</h2>
-    </div>
-
-    <div class="panel" id="booking-panel">
-      <p class="panel__copy" id="booking-copy">Message Rachel on WhatsApp for the quickest reply, or check live availability online.</p>
-
-      <div class="panel__ctas" id="booking-ctas">
-        <a class="btn btn--primary" href="https://wa.me/447568602861?text=Hi%20Rachel%2C%20I%27d%20like%20to%20book%20a%20consultation%20at%20The%20Skin%20Den" target="_blank" rel="noopener">Book on WhatsApp</a>
-        <a class="btn btn--secondary" href="https://clockwork-bookings.vercel.app/m/the-skin-den/book" target="_blank" rel="noopener">Check online availability</a>
-      </div>
-      <p class="panel__help">Online booking opens in a new tab. If it is unavailable, use WhatsApp and Rachel can arrange your appointment directly.</p>
-
-      <div class="panel__links">
-        <a class="link" href="/account/">Your account</a>
-        <a class="link" href="tel:+447568602861">Call · 07568 602861</a>
-      </div>
-
-      <div class="policy">
-        <p class="policy__title">Booking &amp; Cancellation Policy</p>
-        <div class="tiers">
-          <div class="tier">
-            <p class="tier__h">48+ hours</p>
-            <p class="tier__p">Free reschedule</p>
-          </div>
-          <div class="tier">
-            <p class="tier__h">&lt; 48 hours</p>
-            <p class="tier__p">50% of treatment fee</p>
-          </div>
-          <div class="tier">
-            <p class="tier__h">&lt; 24h / no-show</p>
-            <p class="tier__p">100% of treatment fee</p>
-          </div>
-        </div>
-        <p class="policy__note">Last-minute cancellations cost both me and the next client the slot. Notice means the appointment can be offered to someone else. <a href="policy.html">Read the full policy →</a></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section reviews" id="reviews">
-  <div class="container">
-    <h2 class="reviews__title">Client reviews</h2>
+    <h2 class="reviews__title display" id="reviews-title">Client <em>reviews.</em></h2>
     <div class="quotes">
       <figure class="quote quote--feature" data-reveal>
         <blockquote>Rachel explains everything that she is doing and discusses what your skin goals are, and comes up with a plan to get you to that point. I have now done 2 chemical peels and my skin is the clearest it has been in years.</blockquote>
@@ -683,6 +728,48 @@
         <blockquote>Absolutely loved my facial. I felt so relaxed throughout, my skin was glowing afterwards. The whole experience was refreshing and professional.</blockquote>
         <figcaption>Louise T.<span class="quote__role">Advanced Facial</span></figcaption>
       </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section book on-dark" id="book" aria-labelledby="book-title">
+  <div class="container">
+    <div class="book__grid">
+      <h2 class="book__title display" id="book-title">Book a <em>consultation.</em></h2>
+
+      <div class="book__panel" id="booking-panel">
+        <p class="panel__copy" id="booking-copy">Message Rachel on WhatsApp for the quickest reply, or check live availability online.</p>
+
+        <div class="panel__ctas" id="booking-ctas">
+          <a class="btn btn--light" href="https://wa.me/447568602861?text=Hi%20Rachel%2C%20I%27d%20like%20to%20book%20a%20consultation%20at%20The%20Skin%20Den" target="_blank" rel="noopener">Book on WhatsApp</a>
+          <a class="btn btn--outline-light" href="https://clockwork-bookings.vercel.app/m/the-skin-den/book" target="_blank" rel="noopener">Check online availability</a>
+        </div>
+        <p class="panel__help">Online booking opens in a new tab. If it is unavailable, use WhatsApp and Rachel can arrange your appointment directly.</p>
+
+        <div class="panel__links">
+          <a class="link" href="/account/">Your account</a>
+          <a class="link" href="tel:+447568602861">Call · 07568 602861</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="policy">
+      <p class="policy__title">Booking &amp; Cancellation Policy</p>
+      <div class="tiers">
+        <div class="tier">
+          <p class="tier__h">48+ hours</p>
+          <p class="tier__p">Free reschedule</p>
+        </div>
+        <div class="tier">
+          <p class="tier__h">&lt; 48 hours</p>
+          <p class="tier__p">50% of treatment fee</p>
+        </div>
+        <div class="tier">
+          <p class="tier__h">&lt; 24h / no-show</p>
+          <p class="tier__p">100% of treatment fee</p>
+        </div>
+      </div>
+      <p class="policy__note">Last-minute cancellations cost both me and the next client the slot. Notice means the appointment can be offered to someone else. <a href="policy.html">Read the full policy →</a></p>
     </div>
   </div>
 </section>
@@ -863,6 +950,47 @@
       window.addEventListener('resize', placeIndicator);
     }
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeIndicator);
+  }
+
+  // ── Links into the menu (the pathway photos, deep links): open the right category first ──
+  // Without this script every category is visible, so they work as plain anchors.
+  function tabFor(target) {
+    var panel = target && target.closest ? target.closest('[role="tabpanel"]') : null;
+    if (!panel) return null;
+    return tabs.filter(function (t) { return t.getAttribute('aria-controls') === panel.id; })[0] || null;
+  }
+  // Selects the category, then brings the list (or one treatment) into view just below the stuck tab bar
+  function revealInMenu(target) {
+    var tab = tabFor(target);
+    if (!tab || !tabsBar || !tablist || !menuBody) return;
+    if (tab.getAttribute('aria-selected') !== 'true') selectTab(tab, false, false);
+    var bar = getComputedStyle(tabsBar);
+    var stuckBottom = (parseFloat(bar.top) || 0) + (parseFloat(bar.paddingTop) || 0) + tablist.offsetHeight;
+    var isPanel = target.getAttribute('role') === 'tabpanel';
+    var y = isPanel ? window.scrollY + barOffset() : window.scrollY + target.getBoundingClientRect().top - stuckBottom - 16;
+    window.scrollTo(0, Math.max(0, y));
+    (isPanel ? tab : target).focus({ preventScroll: true });
+  }
+  function targetOf(hash) {
+    var id = hash && hash.charAt(0) === '#' ? decodeURIComponent(hash.slice(1)) : '';
+    var el = id ? document.getElementById(id) : null;
+    return el && tabFor(el) ? el : null;
+  }
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!link || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var target = targetOf(link.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    if (history.pushState) history.pushState(null, '', link.getAttribute('href'));
+    revealInMenu(target);
+  });
+  window.addEventListener('hashchange', function () { var t = targetOf(location.hash); if (t) revealInMenu(t); });
+  // Arriving on studio.html#panel-advanced (or #acne): open that category now, align it once laid out
+  var arrival = targetOf(location.hash);
+  if (arrival) {
+    selectTab(tabFor(arrival));
+    window.addEventListener('load', function () { revealInMenu(arrival); });
   }
 
   // ── Results lightbox: each treatment's before/after thumbnails form a group ──

@@ -207,7 +207,11 @@ p { margin: 0; }
 
 /* ── Footer ───────────────────────────────────────────────────────────── */
 .footer { background: var(--c-ivory); border-top: 1px solid var(--c-line); padding: clamp(56px, 6vw, 88px) 0 32px; }
-.footer__grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; }
+.footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px clamp(32px, 4vw, 64px); }
+/* Editorial footer (v1.4): a large wordmark and serif column titles */
+.footer__grid .brand__name { font-size: clamp(30px, 1.4vw + 22px, 40px); font-weight: 400; letter-spacing: -0.02em; }
+.footer__grid .brand__by { font-size: clamp(17px, 0.4vw + 15px, 20px); }
+.footer__grid .label { margin-bottom: 12px; font: 400 clamp(24px, 0.6vw + 20px, 28px)/1.2 var(--font-serif); letter-spacing: -0.01em; text-transform: none; color: var(--c-charcoal); }
 .plaque {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   width: 104px; height: 104px; margin-bottom: 20px; border-radius: 50%;

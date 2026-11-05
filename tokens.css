@@ -161,6 +161,18 @@
 
   --ease:              cubic-bezier(0.2, 0.7, 0.2, 1);
   --d-base:            220ms;
+
+  /* ── v1.4 editorial layout additions (2026-11-05) — additive only ────── */
+  /* Charcoal scrims for type over the clinic photograph, and text/rule tones for charcoal bands */
+  --c-scrim-deep:      rgba(42, 33, 23, 0.86);
+  --c-scrim-mid:       rgba(42, 33, 23, 0.6);
+  --c-scrim-light:     rgba(42, 33, 23, 0.34);
+  --c-on-dark:         var(--c-ivory);
+  --c-on-dark-muted:   rgba(253, 248, 238, 0.76);   /* 8.9:1 on charcoal */
+  --c-line-on-dark:    rgba(253, 248, 238, 0.18);
+  --c-edge-on-dark:    rgba(253, 248, 238, 0.56);   /* outline buttons and controls on dark */
+  --c-wash-on-dark:    rgba(253, 248, 238, 0.08);   /* hover fill on dark */
+  --c-glass-dark:      rgba(42, 33, 23, 0.86);
 }
 
 /* ── Reduced-motion respect ─────────────────────────────────────────────── */
