@@ -124,9 +124,6 @@ p { margin: 0; }
   box-shadow: inset 0 -1px 0 var(--c-line);
 }
 .nav::after { background-image: var(--glass-sheen); opacity: 0; }
-/* A short scroll-edge wash: text passing through the gap above the capsule fades out rather than
-   showing as cut-off fragments. It sits behind the surfaces, so the flush bar hides it at the top. */
-.nav--floating { background: linear-gradient(180deg, rgba(253, 248, 238, 0.92) 0, rgba(253, 248, 238, 0.5) 10px, rgba(253, 248, 238, 0) 30px); }
 .nav--floating::before, .nav--floating::after {
   /* Wider on the brand side so the wordmark has air; tight on the button side so the pill sits concentric */
   inset: 6px calc(max(var(--gutter), (100% - var(--container)) / 2) - 8px) 6px calc(max(var(--gutter), (100% - var(--container)) / 2) - 24px);

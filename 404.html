@@ -9,7 +9,10 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400..600&display=swap" rel="stylesheet">
+<!-- Fonts load without blocking first paint; text shows in the fallback face for a moment, then swaps -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400..600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400..600&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400..600&display=swap"></noscript>
 <!-- Root-relative so the page still styles when served for a nested missing path -->
 <link rel="stylesheet" href="/tokens.css">
 <link rel="stylesheet" href="/site.css">
@@ -17,18 +20,17 @@
   body { display: grid; place-items: center; min-height: 100vh; min-height: 100dvh; padding: 40px var(--gutter); background: var(--c-cream); text-align: center; }
   .notfound { max-width: 540px; }
   .notfound .plaque { margin: 0 auto 32px; }
-  .notfound h1 { margin: 0 0 16px; font-size: clamp(44px, 5vw + 26px, 88px); line-height: 1.02; letter-spacing: -0.022em; }
-  .notfound h1 em { font-style: italic; color: var(--c-gold-text); }
+  .notfound h1 { margin: 0 0 16px; font-size: clamp(44px, 5vw + 26px, 88px); font-weight: 300; line-height: 1.02; letter-spacing: -0.03em; }
   .notfound p:not(.label) { max-width: 42ch; margin: 0 auto 36px; color: var(--c-charcoal-soft); }
 </style>
 </head>
 <body>
   <main class="notfound">
-    <div class="plaque" aria-hidden="true"><span class="plaque__big">tsd</span><span class="plaque__sub">· by rachel ·</span></div>
+    <div class="plaque" aria-hidden="true"><span class="plaque__top">The Skin</span><span class="plaque__big">Den</span><span class="plaque__sub">· by rachel ·</span></div>
     <p class="label">Lost the path</p>
-    <h1>This page isn't <em>here.</em></h1>
+    <h1>This page isn’t here.</h1>
     <p>The link you followed has either moved or never existed. No drama — take the door back to the studio.</p>
-    <a class="btn btn--primary" href="/">← Back to The Skin Den</a>
+    <a class="btn btn--primary" href="/">Back to The Skin Den</a>
   </main>
 </body>
 </html>

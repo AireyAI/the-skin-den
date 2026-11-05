@@ -1,23 +1,28 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="en-GB" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0F0C08">
+<meta name="theme-color" content="#FDF8EE">
 
-<title>Welcome · The Skin Den · Carlisle</title>
-<meta name="description" content="Welcome to The Skin Den — Carlisle's advanced skincare and acne specialist studio. Step inside.">
+<title>The Skin Den · Advanced Skincare & Acne Specialist · Carlisle</title>
+<meta name="description" content="Advanced skincare, personalised treatments and acne support in Carlisle. One-to-one appointments with VTCT-qualified acne specialist Rachel.">
 <link rel="canonical" href="https://theskinden.co.uk/">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://theskinden.co.uk/">
 <meta property="og:site_name" content="The Skin Den">
-<meta property="og:title" content="The Skin Den · Carlisle">
-<meta property="og:description" content="Every appointment, tailored to you. Personalised skin treatments and private, one-to-one appointments in Carlisle.">
+<meta property="og:title" content="The Skin Den · Advanced Skincare & Acne Specialist · Carlisle">
+<meta property="og:description" content="Advanced skincare. Personalised treatments. Healthier skin. One-to-one appointments in Carlisle with acne specialist Rachel.">
 <meta property="og:image" content="https://theskinden.co.uk/brand_assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="The Skin Den — Acne specialist and skin expert in Carlisle, Cumbria">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Skin Den · Carlisle">
+<meta name="twitter:description" content="Advanced skincare. Personalised treatments. Healthier skin. One-to-one appointments in Carlisle.">
+<meta name="twitter:image" content="https://theskinden.co.uk/brand_assets/og-image.jpg">
 
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -25,125 +30,1102 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400..600&display=swap" rel="stylesheet">
-<!-- The real clinic photo is the LCP element; WebP with a JPG fallback -->
+<!-- Fonts load without blocking first paint; text shows in the fallback face for a moment, then swaps -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400..600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400..600&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400..600&display=swap"></noscript>
 <link rel="preload" as="image" type="image/webp" href="brand_assets/clinic-room.webp" fetchpriority="high">
-<!-- Pre-warm studio.html so "Enter the studio" feels instant -->
-<link rel="prefetch" href="studio.html">
+
 <link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="site.css">
+<script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BeautySalon",
+  "name": "The Skin Den",
+  "description": "Advanced skincare studio and acne specialist in Carlisle, Cumbria.",
+  "image": "https://theskinden.co.uk/brand_assets/fb_cover.jpg",
+  "telephone": "+447568602861",
+  "priceRange": "££",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "73 Greymoor Way",
+    "addressLocality": "Carlisle",
+    "addressRegion": "Cumbria",
+    "postalCode": "CA3 0FQ",
+    "addressCountry": "GB"
+  },
+  "url": "https://theskinden.co.uk/",
+  "sameAs": [
+    "https://www.instagram.com/_theskin_den/",
+    "https://www.facebook.com/people/The-Skin-Den/61578079992699/",
+    "https://www.threads.com/@_theskin_den"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Treatment menu",
+    "itemListElement": [
+      { "@type": "Offer", "priceCurrency": "GBP", "price": "60.00", "itemOffered": { "@type": "Service", "name": "Skin Consultation & Advanced Facial", "description": "Your first appointment. An in-depth skin consultation and advanced facial, with a tailored home-care plan." } },
+      { "@type": "Offer", "priceCurrency": "GBP", "price": "50.00", "itemOffered": { "@type": "Service", "name": "Advanced Facial", "description": "A results-focused facial for dehydration, congestion, dullness, sensitivity and uneven texture." } },
+      { "@type": "Offer", "priceCurrency": "GBP", "price": "60.00", "itemOffered": { "@type": "Service", "name": "Advanced Facial & Dermaplaning", "description": "An advanced facial with dermaplaning to remove dead skin and peach fuzz, for smoother, brighter skin." } },
+      { "@type": "Offer", "priceCurrency": "GBP", "price": "70.00", "itemOffered": { "@type": "Service", "name": "Acne Consultation & Treatment", "description": "A specialist appointment for acne, breakouts or congestion, with a targeted treatment chosen for your skin." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Leave It Up To Rachel", "description": "Not sure what to book? Rachel assesses your skin on the day and chooses the right treatment." } },
+      { "@type": "Offer", "priceCurrency": "GBP", "price": "60.00", "itemOffered": { "@type": "Service", "name": "Fusion Facial with Electroporation", "description": "Electroporation helps infuse targeted serums for hydration, radiance and overall skin health." } },
+      { "@type": "Offer", "priceCurrency": "GBP", "price": "80.00", "itemOffered": { "@type": "Service", "name": "Microneedling", "description": "Stimulates collagen to improve uneven texture, scarring, fine lines and overall skin quality." } },
+      { "@type": "Offer", "priceCurrency": "GBP", "price": "115.00", "itemOffered": { "@type": "Service", "name": "Microneedling × Polynucleotides", "description": "Microneedling paired with polynucleotides to support repair, especially for texture and scarring." } },
+      { "@type": "Offer", "priceCurrency": "GBP", "price": "65.00", "itemOffered": { "@type": "Service", "name": "Chemical Peel", "description": "A peel chosen for your skin to target acne, congestion, pigmentation, dullness or uneven texture." } },
+      { "@type": "Offer", "priceCurrency": "GBP", "price": "70.00", "itemOffered": { "@type": "Service", "name": "BioRePeel", "description": "A bio-stimulating peel that refreshes texture, tone and radiance." } },
+      { "@type": "Offer", "priceCurrency": "GBP", "price": "80.00", "itemOffered": { "@type": "Service", "name": "BioRePeel × Dermaplaning", "description": "Dermaplaning followed by BioRePeel for smoother, more luminous skin." } },
+      { "@type": "Offer", "priceCurrency": "GBP", "price": "55.00", "itemOffered": { "@type": "Service", "name": "Hydradermabrasion Facial", "description": "A deep-cleansing facial that exfoliates and hydrates, leaving skin clean, smooth and refreshed." } },
+      { "@type": "Offer", "priceCurrency": "GBP", "price": "100.00", "itemOffered": { "@type": "Service", "name": "Seventy Hyal", "description": "A hyaluronic acid booster for deep hydration, glow and suppleness." } },
+      { "@type": "Offer", "priceCurrency": "GBP", "price": "135.00", "itemOffered": { "@type": "Service", "name": "Revs Pro 32", "description": "An advanced hyaluronic acid booster supporting hydration, elasticity and firmness." } },
+      { "@type": "Offer", "priceCurrency": "GBP", "price": "140.00", "itemOffered": { "@type": "Service", "name": "Ejal 40", "description": "A bio-revitalising injectable for hydration, elasticity and firmer-looking skin." } },
+      { "@type": "Offer", "priceCurrency": "GBP", "price": "200.00", "itemOffered": { "@type": "Service", "name": "Profhilo", "description": "A bio-remodelling injectable that deeply hydrates and improves firmness and elasticity." } },
+      { "@type": "Offer", "priceCurrency": "GBP", "price": "120.00", "itemOffered": { "@type": "Service", "name": "Vitaran Eyes", "description": "A polynucleotide treatment for the delicate eye area, supporting regeneration, hydration and elasticity." } }
+    ]
+  }
+}
+</script>
+
 
 <style>
-  *, *::before, *::after { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
-  body {
-    background: #0F0C08; color: var(--c-ivory);
-    font-family: var(--font-sans); -webkit-font-smoothing: antialiased;
-  }
-  .stage {
-    position: relative; display: grid; place-items: center; overflow: hidden;
-    min-height: 100vh; min-height: 100dvh;
-  }
-  .stage__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; }
-  .stage__veil {
-    position: absolute; inset: 0; pointer-events: none;
-    background:
-      radial-gradient(ellipse 55% 50% at 50% 52%, rgba(15, 12, 8, 0.55) 0%, rgba(15, 12, 8, 0.72) 100%),
-      linear-gradient(180deg, rgba(15, 12, 8, 0.45) 0%, rgba(15, 12, 8, 0.35) 35%, rgba(15, 12, 8, 0.65) 100%);
-  }
-  .stage__content {
-    position: relative; z-index: 1;
-    display: flex; flex-direction: column; align-items: center; gap: clamp(20px, 3vw, 32px);
-    max-width: 900px; padding: 88px clamp(24px, 6vw, 80px) 72px; text-align: center;
-  }
-  .eyebrow { margin: 0; font: 600 13px/1.4 var(--font-sans); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-gold); }
-  /* Brand plaque: the one signature entrance on the site */
-  .plaque {
-    display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
-    width: clamp(168px, 20vw, 220px); height: clamp(168px, 20vw, 220px); border-radius: 50%;
-    background: var(--c-cream); border: 2px solid var(--c-charcoal);
-    box-shadow: inset 0 0 0 12px var(--c-cream), inset 0 0 0 13px var(--c-charcoal), 0 32px 64px -20px rgba(0, 0, 0, 0.6);
-    font-family: var(--font-serif); line-height: 0.96; color: var(--c-charcoal); text-align: center;
-  }
-  .plaque__top { padding-top: 6px; font-size: clamp(26px, 3vw, 34px); font-weight: 600; letter-spacing: -0.015em; }
-  .plaque__big { margin-top: -6px; font-size: clamp(36px, 4vw, 48px); font-weight: 700; letter-spacing: -0.025em; }
-  .plaque__sub { margin-top: 8px; font-size: clamp(11px, 1vw, 13px); font-style: italic; letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-gold-text); }
-  .tagline {
-    max-width: 22ch; margin: 0;
-    font: 400 clamp(32px, 4.5vw, 56px)/1.06 var(--font-serif); letter-spacing: -0.02em;
-    color: var(--c-ivory); text-shadow: 0 2px 24px rgba(0, 0, 0, 0.4); text-wrap: balance;
-  }
-  .tagline em { font-style: italic; color: var(--c-gold); }
-  .enter {
-    display: inline-flex; align-items: center; justify-content: center;
-    min-height: 56px; padding: 0 32px; margin-top: 8px; border-radius: 999px;
-    background: var(--c-gold); color: var(--c-charcoal);
-    font: 500 16px/1 var(--font-sans); letter-spacing: 0.01em; text-decoration: none;
-    box-shadow: 0 16px 40px -12px rgba(197, 160, 109, 0.5);
-    transition: background-color 150ms var(--ease), color 150ms var(--ease);
-  }
-  .enter:hover { background: var(--c-ivory); }
-  .skip {
-    position: absolute; top: 16px; right: 16px; z-index: 2;
-    display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
-    border: 1px solid rgba(253, 248, 238, 0.3); border-radius: 999px;
-    background: rgba(15, 12, 8, 0.4); color: rgba(253, 248, 238, 0.85);
-    font: 500 14px/1 var(--font-sans); text-decoration: none;
-    transition: color 150ms var(--ease), border-color 150ms var(--ease);
-  }
-  .skip:hover { color: var(--c-ivory); border-color: rgba(253, 248, 238, 0.6); }
-  .audio-note {
-    position: absolute; left: 24px; bottom: calc(24px + var(--safe-bottom)); z-index: 1;
-    display: flex; align-items: center; gap: 8px;
-    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(253, 248, 238, 0.6);
-  }
-  .audio-note .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c-gold); }
-  :focus:not(:focus-visible) { outline: none; }
-  :focus-visible { outline: 2px solid var(--c-ivory); outline-offset: 4px; }
-  @media (max-width: 540px) { .audio-note { display: none; } }
+  /* Studio page — v1.4 editorial layout. Shared components live in site.css. */
 
-  /* Entrance: plaque settles, then copy and the Enter button (all visible by ~0.6s) */
-  @keyframes plaqueIn { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: none; } }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-  .plaque { animation: plaqueIn 500ms var(--ease) both; }
-  .eyebrow { animation: fadeUp 400ms var(--ease) 60ms both; }
-  .tagline { animation: fadeUp 400ms var(--ease) 120ms both; }
-  .enter { animation: fadeUp 400ms var(--ease) 180ms both; }
+  /* Display type: Fraunces at its lighter weights carries the large editorial serif */
+  .display { font-weight: 300; letter-spacing: -0.03em; line-height: 1.02; }
+  .display em { display: block; font-style: italic; }
+  .on-dark h2, .on-dark h3 { color: var(--c-on-dark); }
+  .arrow { flex: none; width: 18px; height: 18px; transition: transform var(--d-base) var(--ease); }
+
+  /* Text link with a small diagonal arrow */
+  .link--arrow { gap: 14px; }
+  .link--arrow:hover .arrow { transform: translate(3px, -3px); }
+
+  /* Light outline button for charcoal surfaces */
+  .btn--outline-light { background: transparent; color: var(--c-on-dark); border-color: var(--c-edge-on-dark); }
+  .btn--outline-light:hover { background: var(--c-wash-on-dark); border-color: var(--c-on-dark); }
+  .on-dark .link { color: var(--c-on-dark); text-decoration-color: var(--c-gold); }
+  .on-dark .link:hover { text-decoration-color: var(--c-on-dark); }
+
+  /* ── Nav over the hero ───────────────────────────────────────────────
+     At the top of the page the nav has no surface and sits on the photograph in light type. Once the
+     page scrolls, site.js adds .nav--floating and the usual ivory glass capsule draws in. JS-only, so
+     without the script the nav keeps its solid ivory bar for the whole page. */
+  .js .nav--over-hero:not(.nav--floating)::before { background-color: transparent; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .nav--over-hero .brand, .nav--over-hero .nav__burger { transition: color 460ms var(--ease-out), border-color 460ms var(--ease-out), translate 460ms var(--ease-out); }
+  .js .nav--over-hero:not(.nav--floating) :is(.brand, .nav__links a, .nav__burger) { color: var(--c-on-dark); }
+  .js .nav--over-hero:not(.nav--floating) .brand__by { color: var(--c-gold-soft); }
+  .js .nav--over-hero:not(.nav--floating) .nav__links a:hover { border-bottom-color: var(--c-gold-soft); }
+  .js .nav--over-hero:not(.nav--floating) .nav__burger { border-color: var(--c-edge-on-dark); }
+  .js .nav--over-hero:not(.nav--floating) .nav__cta { background: var(--c-ivory); color: var(--c-charcoal); }
+  .js .nav--over-hero:not(.nav--floating) .nav__cta:hover { background: var(--c-cream); }
+  .js .nav--over-hero:not(.nav--floating) :focus-visible { outline-color: var(--c-gold-soft); }
+
+  /* ── Hero: the clinic room, full bleed under a charcoal scrim ─────── */
+  .hero {
+    position: relative; isolation: isolate; overflow: hidden;
+    display: grid; align-items: center;
+    min-height: clamp(560px, 100vh, 1040px); min-height: clamp(560px, 100svh, 1040px);
+    margin-top: calc(-1 * var(--nav-h));
+    padding-block: calc(var(--nav-h) + 48px) 64px;
+    background: var(--c-charcoal); color: var(--c-on-dark);
+  }
+  .hero__media { position: absolute; inset: 0; z-index: -1; margin: 0; }
+  .hero > .container { width: 100%; }
+  .hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 4%; }
+  /* The room is a portrait photograph, so on wide screens it fills the right of the frame and melts
+     into the charcoal on the left, where the words sit */
+  .hero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--c-charcoal), var(--c-scrim-deep) 22%, var(--c-scrim-mid) 52%, var(--c-scrim-light)); }
+  @media (min-width: 901px) { .hero__media { left: auto; width: 60%; } }
+  .hero__copy { max-width: 860px; }
+  .hero .label { color: var(--c-on-dark); }
+  .hero__title { margin: 24px 0 28px; font-size: clamp(44px, 4.6vw + 24px, 92px); line-height: 1; color: var(--c-on-dark); }
+  .hero__title span { display: block; }
+  .hero__title em { font-style: italic; color: var(--c-gold-soft); }
+  .hero__sub { max-width: 34ch; font-size: var(--t-lead); line-height: 1.55; color: var(--c-on-dark); }
+  .hero__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: 32px; }
+  @media (max-width: 900px) {
+    .hero { align-items: end; padding-block: calc(var(--nav-h) + 40px) 48px; }
+    .hero__media img { object-position: 90% 0%; }
+    /* Darker under the nav, lighter across the plaque, deepest behind the words */
+    .hero__media::after { background: linear-gradient(180deg, var(--c-scrim-mid) 0, var(--c-scrim-light) 16%, var(--c-scrim-mid) 28%, var(--c-scrim-deep) 44%, var(--c-scrim-deep)); }
+    /* On the photograph's brightest strip the gold "by Rachel" reads in ivory instead */
+    .js .nav--over-hero:not(.nav--floating) .brand__by { color: var(--c-on-dark); }
+  }
+  /* Hero entrance, the page's one orchestrated moment: the room clears like steam lifting off the
+     facial steamer, and the three promises come into focus one line at a time. The photo is painted
+     from the first frame (it is the LCP image); everything is settled by about 1.3s. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__media img { animation: hero-clear 1700ms var(--ease-out) both; }
+    .hero .label, .hero__sub, .hero__ctas { animation: focus-in 900ms var(--ease-out) both; }
+    /* The headline is painted from the first frame (it is the mobile LCP element) and only sharpens */
+    .hero__title > span { animation: focus-sharpen 900ms var(--ease-out) both; }
+    .hero__title > span:nth-child(1) { animation-delay: 90ms; }
+    .hero__title > span:nth-child(2) { animation-delay: 200ms; }
+    .hero__title > span:nth-child(3) { animation-delay: 310ms; }
+    .hero__sub { animation-delay: 300ms; }
+    .hero__ctas { animation-delay: 340ms; }
+  }
+  @keyframes hero-clear { from { filter: blur(12px) saturate(0.8) brightness(1.08); scale: 1.07; } }
+  @keyframes focus-in { from { opacity: 0; filter: blur(8px); translate: 0 0.32em; } }
+  @keyframes focus-sharpen { from { filter: blur(10px); translate: 0 0.24em; } }
+
+  /* ── Credentials strip ────────────────────────────────────────────── */
+  .trust {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px;
+    min-height: 88px; margin: 0; padding: 20px 0; list-style: none;
+    border-bottom: 1px solid var(--c-line);
+    font: 500 var(--t-meta)/1.4 var(--font-sans); letter-spacing: 0.02em; color: var(--c-charcoal-soft);
+  }
+  @media (max-width: 600px) { .trust { justify-content: flex-start; gap: 6px 22px; min-height: 0; padding: 22px 0; } }
+
+  /* ── Meet Rachel: portrait left, words right ──────────────────────── */
+  .intro { position: relative; }
+  .anchor-alias { position: absolute; top: 0; }
+  .intro__grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr); gap: 40px clamp(48px, 9vw, 144px); align-items: center; }
+  .intro__portrait { max-width: 470px; margin: 0 0 0 clamp(0px, 2.4vw, 30px); }
+  .intro__frame { aspect-ratio: 4 / 5; overflow: hidden; background: var(--c-wood); }
+  /* Crops to Rachel and the plaque, leaving the opening-day balloons, socket and bed outside the frame */
+  .intro__frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; transform: scale(1.75); transform-origin: 74% 59%; }
+  .intro__portrait figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; padding-top: 16px; font: italic 400 24px/1.2 var(--font-serif); color: var(--c-charcoal); }
+  .intro__portrait figcaption span { font: 400 var(--t-small)/1.5 var(--font-sans); color: var(--c-text-muted); }
+  .intro__copy { max-width: 560px; }
+  .intro__copy h2 { margin-bottom: 28px; font-size: clamp(52px, 3.4vw + 34px, 88px); }
+  .intro__copy > p { max-width: 52ch; color: var(--c-charcoal-soft); }
+  .intro__copy > p + p { margin-top: 18px; }
+  .intro__copy > p.intro__lead { font-size: var(--t-lead); line-height: 1.6; color: var(--c-charcoal); }
+  .intro__link { margin-top: 20px; }
+  .intro__note { max-width: 24ch; margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--c-rule-wood); font: italic 300 clamp(24px, 0.8vw + 19px, 30px)/1.3 var(--font-serif); color: var(--c-charcoal); }
+  @media (max-width: 900px) {
+    .intro__grid { grid-template-columns: 1fr; gap: 36px; align-items: start; }
+    .intro__portrait { width: min(82%, 440px); margin: 0; }
+  }
+  /* The portrait settles into focus as it scrolls in: a slight lens pull tied to scroll position.
+     Browsers without scroll-driven animations show the still photo. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .intro__frame img { animation: lens-settle linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
+    }
+  }
+  @keyframes lens-settle { from { scale: 1.09; } to { scale: 1; } }
+
+  /* ── Pathways: three tall photographs into the menu ───────────────── */
+  .paths { padding-top: clamp(24px, 3vw, 48px); }
+  .paths__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px 48px; margin-bottom: clamp(32px, 4vw, 48px); }
+  .paths__title { font-size: clamp(52px, 9vw + 20px, 148px); line-height: 0.95; letter-spacing: -0.045em; }
+  .paths__intro { max-width: 40ch; padding-bottom: 0.6em; font-size: 16px; line-height: 1.7; color: var(--c-charcoal-soft); }
+  .paths__rail { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin: 0; padding: 0; list-style: none; }
+  .paths__rail > li { min-width: 0; }
+  .path { display: block; color: inherit; text-decoration: none; }
+  .path__media { display: block; aspect-ratio: 4 / 5; overflow: hidden; background: var(--c-cream); }
+  .path__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--ease-out); }
+  .path:hover .path__media img { transform: scale(1.035); }
+  /* The source has letterbox bars and the plaque above the steam: a slight zoom keeps only the steam */
+  .path__media--steam img { object-position: 50% 80%; scale: 1.22; transform-origin: 50% 84%; }
+  .path__title { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 2px 16px; margin-top: 22px; }
+  .path__title h3 { font: 300 clamp(30px, 1.6vw + 22px, 46px)/1.1 var(--font-serif); letter-spacing: -0.025em; }
+  @media (max-width: 1040px) { .path__title { flex-direction: column; align-items: flex-start; } }
+  .path__price { font: 500 var(--t-meta)/1.4 var(--font-sans); font-variant-numeric: lining-nums tabular-nums; color: var(--c-gold-text); }
+  .path__action { display: inline-flex; align-items: center; gap: 14px; min-height: 44px; margin-top: 6px; font: 500 var(--t-meta)/1.3 var(--font-sans); text-decoration: underline; text-decoration-color: var(--c-gold); text-underline-offset: 5px; }
+  .path:hover .path__action .arrow { transform: translate(3px, -3px); }
+  .path:focus-visible { outline-offset: 6px; }
+  .paths__rail > li:nth-child(2) { --reveal-delay: 120ms; }
+  .paths__rail > li:nth-child(3) { --reveal-delay: 240ms; }
+  @media (max-width: 767px) {
+    .paths__rail {
+      display: flex; gap: 16px; overflow-x: auto;
+      margin-inline: calc(-1 * var(--gutter)); padding: 0 var(--gutter) 8px;
+      scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none;
+    }
+    .paths__rail::-webkit-scrollbar { display: none; }
+    .paths__rail > li { flex: 0 0 78%; scroll-snap-align: start; }
+    /* Room for the focus ring inside the scrolling rail, and no entrance for cards that arrive mid-swipe */
+    .paths__rail { margin-block: -10px; padding-block: 10px 18px; }
+    .reveal-ready .paths__rail > li[data-reveal] { opacity: 1; filter: none; translate: none; }
+  }
+
+  /* ── Treatments & prices: the charcoal band ──────────────────────── */
+  .treatments { position: relative; background: var(--c-charcoal); color: var(--c-on-dark); }
+  .treatments__grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.25fr); gap: 48px clamp(48px, 7vw, 96px); align-items: start; }
+  .treatments__title { margin-bottom: 32px; font-size: clamp(46px, 3vw + 26px, 80px); }
+  .treatments__photo { max-width: 420px; margin: 44px 0 0; aspect-ratio: 5 / 4; overflow: hidden; background: var(--c-charcoal-soft); }
+  .treatments__photo img { width: 100%; height: 100%; object-fit: cover; }
+  @media (min-width: 901px) and (min-height: 760px) {
+    .treatments__aside { position: sticky; top: calc(var(--nav-h) + 40px); }
+  }
+  .menu { min-width: 0; }
+  /* The category tabs stay within reach while a long list scrolls: a dark glass strip that sticks under
+     the nav. It reaches up behind the nav (pulled up by the same amount it is padded, so the tabs keep
+     their place), so list text never peeks out around the floating nav capsule. */
+  /* flow-root stops the bar's negative margin collapsing through to .menu, so the tab script measures true positions */
+  .menu__body { --bar-bleed: 16px; display: flow-root; }
+  .tabs-bar {
+    position: sticky; top: 0; z-index: 2; pointer-events: none;
+    margin: calc(-1 * var(--nav-h)) calc(-1 * var(--bar-bleed)) 4px; padding: var(--nav-h) var(--bar-bleed) 0;
+    background-color: var(--c-glass-dark);
+    -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  }
+  .no-js .tabs-bar { display: none; }
+  .tabs { position: relative; display: flex; gap: 32px; overflow-x: auto; pointer-events: auto; border-bottom: 1px solid var(--c-line-on-dark); scrollbar-width: none; scroll-snap-type: x proximity; }
+  .tabs::-webkit-scrollbar { display: none; }
+  /* One indicator that slides to the chosen category (page script sets its position and width) */
+  .tabs.has-indicator .tab[aria-selected="true"] { border-bottom-color: transparent; }
+  .tabs.has-indicator::after {
+    content: ""; position: absolute; left: 0; bottom: 0; width: 1px; height: 2px;
+    background: var(--c-gold); transform-origin: 0 50%;
+    transform: translateX(var(--ind-x, 0px)) scaleX(var(--ind-w, 0));
+  }
+  .tabs.indicator-live::after { transition: transform 420ms var(--ease-out); }
+  @media (prefers-reduced-motion: no-preference) {
+    .menu__panel.is-entering { animation: panel-in 420ms var(--ease-out) both; }
+  }
+  @keyframes panel-in { from { opacity: 0; translate: 0 10px; } }
+  .tab {
+    flex: none; min-height: 52px; padding: 0; margin-bottom: -1px; scroll-snap-align: start;
+    background: none; border: 0; border-bottom: 2px solid transparent;
+    font: 500 var(--t-ui)/1 var(--font-sans); color: var(--c-on-dark-muted); cursor: pointer;
+    transition: color var(--d-fast) var(--ease), border-color var(--d-base) var(--ease);
+  }
+  .tab:hover, .tab[aria-selected="true"] { color: var(--c-on-dark); }
+  .tab[aria-selected="true"] { border-bottom-color: var(--c-gold); }
+  .no-js .menu__panel[hidden] { display: block; }
+  .menu__cat { display: none; }
+  .no-js .menu__cat { display: block; margin: 40px 0 0; }
+  .no-js .menu__panel:first-of-type .menu__cat { margin-top: 0; }
+  .menu__panel:focus-visible { outline-offset: 6px; }
+  .item {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "tag tag" "name price" "desc desc" "results results";
+    column-gap: 32px; align-items: baseline; padding: 26px 0; border-bottom: 1px solid var(--c-line-on-dark);
+  }
+  .item__tag { grid-area: tag; margin-bottom: 6px; font: 600 12px/1.4 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-gold); }
+  .item__name { grid-area: name; font: 300 clamp(24px, 0.8vw + 19px, 32px)/1.15 var(--font-serif); letter-spacing: -0.015em; }
+  .item__price { grid-area: price; font: 400 clamp(20px, 0.4vw + 18px, 24px)/1.25 var(--font-serif); font-variant-numeric: lining-nums tabular-nums; color: var(--c-on-dark); text-align: right; white-space: nowrap; }
+  .item__price--text { font: italic 400 17px/1.3 var(--font-serif); }
+  .item__desc { grid-area: desc; max-width: 56ch; margin-top: 8px; font-size: 16px; line-height: 1.6; color: var(--c-on-dark-muted); }
+  .item__results { grid-area: results; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; }
+  .result { width: 72px; height: 72px; padding: 0; overflow: hidden; background: var(--c-charcoal-soft); border: 0; border-radius: 4px; cursor: zoom-in; }
+  .result img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--d-base) var(--ease); }
+  .result:hover img { transform: scale(1.04); }
+  .item__results-label { margin-left: 6px; font-size: var(--t-meta); color: var(--c-on-dark-muted); }
+  .menu__note { padding-top: 20px; font: italic 400 16px/1.5 var(--font-serif); color: var(--c-on-dark-muted); }
+  @media (max-width: 900px) {
+    .treatments__grid { grid-template-columns: 1fr; gap: 72px; }
+    .treatments__title { margin-bottom: 28px; }
+    .treatments__photo { display: none; }
+    .menu__body { --bar-bleed: var(--gutter); }
+  }
+  @media (max-width: 600px) {
+    .tabs { gap: 24px; -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent); mask-image: linear-gradient(90deg, #000 82%, transparent); }
+    .item { column-gap: 16px; }
+    .item__price--text { max-width: 10ch; white-space: normal; }
+  }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed; inset: 0; z-index: var(--z-toast);
+    display: none; align-items: center; justify-content: center;
+    padding: 72px clamp(16px, 8vw, 120px);
+    /* Dark smoked glass: the page stays faintly present behind the photo */
+    background: rgba(42, 33, 23, 0.82);
+    -webkit-backdrop-filter: blur(24px) saturate(130%); backdrop-filter: blur(24px) saturate(130%);
+  }
+  .lightbox.is-open { display: flex; }
+  body.lightbox-open .bookbar, body.lightbox-open .wa-fab { visibility: hidden; }
+  .lightbox__img { width: auto; max-width: min(100%, 720px); max-height: 100%; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.6); }
+  .lightbox__close, .lightbox__nav {
+    position: absolute; display: inline-flex; align-items: center; justify-content: center;
+    width: 48px; height: 48px; border-radius: 50%; cursor: pointer;
+    transition: background-color var(--d-fast) var(--ease), color var(--d-fast) var(--ease), scale 160ms var(--ease-out);
+  }
+  .lightbox__close:active, .lightbox__nav:active { scale: 0.94; }
+  .lightbox__close { top: 16px; right: 16px; background: var(--c-ivory); color: var(--c-charcoal); border: 0; }
+  /* Small glass lenses: translucent fill and a lit rim (no nested backdrop blur) */
+  .lightbox__nav {
+    top: 50%; transform: translateY(-50%);
+    background: rgba(253, 248, 238, 0.12); color: var(--c-ivory); border: 0;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32), inset 0 0 0 1px rgba(253, 248, 238, 0.26), 0 10px 24px -14px rgba(0, 0, 0, 0.6);
+  }
+  .lightbox__nav:hover { background: var(--c-ivory); color: var(--c-charcoal); }
+  .lightbox__nav[hidden] { display: none; }
+  .lightbox__nav--prev { left: 16px; }
+  .lightbox__nav--next { right: 16px; }
+  .lightbox svg { width: 20px; height: 20px; }
+  .lightbox__counter {
+    position: absolute; left: 50%; bottom: calc(24px + var(--safe-bottom)); transform: translateX(-50%);
+    padding: 6px 14px; border-radius: var(--r-pill);
+    background: rgba(253, 248, 238, 0.08); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 0 0 1px rgba(253, 248, 238, 0.16);
+    font-size: var(--t-meta); font-variant-numeric: tabular-nums; color: rgba(253, 248, 238, 0.86);
+  }
+  .lightbox__counter:empty { display: none; }
+  @media (max-width: 600px) {
+    .lightbox { padding: 72px 16px 96px; }
+    .lightbox__nav { top: auto; bottom: calc(14px + var(--safe-bottom)); transform: none; }
+    .lightbox__counter { bottom: calc(20px + var(--safe-bottom)); }
+  }
+  /* Opening: where View Transitions run, the tapped thumbnail grows into the full photo (script).
+     Elsewhere the viewer fades up from its starting style. */
+  @media (prefers-reduced-motion: no-preference) {
+    .lightbox { transition: opacity 260ms var(--ease-out); }
+    .lightbox__img { transition: scale 360ms var(--ease-out); }
+    @starting-style {
+      .lightbox.is-open:not(.via-morph) { opacity: 0; }
+      .lightbox.is-open:not(.via-morph) .lightbox__img { scale: 0.96; }
+    }
+  }
+  ::view-transition-group(lb-photo) { animation-duration: 440ms; animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1); }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 300ms; }
+
+  /* ── Reviews: two editorial columns ───────────────────────────────── */
+  .reviews { background: var(--c-cream); }
+  .reviews__title { margin-bottom: clamp(36px, 5vw, 56px); font-size: clamp(46px, 3vw + 26px, 80px); }
+  .quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(40px, 5vw, 64px); align-items: start; }
+  .quote { margin: 0; padding: 28px 0 36px; border-top: 1px solid var(--c-rule-wood); }
+  .quote--feature { grid-row: span 2; }
+  .quote blockquote { margin: 0; font: 400 clamp(21px, 0.6vw + 18px, 26px)/1.45 var(--font-serif); color: var(--c-charcoal); }
+  .quote--feature blockquote { font-size: clamp(24px, 0.9vw + 19px, 31px); line-height: 1.38; letter-spacing: -0.01em; }
+  .quote blockquote::before { content: "“"; }
+  .quote blockquote::after { content: "”"; }
+  .quote figcaption { margin-top: 20px; font-size: var(--t-ui); font-weight: 600; color: var(--c-charcoal); }
+  .quote__role { display: block; margin-top: 2px; font-size: var(--t-meta); font-weight: 400; color: var(--c-gold-text); }
+  @media (max-width: 767px) {
+    .quotes { grid-template-columns: 1fr; }
+    .quote--feature { grid-row: auto; }
+    .quote { padding: 24px 0 32px; }
+  }
+  /* The three reviews come into focus in reading order */
+  .quote:nth-child(2) { --reveal-delay: 160ms; }
+  .quote:nth-child(3) { --reveal-delay: 320ms; }
+
+  /* ── Booking: the closing charcoal band ──────────────────────────── */
+  .book { background: var(--c-charcoal); color: var(--c-on-dark); }
+  .book__grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 32px clamp(48px, 7vw, 96px); align-items: center; }
+  .book__title { font-size: clamp(48px, 3.6vw + 30px, 96px); line-height: 1; letter-spacing: -0.035em; }
+  .panel__copy { max-width: 40ch; margin-bottom: 28px; font-size: var(--t-lead); line-height: 1.55; color: var(--c-on-dark); }
+  .panel__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .panel__help { max-width: 52ch; margin-top: 16px; font-size: var(--t-meta); line-height: 1.55; color: var(--c-on-dark-muted); }
+  .panel__links { display: flex; flex-wrap: wrap; gap: 0 32px; margin-top: 8px; font-size: 16px; }
+  .policy { margin-top: clamp(56px, 7vw, 96px); padding-top: 32px; border-top: 1px solid var(--c-line-on-dark); }
+  .policy__title { margin-bottom: 20px; font: 400 22px/1.3 var(--font-serif); color: var(--c-on-dark); }
+  .policy .tiers { max-width: 880px; }
+  .book .tier__h { color: var(--c-gold-soft); }
+  .book .tier__p { color: var(--c-on-dark-muted); }
+  .policy__note { margin-top: 20px; font-size: var(--t-ui); line-height: 1.6; color: var(--c-on-dark-muted); }
+  .policy__note a { color: var(--c-gold-soft); text-decoration: underline; text-decoration-color: var(--c-gold); text-underline-offset: 4px; }
+  .policy__note a:hover { color: var(--c-on-dark); }
+  @media (max-width: 900px) {
+    .book__grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .panel__ctas .btn { width: 100%; }
+  }
+
+  /* Glass falls back to solid surfaces when transparency is reduced or more contrast is requested */
+  @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+    .tabs-bar { background-color: var(--c-charcoal); -webkit-backdrop-filter: none; backdrop-filter: none; }
+    .lightbox { background: rgba(42, 33, 23, 0.97); -webkit-backdrop-filter: none; backdrop-filter: none; }
+    .lightbox__nav, .lightbox__counter { background: var(--c-charcoal); }
+  }
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .tabs-bar { background-color: var(--c-charcoal); }
+    .lightbox { background: rgba(42, 33, 23, 0.95); }
+  }
   @media (prefers-reduced-motion: reduce) {
-    .plaque, .eyebrow, .tagline, .enter { animation: none; }
-    .enter, .skip { transition: none; }
+    .path:hover .path__media img, .result:hover img { transform: none; }
+    .link--arrow:hover .arrow, .path:hover .path__action .arrow { transform: none; }
   }
 </style>
 </head>
-<body>
+<body class="has-bookbar">
 
-<header>
-  <a class="skip" href="studio.html">Skip intro →</a>
+<a class="skip-to-main" href="#main">Skip to main content</a>
+
+<header class="nav nav--over-hero">
+  <div class="container nav__inner">
+    <a class="brand" href="#top" aria-label="The Skin Den by Rachel, home">
+      <span class="brand__name">The Skin Den</span> <span class="brand__by">by Rachel</span>
+    </a>
+    <nav class="nav__links" aria-label="Main">
+      <a href="#treatments">Treatments</a>
+      <a href="#about">Meet Rachel</a>
+      <a href="#reviews">Reviews</a>
+      <a href="faq.html">FAQ</a>
+      <a href="/account/">Account</a>
+    </nav>
+    <button class="nav__burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
+      Menu
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+    </button>
+    <a class="btn btn--primary btn--sm nav__cta" href="#book">Book a consultation</a>
+  </div>
 </header>
 
-<main class="stage">
-  <picture>
-    <source type="image/webp" srcset="brand_assets/clinic-room.webp">
-    <img class="stage__bg" src="brand_assets/clinic-room.jpg" width="942" height="1660" alt="" fetchpriority="high">
-  </picture>
-  <div class="stage__veil"></div>
-  <div class="stage__content">
-    <p class="eyebrow">A studio in Carlisle</p>
-    <div class="plaque" aria-hidden="true">
-      <span class="plaque__top">The Skin</span>
-      <span class="plaque__big">Den</span>
-      <span class="plaque__sub">· by rachel ·</span>
+<!-- Mobile slide-out drawer -->
+<div class="mobile-drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Menu" aria-hidden="true">
+  <div class="mobile-drawer__backdrop" data-drawer-close></div>
+  <div class="mobile-drawer__panel">
+    <div class="mobile-drawer__head">
+      <span class="brand"><span class="brand__name">The Skin Den</span> <span class="brand__by">by Rachel</span></span>
+      <button class="mobile-drawer__close" type="button" data-drawer-close aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </div>
-    <h1 class="tagline">
-      Every appointment,<br>
-      <em>tailored to you.</em>
-    </h1>
-    <a class="enter" href="studio.html" id="enter-cta">Enter the studio</a>
+    <nav class="mobile-drawer__links" aria-label="Mobile">
+      <a href="#treatments" data-drawer-close>Treatments</a>
+      <a href="#about" data-drawer-close>Meet Rachel</a>
+      <a href="#reviews" data-drawer-close>Reviews</a>
+      <a href="faq.html">FAQ</a>
+      <a href="policy.html">Policy</a>
+      <a href="/account/" data-drawer-close>Account</a>
+    </nav>
+    <a class="btn btn--primary mobile-drawer__cta" href="#book" data-drawer-close>Book a consultation</a>
+    <div class="mobile-drawer__footer">
+      <a href="https://wa.me/447568602861" target="_blank" rel="noopener">WhatsApp · 07568 602861</a>
+      <a href="https://www.instagram.com/_theskin_den/" target="_blank" rel="noopener">Instagram · @_theskin_den</a>
+      <span>Carlisle · Cumbria · CA3</span>
+    </div>
   </div>
-  <div class="audio-note" aria-hidden="true">
-    <span class="dot"></span>
-    <span>The studio · Carlisle</span>
+</div>
+
+<main id="main">
+
+<section class="hero on-dark" id="top">
+  <figure class="hero__media">
+    <picture>
+      <source type="image/webp" srcset="brand_assets/clinic-room.webp">
+      <img src="brand_assets/clinic-room.jpg" width="942" height="1660" alt="The Skin Den treatment room with cream wood panelling and signature plaque" fetchpriority="high">
+    </picture>
+  </figure>
+  <div class="container">
+    <div class="hero__copy">
+      <p class="label">Private clinic · Carlisle · Cumbria</p>
+      <h1 class="hero__title display">
+        <span>Advanced skincare.</span>
+        <span>Personalised treatments.</span>
+        <span><em>Healthier skin.</em></span>
+      </h1>
+      <p class="hero__sub">One-to-one skin treatments with acne specialist Rachel.</p>
+      <div class="hero__ctas">
+        <a class="btn btn--light" href="#book">Book a consultation</a>
+        <a class="link" href="#treatments">View treatments</a>
+      </div>
+    </div>
   </div>
+</section>
+
+<div class="container">
+  <ul class="trust" aria-label="Credentials">
+    <li>VTCT Qualified</li>
+    <li>Fully Insured</li>
+    <li>Acne Practitioner</li>
+  </ul>
+</div>
+
+<!-- Rachel and the clinic philosophy. #clinic stays as an anchor for older links. -->
+<section class="section intro" id="about">
+  <span class="anchor-alias" id="clinic" aria-hidden="true"></span>
+  <div class="container intro__grid">
+    <figure class="intro__portrait">
+      <div class="intro__frame">
+        <img src="brand_assets/photos/rachel.jpg" width="1024" height="1536" alt="Rachel, the skincare practitioner behind The Skin Den, standing in her Carlisle clinic" loading="lazy">
+      </div>
+      <figcaption>Rachel <span>Skincare practitioner &amp; acne specialist</span></figcaption>
+    </figure>
+    <div class="intro__copy">
+      <h2 class="display">Meet Rachel.</h2>
+      <p class="intro__lead">I’m Rachel, a VTCT-qualified, fully insured skincare practitioner and acne specialist based in Carlisle.</p>
+      <p>I created The Skin Den for people who feel overwhelmed, confused or stuck with their skin. Whether it’s acne, congestion, dehydration, pigmentation or ageing, I take the time to understand your skin and what you want to achieve.</p>
+      <p>My goal is simple: to help you understand your skin, feel confident in it and work towards healthier skin.</p>
+      <a class="link link--arrow intro__link" href="#book">Book a consultation <svg class="arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14L14 6M7.5 6H14v6.5"/></svg></a>
+      <p class="intro__note" data-reveal>Every treatment starts with your skin.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section paths" id="paths" aria-labelledby="paths-title">
+  <div class="container">
+    <div class="paths__head">
+      <h2 class="paths__title display" id="paths-title">Treatments</h2>
+      <p class="paths__intro">Each appointment begins with a thorough skin analysis in a calm, private space. From there, Rachel builds a plan around what your skin needs.</p>
+    </div>
+    <ul class="paths__rail">
+      <li data-reveal>
+        <a class="path" href="#panel-facials">
+          <span class="path__media path__media--steam"><img src="brand_assets/photos/fb_530465494_122118155594935999.jpg" width="942" height="2048" alt="Facial steamer in use" loading="lazy"></span>
+          <span class="path__title"><h3>Facials</h3><span class="path__price">From £50</span></span>
+          <span class="path__action">View facials <svg class="arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14L14 6M7.5 6H14v6.5"/></svg></span>
+        </a>
+      </li>
+      <li data-reveal>
+        <a class="path" href="#panel-advanced">
+          <span class="path__media"><img src="brand_assets/photos/fb_518351655_122107256444935999.jpg" width="414" height="414" alt="A chemical peel being applied in clinic" loading="lazy"></span>
+          <span class="path__title"><h3>Advanced</h3><span class="path__price">From £55</span></span>
+          <span class="path__action">View advanced treatments <svg class="arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14L14 6M7.5 6H14v6.5"/></svg></span>
+        </a>
+      </li>
+      <li data-reveal>
+        <a class="path" href="#acne">
+          <span class="path__media"><img src="brand_assets/photos/fb_637411259_122157358220935999.jpg" width="414" height="414" alt="Client before and after acne treatment" loading="lazy"></span>
+          <span class="path__title"><h3>Acne</h3><span class="path__price">£70</span></span>
+          <span class="path__action">View acne treatment <svg class="arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14L14 6M7.5 6H14v6.5"/></svg></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="section treatments on-dark" id="treatments" aria-labelledby="treatments-title">
+  <span class="anchor-alias" id="before-afters" aria-hidden="true"></span>
+  <div class="container treatments__grid">
+    <div class="treatments__aside">
+      <h2 class="treatments__title display" id="treatments-title">Price list</h2>
+      <a class="btn btn--light" href="#book">Book a consultation</a>
+      <figure class="treatments__photo">
+        <img src="brand_assets/photos/fb_581812689_122141261762935999.jpg" width="414" height="414" alt="RestoraPlex professional peel solutions in the treatment room" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="menu" id="treatment-menu">
+      <div class="menu__body">
+        <div class="tabs-bar">
+          <div class="tabs" role="tablist" aria-label="Treatment categories">
+            <button class="tab" type="button" role="tab" id="tab-facials" aria-controls="panel-facials" aria-selected="true">Facials</button>
+            <button class="tab" type="button" role="tab" id="tab-advanced" aria-controls="panel-advanced" aria-selected="false" tabindex="-1">Advanced</button>
+            <button class="tab" type="button" role="tab" id="tab-boosters" aria-controls="panel-boosters" aria-selected="false" tabindex="-1">Skin Boosters</button>
+            <button class="tab" type="button" role="tab" id="tab-polynucleotides" aria-controls="panel-polynucleotides" aria-selected="false" tabindex="-1">Polynucleotides</button>
+          </div>
+        </div>
+
+        <div class="menu__panel" role="tabpanel" id="panel-facials" aria-labelledby="tab-facials" tabindex="0">
+          <p class="label menu__cat">Facials</p>
+          <div class="item">
+            <p class="item__tag">Start here</p>
+            <h3 class="item__name">Skin Consultation &amp; Advanced Facial</h3>
+            <p class="item__price">£60</p>
+            <p class="item__desc">Your first appointment. An in-depth skin consultation and advanced facial, with a tailored home-care plan.</p>
+          </div>
+          <div class="item">
+            <h3 class="item__name">Advanced Facial</h3>
+            <p class="item__price">£50</p>
+            <p class="item__desc">A results-focused facial for dehydration, congestion, dullness, sensitivity and uneven texture.</p>
+          </div>
+          <div class="item">
+            <h3 class="item__name">Advanced Facial &amp; Dermaplaning</h3>
+            <p class="item__price">£60</p>
+            <p class="item__desc">An advanced facial with dermaplaning to remove dead skin and peach fuzz, for smoother, brighter skin.</p>
+          </div>
+          <div class="item" id="acne" tabindex="-1">
+            <p class="item__tag">Acne specialist</p>
+            <h3 class="item__name">Acne Consultation &amp; Treatment</h3>
+            <p class="item__price">£70</p>
+            <p class="item__desc">A specialist appointment for acne, breakouts or congestion, with a targeted treatment chosen for your skin.</p>
+            <div class="item__results" data-lightbox-group="acne">
+              <button class="result" type="button" data-src="brand_assets/photos/fb_637411259_122157358220935999.jpg" aria-label="Open acne before and after, photo 1 of 3"><img src="brand_assets/photos/fb_637411259_122157358220935999.jpg" width="414" height="414" alt="" loading="lazy"></button>
+              <button class="result" type="button" data-src="brand_assets/photos/fb_624714370_122154992972935999.jpg" aria-label="Open acne before and after, photo 2 of 3"><img src="brand_assets/photos/fb_624714370_122154992972935999.jpg" width="414" height="414" alt="" loading="lazy"></button>
+              <button class="result" type="button" data-src="brand_assets/photos/fb_632030125_122156440160935999.jpg" aria-label="Open acne before and after, photo 3 of 3"><img src="brand_assets/photos/fb_632030125_122156440160935999.jpg" width="414" height="414" alt="" loading="lazy"></button>
+              <span class="item__results-label">Client before &amp; afters</span>
+            </div>
+          </div>
+          <div class="item">
+            <p class="item__tag">Bespoke</p>
+            <h3 class="item__name">Leave It Up To Rachel</h3>
+            <p class="item__price item__price--text">Treatment Dependent</p>
+            <p class="item__desc">Not sure what to book? Rachel assesses your skin on the day and chooses the right treatment.</p>
+          </div>
+        </div>
+
+        <div class="menu__panel" role="tabpanel" id="panel-advanced" hidden aria-labelledby="tab-advanced" tabindex="0">
+          <p class="label menu__cat">Advanced</p>
+          <div class="item">
+            <h3 class="item__name">Fusion Facial with Electroporation</h3>
+            <p class="item__price">£60</p>
+            <p class="item__desc">Electroporation helps infuse targeted serums for hydration, radiance and overall skin health.</p>
+          </div>
+          <div class="item">
+            <h3 class="item__name">Microneedling</h3>
+            <p class="item__price">£80</p>
+            <p class="item__desc">Stimulates collagen to improve uneven texture, scarring, fine lines and overall skin quality.</p>
+          </div>
+          <div class="item">
+            <h3 class="item__name">Microneedling × Polynucleotides</h3>
+            <p class="item__price">£115</p>
+            <p class="item__desc">Microneedling paired with polynucleotides to support repair, especially for texture and scarring.</p>
+          </div>
+          <div class="item">
+            <h3 class="item__name">Chemical Peel</h3>
+            <p class="item__price">£65</p>
+            <p class="item__desc">A peel chosen for your skin to target acne, congestion, pigmentation, dullness or uneven texture.</p>
+          </div>
+          <div class="item">
+            <h3 class="item__name">BioRePeel</h3>
+            <p class="item__price">£70</p>
+            <p class="item__desc">A bio-stimulating peel that refreshes texture, tone and radiance.</p>
+          </div>
+          <div class="item">
+            <h3 class="item__name">BioRePeel × Dermaplaning</h3>
+            <p class="item__price">£80</p>
+            <p class="item__desc">Dermaplaning followed by BioRePeel for smoother, more luminous skin.</p>
+          </div>
+          <div class="item">
+            <h3 class="item__name">Hydradermabrasion Facial</h3>
+            <p class="item__price">£55</p>
+            <p class="item__desc">A deep-cleansing facial that exfoliates and hydrates, leaving skin clean, smooth and refreshed.</p>
+          </div>
+        </div>
+
+        <div class="menu__panel" role="tabpanel" id="panel-boosters" hidden aria-labelledby="tab-boosters" tabindex="0">
+          <p class="label menu__cat">Skin Boosters</p>
+          <div class="item">
+            <h3 class="item__name">Seventy Hyal</h3>
+            <p class="item__price">£100</p>
+            <p class="item__desc">A hyaluronic acid booster for deep hydration, glow and suppleness.</p>
+          </div>
+          <div class="item">
+            <h3 class="item__name">Revs Pro 32</h3>
+            <p class="item__price">£135</p>
+            <p class="item__desc">An advanced hyaluronic acid booster supporting hydration, elasticity and firmness.</p>
+          </div>
+          <div class="item">
+            <h3 class="item__name">Ejal 40</h3>
+            <p class="item__price">£140</p>
+            <p class="item__desc">A bio-revitalising injectable for hydration, elasticity and firmer-looking skin.</p>
+          </div>
+          <div class="item">
+            <h3 class="item__name">Profhilo</h3>
+            <p class="item__price">£200</p>
+            <p class="item__desc">A bio-remodelling injectable that deeply hydrates and improves firmness and elasticity.</p>
+          </div>
+          <p class="menu__note">Course recommendations may be advised for optimal results.</p>
+        </div>
+
+        <div class="menu__panel" role="tabpanel" id="panel-polynucleotides" hidden aria-labelledby="tab-polynucleotides" tabindex="0">
+          <p class="label menu__cat">Polynucleotides</p>
+          <div class="item">
+            <h3 class="item__name">Vitaran Eyes</h3>
+            <p class="item__price">£120</p>
+            <p class="item__desc">A polynucleotide treatment for the delicate eye area, supporting regeneration, hydration and elasticity.</p>
+          </div>
+          <p class="menu__note">All injectable treatments are subject to consultation and suitability assessment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reviews" id="reviews" aria-labelledby="reviews-title">
+  <div class="container">
+    <h2 class="reviews__title display" id="reviews-title">Client reviews</h2>
+    <div class="quotes">
+      <figure class="quote quote--feature" data-reveal>
+        <blockquote>Rachel explains everything that she is doing and discusses what your skin goals are, and comes up with a plan to get you to that point. I have now done 2 chemical peels and my skin is the clearest it has been in years.</blockquote>
+        <figcaption>Alex D.<span class="quote__role">Chemical Peel</span></figcaption>
+      </figure>
+      <figure class="quote" data-reveal>
+        <blockquote>Never usually get facials but my skin’s been quite dry and patchy lately… after my BioRePeel and dermaplaning my skin feels hydrated for the first time and I’m glowing!</blockquote>
+        <figcaption><span class="quote__role">BioRePeel × Dermaplaning</span></figcaption>
+      </figure>
+      <figure class="quote" data-reveal>
+        <blockquote>Absolutely loved my facial. I felt so relaxed throughout, my skin was glowing afterwards. The whole experience was refreshing and professional.</blockquote>
+        <figcaption>Louise T.<span class="quote__role">Advanced Facial</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section book on-dark" id="book" aria-labelledby="book-title">
+  <div class="container">
+    <div class="book__grid">
+      <h2 class="book__title display" id="book-title">Book a consultation</h2>
+
+      <div class="book__panel" id="booking-panel">
+        <p class="panel__copy" id="booking-copy">Message Rachel on WhatsApp for the quickest reply, or check live availability online.</p>
+
+        <div class="panel__ctas" id="booking-ctas">
+          <a class="btn btn--light" href="https://wa.me/447568602861?text=Hi%20Rachel%2C%20I%27d%20like%20to%20book%20a%20consultation%20at%20The%20Skin%20Den" target="_blank" rel="noopener">Book on WhatsApp</a>
+          <a class="btn btn--outline-light" href="https://clockwork-bookings.vercel.app/m/the-skin-den/book" target="_blank" rel="noopener">Check online availability</a>
+        </div>
+        <p class="panel__help">Online booking opens in a new tab. If it is unavailable, use WhatsApp and Rachel can arrange your appointment directly.</p>
+
+        <div class="panel__links">
+          <a class="link" href="/account/">Your account</a>
+          <a class="link" href="tel:+447568602861">Call · 07568 602861</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="policy">
+      <p class="policy__title">Booking &amp; Cancellation Policy</p>
+      <div class="tiers">
+        <div class="tier">
+          <p class="tier__h">48+ hours</p>
+          <p class="tier__p">Free reschedule</p>
+        </div>
+        <div class="tier">
+          <p class="tier__h">&lt; 48 hours</p>
+          <p class="tier__p">50% of treatment fee</p>
+        </div>
+        <div class="tier">
+          <p class="tier__h">&lt; 24h / no-show</p>
+          <p class="tier__p">100% of treatment fee</p>
+        </div>
+      </div>
+      <p class="policy__note">Last-minute cancellations cost both me and the next client the slot. Notice means the appointment can be offered to someone else. <a href="policy.html">Read the full policy</a></p>
+    </div>
+  </div>
+</section>
+
 </main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="plaque" aria-hidden="true"><span class="plaque__top">The Skin</span><span class="plaque__big">Den</span><span class="plaque__sub">· by rachel ·</span></div>
+        <p class="brand"><span class="brand__name">The Skin Den</span> <span class="brand__by">by Rachel</span></p>
+        <p class="footer__desc">A private skincare studio in Carlisle.</p>
+      </div>
+      <div>
+        <p class="label">Visit</p>
+        <ul class="footer__links">
+          <li>Carlisle, Cumbria · CA3</li>
+          <li>By appointment only</li>
+          <li>Address shared on booking</li>
+        </ul>
+      </div>
+      <div>
+        <p class="label">Get in touch</p>
+        <ul class="footer__links">
+          <li><a href="https://wa.me/447568602861" target="_blank" rel="noopener">WhatsApp · 07568 602861</a></li>
+          <li><a href="tel:+447568602861">Call · 07568 602861</a></li>
+          <li><a href="https://www.instagram.com/_theskin_den/" target="_blank" rel="noopener">Instagram · @_theskin_den</a></li>
+          <li><a href="https://www.threads.com/@_theskin_den" target="_blank" rel="noopener">Threads · @_theskin_den</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="label">Information</p>
+        <ul class="footer__links">
+          <li><a href="#treatments">Treatments &amp; prices</a></li>
+          <li><a href="faq.html">Frequently asked</a></li>
+          <li><a href="/account/">Create account</a></li>
+          <li><a href="policy.html">Booking policy</a></li>
+          <li><a href="policy.html#privacy">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 The Skin Den · VTCT Qualified &amp; Insured</span>
+      <span>Carlisle · Cumbria · UK</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Gallery lightbox -->
+<div class="lightbox on-dark" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <button class="lightbox__close" id="lb-close" type="button" aria-label="Close photo viewer">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <button class="lightbox__nav lightbox__nav--prev" id="lb-prev" type="button" aria-label="Previous photo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+  <img class="lightbox__img" id="lb-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="414" height="414">
+  <button class="lightbox__nav lightbox__nav--next" id="lb-next" type="button" aria-label="Next photo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+  </button>
+  <span class="lightbox__counter" id="lb-counter"></span>
+</div>
+
+<!-- Floating booking controls: bottom bar on mobile, WhatsApp button on desktop -->
+<aside aria-label="Quick booking">
+<div class="bookbar">
+  <a class="btn btn--primary" href="#book">Book a consultation</a>
+  <a class="bookbar__wa" href="https://wa.me/447568602861?text=Hi%20Rachel%2C%20I%27d%20like%20to%20book%20a%20consultation%20at%20The%20Skin%20Den" target="_blank" rel="noopener" aria-label="Message Rachel on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+</div>
+
+<a class="wa-fab" href="https://wa.me/447568602861?text=Hi%20Rachel%2C%20I%27d%20like%20to%20book%20a%20consultation%20at%20The%20Skin%20Den" target="_blank" rel="noopener" aria-label="Message Rachel on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+</aside>
+
+<!-- Cookie consent banner (PECR + GDPR for UK) -->
+<aside class="cookie" id="cookie" role="region" aria-label="Cookie consent" hidden>
+  <div class="container cookie__inner">
+    <p class="cookie__text"><span class="cookie__title">A note on cookies</span> We use a small amount of analytics to understand which pages people find useful. No advertising trackers, no personal data sold. <a href="policy.html#privacy">Read the full privacy policy</a>.</p>
+    <div class="cookie__actions">
+      <button class="btn btn--primary" id="cookie-accept" type="button">Sounds fine</button>
+      <button class="btn btn--secondary" id="cookie-decline" type="button">No thanks</button>
+    </div>
+  </div>
+</aside>
+
+<script>
+(function () {
+  'use strict';
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  // ── Treatment menu tabs (ARIA tabs: click, arrows, Home, End) ─────────
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('#treatment-menu [role="tab"]'));
+  var tablist = document.querySelector('#treatment-menu [role="tablist"]');
+  var tabsBar = document.querySelector('#treatment-menu .tabs-bar');
+  var menuBody = document.querySelector('#treatment-menu .menu__body');
+
+  // One indicator slides to the chosen tab; it lives inside the scrolling tab row.
+  function placeIndicator() {
+    var on = tabs.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0];
+    if (!tablist || !on || !on.offsetWidth) return;
+    tablist.style.setProperty('--ind-x', on.offsetLeft + 'px');
+    tablist.style.setProperty('--ind-w', String(on.offsetWidth));
+    if (!tablist.classList.contains('has-indicator')) {
+      tablist.classList.add('has-indicator');
+      requestAnimationFrame(function () { requestAnimationFrame(function () { tablist.classList.add('indicator-live'); }); });
+    }
+  }
+  // The tab bar sticks under the nav. If a category is chosen while it is stuck, the new
+  // list starts from its first item instead of somewhere in the middle.
+  function barOffset() {
+    var bar = getComputedStyle(tabsBar);
+    var stuckTabsTop = (parseFloat(bar.top) || 0) + (parseFloat(bar.paddingTop) || 0);
+    var naturalTabsTop = menuBody.getBoundingClientRect().top + parseFloat(getComputedStyle(menuBody).paddingTop);
+    return naturalTabsTop - stuckTabsTop;
+  }
+  function selectTab(tab, focus, fromUser) {
+    var stuck = fromUser && tabsBar && menuBody && barOffset() < -1;
+    tabs.forEach(function (t) {
+      var on = t === tab;
+      var wasOn = t.getAttribute('aria-selected') === 'true';
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      if (!panel) return;
+      panel.hidden = !on;
+      if (on && fromUser && !wasOn) {
+        panel.classList.remove('is-entering');
+        void panel.offsetWidth; // restart the entrance if categories are switched quickly
+        panel.classList.add('is-entering');
+      }
+    });
+    placeIndicator();
+    // Jump (not glide) so the tab bar appears to stay put while the list beneath it changes
+    if (stuck) jumpBy(barOffset());
+    if (focus) tab.focus();
+  }
+  function jumpBy(dy) {
+    var root = document.documentElement;
+    var smooth = root.classList.contains('smooth-scroll');
+    root.classList.remove('smooth-scroll');
+    window.scrollTo(0, window.scrollY + dy);
+    if (smooth) root.classList.add('smooth-scroll');
+  }
+  // Keyboard focus never hides under the stuck tab bar (WCAG 2.4.11): browsers treat a control
+  // behind a sticky overlay as already visible, so nudge it clear.
+  if (tabsBar && menuBody && tablist) {
+    menuBody.addEventListener('focusin', function (e) {
+      if (tabsBar.contains(e.target) || e.target.getAttribute('role') === 'tabpanel') return;
+      if (e.target.matches && !e.target.matches(':focus-visible')) return; // keyboard focus only; a pointer press must not move the page
+      var cover = tablist.getBoundingClientRect().bottom;
+      var top = e.target.getBoundingClientRect().top;
+      if (top < cover + 8) jumpBy(top - cover - 16);
+    });
+  }
+  tabs.forEach(function (tab, i) {
+    tab.addEventListener('click', function () { selectTab(tab, false, true); });
+    tab.addEventListener('keydown', function (e) {
+      var next = { ArrowRight: (i + 1) % tabs.length, ArrowLeft: (i - 1 + tabs.length) % tabs.length, Home: 0, End: tabs.length - 1 }[e.key];
+      if (next === undefined) return;
+      e.preventDefault();
+      selectTab(tabs[next], true, true);
+    });
+    var panel = document.getElementById(tab.getAttribute('aria-controls'));
+    if (panel) panel.addEventListener('animationend', function () { panel.classList.remove('is-entering'); });
+  });
+  if (tabs.length) selectTab(tabs[0]);
+  // Re-measure the indicator when tab widths change (web fonts arriving, resizes)
+  if (tablist) {
+    if ('ResizeObserver' in window) {
+      var tabSizes = new ResizeObserver(placeIndicator);
+      tabs.forEach(function (t) { tabSizes.observe(t); });
+    } else {
+      window.addEventListener('resize', placeIndicator);
+    }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeIndicator);
+  }
+
+  // ── Links into the menu (the pathway photos, deep links): open the right category first ──
+  // Without this script every category is visible, so they work as plain anchors.
+  function tabFor(target) {
+    var panel = target && target.closest ? target.closest('[role="tabpanel"]') : null;
+    if (!panel) return null;
+    return tabs.filter(function (t) { return t.getAttribute('aria-controls') === panel.id; })[0] || null;
+  }
+  // Selects the category, then brings the list (or one treatment) into view just below the stuck tab bar
+  function revealInMenu(target) {
+    var tab = tabFor(target);
+    if (!tab || !tabsBar || !tablist || !menuBody) return;
+    if (tab.getAttribute('aria-selected') !== 'true') selectTab(tab, false, false);
+    var bar = getComputedStyle(tabsBar);
+    var stuckBottom = (parseFloat(bar.top) || 0) + (parseFloat(bar.paddingTop) || 0) + tablist.offsetHeight;
+    var isPanel = target.getAttribute('role') === 'tabpanel';
+    var y = isPanel ? window.scrollY + barOffset() : window.scrollY + target.getBoundingClientRect().top - stuckBottom - 16;
+    window.scrollTo(0, Math.max(0, y));
+    (isPanel ? tab : target).focus({ preventScroll: true });
+  }
+  function targetOf(hash) {
+    var id = hash && hash.charAt(0) === '#' ? decodeURIComponent(hash.slice(1)) : '';
+    var el = id ? document.getElementById(id) : null;
+    return el && tabFor(el) ? el : null;
+  }
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!link || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var target = targetOf(link.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    if (history.pushState) history.pushState(null, '', link.getAttribute('href'));
+    revealInMenu(target);
+  });
+  window.addEventListener('hashchange', function () { var t = targetOf(location.hash); if (t) revealInMenu(t); });
+  // Arriving on /#panel-advanced (or #acne): open that category now, align it once laid out
+  var arrival = targetOf(location.hash);
+  if (arrival) {
+    selectTab(tabFor(arrival));
+    window.addEventListener('load', function () { revealInMenu(arrival); });
+  }
+
+  // ── Results lightbox: each treatment's before/after thumbnails form a group ──
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lb-img');
+  var lbCounter = document.getElementById('lb-counter');
+  var lbClose = document.getElementById('lb-close');
+  var lbPrev = document.getElementById('lb-prev');
+  var lbNext = document.getElementById('lb-next');
+  var lbFiles = [];
+  var lbThumbs = [];
+  var lbIndex = 0;
+  var lbReturnFocus = null;
+
+  // Where View Transitions are supported (and motion is welcome) the thumbnail grows into the
+  // full photo, and shrinks back into whichever thumbnail matches the photo being viewed on close.
+  function morph(from, to, update) {
+    if (typeof document.startViewTransition !== 'function' || reduceMotion.matches || !from || !to) { update(); return; }
+    from.style.viewTransitionName = 'lb-photo';
+    lb.classList.add('via-morph');
+    var transition = document.startViewTransition(function () {
+      from.style.viewTransitionName = '';
+      to.style.viewTransitionName = 'lb-photo';
+      return update();
+    });
+    transition.finished.finally(function () {
+      to.style.viewTransitionName = '';
+      lb.classList.remove('via-morph');
+    });
+  }
+
+  function renderLightbox() {
+    lbImg.src = lbFiles[lbIndex];
+    lbImg.alt = 'Client before and after, photo ' + (lbIndex + 1) + ' of ' + lbFiles.length;
+    lbCounter.textContent = (lbIndex + 1) + ' / ' + lbFiles.length;
+    var single = lbFiles.length < 2;
+    lbPrev.hidden = single;
+    lbNext.hidden = single;
+  }
+  function showLightbox() {
+    renderLightbox();
+    lb.hidden = false;
+    lb.classList.add('is-open');
+    document.body.classList.add('lightbox-open');
+    document.body.style.overflow = 'hidden';
+    lbClose.focus();
+    // Let the morph capture the decoded photo rather than an empty frame
+    return lbImg.decode ? lbImg.decode().catch(function () {}) : undefined;
+  }
+  function hideLightbox() {
+    lb.classList.remove('is-open');
+    document.body.classList.remove('lightbox-open');
+    lb.hidden = true;
+    document.body.style.overflow = '';
+    if (lbReturnFocus) lbReturnFocus.focus();
+  }
+  function openLightbox(files, thumbs, i, trigger) {
+    lbFiles = files;
+    lbThumbs = thumbs;
+    lbIndex = i;
+    lbReturnFocus = trigger || document.activeElement;
+    morph(lbThumbs[lbIndex], lbImg, showLightbox);
+  }
+  function closeLightbox() { morph(lbImg, lbThumbs[lbIndex], hideLightbox); }
+  function lbStep(d) { lbIndex = (lbIndex + d + lbFiles.length) % lbFiles.length; renderLightbox(); }
+
+  document.querySelectorAll('[data-lightbox-group]').forEach(function (group) {
+    var buttons = Array.prototype.slice.call(group.querySelectorAll('[data-src]'));
+    var files = buttons.map(function (b) { return b.getAttribute('data-src'); });
+    buttons.forEach(function (btn, i) {
+      btn.addEventListener('click', function () { openLightbox(files, buttons, i, btn); });
+    });
+  });
+  lbClose.addEventListener('click', closeLightbox);
+  lbNext.addEventListener('click', function () { lbStep(1); });
+  lbPrev.addEventListener('click', function () { lbStep(-1); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+  lb.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { e.preventDefault(); closeLightbox(); }
+    else if (e.key === 'ArrowRight') lbStep(1);
+    else if (e.key === 'ArrowLeft') lbStep(-1);
+    else if (e.key === 'Tab') {
+      var items = [lbClose, lbPrev, lbNext].filter(function (el) { return !el.hidden; });
+      var at = items.indexOf(document.activeElement);
+      e.preventDefault();
+      items[(at + (e.shiftKey ? items.length - 1 : 1)) % items.length].focus();
+    }
+  });
+
+  // ── Cookie note: shown once, choice stored on this device ──────────────
+  var cookie = document.getElementById('cookie');
+  var COOKIE_KEY = 'tsd-cookie-consent';
+  function readChoice() { try { return localStorage.getItem(COOKIE_KEY); } catch (e) { return 'unavailable'; } }
+  function storeChoice(choice) { try { localStorage.setItem(COOKIE_KEY, choice); } catch (e) {} }
+  if (cookie && !readChoice()) {
+    setTimeout(function () {
+      cookie.hidden = false;
+      document.body.classList.add('cookie-open');
+      requestAnimationFrame(function () { cookie.classList.add('is-visible'); });
+    }, 1800);
+  }
+  function dismissCookie(choice) {
+    storeChoice(choice);
+    cookie.classList.remove('is-visible');
+    document.body.classList.remove('cookie-open');
+    cookie.hidden = true;
+  }
+  document.getElementById('cookie-accept').addEventListener('click', function () { dismissCookie('accepted'); });
+  document.getElementById('cookie-decline').addEventListener('click', function () { dismissCookie('declined'); });
+
+  // ── Active nav state on scroll ────────────────────────────────────────
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav__links a[href^="#"]'));
+  if (navLinks.length && 'IntersectionObserver' in window) {
+    var sectionMap = new Map();
+    navLinks.forEach(function (a) {
+      var el = document.getElementById(a.getAttribute('href').slice(1));
+      if (el) sectionMap.set(el, a);
+    });
+    // Sections without a nav link (hero, booking) clear the highlight instead of leaving the last one lit
+    ['top', 'book'].forEach(function (id) { var el = document.getElementById(id); if (el) sectionMap.set(el, null); });
+    var navObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!sectionMap.has(entry.target) || !entry.isIntersecting || entry.intersectionRatio <= 0.25) return;
+        var link = sectionMap.get(entry.target);
+        navLinks.forEach(function (l) { l.classList.remove('is-active'); });
+        if (link) link.classList.add('is-active');
+      });
+    }, { threshold: [0.25, 0.5], rootMargin: '-80px 0px -50% 0px' });
+    sectionMap.forEach(function (_, el) { navObserver.observe(el); });
+  }
+})();
+</script>
+<script src="site.js"></script>
 
 </body>
 </html>
