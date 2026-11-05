@@ -124,7 +124,7 @@
   }
 
   /* Philosophy: one statement beside the clinic room, on the cream band */
-  .philosophy { background: var(--c-cream); }
+  .philosophy { background: linear-gradient(180deg, var(--c-ivory), var(--c-cream) var(--section)); }
   .philosophy__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 40px clamp(40px, 8vw, 120px); align-items: center; }
   .philosophy__copy h2 { max-width: 14ch; margin-bottom: 24px; }
   .philosophy__copy .lead { max-width: 46ch; }
@@ -137,6 +137,7 @@
   }
 
   /* About */
+  #about { background: linear-gradient(180deg, var(--c-cream), var(--c-ivory) var(--section)); }
   .about { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 48px clamp(40px, 8vw, 120px); align-items: center; }
   .about__figure { position: sticky; top: 104px; margin: 0; }
   .about__frame { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--r-lg); background: var(--c-wood); }
@@ -154,7 +155,7 @@
   }
 
   /* Treatments: the price-list sheet with Rachel's gold spine */
-  .treatments { position: relative; background: var(--c-cream); }
+  .treatments { position: relative; background: linear-gradient(180deg, var(--c-ivory), var(--c-cream) var(--section)); }
   .treatments__title { text-align: center; }
   .anchor-alias { position: absolute; top: 0; }
   .menu {
@@ -190,7 +191,7 @@
   .item:last-of-type { border-bottom: 0; }
   .item__tag { grid-area: tag; margin-bottom: 6px; font: 600 12px/1.4 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-gold-text); }
   .item__name { grid-area: name; }
-  .item__price { grid-area: price; font: 500 var(--t-h3)/1.25 var(--font-serif); font-variant-numeric: lining-nums tabular-nums; color: var(--c-gold-text); text-align: right; white-space: nowrap; }
+  .item__price { grid-area: price; font: 500 var(--t-h3)/1.25 var(--font-serif); font-variant-numeric: lining-nums tabular-nums; color: var(--c-charcoal); text-align: right; white-space: nowrap; }
   .item__price--text { padding-top: 3px; font: italic 400 17px/1.3 var(--font-serif); }
   .item__desc { grid-area: desc; max-width: 60ch; margin-top: 8px; font-size: 16px; line-height: 1.6; color: var(--c-charcoal-soft); }
   .item__results { grid-area: results; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; }
@@ -257,7 +258,7 @@
   }
 
   /* Reviews: a featured pull-quote with two supporting quotes */
-  .reviews { background: var(--c-cream); }
+  .reviews { background: linear-gradient(180deg, var(--c-cream) calc(100% - var(--section)), var(--c-ivory)); }
   .reviews__title { margin-bottom: clamp(36px, 5vw, 64px); }
   .quotes { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); grid-template-rows: auto auto; gap: 40px clamp(40px, 6vw, 96px); }
   .quote { margin: 0; padding-top: 24px; border-top: 1px solid var(--c-rule-wood); }
@@ -356,7 +357,7 @@
   <div class="container philosophy__grid" id="paths">
     <div class="philosophy__copy">
       <h2>Every treatment starts with your skin.</h2>
-      <p class="lead">Each appointment begins with a thorough skin analysis in a calm, private one-to-one space. From there, Rachel builds a plan around what your skin needs.</p>
+      <p class="lead">Each appointment begins with a thorough skin analysis in a calm, private space. From there, Rachel builds a plan around what your skin needs.</p>
     </div>
     <figure class="philosophy__media">
       <img src="brand_assets/photos/fb_518283822_122105828282935999.jpg" width="414" height="414" alt="The Skin Den treatment room with its signature plaque and treatment lamp" loading="lazy">
@@ -447,7 +448,7 @@
           <p class="label menu__cat">Advanced</p>
           <div class="menu__media">
             <img src="brand_assets/photos/fb_518351655_122107256444935999.jpg" width="414" height="414" alt="A chemical peel being applied in clinic" loading="lazy">
-            <img src="brand_assets/photos/fb_682574663_122167055174935999.jpg" width="414" height="414" alt="Client resting on the treatment bed after an in-clinic treatment" loading="lazy">
+            <img src="brand_assets/photos/fb_581812689_122141261762935999.jpg" width="414" height="414" alt="RestoraPlex professional peel solutions in the treatment room" loading="lazy">
           </div>
           <div class="item">
             <h3 class="item__name">Fusion Facial with Electroporation</h3>
