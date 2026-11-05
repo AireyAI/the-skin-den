@@ -122,6 +122,20 @@
     .hero__ctas .link { margin-inline: auto; }
     .hero__media { aspect-ratio: 4 / 5; }
   }
+  /* Hero entrance, the page's one orchestrated moment: the room clears like steam lifting off the
+     facial steamer, and the three promises come into focus one line at a time. The photo is painted
+     from the first frame (it is the LCP image); everything is settled by about 1.3s. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__media img { animation: hero-clear 1700ms var(--ease-out) both; }
+    .hero .label, .hero__title > span, .hero__sub, .hero__ctas { animation: focus-in 900ms var(--ease-out) both; }
+    .hero__title > span:nth-child(1) { animation-delay: 90ms; }
+    .hero__title > span:nth-child(2) { animation-delay: 200ms; }
+    .hero__title > span:nth-child(3) { animation-delay: 310ms; }
+    .hero__sub { animation-delay: 300ms; }
+    .hero__ctas { animation-delay: 340ms; }
+  }
+  @keyframes hero-clear { from { filter: blur(12px) saturate(0.8) brightness(1.08); scale: 1.07; } }
+  @keyframes focus-in { from { opacity: 0; filter: blur(8px); translate: 0 0.32em; } }
 
   /* Philosophy: one statement beside the clinic room, on the cream band */
   .philosophy { background: linear-gradient(180deg, var(--c-ivory), var(--c-cream) var(--section)); }
@@ -135,6 +149,21 @@
     .philosophy__grid { grid-template-columns: 1fr; }
     .philosophy__media { max-width: 480px; aspect-ratio: 4 / 3; }
   }
+  .philosophy__copy .lead { --reveal-delay: 140ms; }
+
+  /* Editorial photos settle into focus as they scroll in: a slight lens pull tied to scroll position.
+     Scale only (never translate), using the individual `scale` property so it composes with the
+     philosophy photo's crop transform. Browsers without scroll-driven animations show the still photo. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .philosophy__media img, .about__frame img {
+        animation: lens-settle linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 100%;
+      }
+    }
+  }
+  @keyframes lens-settle { from { scale: 1.09; } to { scale: 1; } }
 
   /* About */
   #about { background: linear-gradient(180deg, var(--c-cream), var(--c-ivory) var(--section)); }
@@ -160,20 +189,46 @@
   .anchor-alias { position: absolute; top: 0; }
   .menu {
     display: grid; grid-template-columns: 76px minmax(0, 1fr);
-    max-width: 1000px; margin: clamp(40px, 5vw, 64px) auto 0; overflow: hidden;
+    max-width: 1000px; margin: clamp(40px, 5vw, 64px) auto 0;
+    /* clip, not hidden: it rounds the corners without becoming a scroll container, so the tab bar can stick */
+    overflow: hidden; overflow: clip;
     background: var(--c-ivory); border-radius: 6px;
     box-shadow: 0 1px 0 rgba(42, 33, 23, 0.04), 0 24px 48px -28px rgba(42, 33, 23, 0.28);
   }
   .menu__spine { display: flex; align-items: center; justify-content: center; background: var(--c-gold); color: var(--c-charcoal); }
   .menu__spine span { writing-mode: vertical-rl; transform: rotate(180deg); font: 300 40px/1 var(--font-serif); letter-spacing: 0.34em; white-space: nowrap; }
-  .menu__body { padding: clamp(28px, 4vw, 56px) clamp(20px, 5vw, 64px) clamp(28px, 4vw, 48px); }
-  .tabs { display: flex; gap: 32px; margin: 0 0 8px; overflow-x: auto; border-bottom: 1px solid var(--c-line); scrollbar-width: none; scroll-snap-type: x proximity; }
+  .menu__body { --menu-pad-x: clamp(20px, 5vw, 64px); padding: clamp(28px, 4vw, 56px) var(--menu-pad-x) clamp(28px, 4vw, 48px); }
+  /* The category tabs stay within reach while a long list scrolls: a glass strip that sticks under the
+     nav, spanning the sheet so items and photos frost as they pass beneath it. */
+  /* The glass reaches up behind the nav (pulled up by the same amount it is padded, so the tabs keep
+     their place); while stuck, list text never peeks out around the floating nav capsule. */
+  .tabs-bar {
+    position: sticky; top: 0; z-index: 2;
+    margin: calc(-1 * var(--nav-h)) calc(-1 * var(--menu-pad-x)) 8px; padding: var(--nav-h) var(--menu-pad-x) 0;
+    background-color: rgba(253, 248, 238, 0.86);
+    -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  }
+  .no-js .tabs-bar { display: none; }
+  .tabs { position: relative; display: flex; gap: 32px; overflow-x: auto; border-bottom: 1px solid var(--c-line); scrollbar-width: none; scroll-snap-type: x proximity; }
   .tabs::-webkit-scrollbar { display: none; }
   .no-js .tabs { display: none; }
+  /* One indicator that slides to the chosen category (site script sets its position and width) */
+  .tabs.has-indicator .tab[aria-selected="true"] { border-bottom-color: transparent; }
+  .tabs.has-indicator::after {
+    content: ""; position: absolute; left: 0; bottom: 0; width: 1px; height: 2px;
+    background: var(--c-charcoal); transform-origin: 0 50%;
+    transform: translateX(var(--ind-x, 0px)) scaleX(var(--ind-w, 0));
+  }
+  .tabs.indicator-live::after { transition: transform 420ms var(--ease-out); }
+  @media (prefers-reduced-motion: no-preference) {
+    .menu__panel.is-entering { animation: panel-in 420ms var(--ease-out) both; }
+  }
+  @keyframes panel-in { from { opacity: 0; translate: 0 10px; } }
   .tab {
     flex: none; min-height: 48px; padding: 0; margin-bottom: -1px; scroll-snap-align: start;
     background: none; border: 0; border-bottom: 2px solid transparent;
-    font: 500 var(--t-ui)/1 var(--font-sans); color: var(--c-text-muted); cursor: pointer;
+    /* A step darker than --c-text-muted so unselected tabs keep 4.5:1 on the glass bar over passing photos */
+    font: 500 var(--t-ui)/1 var(--font-sans); color: #5A4C3B; cursor: pointer;
     transition: color var(--d-fast) var(--ease), border-color var(--d-base) var(--ease);
   }
   .tab:hover { color: var(--c-charcoal); }
@@ -203,7 +258,7 @@
   @media (max-width: 600px) {
     .menu { grid-template-columns: 30px minmax(0, 1fr); margin-inline: calc(-1 * var(--gutter)); border-radius: 0; }
     .menu__spine span { font-size: 16px; letter-spacing: 0.3em; }
-    .menu__body { padding-inline: 20px; }
+    .menu__body { --menu-pad-x: 20px; }
     .tabs { gap: 24px; -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent); mask-image: linear-gradient(90deg, #000 82%, transparent); }
     .item { column-gap: 16px; }
     .item__price--text { max-width: 10ch; white-space: normal; }
@@ -213,28 +268,56 @@
   .lightbox {
     position: fixed; inset: 0; z-index: var(--z-toast);
     display: none; align-items: center; justify-content: center;
-    padding: 72px clamp(16px, 8vw, 120px); background: rgba(42, 33, 23, 0.95);
+    padding: 72px clamp(16px, 8vw, 120px);
+    /* Dark smoked glass: the page stays faintly present behind the photo */
+    background: rgba(42, 33, 23, 0.82);
+    -webkit-backdrop-filter: blur(24px) saturate(130%); backdrop-filter: blur(24px) saturate(130%);
   }
   .lightbox.is-open { display: flex; }
   body.lightbox-open .bookbar, body.lightbox-open .wa-fab { visibility: hidden; }
-  .lightbox__img { width: auto; max-width: min(100%, 720px); max-height: 100%; object-fit: contain; border-radius: 6px; }
+  .lightbox__img { width: auto; max-width: min(100%, 720px); max-height: 100%; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.6); }
   .lightbox__close, .lightbox__nav {
     position: absolute; display: inline-flex; align-items: center; justify-content: center;
     width: 48px; height: 48px; border-radius: 50%; cursor: pointer;
-    transition: background-color var(--d-fast) var(--ease), color var(--d-fast) var(--ease);
+    transition: background-color var(--d-fast) var(--ease), color var(--d-fast) var(--ease), scale 160ms var(--ease-out);
   }
+  .lightbox__close:active, .lightbox__nav:active { scale: 0.94; }
   .lightbox__close { top: 16px; right: 16px; background: var(--c-ivory); color: var(--c-charcoal); border: 0; }
-  .lightbox__nav { top: 50%; transform: translateY(-50%); background: rgba(253, 248, 238, 0.12); color: var(--c-ivory); border: 1px solid rgba(253, 248, 238, 0.3); }
+  /* Small glass lenses: translucent fill and a lit rim (no nested backdrop blur) */
+  .lightbox__nav {
+    top: 50%; transform: translateY(-50%);
+    background: rgba(253, 248, 238, 0.12); color: var(--c-ivory); border: 0;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32), inset 0 0 0 1px rgba(253, 248, 238, 0.26), 0 10px 24px -14px rgba(0, 0, 0, 0.6);
+  }
   .lightbox__nav:hover { background: var(--c-ivory); color: var(--c-charcoal); }
   .lightbox__nav[hidden] { display: none; }
   .lightbox__nav--prev { left: 16px; }
   .lightbox__nav--next { right: 16px; }
   .lightbox svg { width: 20px; height: 20px; }
-  .lightbox__counter { position: absolute; left: 50%; bottom: calc(24px + var(--safe-bottom)); transform: translateX(-50%); font-size: var(--t-meta); color: rgba(253, 248, 238, 0.82); }
+  .lightbox__counter {
+    position: absolute; left: 50%; bottom: calc(24px + var(--safe-bottom)); transform: translateX(-50%);
+    padding: 6px 14px; border-radius: var(--r-pill);
+    background: rgba(253, 248, 238, 0.08); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 0 0 1px rgba(253, 248, 238, 0.16);
+    font-size: var(--t-meta); font-variant-numeric: tabular-nums; color: rgba(253, 248, 238, 0.86);
+  }
+  .lightbox__counter:empty { display: none; }
   @media (max-width: 600px) {
     .lightbox { padding: 72px 16px 96px; }
     .lightbox__nav { top: auto; bottom: calc(14px + var(--safe-bottom)); transform: none; }
+    .lightbox__counter { bottom: calc(20px + var(--safe-bottom)); }
   }
+  /* Opening: where View Transitions run, the tapped thumbnail grows into the full photo (script).
+     Elsewhere the viewer fades up from its starting style. */
+  @media (prefers-reduced-motion: no-preference) {
+    .lightbox { transition: opacity 260ms var(--ease-out); }
+    .lightbox__img { transition: scale 360ms var(--ease-out); }
+    @starting-style {
+      .lightbox.is-open:not(.via-morph) { opacity: 0; }
+      .lightbox.is-open:not(.via-morph) .lightbox__img { scale: 0.96; }
+    }
+  }
+  ::view-transition-group(lb-photo) { animation-duration: 440ms; animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1); }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 300ms; }
 
   /* Booking */
   .book { background: var(--c-charcoal); color: var(--c-ivory); }
@@ -272,6 +355,20 @@
   @media (max-width: 900px) {
     .quotes { grid-template-columns: 1fr; }
     .quote--feature { grid-row: auto; }
+  }
+  /* The three reviews come into focus in reading order */
+  .quote:nth-child(2) { --reveal-delay: 160ms; }
+  .quote:nth-child(3) { --reveal-delay: 320ms; }
+
+  /* Glass falls back to solid surfaces when transparency is reduced or more contrast is requested */
+  @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+    .tabs-bar { background-color: var(--c-ivory); -webkit-backdrop-filter: none; backdrop-filter: none; }
+    .lightbox { background: rgba(42, 33, 23, 0.97); -webkit-backdrop-filter: none; backdrop-filter: none; }
+    .lightbox__nav, .lightbox__counter { background: var(--c-charcoal); }
+  }
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .tabs-bar { background-color: var(--c-ivory); }
+    .lightbox { background: rgba(42, 33, 23, 0.95); }
   }
 </style>
 </head>
@@ -356,8 +453,8 @@
 <section class="section philosophy" id="clinic">
   <div class="container philosophy__grid" id="paths">
     <div class="philosophy__copy">
-      <h2>Every treatment starts with your skin.</h2>
-      <p class="lead">Each appointment begins with a thorough skin analysis in a calm, private space. From there, Rachel builds a plan around what your skin needs.</p>
+      <h2 data-reveal>Every treatment starts with your skin.</h2>
+      <p class="lead" data-reveal>Each appointment begins with a thorough skin analysis in a calm, private space. From there, Rachel builds a plan around what your skin needs.</p>
     </div>
     <figure class="philosophy__media">
       <img src="brand_assets/photos/fb_518283822_122105828282935999.jpg" width="414" height="414" alt="The Skin Den treatment room with its signature plaque and treatment lamp" loading="lazy">
@@ -395,11 +492,13 @@
     <div class="menu" id="treatment-menu">
       <div class="menu__spine" aria-hidden="true"><span>THE SKIN DEN</span></div>
       <div class="menu__body">
-        <div class="tabs" role="tablist" aria-label="Treatment categories">
-          <button class="tab" type="button" role="tab" id="tab-facials" aria-controls="panel-facials" aria-selected="true">Facials</button>
-          <button class="tab" type="button" role="tab" id="tab-advanced" aria-controls="panel-advanced" aria-selected="false" tabindex="-1">Advanced</button>
-          <button class="tab" type="button" role="tab" id="tab-boosters" aria-controls="panel-boosters" aria-selected="false" tabindex="-1">Skin Boosters</button>
-          <button class="tab" type="button" role="tab" id="tab-polynucleotides" aria-controls="panel-polynucleotides" aria-selected="false" tabindex="-1">Polynucleotides</button>
+        <div class="tabs-bar">
+          <div class="tabs" role="tablist" aria-label="Treatment categories">
+            <button class="tab" type="button" role="tab" id="tab-facials" aria-controls="panel-facials" aria-selected="true">Facials</button>
+            <button class="tab" type="button" role="tab" id="tab-advanced" aria-controls="panel-advanced" aria-selected="false" tabindex="-1">Advanced</button>
+            <button class="tab" type="button" role="tab" id="tab-boosters" aria-controls="panel-boosters" aria-selected="false" tabindex="-1">Skin Boosters</button>
+            <button class="tab" type="button" role="tab" id="tab-polynucleotides" aria-controls="panel-polynucleotides" aria-selected="false" tabindex="-1">Polynucleotides</button>
+          </div>
         </div>
 
         <div class="menu__panel" role="tabpanel" id="panel-facials" aria-labelledby="tab-facials" tabindex="0">
@@ -572,15 +671,15 @@
   <div class="container">
     <h2 class="reviews__title">Client reviews</h2>
     <div class="quotes">
-      <figure class="quote quote--feature">
+      <figure class="quote quote--feature" data-reveal>
         <blockquote>Rachel explains everything that she is doing and discusses what your skin goals are, and comes up with a plan to get you to that point. I have now done 2 chemical peels and my skin is the clearest it has been in years.</blockquote>
         <figcaption>Alex D.<span class="quote__role">Chemical Peel</span></figcaption>
       </figure>
-      <figure class="quote">
+      <figure class="quote" data-reveal>
         <blockquote>Never usually get facials but my skin’s been quite dry and patchy lately… after my BioRePeel and dermaplaning my skin feels hydrated for the first time and I’m glowing!</blockquote>
         <figcaption>Client<span class="quote__role">BioRePeel × Dermaplaning</span></figcaption>
       </figure>
-      <figure class="quote">
+      <figure class="quote" data-reveal>
         <blockquote>Absolutely loved my facial. I felt so relaxed throughout, my skin was glowing afterwards. The whole experience was refreshing and professional.</blockquote>
         <figcaption>Louise T.<span class="quote__role">Advanced Facial</span></figcaption>
       </figure>
@@ -677,28 +776,94 @@
 (function () {
   'use strict';
 
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
   // ── Treatment menu tabs (ARIA tabs: click, arrows, Home, End) ─────────
   var tabs = Array.prototype.slice.call(document.querySelectorAll('#treatment-menu [role="tab"]'));
-  function selectTab(tab, focus) {
+  var tablist = document.querySelector('#treatment-menu [role="tablist"]');
+  var tabsBar = document.querySelector('#treatment-menu .tabs-bar');
+  var menuBody = document.querySelector('#treatment-menu .menu__body');
+
+  // One indicator slides to the chosen tab; it lives inside the scrolling tab row.
+  function placeIndicator() {
+    var on = tabs.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0];
+    if (!tablist || !on || !on.offsetWidth) return;
+    tablist.style.setProperty('--ind-x', on.offsetLeft + 'px');
+    tablist.style.setProperty('--ind-w', String(on.offsetWidth));
+    if (!tablist.classList.contains('has-indicator')) {
+      tablist.classList.add('has-indicator');
+      requestAnimationFrame(function () { requestAnimationFrame(function () { tablist.classList.add('indicator-live'); }); });
+    }
+  }
+  // The tab bar sticks under the nav. If a category is chosen while it is stuck, the new
+  // list starts from its first item instead of somewhere in the middle.
+  function barOffset() {
+    var bar = getComputedStyle(tabsBar);
+    var stuckTabsTop = (parseFloat(bar.top) || 0) + (parseFloat(bar.paddingTop) || 0);
+    var naturalTabsTop = menuBody.getBoundingClientRect().top + parseFloat(getComputedStyle(menuBody).paddingTop);
+    return naturalTabsTop - stuckTabsTop;
+  }
+  function selectTab(tab, focus, fromUser) {
+    var stuck = fromUser && tabsBar && menuBody && barOffset() < -1;
     tabs.forEach(function (t) {
       var on = t === tab;
+      var wasOn = t.getAttribute('aria-selected') === 'true';
       t.setAttribute('aria-selected', String(on));
       t.tabIndex = on ? 0 : -1;
       var panel = document.getElementById(t.getAttribute('aria-controls'));
-      if (panel) panel.hidden = !on;
+      if (!panel) return;
+      panel.hidden = !on;
+      if (on && fromUser && !wasOn) {
+        panel.classList.remove('is-entering');
+        void panel.offsetWidth; // restart the entrance if categories are switched quickly
+        panel.classList.add('is-entering');
+      }
     });
+    placeIndicator();
+    // Jump (not glide) so the tab bar appears to stay put while the list beneath it changes
+    if (stuck) jumpBy(barOffset());
     if (focus) tab.focus();
   }
+  function jumpBy(dy) {
+    var root = document.documentElement;
+    var smooth = root.classList.contains('smooth-scroll');
+    root.classList.remove('smooth-scroll');
+    window.scrollTo(0, window.scrollY + dy);
+    if (smooth) root.classList.add('smooth-scroll');
+  }
+  // Keyboard focus never hides under the stuck tab bar (WCAG 2.4.11): browsers treat a control
+  // behind a sticky overlay as already visible, so nudge it clear.
+  if (tabsBar && menuBody && tablist) {
+    menuBody.addEventListener('focusin', function (e) {
+      if (tabsBar.contains(e.target) || e.target.getAttribute('role') === 'tabpanel') return;
+      if (e.target.matches && !e.target.matches(':focus-visible')) return; // keyboard focus only; a pointer press must not move the page
+      var cover = tablist.getBoundingClientRect().bottom;
+      var top = e.target.getBoundingClientRect().top;
+      if (top < cover + 8) jumpBy(top - cover - 16);
+    });
+  }
   tabs.forEach(function (tab, i) {
-    tab.addEventListener('click', function () { selectTab(tab); });
+    tab.addEventListener('click', function () { selectTab(tab, false, true); });
     tab.addEventListener('keydown', function (e) {
       var next = { ArrowRight: (i + 1) % tabs.length, ArrowLeft: (i - 1 + tabs.length) % tabs.length, Home: 0, End: tabs.length - 1 }[e.key];
       if (next === undefined) return;
       e.preventDefault();
-      selectTab(tabs[next], true);
+      selectTab(tabs[next], true, true);
     });
+    var panel = document.getElementById(tab.getAttribute('aria-controls'));
+    if (panel) panel.addEventListener('animationend', function () { panel.classList.remove('is-entering'); });
   });
   if (tabs.length) selectTab(tabs[0]);
+  // Re-measure the indicator when tab widths change (web fonts arriving, resizes)
+  if (tablist) {
+    if ('ResizeObserver' in window) {
+      var tabSizes = new ResizeObserver(placeIndicator);
+      tabs.forEach(function (t) { tabSizes.observe(t); });
+    } else {
+      window.addEventListener('resize', placeIndicator);
+    }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeIndicator);
+  }
 
   // ── Results lightbox: each treatment's before/after thumbnails form a group ──
   var lb = document.getElementById('lightbox');
@@ -708,8 +873,26 @@
   var lbPrev = document.getElementById('lb-prev');
   var lbNext = document.getElementById('lb-next');
   var lbFiles = [];
+  var lbThumbs = [];
   var lbIndex = 0;
   var lbReturnFocus = null;
+
+  // Where View Transitions are supported (and motion is welcome) the thumbnail grows into the
+  // full photo, and shrinks back into whichever thumbnail matches the photo being viewed on close.
+  function morph(from, to, update) {
+    if (typeof document.startViewTransition !== 'function' || reduceMotion.matches || !from || !to) { update(); return; }
+    from.style.viewTransitionName = 'lb-photo';
+    lb.classList.add('via-morph');
+    var transition = document.startViewTransition(function () {
+      from.style.viewTransitionName = '';
+      to.style.viewTransitionName = 'lb-photo';
+      return update();
+    });
+    transition.finished.finally(function () {
+      to.style.viewTransitionName = '';
+      lb.classList.remove('via-morph');
+    });
+  }
 
   function renderLightbox() {
     lbImg.src = lbFiles[lbIndex];
@@ -719,31 +902,38 @@
     lbPrev.hidden = single;
     lbNext.hidden = single;
   }
-  function openLightbox(files, i, trigger) {
-    lbFiles = files;
-    lbIndex = i;
-    lbReturnFocus = trigger || document.activeElement;
+  function showLightbox() {
     renderLightbox();
     lb.hidden = false;
     lb.classList.add('is-open');
     document.body.classList.add('lightbox-open');
     document.body.style.overflow = 'hidden';
     lbClose.focus();
+    // Let the morph capture the decoded photo rather than an empty frame
+    return lbImg.decode ? lbImg.decode().catch(function () {}) : undefined;
   }
-  function closeLightbox() {
+  function hideLightbox() {
     lb.classList.remove('is-open');
     document.body.classList.remove('lightbox-open');
     lb.hidden = true;
     document.body.style.overflow = '';
     if (lbReturnFocus) lbReturnFocus.focus();
   }
+  function openLightbox(files, thumbs, i, trigger) {
+    lbFiles = files;
+    lbThumbs = thumbs;
+    lbIndex = i;
+    lbReturnFocus = trigger || document.activeElement;
+    morph(lbThumbs[lbIndex], lbImg, showLightbox);
+  }
+  function closeLightbox() { morph(lbImg, lbThumbs[lbIndex], hideLightbox); }
   function lbStep(d) { lbIndex = (lbIndex + d + lbFiles.length) % lbFiles.length; renderLightbox(); }
 
   document.querySelectorAll('[data-lightbox-group]').forEach(function (group) {
     var buttons = Array.prototype.slice.call(group.querySelectorAll('[data-src]'));
     var files = buttons.map(function (b) { return b.getAttribute('data-src'); });
     buttons.forEach(function (btn, i) {
-      btn.addEventListener('click', function () { openLightbox(files, i, btn); });
+      btn.addEventListener('click', function () { openLightbox(files, buttons, i, btn); });
     });
   });
   lbClose.addEventListener('click', closeLightbox);

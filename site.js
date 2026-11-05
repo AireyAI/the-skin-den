@@ -1,7 +1,8 @@
 /*
  * The Skin Den — shared public-site behaviour (v1.1 refresh).
- * Mobile drawer focus handling and the visibility of the floating booking controls.
- * Pages stay fully usable without this file.
+ * Mobile drawer focus handling, the visibility of the floating booking controls,
+ * the nav's glass capsule state and one-shot [data-reveal] entrances.
+ * Pages stay fully usable, with all content visible, without this file.
  */
 (function () {
   'use strict';
@@ -65,4 +66,40 @@
   // Hide floating controls where the booking choices or the footer are already on screen.
   watch(document.getElementById('book'), 'at-booking', false, 0.08);
   watch(document.querySelector('.footer'), 'at-footer', false, 0.01);
+
+  // ── Nav: flush bar at the top, floating glass capsule once scrolled ────
+  var nav = document.querySelector('.nav');
+  if (nav) {
+    var navQueued = false;
+    var updateNav = function () {
+      navQueued = false;
+      nav.classList.toggle('nav--floating', window.scrollY > 8);
+    };
+    window.addEventListener('scroll', function () {
+      if (!navQueued) { navQueued = true; requestAnimationFrame(updateNav); }
+    }, { passive: true });
+    updateNav();
+  }
+
+  // ── Reveal: [data-reveal] content comes into focus once as it enters view ──
+  // Anything already on screen is marked revealed before the hidden state is switched on,
+  // so nothing that is visible at load ever blinks out.
+  var revealables = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+  if (revealables.length && hasIO) {
+    var reveal = function (el) { el.classList.add('is-revealed'); };
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        reveal(entry.target);
+        revealObserver.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    var viewH = window.innerHeight;
+    revealables.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < viewH && r.bottom > 0) reveal(el);
+      else revealObserver.observe(el);
+    });
+    document.documentElement.classList.add('reveal-ready');
+  }
 })();

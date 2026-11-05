@@ -49,6 +49,22 @@ p { margin: 0; }
 }
 .skip-to-main:focus { top: 16px; }
 
+/* ── Glass material (v1.3) ────────────────────────────────────────────── */
+/* Ivory glass tinted from the clinic's own walls. Used only where a surface floats over moving
+   content: the nav capsule, the mobile book bar and the sticky treatment tabs. The fill stays
+   dense enough that gold-text on it keeps 4.5:1 over the darkest band it can cross (#book). */
+:root {
+  --nav-h: 72px;
+  --glass-fill: rgba(253, 248, 238, 0.82);
+  --glass-blur: blur(20px) saturate(170%);
+  --glass-edge: 0 0 0 1px rgba(42, 33, 23, 0.09);
+  --glass-rim: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 0 0 1px rgba(255, 255, 255, 0.34), inset 0 -1px 0 rgba(138, 113, 72, 0.16);
+  --glass-shadow: 0 16px 36px -18px rgba(42, 33, 23, 0.32), 0 3px 10px -6px rgba(42, 33, 23, 0.12);
+  /* Specular sheen: light falling on the top-left of the glass, a warm gold return along the base */
+  --glass-sheen: radial-gradient(70% 160% at 16% -55%, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0) 62%), linear-gradient(0deg, rgba(197, 160, 109, 0.12), rgba(197, 160, 109, 0) 45%);
+}
+@media (max-width: 900px) { :root { --nav-h: 64px; } }
+
 .container { max-width: calc(var(--container) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }
 .section { padding-block: var(--section); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -71,8 +87,9 @@ p { margin: 0; }
   border: 1px solid transparent; border-radius: var(--r-pill);
   font: 500 var(--t-ui)/1.2 var(--font-sans); letter-spacing: 0.01em;
   text-align: center; text-decoration: none; cursor: pointer;
-  transition: background-color var(--d-fast) var(--ease), color var(--d-fast) var(--ease), border-color var(--d-fast) var(--ease);
+  transition: background-color var(--d-fast) var(--ease), color var(--d-fast) var(--ease), border-color var(--d-fast) var(--ease), transform 160ms var(--ease-out);
 }
+.btn:active { transform: scale(0.97); }
 .btn--primary { background: var(--c-charcoal); color: var(--c-ivory); }
 .btn--primary:hover { background: var(--c-charcoal-soft); }
 .btn--secondary { background: transparent; color: var(--c-charcoal); border-color: var(--c-charcoal); }
@@ -91,15 +108,38 @@ p { margin: 0; }
 .link:hover { text-decoration-color: var(--c-charcoal); }
 
 /* ── Nav ──────────────────────────────────────────────────────────────── */
-.nav {
-  position: sticky; top: 0; z-index: var(--z-nav);
-  background: rgba(253, 248, 238, 0.92);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--c-line);
+/* At the top of the page the nav is a flush bar. Once the page scrolls (site.js adds .nav--floating)
+   its surface draws in to a floating glass capsule. Only the pseudo-element surfaces move, so the
+   header keeps its height and nothing below it shifts. The .nav itself carries no filter, so the
+   capsule's backdrop-filter samples the page behind it. */
+.nav { position: sticky; top: 0; z-index: var(--z-nav); isolation: isolate; }
+.nav::before, .nav::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  border-radius: 0;
+  transition: inset 460ms var(--ease-out), border-radius 460ms var(--ease-out), box-shadow 460ms var(--ease-out), background-color 460ms var(--ease-out), opacity 460ms var(--ease-out);
 }
+.nav::before {
+  background-color: rgba(253, 248, 238, 0.92);
+  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  box-shadow: inset 0 -1px 0 var(--c-line);
+}
+.nav::after { background-image: var(--glass-sheen); opacity: 0; }
+/* A short scroll-edge wash: text passing through the gap above the capsule fades out rather than
+   showing as cut-off fragments. It sits behind the surfaces, so the flush bar hides it at the top. */
+.nav--floating { background: linear-gradient(180deg, rgba(253, 248, 238, 0.92) 0, rgba(253, 248, 238, 0.5) 10px, rgba(253, 248, 238, 0) 30px); }
+.nav--floating::before, .nav--floating::after {
+  /* Wider on the brand side so the wordmark has air; tight on the button side so the pill sits concentric */
+  inset: 6px calc(max(var(--gutter), (100% - var(--container)) / 2) - 8px) 6px calc(max(var(--gutter), (100% - var(--container)) / 2) - 24px);
+  border-radius: var(--r-pill);
+}
+.nav--floating::before { background-color: var(--glass-fill); box-shadow: var(--glass-edge), var(--glass-rim), var(--glass-shadow); }
+.nav--floating::after { opacity: 1; }
+/* On glass over the charcoal booking band, the gold "by Rachel" deepens a step to hold 4.5:1 */
+.nav .brand__by { transition: color 460ms var(--ease-out); }
+.nav--floating .brand__by { color: #5F4B2E; }
 .nav__inner { display: flex; align-items: center; gap: 24px; min-height: 72px; }
 .brand { display: inline-block; text-decoration: none; white-space: nowrap; color: var(--c-charcoal); }
-.nav__inner > .brand { padding-block: 11px; }
+.nav__inner > .brand { padding-block: 11px; transition: translate 460ms var(--ease-out); }
 .brand__name { font: 500 22px/1 var(--font-serif); letter-spacing: -0.01em; }
 .brand__by { margin-left: 3px; font: italic 400 15px/1 var(--font-serif); color: var(--c-gold-text); }
 .nav__links { display: flex; align-items: center; gap: clamp(20px, 2.4vw, 32px); margin-left: auto; }
@@ -130,6 +170,9 @@ p { margin: 0; }
 @media (max-width: 900px) {
   .nav__inner { min-height: 64px; }
   .nav__cta { display: none; }
+  .nav--floating::before, .nav--floating::after { inset: 6px calc(var(--gutter) - 12px); }
+  .nav--floating .nav__inner > .brand { translate: 6px 0; }
+  .nav--floating .nav__burger { border-color: transparent; }
 }
 
 /* Mobile drawer */
@@ -202,25 +245,29 @@ p { margin: 0; }
   .tier { padding: 12px 0 12px 16px; }
 }
 
-/* ── Mobile bottom book bar (≤900px) ──────────────────────────────────── */
+/* ── Mobile book bar (≤900px): a floating glass tray ──────────────────── */
+/* Its controls are solid, so their contrast never depends on what scrolls beneath the glass. */
 .bookbar {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--z-elev);
-  display: none; gap: 10px;
-  padding: 10px 16px calc(10px + var(--safe-bottom));
-  background: rgba(253, 248, 238, 0.95);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-  border-top: 1px solid var(--c-line);
-  transform: translateY(110%); transition: transform 320ms var(--ease);
+  --bookbar-away: translateY(calc(100% + 16px + var(--safe-bottom)));
+  position: fixed; left: 12px; right: 12px; bottom: calc(12px + var(--safe-bottom)); z-index: var(--z-elev);
+  display: none; gap: 8px; max-width: 480px; margin-inline: auto; padding: 8px;
+  border-radius: var(--r-pill);
+  background: var(--glass-sheen), rgba(253, 248, 238, 0.66);
+  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-edge), var(--glass-rim), var(--glass-shadow);
+  transform: var(--bookbar-away); transition: transform 460ms var(--ease-out);
 }
 .bookbar .btn { flex: 1; }
 .bookbar__wa {
   flex: none; display: inline-flex; align-items: center; justify-content: center;
   width: 52px; height: 52px; border-radius: 50%;
   background: var(--c-ivory); border: 1px solid var(--c-line); color: #1E7A45;
+  transition: transform 160ms var(--ease-out);
 }
+.bookbar__wa:active { transform: scale(0.94); }
 .bookbar__wa svg { width: 24px; height: 24px; }
 body.past-hero .bookbar { transform: none; }
-body.at-booking .bookbar, body.cookie-open .bookbar { transform: translateY(110%); }
+body.at-booking .bookbar, body.cookie-open .bookbar { transform: var(--bookbar-away); }
 @media (max-width: 900px) {
   .bookbar { display: flex; }
   body.has-bookbar .footer { padding-bottom: calc(104px + var(--safe-bottom)); }
@@ -262,12 +309,42 @@ body.at-booking .wa-fab, body.at-footer .wa-fab, body.cookie-open .wa-fab { opac
   .cookie__actions .btn { flex: 1; }
 }
 
+/* ── Reveal: content comes into focus once, as it first enters view ─────── */
+/* Hidden start states apply only after site.js has its observer running (html.reveal-ready) and only
+   when motion is welcome, so content is never hidden without JS or under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  /* The transition lives on the revealed state only, so hiding at setup is instant (no fade-out) */
+  .reveal-ready [data-reveal].is-revealed {
+    transition: opacity 900ms var(--ease-out), filter 900ms var(--ease-out), translate 900ms var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .reveal-ready [data-reveal]:not(.is-revealed) { opacity: 0; filter: blur(6px); translate: 0 14px; }
+}
+@media print { [data-reveal] { opacity: 1 !important; filter: none !important; translate: none !important; } }
+
 /* ── Reduced motion ───────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     transition-duration: 1ms !important;
     transition-delay: 0s !important;
     animation-duration: 1ms !important;
+    animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
   }
+  .btn:active, .bookbar__wa:active { transform: none; }
+  .nav--floating .nav__inner > .brand { translate: none; }
+}
+
+/* ── Reduced transparency / more contrast: glass becomes a solid surface ── */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .nav::before, .nav--floating::before { background-color: var(--c-ivory); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .nav::after { display: none; }
+  .bookbar { background: var(--c-ivory); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+@media (prefers-contrast: more) {
+  .nav--floating::before, .bookbar { box-shadow: 0 0 0 1px var(--c-charcoal), var(--glass-shadow); }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav--floating::before { background-color: rgba(253, 248, 238, 0.96); }
+  .bookbar { background: rgba(253, 248, 238, 0.96); }
 }
