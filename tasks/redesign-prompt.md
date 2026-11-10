@@ -108,3 +108,18 @@ The hero photograph now moves: a 7.5 second silent loop of the same frame in whi
 - **Checks:** 31 scripted interaction checks pass (film playing on desktop and phone, off under reduced motion). Lighthouse lab, phone, throttled: performance 98, accessibility 100, LCP 2.2s, CLS 0. Not verified: iPhone Safari autoplay and Low Power Mode on a real device.
 
 The best next step for the desktop hero is a real wide photo or ten seconds of phone video from Rachel, shot from the same spot.
+
+## Internal files hidden from the live site (2026-11-10, Kyle's OK, live as `6f16624`)
+
+GitHub Pages published every tracked file. `_config.yml` now excludes the project notes and docs, client intake, spec, `CLAUDE.md`, the WhatsApp checklist, `google-guide.pdf`, the `platform-api` source, `design_mocks`, `brand_assets/scrape` (it held screenshots of client messages), the OG template, `src`, `video`, package files and dev scripts. Verified after the build: 32 hidden paths return 404, 27 runtime paths still 200, `/account/` and `/admin/` load with no failed module requests. The one "password" line in the admin-login doc, in every version, only points to the git-ignored local file. The repository itself is still public.
+
+## Treatments & prices, white pass (branch `redesign/treatments-white`, not committed or live)
+
+Kyle asked for a more modern, more beautiful section, "all white with black text" if needed. Designed directly by Opus 5.5 in this session, not routed to `designer`.
+
+- One white sheet with rounded corners, laid over a cream-to-ivory band so it bridges "Meet Rachel" above and the reviews below. Edge to edge on phones. Text is black (`#111`), body copy warm grey (`#55514C`, 7.9:1).
+- Categories became a segmented control with a sliding white pill, pinned under the nav for the whole list at every width (it used to be a side column on desktop). Script updated to match: one horizontal orientation; the covered area is the pinned band; the chosen category scrolls into view on phones.
+- Rows: three columns from 1000px (name, description, price); stacked below. Tags are small black pills. Before-and-afters are an overlapping stack of round photos.
+- Removed: the round RestoraPlex photo that sat under the old side column.
+- Unchanged: all 17 treatments, prices and descriptions, tags, notes, before-and-after photos, every id and deep link, the JSON-LD.
+- Checks: 31 interaction checks pass; contrast clean; content diff identical; no horizontal scroll at 375, 390, 768, 1024, 1280, 1440; keyboard focus visible on the switcher; no-JS shows every category with its heading; high-contrast and reduced-transparency modes get a solid white band.

@@ -277,40 +277,77 @@ document.documentElement.className = document.documentElement.className.replace(
     .rachel__portrait { justify-self: start; width: min(78%, 400px); margin: 0 0 0 10px; }
   }
 
-  /* ── Treatments & prices: the charcoal band, set like a printed menu ── */
-  .treatments { position: relative; background: var(--c-charcoal); color: var(--c-on-dark); }
-  .treatments__grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 40px clamp(48px, 7vw, 112px); align-items: start; }
-  .treatments__title { font-size: clamp(48px, 3.4vw + 30px, 92px); }
-  .treatments__lens { width: min(60%, 220px); aspect-ratio: 1; margin: 40px 0 0; overflow: hidden; border-radius: 50%; background: var(--c-charcoal-soft); box-shadow: 0 0 0 1px var(--c-line-on-dark), 0 0 0 9px var(--c-charcoal), 0 0 0 10px var(--c-line-on-dark); }
-  .treatments__lens img { width: 100%; height: 100%; object-fit: cover; }
-  .treatments__cta { margin-top: 32px; }
-  @media (min-width: 901px) and (min-height: 700px) {
-    .treatments__aside { position: sticky; top: calc(var(--nav-h) + 28px); }
+  /* ── Treatments & prices: a white sheet ─────────────────────────────
+     The section is one white sheet with soft rounded corners, laid over the page between the cream
+     "Meet Rachel" band and the ivory reviews, so it bridges the two. Black text, one material for the
+     category switcher, and the price list set as clean rows. */
+  .treatments {
+    --t-ink: #111111;
+    --t-body: #55514C;      /* 7.9:1 on white */
+    --t-muted: #6E6A65;     /* 4.8:1 on the switcher track */
+    --t-line: rgba(17, 17, 17, 0.09);
+    --t-track: #F2F1EE;
+    --inset: clamp(8px, 1.4vw, 20px);
+    position: relative; padding: var(--inset);
+    background: linear-gradient(180deg, var(--c-cream) 0, var(--c-ivory) 100%);
+    color: var(--t-ink);
   }
+  .treatments__sheet {
+    /* Inner padding that lines the content up with the rest of the page's container */
+    --sheet-pad: max(20px, calc(max(var(--gutter), (100vw - var(--container)) / 2) - var(--inset)));
+    position: relative; overflow: clip;
+    padding: clamp(64px, 7vw, 128px) var(--sheet-pad) clamp(48px, 6vw, 112px);
+    background: #FFFFFF; border-radius: clamp(28px, 2.6vw, 44px);
+    box-shadow: 0 1px 0 rgba(42, 33, 23, 0.04), 0 40px 90px -50px rgba(42, 33, 23, 0.32);
+  }
+  .treatments :focus-visible { outline-color: var(--t-ink); }
+  .treatments__head {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px 40px;
+    /* Room for the pinned switcher's band, which reaches up behind the nav (see .tabs-bar), so it never covers the title */
+    margin-bottom: var(--nav-h);
+  }
+  /* The bottom padding keeps the tail of the p inside the title's box, clear of the switcher's frosted band */
+  .treatments__title { padding-bottom: 0.18em; font-size: clamp(44px, 3.6vw + 20px, 88px); color: var(--t-ink); }
+  .treatments .btn--primary { background: var(--t-ink); color: #FFFFFF; }
+  .treatments .btn--primary:hover { background: #2B2926; }
 
-  /* Category index. A column beside the list on wide screens; a sticky strip above it on small ones. */
-  .tabs { position: relative; display: flex; flex-direction: column; margin-top: clamp(28px, 3vw, 44px); border-top: 1px solid var(--c-line-on-dark); }
+  /* Category switcher: a segmented control whose white pill slides to the chosen category. It stays
+     pinned under the nav while the list is read. Its band reaches up behind the nav (pulled up by the
+     amount it is padded, so the switcher keeps its place), and list text never shows around the capsule. */
+  .tabs-bar {
+    position: sticky; top: 0; z-index: 3; pointer-events: none;
+    margin: calc(-1 * var(--nav-h)) calc(-1 * var(--sheet-pad)) clamp(14px, 2vw, 28px);
+    padding: calc(var(--nav-h) + 8px) var(--sheet-pad) 12px;
+    background-color: rgba(255, 255, 255, 0.9);
+    -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%);
+    box-shadow: 0 1px 0 var(--t-line);
+  }
+  .tabs {
+    position: relative; display: inline-flex; max-width: 100%; gap: 2px; padding: 4px; vertical-align: top;
+    border-radius: var(--r-pill); background: var(--t-track);
+    overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; pointer-events: auto;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
   .tab {
-    display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
-    min-height: 60px; padding: 14px 0 14px 18px; text-align: left;
-    background: none; border: 0; border-bottom: 1px solid var(--c-line-on-dark); cursor: pointer;
-    color: var(--c-on-dark-muted);
-    transition: color var(--d-fast) var(--ease), padding-left var(--d-base) var(--ease);
+    position: relative; z-index: 1; flex: none; display: inline-flex; align-items: center; gap: 8px;
+    min-height: 48px; padding: 0 22px; border: 0; border-radius: var(--r-pill); background: none; cursor: pointer;
+    font: 500 15px/1 var(--font-sans); color: var(--t-muted); white-space: nowrap;
+    transition: color var(--d-fast) var(--ease);
   }
-  .tab__name { font: 300 clamp(22px, 0.7vw + 17px, 28px)/1.2 var(--font-serif); font-variation-settings: "opsz" 110; letter-spacing: -0.015em; }
-  .tab__from { font: 400 var(--t-meta)/1.3 var(--font-sans); font-variant-numeric: lining-nums tabular-nums; white-space: nowrap; }
-  .tab:hover, .tab[aria-selected="true"] { color: var(--c-on-dark); }
-  .tab[aria-selected="true"] .tab__from { color: var(--c-gold-soft); }
-  /* One gold marker slides to the chosen category (the page script measures it) */
-  .tabs::after {
-    content: ""; position: absolute; left: 0; top: 0; width: 2px; height: 1px;
-    background: var(--c-gold); transform-origin: 0 0; opacity: 0;
-    transform: translateY(var(--ind-y, 0px)) scaleY(var(--ind-h, 0));
+  .tab:hover, .tab[aria-selected="true"] { color: var(--t-ink); }
+  .tab:focus-visible { outline-offset: -3px; }
+  .tab__from { font-weight: 400; font-size: 13px; font-variant-numeric: lining-nums tabular-nums; color: var(--t-muted); }
+  .tabs::before {
+    content: ""; position: absolute; z-index: 0; top: 4px; bottom: 4px; left: 0; opacity: 0;
+    width: calc(var(--ind-w, 0) * 1px); border-radius: var(--r-pill); background: #FFFFFF;
+    box-shadow: 0 1px 2px rgba(17, 17, 17, 0.08), 0 8px 20px -10px rgba(17, 17, 17, 0.3);
+    transform: translateX(var(--ind-x, 0px));
   }
-  .tabs.has-indicator::after { opacity: 1; }
-  .tabs.indicator-live::after { transition: transform 460ms var(--ease-out); }
-  .no-js .tabs-bar, .no-js .treatments__cta { display: none; }
+  .tabs.has-indicator::before { opacity: 1; }
+  .tabs.indicator-live::before { transition: transform 480ms var(--ease-out), width 480ms var(--ease-out); }
+  .no-js .tabs-bar { display: none; }
 
+  /* The list */
   .menu { min-width: 0; }
   .menu__body { display: flow-root; }
   @media (prefers-reduced-motion: no-preference) {
@@ -319,49 +356,55 @@ document.documentElement.className = document.documentElement.className.replace(
   @keyframes panel-in { from { opacity: 0; translate: 0 12px; } }
   .no-js .menu__panel[hidden] { display: block; }
   .menu__cat { display: none; }
-  .no-js .menu__cat { display: block; margin: 40px 0 0; }
+  .no-js .menu__cat { display: block; margin: 48px 0 4px; font: 600 var(--t-meta)/1.4 var(--font-sans); color: var(--t-ink); }
   .no-js .menu__panel:first-of-type .menu__cat { margin-top: 0; }
   .menu__panel:focus-visible { outline-offset: 6px; }
   .item {
     display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "tag tag" "name price" "desc desc" "results results";
-    column-gap: 32px; align-items: baseline; padding: clamp(22px, 2vw, 30px) 0; border-bottom: 1px solid var(--c-line-on-dark);
+    column-gap: 24px; align-items: baseline; padding: clamp(22px, 2.2vw, 32px) 0; border-bottom: 1px solid var(--t-line);
   }
-  .menu__panel > .item:first-of-type { padding-top: 0; }
-  .item__tag { grid-area: tag; margin-bottom: 8px; font: 500 var(--t-meta)/1.4 var(--font-sans); color: var(--c-gold); }
-  .item__name { grid-area: name; font: 300 clamp(25px, 1vw + 19px, 38px)/1.12 var(--font-serif); font-variation-settings: "opsz" 144; letter-spacing: -0.022em; text-wrap: wrap; }
-  .item__price { grid-area: price; font: 300 clamp(24px, 0.8vw + 19px, 34px)/1.12 var(--font-serif); font-variant-numeric: lining-nums tabular-nums; letter-spacing: -0.01em; color: var(--c-gold-soft); text-align: right; white-space: nowrap; }
-  .item__price--text { font: italic 300 18px/1.3 var(--font-serif); letter-spacing: 0; }
-  .item__desc { grid-area: desc; max-width: 54ch; margin-top: 10px; font-size: 16px; line-height: 1.6; color: var(--c-on-dark-muted); }
-  .item__results { grid-area: results; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 18px; }
-  .result { width: 72px; height: 72px; padding: 0; overflow: hidden; background: var(--c-charcoal-soft); border: 0; border-radius: 50%; cursor: zoom-in; }
-  .result img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--d-base) var(--ease); }
-  .result:hover img { transform: scale(1.06); }
-  .item__results-label { margin-left: 8px; font-size: var(--t-meta); color: var(--c-on-dark-muted); }
-  .menu__note { padding-top: 22px; font: italic 300 17px/1.5 var(--font-serif); color: var(--c-on-dark-muted); }
+  .menu__panel > .item:last-of-type { border-bottom: 0; }
+  .item__tag {
+    grid-area: tag; justify-self: start; margin-bottom: 12px; padding: 6px 11px 5px;
+    border-radius: var(--r-pill); background: var(--t-ink); color: #FFFFFF;
+    font: 600 12px/1 var(--font-sans); letter-spacing: 0.02em;
+  }
+  .item__name { grid-area: name; font: 500 clamp(24px, 0.8vw + 19px, 32px)/1.15 var(--font-serif); font-variation-settings: "opsz" 72; letter-spacing: -0.02em; color: var(--t-ink); text-wrap: balance; }
+  .item__price { grid-area: price; justify-self: end; font: 500 clamp(24px, 0.6vw + 20px, 30px)/1.15 var(--font-serif); font-variant-numeric: lining-nums tabular-nums; letter-spacing: -0.01em; color: var(--t-ink); text-align: right; white-space: nowrap; }
+  .item__price--text { font: italic 400 17px/1.3 var(--font-serif); letter-spacing: 0; color: var(--t-body); }
+  .item__desc { grid-area: desc; max-width: 52ch; margin-top: 8px; font-size: 16px; line-height: 1.6; color: var(--t-body); }
+  /* Before-and-after photos: a small overlapping stack that opens the viewer */
+  .item__results { grid-area: results; display: flex; align-items: center; margin-top: 18px; }
+  .result {
+    position: relative; width: 64px; height: 64px; padding: 0; overflow: hidden; flex: none;
+    background: var(--t-track); border: 0; border-radius: 50%; box-shadow: 0 0 0 3px #FFFFFF; cursor: zoom-in;
+    transition: transform 220ms var(--ease-out);
+  }
+  .result + .result { margin-left: -12px; }
+  .result:hover, .result:focus-visible { z-index: 1; transform: translateY(-3px); }
+  .result img { width: 100%; height: 100%; object-fit: cover; }
+  .item__results-label { margin-left: 16px; font-size: var(--t-meta); color: var(--t-body); }
+  .menu__note { padding-top: 22px; font: italic 400 16px/1.5 var(--font-serif); color: var(--t-body); }
 
-  @media (max-width: 900px) {
-    /* One column. The side column dissolves so the strip can stay stuck for the whole length of the list. */
-    .treatments__grid { display: block; --bar-bleed: var(--gutter); }
-    .treatments__aside { display: contents; }
-    .treatments__title { margin-bottom: calc(var(--nav-h) + 4px); }
-    .treatments__lens, .treatments__cta { display: none; }
-    /* The strip sticks under the nav. It reaches up behind the nav (pulled up by the amount it is padded,
-       so the tabs keep their place) and list text never shows around the floating capsule. */
-    .tabs-bar {
-      position: sticky; top: 0; z-index: 2; pointer-events: none;
-      margin: calc(-1 * var(--nav-h)) calc(-1 * var(--bar-bleed)) 28px; padding: var(--nav-h) var(--bar-bleed) 0;
-      background-color: var(--c-glass-dark);
-      -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  /* Wide screens: each treatment is one row of three columns, name, what it does and price */
+  @media (min-width: 1000px) {
+    .item {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr) minmax(120px, 2fr);
+      grid-template-areas: "tag . ." "name desc price" ". results .";
+      column-gap: clamp(32px, 4vw, 72px); align-items: first baseline;
     }
-    .tabs { flex-direction: row; gap: 28px; margin-top: 0; overflow-x: auto; pointer-events: auto; border-top: 0; border-bottom: 1px solid var(--c-line-on-dark); scrollbar-width: none; scroll-snap-type: x proximity; }
-    .tabs::-webkit-scrollbar { display: none; }
-    .tab { flex: none; min-height: 54px; padding: 0; margin-bottom: -1px; border-bottom: 0; scroll-snap-align: start; align-items: center; }
-    .tab__name { font: 500 var(--t-ui)/1 var(--font-sans); font-variation-settings: normal; letter-spacing: 0; }
-    .tab__from { display: none; }
-    .tabs::after { top: auto; bottom: 0; width: 1px; height: 2px; transform: translateX(var(--ind-x, 0px)) scaleX(var(--ind-w, 0)); }
+    .item__desc { margin-top: 0; }
+  }
+  @media (max-width: 900px) {
+    .treatments__cta { display: none; }
   }
   @media (max-width: 600px) {
-    .tabs { gap: 24px; -webkit-mask-image: linear-gradient(90deg, #000 84%, transparent); mask-image: linear-gradient(90deg, #000 84%, transparent); }
+    /* Phones: the sheet runs edge to edge, its rounded corners still showing the cream and ivory */
+    .treatments { --inset: 0px; }
+    .treatments__sheet { border-radius: 28px; }
+    .tabs { display: flex; -webkit-mask-image: linear-gradient(90deg, #000 86%, transparent); mask-image: linear-gradient(90deg, #000 86%, transparent); }
+    .tab { min-height: 44px; padding: 0 16px; font-size: 14.5px; }
+    .tab__from { display: none; }
     .item { column-gap: 16px; }
     .item__price--text { max-width: 10ch; white-space: normal; }
   }
@@ -464,16 +507,16 @@ document.documentElement.className = document.documentElement.className.replace(
 
   /* Glass falls back to solid surfaces when transparency is reduced or more contrast is requested */
   @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
-    .tabs-bar { background-color: var(--c-charcoal); -webkit-backdrop-filter: none; backdrop-filter: none; }
+    .tabs-bar { background-color: #FFFFFF; -webkit-backdrop-filter: none; backdrop-filter: none; }
     .lightbox { background: rgba(42, 33, 23, 0.97); -webkit-backdrop-filter: none; backdrop-filter: none; }
     .lightbox__nav, .lightbox__counter { background: var(--c-charcoal); }
   }
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .tabs-bar { background-color: var(--c-charcoal); }
+    .tabs-bar { background-color: #FFFFFF; }
     .lightbox { background: rgba(42, 33, 23, 0.95); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .result:hover img { transform: none; }
+    .result:hover, .result:focus-visible { transform: none; }
   }
 </style>
 </head>
@@ -601,12 +644,15 @@ document.documentElement.className = document.documentElement.className.replace(
   </div>
 </section>
 
-<section class="section treatments on-dark" id="treatments" aria-labelledby="treatments-title">
+<section class="section treatments" id="treatments" aria-labelledby="treatments-title">
   <span class="anchor-alias" id="paths" aria-hidden="true"></span>
   <span class="anchor-alias" id="before-afters" aria-hidden="true"></span>
-  <div class="container treatments__grid" id="treatment-menu">
-    <div class="treatments__aside">
+  <div class="treatments__sheet">
+    <div class="treatments__head">
       <h2 class="treatments__title display" id="treatments-title">Treatments &amp; prices</h2>
+      <a class="btn btn--primary treatments__cta" href="#book">Book a consultation</a>
+    </div>
+    <div class="menu" id="treatment-menu">
       <div class="tabs-bar">
         <div class="tabs" role="tablist" aria-label="Treatment categories">
           <button class="tab" type="button" role="tab" id="tab-facials" aria-controls="panel-facials" aria-selected="true"><span class="tab__name">Facials</span> <span class="tab__from">from £50</span></button>
@@ -615,13 +661,6 @@ document.documentElement.className = document.documentElement.className.replace(
           <button class="tab" type="button" role="tab" id="tab-polynucleotides" aria-controls="panel-polynucleotides" aria-selected="false" tabindex="-1"><span class="tab__name">Polynucleotides</span> <span class="tab__from">£120</span></button>
         </div>
       </div>
-      <a class="btn btn--light treatments__cta" href="#book">Book a consultation</a>
-      <figure class="treatments__lens">
-        <img src="brand_assets/photos/fb_581812689_122141261762935999.jpg" width="414" height="414" alt="RestoraPlex professional peel solutions in the treatment room" loading="lazy" decoding="async">
-      </figure>
-    </div>
-
-    <div class="menu">
       <div class="menu__body">
         <div class="menu__panel" role="tabpanel" id="panel-facials" aria-labelledby="tab-facials" tabindex="0">
           <p class="label menu__cat">Facials</p>
@@ -916,34 +955,38 @@ document.documentElement.className = document.documentElement.className.replace(
   }
 
   // ── Treatment menu tabs (ARIA tabs: click, arrows, Home, End) ─────────
-  // The category index is a column beside the list on wide screens and a sticky strip above it on small ones.
+  // The categories are a segmented control pinned under the nav while the list below it is read.
   var menu = document.getElementById('treatment-menu');
   var tabs = Array.prototype.slice.call(menu.querySelectorAll('[role="tab"]'));
   var tablist = menu.querySelector('[role="tablist"]');
   var tabsBar = menu.querySelector('.tabs-bar');
   var menuBody = menu.querySelector('.menu__body');
-  var siteNav = document.querySelector('.nav');
-  var strip = window.matchMedia('(max-width: 900px)');
 
   function panelOf(tab) { return document.getElementById(tab.getAttribute('aria-controls')); }
   function currentTab() { return tabs.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0]; }
 
-  // One gold marker slides to the chosen category: down the column, or along the strip
+  // One white pill slides to the chosen category. On a phone the switcher scrolls sideways, so the
+  // chosen category is also brought fully into view.
   function placeIndicator() {
     var on = currentTab();
     if (!tablist || !on || !on.offsetWidth) return;
     tablist.style.setProperty('--ind-x', on.offsetLeft + 'px');
     tablist.style.setProperty('--ind-w', String(on.offsetWidth));
-    tablist.style.setProperty('--ind-y', on.offsetTop + 'px');
-    tablist.style.setProperty('--ind-h', String(on.offsetHeight));
+    if (tablist.scrollWidth > tablist.clientWidth + 1) {
+      var left = on.offsetLeft, right = left + on.offsetWidth, view = tablist.scrollLeft, edge = 24;
+      if (left < view + edge || right > view + tablist.clientWidth - edge) {
+        var glide = tablist.classList.contains('indicator-live') && !reduceMotion.matches;
+        tablist.scrollTo({ left: Math.max(0, left - edge), behavior: glide ? 'smooth' : 'auto' });
+      }
+    }
     if (!tablist.classList.contains('has-indicator')) {
       tablist.classList.add('has-indicator');
       requestAnimationFrame(function () { requestAnimationFrame(function () { tablist.classList.add('indicator-live'); }); });
     }
   }
-  // How much of the top of the viewport is covered once the list is being read: the nav, plus the strip on small screens
+  // How much of the top of the viewport is covered once the list is being read: the nav and the pinned switcher
   function cover() {
-    return strip.matches ? tabsBar.offsetHeight : (siteNav ? siteNav.offsetHeight : 0) + 20;
+    return tabsBar.offsetHeight;
   }
   function jumpBy(dy) {
     var root = document.documentElement;
@@ -977,10 +1020,10 @@ document.documentElement.className = document.documentElement.className.replace(
     }
     if (focus) tab.focus();
   }
-  // Keyboard focus never hides under the stuck strip (WCAG 2.4.11): browsers treat a control
+  // Keyboard focus never hides under the pinned switcher (WCAG 2.4.11): browsers treat a control
   // behind a sticky overlay as already visible, so nudge it clear.
   menu.addEventListener('focusin', function (e) {
-    if (!strip.matches || tabsBar.contains(e.target) || e.target.getAttribute('role') === 'tabpanel') return;
+    if (tabsBar.contains(e.target) || e.target.getAttribute('role') === 'tabpanel') return;
     if (e.target.matches && !e.target.matches(':focus-visible')) return; // keyboard focus only; a pointer press must not move the page
     var covered = tablist.getBoundingClientRect().bottom;
     var top = e.target.getBoundingClientRect().top;
@@ -997,12 +1040,7 @@ document.documentElement.className = document.documentElement.className.replace(
     var panel = panelOf(tab);
     if (panel) panel.addEventListener('animationend', function () { panel.classList.remove('is-entering'); });
   });
-  function orient() {
-    tablist.setAttribute('aria-orientation', strip.matches ? 'horizontal' : 'vertical');
-    placeIndicator();
-  }
-  if (strip.addEventListener) strip.addEventListener('change', orient);
-  orient();
+  tablist.setAttribute('aria-orientation', 'horizontal');
   if (tabs.length) selectTab(tabs[0]);
   // Re-measure the marker when tab sizes change (web fonts arriving, resizes)
   if ('ResizeObserver' in window) {
