@@ -1144,12 +1144,26 @@ document.documentElement.className = document.documentElement.className.replace(
   var COOKIE_KEY = 'tsd-cookie-consent';
   function readChoice() { try { return localStorage.getItem(COOKIE_KEY); } catch (e) { return 'unavailable'; } }
   function storeChoice(choice) { try { localStorage.setItem(COOKIE_KEY, choice); } catch (e) {} }
+  function showCookie() {
+    if (!cookie.hidden) return;
+    cookie.hidden = false;
+    document.body.classList.add('cookie-open');
+    requestAnimationFrame(function () { cookie.classList.add('is-visible'); });
+  }
   if (cookie && !readChoice()) {
-    setTimeout(function () {
-      cookie.hidden = false;
-      document.body.classList.add('cookie-open');
-      requestAnimationFrame(function () { cookie.classList.add('is-visible'); });
-    }, 1800);
+    var heroTop = document.getElementById('top');
+    // On small screens the note would sit on top of the hero's booking button, so it waits until the hero
+    // has been scrolled past. Nothing here sets a cookie or loads analytics before a choice is made.
+    if (window.matchMedia('(max-width: 900px)').matches && heroTop && 'IntersectionObserver' in window) {
+      var cookieWatch = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) return;
+        cookieWatch.disconnect();
+        showCookie();
+      }, { threshold: 0.05 });
+      cookieWatch.observe(heroTop);
+    } else {
+      setTimeout(showCookie, 1800);
+    }
   }
   function dismissCookie(choice) {
     storeChoice(choice);

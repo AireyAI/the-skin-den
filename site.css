@@ -337,6 +337,7 @@ body.at-booking .wa-fab, body.at-footer .wa-fab, body.cookie-open .wa-fab { opac
 .cookie__actions { display: flex; flex: none; gap: 8px; }
 .cookie__actions .btn { min-height: 44px; padding: 0 18px; font-size: var(--t-meta); }
 @media (max-width: 700px) {
+  .cookie { padding: 12px 0 calc(12px + var(--safe-bottom)); }
   .cookie__inner { flex-direction: column; align-items: stretch; gap: 10px; }
   .cookie__text { font-size: var(--t-small); }
   .cookie__actions .btn { flex: 1; }
