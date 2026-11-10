@@ -2,6 +2,28 @@
 include:
   - .well-known
 
-# Internal working notes: kept in the repository, not published on the site.
+# Kept in the repository, not published on the site: internal notes and documents, the backend's
+# source (it runs on Railway, not here), scraped reference material and local build/dev scripts.
+# Everything the public pages, /account and /admin load at runtime stays published.
 exclude:
   - tasks
+  - docs
+  - CLAUDE.md
+  - SPEC.md
+  - client_intake.md
+  - rachel_whatsapp_checklist.md
+  - google-guide.pdf
+  - platform-api
+  - design_mocks
+  - brand_assets/scrape
+  - brand_assets/og-template.html
+  - src
+  - video
+  - package.json
+  - package-lock.json
+  - tailwind.config.js
+  - serve.mjs
+  - render_og.mjs
+  - diagnose_scroll.mjs
+  - verify_fab.mjs
+  - screenshot*.mjs
