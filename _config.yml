@@ -1,3 +1,7 @@
 # Keep the Apple Sign in with Apple domain association available on GitHub Pages.
 include:
   - .well-known
+
+# Internal working notes: kept in the repository, not published on the site.
+exclude:
+  - tasks

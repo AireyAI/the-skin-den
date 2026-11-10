@@ -1,5 +1,5 @@
 /*
- * The Skin Den — shared public-site behaviour (v1.1 refresh).
+ * The Skin Den — shared public-site behaviour.
  * Mobile drawer focus handling, the visibility of the floating booking controls,
  * the nav's glass capsule state and one-shot [data-reveal] entrances.
  * Pages stay fully usable, with all content visible, without this file.
