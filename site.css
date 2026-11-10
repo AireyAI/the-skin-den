@@ -1,13 +1,16 @@
 /*
- * The Skin Den — shared public-site styles (v1.1 refresh, 2026-11-04).
- * Values come from tokens.css. Used by studio.html, faq.html, policy.html and 404.html.
+ * The Skin Den — shared public-site styles (v2 "The Den", 2026-11-10).
+ * Values come from tokens.css. Used by index.html, faq.html, policy.html and 404.html.
+ * The site is built from Rachel's own room: a panelled wall, a round plaque, a lamp and steam.
  */
 
 /* ── Base ─────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 html { background: var(--c-ivory); -webkit-text-size-adjust: 100%; }
-/* Smooth in-page scrolling, switched on after load so deep links (studio.html#book) jump straight to their target */
+/* Smooth in-page scrolling, switched on after load so deep links (/#book) jump straight to their target */
 @media (prefers-reduced-motion: no-preference) { html.smooth-scroll { scroll-behavior: smooth; } }
+/* Moving between the site's pages cross-fades where the browser supports it */
+@view-transition { navigation: auto; }
 body {
   margin: 0;
   background: var(--c-ivory);
@@ -35,9 +38,10 @@ p { margin: 0; }
 ::selection { background: var(--c-gold-soft); color: var(--c-charcoal); }
 [id] { scroll-margin-top: 88px; }
 
-/* Focus: 2px #6F5938 on light surfaces, gold on charcoal */
+/* Focus: 2px #6F5938 on light surfaces, soft gold on the wall, gold on charcoal */
 :focus:not(:focus-visible) { outline: none; }
 :focus-visible { outline: 2px solid var(--c-focus); outline-offset: 3px; border-radius: 4px; }
+.on-wall :focus-visible { outline-color: var(--c-gold-soft); }
 .on-dark :focus-visible { outline-color: var(--c-gold); }
 
 .skip-to-main {
@@ -49,10 +53,10 @@ p { margin: 0; }
 }
 .skip-to-main:focus { top: 16px; }
 
-/* ── Glass material (v1.3) ────────────────────────────────────────────── */
+/* ── Glass material ───────────────────────────────────────────────────── */
 /* Ivory glass tinted from the clinic's own walls. Used only where a surface floats over moving
    content: the nav capsule, the mobile book bar and the sticky treatment tabs. The fill stays
-   dense enough that gold-text on it keeps 4.5:1 over the darkest band it can cross (#book). */
+   dense enough that text on it keeps 4.5:1 over the darkest band it can cross. */
 :root {
   --nav-h: 72px;
   --glass-fill: rgba(253, 248, 238, 0.82);
@@ -60,23 +64,26 @@ p { margin: 0; }
   --glass-edge: 0 0 0 1px rgba(42, 33, 23, 0.09);
   --glass-rim: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 0 0 1px rgba(255, 255, 255, 0.34), inset 0 -1px 0 rgba(138, 113, 72, 0.16);
   --glass-shadow: 0 16px 36px -18px rgba(42, 33, 23, 0.32), 0 3px 10px -6px rgba(42, 33, 23, 0.12);
-  /* Specular sheen: light falling on the top-left of the glass, a warm gold return along the base */
   --glass-sheen: radial-gradient(70% 160% at 16% -55%, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0) 62%), linear-gradient(0deg, rgba(197, 160, 109, 0.12), rgba(197, 160, 109, 0) 45%);
 }
 @media (max-width: 900px) { :root { --nav-h: 64px; } }
 
 .container { max-width: calc(var(--container) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }
-.section { padding-block: var(--section); }
+.section { padding-block: var(--section-v2); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.anchor-alias { position: absolute; top: 0; }
 
 /* ── Text roles ───────────────────────────────────────────────────────── */
-/* The only tracked-caps style on the site */
+/* Display: Fraunces heavy at its largest optical size, close in weight to the lettering on Rachel's sign */
+.display { font-weight: 600; font-variation-settings: "opsz" 144; letter-spacing: -0.032em; line-height: 0.98; }
+.on-dark h2, .on-dark h3 { color: var(--c-on-dark); }
+/* A quiet line of context above or beside a heading. Sentence case, never tracked capitals. */
 .label {
   margin: 0 0 16px;
-  font: 600 var(--t-small)/1.4 var(--font-sans);
-  letter-spacing: 0.14em; text-transform: uppercase;
+  font: 500 var(--t-ui)/1.4 var(--font-sans);
   color: var(--c-gold-text);
 }
+.on-wall .label { color: var(--c-on-wall); }
 .on-dark .label { color: var(--c-gold); }
 .lead { font-size: var(--t-lead); line-height: 1.6; color: var(--c-charcoal-soft); }
 
@@ -96,6 +103,8 @@ p { margin: 0; }
 .btn--secondary:hover { background: rgba(42, 33, 23, 0.06); }
 .btn--light { background: var(--c-ivory); color: var(--c-charcoal); }
 .btn--light:hover { background: var(--c-cream); }
+.btn--outline-light { background: transparent; color: var(--c-on-dark); border-color: var(--c-edge-on-dark); }
+.btn--outline-light:hover { background: var(--c-wash-on-dark); border-color: var(--c-on-dark); }
 .btn--sm { min-height: 44px; padding: 0 20px; font-size: var(--t-meta); }
 
 .link {
@@ -106,12 +115,45 @@ p { margin: 0; }
   transition: text-decoration-color var(--d-fast) var(--ease);
 }
 .link:hover { text-decoration-color: var(--c-charcoal); }
+.on-wall .link { color: var(--c-on-wall); text-decoration-color: var(--c-gold-soft); }
+.on-wall .link:hover { text-decoration-color: var(--c-on-wall); }
+.on-dark .link { color: var(--c-on-dark); }
+.on-dark .link:hover { text-decoration-color: var(--c-on-dark); }
+.arrow { flex: none; width: 18px; height: 18px; transition: transform var(--d-base) var(--ease); }
+.link--arrow { gap: 14px; }
+.link--arrow:hover .arrow { transform: translate(3px, -3px); }
+
+/* ── The wall ─────────────────────────────────────────────────────────── */
+/* A flat ground in the colour of Rachel's real wall, with a little film grain so it sits with her
+   photograph rather than looking like a fill. Text on it is ivory. */
+.wall { position: relative; isolation: isolate; background-color: var(--c-wall); color: var(--c-on-wall); }
+.wall::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.22; mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── The plaque: Rachel's own logo ────────────────────────────────────── */
+/* A round acrylic sign with the real wordmark (traced from her artwork, brand_assets/logo.svg) and a
+   ring just inside the edge, as it hangs in the treatment room. Sized by --plaque-size. */
+.plaque {
+  --plaque-size: 112px;
+  position: relative; flex: none;
+  display: grid; place-content: center; justify-items: center;
+  width: var(--plaque-size); height: var(--plaque-size); border-radius: 50%;
+  background: var(--c-plaque); color: var(--c-charcoal);
+  box-shadow: inset 0 0 0 calc(var(--plaque-size) * 0.024) var(--c-plaque), inset 0 0 0 calc(var(--plaque-size) * 0.034) var(--c-charcoal);
+}
+.plaque__mark { display: block; width: calc(var(--plaque-size) * 0.66); aspect-ratio: 2257 / 1031; fill: currentColor; }
+.plaque__by {
+  margin-top: calc(var(--plaque-size) * 0.062);
+  font: 400 calc(var(--plaque-size) * 0.036)/1 var(--font-serif);
+  letter-spacing: 0.3em; text-indent: 0.3em; text-transform: uppercase; white-space: nowrap;
+}
 
 /* ── Nav ──────────────────────────────────────────────────────────────── */
 /* At the top of the page the nav is a flush bar. Once the page scrolls (site.js adds .nav--floating)
    its surface draws in to a floating glass capsule. Only the pseudo-element surfaces move, so the
-   header keeps its height and nothing below it shifts. The .nav itself carries no filter, so the
-   capsule's backdrop-filter samples the page behind it. */
+   header keeps its height and nothing below it shifts. */
 .nav { position: sticky; top: 0; z-index: var(--z-nav); isolation: isolate; }
 .nav::before, .nav::after {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
@@ -131,29 +173,27 @@ p { margin: 0; }
 }
 .nav--floating::before { background-color: var(--glass-fill); box-shadow: var(--glass-edge), var(--glass-rim), var(--glass-shadow); }
 .nav--floating::after { opacity: 1; }
-/* On glass over the charcoal booking band, the gold "by Rachel" deepens a step to hold 4.5:1 */
-.nav .brand__by { transition: color 460ms var(--ease-out); }
-.nav--floating .brand__by { color: #5F4B2E; }
 .nav__inner { display: flex; align-items: center; gap: 24px; min-height: 72px; }
-.brand { display: inline-block; text-decoration: none; white-space: nowrap; color: var(--c-charcoal); }
-.nav__inner > .brand { padding-block: 11px; transition: translate 460ms var(--ease-out); }
-.brand__name { font: 500 22px/1 var(--font-serif); letter-spacing: -0.01em; }
-.brand__by { margin-left: 3px; font: italic 400 15px/1 var(--font-serif); color: var(--c-gold-text); }
+
+/* The wordmark, on one line */
+.brand { display: inline-flex; align-items: center; text-decoration: none; white-space: nowrap; color: var(--c-charcoal); }
+.nav__inner > .brand { min-height: 44px; transition: translate 460ms var(--ease-out), opacity 300ms var(--ease-out), visibility 300ms; }
+.brand__mark { display: block; height: 19px; aspect-ratio: 3426 / 445; fill: currentColor; }
+
 .nav__links { display: flex; align-items: center; gap: clamp(20px, 2.4vw, 32px); margin-left: auto; }
 .nav__links a {
   padding: 13px 0; border-bottom: 1px solid transparent;
   font: 500 var(--t-ui)/1 var(--font-sans); color: var(--c-charcoal-soft); text-decoration: none;
   transition: color var(--d-fast) var(--ease), border-color var(--d-fast) var(--ease);
 }
-.nav__links a:hover, .nav__links a.is-active { color: var(--c-charcoal); border-bottom-color: var(--c-gold); }
+.nav__links a:hover, .nav__links a.is-active { color: var(--c-charcoal); border-bottom-color: var(--c-gold-deep); }
 .nav__cta { flex: none; margin-left: 8px; }
 .nav__back { margin-left: auto; white-space: nowrap; }
-@media (max-width: 480px) { .nav--sub .brand__by { display: none; } }
 /* DOM order: brand, links, burger, cta */
 .nav__burger {
   display: none; align-items: center; gap: 8px;
   min-height: 44px; padding: 0 16px; margin-left: auto;
-  background: transparent; border: 1px solid var(--c-line); border-radius: var(--r-pill);
+  background: transparent; border: 1px solid var(--c-line-strong); border-radius: var(--r-pill);
   font: 500 var(--t-ui)/1 var(--font-sans); cursor: pointer;
   transition: border-color var(--d-fast) var(--ease);
 }
@@ -170,6 +210,7 @@ p { margin: 0; }
   .nav--floating::before, .nav--floating::after { inset: 6px calc(var(--gutter) - 12px); }
   .nav--floating .nav__inner > .brand { translate: 6px 0; }
   .nav--floating .nav__burger { border-color: transparent; }
+  .brand__mark { height: 17px; }
 }
 
 /* Mobile drawer */
@@ -180,70 +221,58 @@ p { margin: 0; }
 .mobile-drawer__panel {
   position: absolute; top: 0; right: 0; bottom: 0; width: min(88vw, 400px);
   display: flex; flex-direction: column; overflow-y: auto;
-  padding: 16px 24px calc(24px + var(--safe-bottom));
+  padding: 10px 24px calc(24px + var(--safe-bottom));
   background: var(--c-ivory);
   transform: translateX(100%); transition: transform 320ms var(--ease);
 }
 .mobile-drawer.is-open .mobile-drawer__panel { transform: none; }
-.mobile-drawer__head { display: flex; align-items: center; justify-content: space-between; min-height: 48px; margin-bottom: 24px; }
+.mobile-drawer__head { display: flex; align-items: center; justify-content: space-between; min-height: 48px; margin-bottom: 20px; }
 .mobile-drawer__close {
   display: inline-flex; align-items: center; justify-content: center;
   width: 44px; height: 44px; border-radius: 50%;
-  background: transparent; border: 1px solid var(--c-line); cursor: pointer;
+  background: transparent; border: 1px solid var(--c-line-strong); cursor: pointer;
 }
 .mobile-drawer__close svg { width: 16px; height: 16px; }
 .mobile-drawer__links a {
-  display: flex; align-items: center; min-height: 56px;
+  display: flex; align-items: center; min-height: 60px;
   border-bottom: 1px solid var(--c-line);
-  font: 400 26px/1.2 var(--font-serif); color: var(--c-charcoal); text-decoration: none;
+  font: 300 30px/1.2 var(--font-serif); font-variation-settings: "opsz" 144; letter-spacing: -0.02em; color: var(--c-charcoal); text-decoration: none;
 }
 .mobile-drawer__cta { margin-top: 28px; }
 .mobile-drawer__footer { display: grid; gap: 2px; margin-top: auto; padding-top: 28px; font-size: var(--t-meta); color: var(--c-charcoal-soft); }
 .mobile-drawer__footer a { display: inline-flex; align-items: center; min-height: 44px; color: inherit; text-decoration: none; }
 .mobile-drawer__footer span { display: inline-flex; align-items: center; min-height: 44px; }
 
-/* ── Footer ───────────────────────────────────────────────────────────── */
-.footer { background: var(--c-ivory); border-top: 1px solid var(--c-line); padding: clamp(56px, 6vw, 88px) 0 32px; }
-.footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px clamp(32px, 4vw, 64px); }
-/* Editorial footer (v1.4): a large wordmark and serif column titles */
-.footer__grid .brand__name { font-size: clamp(30px, 1.4vw + 22px, 40px); font-weight: 400; letter-spacing: -0.02em; }
-.footer__grid .brand__by { font-size: clamp(17px, 0.4vw + 15px, 20px); }
-.footer__grid .label { margin-bottom: 12px; font: 400 clamp(24px, 0.6vw + 20px, 28px)/1.2 var(--font-serif); letter-spacing: -0.01em; text-transform: none; color: var(--c-charcoal); }
-.plaque {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  width: 104px; height: 104px; margin-bottom: 20px; border-radius: 50%;
-  background: var(--c-cream); border: 1.5px solid var(--c-charcoal);
-  box-shadow: inset 0 0 0 6px var(--c-cream), inset 0 0 0 7px var(--c-charcoal);
-  font-family: var(--font-serif); line-height: 0.95; color: var(--c-charcoal);
-}
-.plaque__top { font-size: 15px; font-weight: 600; }
-.plaque__big { font-size: 21px; font-weight: 600; }
-.plaque__sub { margin-top: 4px; font-size: 8px; font-style: italic; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-gold-text); }
-.footer__desc { max-width: 34ch; margin-top: 8px; font-size: 16px; color: var(--c-charcoal-soft); }
+/* ── Footer: charcoal, with the plaque ────────────────────────────────── */
+.footer { background: var(--c-charcoal); color: var(--c-on-dark-muted); padding: clamp(64px, 7vw, 104px) 0 32px; }
+.footer__grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px clamp(32px, 4vw, 64px); }
+.footer .plaque { --plaque-size: 132px; margin-bottom: 24px; box-shadow: inset 0 0 0 calc(var(--plaque-size) * 0.024) var(--c-plaque), inset 0 0 0 calc(var(--plaque-size) * 0.034) var(--c-charcoal), 0 18px 40px -18px rgba(0, 0, 0, 0.6); }
+.footer__desc { max-width: 30ch; font: 300 clamp(22px, 0.6vw + 19px, 27px)/1.3 var(--font-serif); letter-spacing: -0.01em; color: var(--c-on-dark); }
+.footer__title { margin: 0 0 12px; font: 500 var(--t-ui)/1.4 var(--font-sans); color: var(--c-gold); }
 .footer__links { list-style: none; margin: 0; padding: 0; }
-.footer__links li { display: flex; align-items: center; min-height: 36px; font-size: var(--t-ui); color: var(--c-charcoal-soft); }
-.footer__links a { display: inline-flex; align-items: center; min-height: 36px; color: inherit; text-decoration: none; }
-.footer__links a:hover { color: var(--c-charcoal); text-decoration: underline; text-decoration-color: var(--c-gold); text-underline-offset: 4px; }
-.footer__bottom a { color: inherit; text-underline-offset: 3px; }
+.footer__links li { display: flex; align-items: center; min-height: 36px; font-size: var(--t-ui); }
+.footer__links a { display: inline-flex; align-items: center; min-height: 36px; color: var(--c-on-dark); text-decoration: none; }
+.footer__links a:hover { text-decoration: underline; text-decoration-color: var(--c-gold); text-underline-offset: 4px; }
 .footer__bottom {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px;
-  margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--c-line);
-  font-size: var(--t-meta); color: var(--c-text-muted);
+  margin-top: clamp(48px, 5vw, 72px); padding-top: 24px; border-top: 1px solid var(--c-line-on-dark);
+  font-size: var(--t-meta);
 }
-@media (max-width: 900px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
+.footer__bottom a { color: inherit; text-underline-offset: 3px; }
+@media (max-width: 900px) { .footer__grid { grid-template-columns: 1fr 1fr; } .footer__grid > :first-child { grid-column: 1 / -1; } }
 @media (max-width: 600px) {
   .footer__grid { grid-template-columns: 1fr; gap: 32px; }
   .footer__links li, .footer__links a { min-height: 44px; }
 }
 
-/* ── Cancellation tiers (booking panel and policy page) ───────────────── */
+/* ── Cancellation tiers (booking band and policy page) ────────────────── */
 .tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
-.tier { padding: 4px 20px 4px 18px; border-left: 2px solid var(--c-gold); }
-.tier__h { margin: 0; font: 500 19px/1.3 var(--font-serif); color: var(--c-gold-text); }
-.tier__p { margin: 4px 0 0; font-size: var(--t-ui); line-height: 1.5; color: var(--c-charcoal-soft); }
+.tier { padding: 4px 20px 4px 18px; border-left: 1px solid var(--c-gold-deep); }
+.tier__h { margin: 0; font: 400 clamp(22px, 0.5vw + 20px, 27px)/1.2 var(--font-serif); letter-spacing: -0.01em; color: var(--c-charcoal); }
+.tier__p { margin: 6px 0 0; font-size: var(--t-ui); line-height: 1.5; color: var(--c-charcoal-soft); }
 @media (max-width: 600px) {
   .tiers { grid-template-columns: 1fr; gap: 8px; }
-  .tier { padding: 12px 0 12px 16px; }
+  .tier { padding: 10px 0 10px 16px; }
 }
 
 /* ── Mobile book bar (≤900px): a floating glass tray ──────────────────── */
@@ -274,16 +303,19 @@ body.at-booking .bookbar, body.cookie-open .bookbar { transform: var(--bookbar-a
   body.has-bookbar .footer { padding-bottom: calc(104px + var(--safe-bottom)); }
 }
 
-/* Desktop WhatsApp button (hidden on mobile, where the bottom bar has it) */
+/* Desktop WhatsApp button (hidden on mobile, where the bottom bar has it): the same ivory lens */
 .wa-fab {
   position: fixed; right: 24px; bottom: calc(24px + var(--safe-bottom)); z-index: var(--z-elev);
   display: inline-flex; align-items: center; justify-content: center;
-  width: 52px; height: 52px; border-radius: 50%;
-  background: #25D366; color: #fff; text-decoration: none;
-  box-shadow: 0 8px 20px -8px rgba(42, 33, 23, 0.45);
-  transition: opacity var(--d-base) var(--ease);
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--c-ivory); color: #1E7A45; text-decoration: none;
+  box-shadow: var(--glass-edge), 0 14px 30px -14px rgba(42, 33, 23, 0.5);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--d-base) var(--ease), transform 160ms var(--ease-out);
 }
+.wa-fab:hover { transform: scale(1.05); }
 .wa-fab svg { width: 26px; height: 26px; }
+body.past-hero .wa-fab { opacity: 1; pointer-events: auto; }
 body.at-booking .wa-fab, body.at-footer .wa-fab, body.cookie-open .wa-fab { opacity: 0; pointer-events: none; }
 @media (max-width: 900px) { .wa-fab { display: none; } }
 
@@ -314,7 +346,6 @@ body.at-booking .wa-fab, body.at-footer .wa-fab, body.cookie-open .wa-fab { opac
 /* Hidden start states apply only after site.js has its observer running (html.reveal-ready) and only
    when motion is welcome, so content is never hidden without JS or under reduced motion. */
 @media (prefers-reduced-motion: no-preference) {
-  /* The transition lives on the revealed state only, so hiding at setup is instant (no fade-out) */
   .reveal-ready [data-reveal].is-revealed {
     transition: opacity 900ms var(--ease-out), filter 900ms var(--ease-out), translate 900ms var(--ease-out);
     transition-delay: var(--reveal-delay, 0ms);
@@ -322,6 +353,10 @@ body.at-booking .wa-fab, body.at-footer .wa-fab, body.cookie-open .wa-fab { opac
   .reveal-ready [data-reveal]:not(.is-revealed) { opacity: 0; filter: blur(6px); translate: 0 14px; }
 }
 @media print { [data-reveal] { opacity: 1 !important; filter: none !important; translate: none !important; } }
+
+/* ── Text pages (FAQ, policy) ─────────────────────────────────────────── */
+.page { max-width: 860px; margin-inline: auto; padding: clamp(56px, 8vw, 120px) var(--gutter) var(--section-v2); }
+.page__title { margin: 0 0 28px; font-size: clamp(42px, 4.4vw + 24px, 88px); font-weight: 600; font-variation-settings: "opsz" 144; line-height: 0.98; letter-spacing: -0.032em; }
 
 /* ── Reduced motion ───────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
@@ -332,8 +367,10 @@ body.at-booking .wa-fab, body.at-footer .wa-fab, body.cookie-open .wa-fab { opac
     animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
   }
-  .btn:active, .bookbar__wa:active { transform: none; }
+  .btn:active, .bookbar__wa:active, .wa-fab:hover { transform: none; }
+  .link--arrow:hover .arrow { transform: none; }
   .nav--floating .nav__inner > .brand { translate: none; }
+  @view-transition { navigation: none; }
 }
 
 /* ── Reduced transparency / more contrast: glass becomes a solid surface ── */

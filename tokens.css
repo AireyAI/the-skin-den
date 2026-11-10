@@ -173,6 +173,17 @@
   --c-edge-on-dark:    rgba(253, 248, 238, 0.56);   /* outline buttons and controls on dark */
   --c-wash-on-dark:    rgba(253, 248, 238, 0.08);   /* hover fill on dark */
   --c-glass-dark:      rgba(42, 33, 23, 0.86);
+
+  /* ── v2 "The Den" additions (2026-11-10) — additive only ─────────────── */
+  /* The wall: the colour of Rachel's panelled wall as it photographs (sampled from her treatment-room
+     photo), used as the ground for the hero, the booking band and the 404 page. Ivory text on it is 5.1:1. */
+  --c-wall:            #7A665C;
+  --c-plaque:          #FCF9F2;       /* face of the acrylic plaque */
+  --c-on-wall:         var(--c-ivory);
+  --c-line-on-wall:    rgba(253, 248, 238, 0.3);
+
+  --section-v2:        clamp(80px, 8vw + 44px, 168px);
+  --ease-rise:         cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 /* ── Reduced-motion respect ─────────────────────────────────────────────── */
