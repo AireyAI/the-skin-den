@@ -10,21 +10,14 @@ const STEPS = [
     target: "#kpi-heading",
     title: "Welcome to your studio dashboard",
     body:
-      "Your clients, bookings, treatment menu and payments in one place. Tap Refresh to load the latest.",
+      "Your clients and Square payment links in one place. Tap Refresh to load the latest.",
     tab: "members"
   },
   {
     target: "#kpi-grid",
     title: "Overview numbers",
     body:
-      "Figures from the website’s old online booking and checkout over the last 30 days, plus any failed payments. Square payments are not counted here.",
-    tab: "members"
-  },
-  {
-    target: "#admin-tab-bar",
-    title: "Tabs",
-    body:
-      "Switch between Clients, Bookings, Treatments and Payments.",
+      "How many clients have an account with you. Square payments are in your Square dashboard.",
     tab: "members"
   },
   {
@@ -40,27 +33,6 @@ const STEPS = [
     body:
       "Tap a client to see their details, message them on WhatsApp or mark them as contacted.",
     tab: "members"
-  },
-  {
-    target: "#schedule-heading",
-    title: "Treatment menu and slots",
-    body:
-      "Your treatments and prices, with days, times and spots. Tap Save to website to keep your changes.",
-    tab: "schedule"
-  },
-  {
-    target: "#bookings-heading",
-    title: "Treatment bookings",
-    body:
-      "Bookings from the website’s old online booking. New bookings come to you on WhatsApp.",
-    tab: "bookings"
-  },
-  {
-    target: "#payments-heading",
-    title: "Payment ledger",
-    body:
-      "Card payments from the website’s old online checkout. Payments made with Square links are in your Square dashboard.",
-    tab: "payments"
   },
   {
     target: "#pay-banner",
@@ -366,17 +338,4 @@ function buildRoot() {
 export function initOnboardingTour() {
   buildRoot();
   document.getElementById("tour-btn")?.addEventListener("click", () => openTour());
-}
-
-export function maybeStartOnboarding({ mode } = {}) {
-  if (mode === "demo") return;
-  if (!isAppReady()) return;
-  try {
-    if (localStorage.getItem(STORAGE_KEY) === "1") return;
-  } catch {
-    return;
-  }
-  window.setTimeout(() => {
-    if (isAppReady()) openTour();
-  }, prefersReducedMotion() ? 300 : 800);
 }

@@ -61,13 +61,10 @@
       <a class="btn btn--primary pay-banner__cta" href="https://app.squareup.com/dashboard/payment-links" target="_blank" rel="noopener noreferrer">Open Square payment links<span class="sr-only"> (opens in a new tab)</span></a>
     </div>
 
-    <div class="tab-dock">
+    <div class="tab-dock" hidden>
       <nav id="admin-tab-bar" class="admin-tab-bar" role="tablist" aria-label="Admin sections">
         <button type="button" class="admin-tab is-active" data-tab="members" role="tab" aria-selected="true">Clients</button>
         <button type="button" class="admin-tab admin-tab--hidden" data-tab="checkin" hidden role="tab" aria-selected="false">Scanner</button>
-        <button type="button" class="admin-tab" data-tab="bookings" role="tab" aria-selected="false">Bookings</button>
-        <button type="button" class="admin-tab" data-tab="schedule" role="tab" aria-selected="false">Treatments</button>
-        <button type="button" class="admin-tab" data-tab="payments" role="tab" aria-selected="false">Payments</button>
       </nav>
     </div>
 
@@ -76,8 +73,6 @@
         <section class="section-block section-block--overview" aria-labelledby="kpi-heading">
           <h2 id="kpi-heading" class="section-title">Overview</h2>
           <div id="kpi-grid" class="kpi-grid"></div>
-          <h3 class="subsection-title">Recent studio activity</h3>
-          <div id="activity-grid" class="activity-grid"></div>
         </section>
 
         <div id="panel-members">
@@ -110,84 +105,6 @@
           </div>
         </section>
         </div>
-
-
-        <div id="panel-schedule" hidden>
-        <section class="section-block" aria-labelledby="schedule-heading">
-          <div class="section-head-row">
-            <h2 id="schedule-heading" class="section-title">Treatment menu &amp; booking slots</h2>
-            <div class="schedule-actions">
-              <button type="button" class="btn btn--ghost btn--sm" id="schedule-reload-btn">Reload</button>
-              <button type="button" class="btn btn--ghost btn--sm" id="schedule-reset-seed-btn">Load menu from website prices</button>
-              <button type="button" class="btn btn--primary btn--sm" id="schedule-save-btn">Save to website</button>
-            </div>
-          </div>
-          <p class="section-lede">Your treatments and prices as they appear on <a href="../#treatments">the website menu</a>. Clients now book with you on WhatsApp and pay with a Square link you send them.</p>
-          <div id="treatment-menu-ref" class="treatment-menu-ref" hidden></div>
-          <div class="schedule-meta">
-            <div class="schedule-meta-field">
-              <label class="schedule-meta-label" for="schedule-venue">Venue line</label>
-              <input class="schedule-meta-input" type="text" id="schedule-venue" autocomplete="off">
-            </div>
-            <div class="schedule-meta-field">
-              <label class="schedule-meta-label" for="schedule-policy">Cancellation policy</label>
-              <textarea class="schedule-meta-input" id="schedule-policy" rows="2"></textarea>
-            </div>
-          </div>
-          <p id="schedule-status" class="schedule-status" role="status"></p>
-          <div class="table-wrap">
-            <table class="members-table schedule-table">
-              <thead>
-                <tr>
-                  <th scope="col">Service ID</th>
-                  <th scope="col">Day</th>
-                  <th scope="col">Time</th>
-                  <th scope="col">Treatment</th>
-                  <th scope="col">Price (£)</th>
-                  <th scope="col">Spots</th>
-                  <th scope="col">Live</th>
-                </tr>
-              </thead>
-              <tbody id="schedule-body"></tbody>
-            </table>
-          </div>
-        </section>
-        </div>
-
-
-        <div id="panel-bookings" hidden>
-        <section class="section-block" aria-labelledby="bookings-heading">
-          <div class="section-head-row">
-            <h2 id="bookings-heading" class="section-title">Treatment bookings</h2>
-            <label class="filter-select-wrap">
-              <span class="sr-only">Filter bookings</span>
-              <select id="booking-filter" class="filter-select">
-                <option value="all">All statuses</option>
-                <option value="paid">Paid</option>
-                <option value="pending">Pending</option>
-              </select>
-            </label>
-          </div>
-          <p class="section-lede">Bookings made through the website’s old online booking. New bookings come to you on WhatsApp, so they are not listed here.</p>
-          <div class="table-wrap">
-            <table class="members-table stack-table">
-              <thead>
-                <tr>
-                  <th scope="col">Customer</th>
-                  <th scope="col">Treatment</th>
-                  <th scope="col">Appointment</th>
-                  <th scope="col">Amount</th>
-                  <th scope="col">Booking fee</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">When</th>
-                </tr>
-              </thead>
-              <tbody id="bookings-body"></tbody>
-            </table>
-          </div>
-        </section>
-        </div>
-
 
         <div id="panel-checkin" hidden>
         <section class="section-block checkin-section" aria-labelledby="checkin-heading">
@@ -244,27 +161,6 @@
             </table>
           </div>
           <p id="checkin-unlinked-status" class="checkin-status" role="status"></p>
-        </section>
-        </div>
-
-        <div id="panel-payments" hidden>
-        <section class="section-block" aria-labelledby="payments-heading">
-          <h2 id="payments-heading" class="section-title">Payment ledger</h2>
-          <p class="section-lede">Card payments taken through the website’s old online checkout, newest first. Square payments are not recorded here; your Square dashboard has those.</p>
-          <div class="table-wrap">
-            <table class="members-table stack-table">
-              <thead>
-                <tr>
-                  <th scope="col">When</th>
-                  <th scope="col">Source</th>
-                  <th scope="col">Amount</th>
-                  <th scope="col">Booking fee</th>
-                  <th scope="col">Customer</th>
-                </tr>
-              </thead>
-              <tbody id="payments-body"></tbody>
-            </table>
-          </div>
         </section>
         </div>
       </main>

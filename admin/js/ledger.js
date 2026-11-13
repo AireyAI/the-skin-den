@@ -1,12 +1,5 @@
-import { showSchedulePanel } from "./schedule-panel.js";
 import { showCheckinPanel, teardownCheckinPanel } from "./checkin-panel.js";
-import { labelOffering, isSalonAdmin } from "./treatment-catalog.js";
-import { labelCells } from "./table-labels.js";
-import {
-  authHeaders,
-  fetchBookings,
-  fetchPayments
-} from "./api.js";
+import { isSalonAdmin } from "./treatment-catalog.js";
 
 let els = {};
 
@@ -14,12 +7,6 @@ export function initLedgerPanel() {
   els = {
     tabBar: document.getElementById("admin-tab-bar"),
     panelMembers: document.getElementById("panel-members"),
-    panelBookings: document.getElementById("panel-bookings"),
-    panelPayments: document.getElementById("panel-payments"),
-    bookingsBody: document.getElementById("bookings-body"),
-    paymentsBody: document.getElementById("payments-body"),
-    bookingFilter: document.getElementById("booking-filter"),
-    panelSchedule: document.getElementById("panel-schedule"),
     panelCheckin: document.getElementById("panel-checkin")
   };
 
@@ -28,8 +15,6 @@ export function initLedgerPanel() {
     if (!btn) return;
     setTab(btn.dataset.tab);
   });
-
-  els.bookingFilter?.addEventListener("change", () => refreshBookings());
 }
 
 let activeTab = "members";
@@ -46,40 +31,20 @@ function setTab(tab) {
     b.classList.toggle("is-active", on);
     b.setAttribute("aria-selected", on ? "true" : "false");
   });
-  els.panelMembers.hidden = tab !== "members";
-  els.panelBookings.hidden = tab !== "bookings";
-  els.panelPayments.hidden = tab !== "payments";
-  if (els.panelSchedule) els.panelSchedule.hidden = tab !== "schedule";
+  if (els.panelMembers) els.panelMembers.hidden = tab !== "members";
   if (els.panelCheckin) els.panelCheckin.hidden = tab !== "checkin";
-  if (tab === "bookings") refreshBookings();
-  if (tab === "schedule") showSchedulePanel();
   if (tab === "checkin") showCheckinPanel();
-  if (tab === "payments") refreshPayments();
 }
 
-export function renderRevenueKpis(revenue, kpiGrid, computeMemberKpis) {
-  if (!revenue || !kpiGrid) return;
-  const k = computeMemberKpis();
-  const cards = [
-    { label: "Revenue (30d)", value: revenue.grossLabel || "£0.00" },
-    { label: "Booking fee (30d)", value: revenue.platformFeeLabel || "£0.00" },
-    { label: "Payments (30d)", value: String(revenue.paidCount ?? 0) },
-    { label: "Paid bookings (30d)", value: String(revenue.paidBookingCount ?? 0) },
-    {
-      label: "Pending checkouts",
-      value: String(revenue.pendingCheckoutCount ?? 0),
-      warn: (revenue.pendingCheckoutCount ?? 0) > 0
-    },
-  ];
+/** Overview figures from the client list only; the old website checkout ledger is no longer shown. */
+export function renderOverviewKpis(kpiGrid, k) {
+  if (!kpiGrid || !k) return;
+  const cards = [{ label: "Clients", value: String(k.totalMembers) }];
   if (!isSalonAdmin()) {
     cards.push({ label: "Active subs", value: String(k.activeSubscriptions) });
   }
   if (k.paymentFailures > 0) {
-    cards.push({
-      label: "Failed payments",
-      value: String(k.paymentFailures),
-      warn: true
-    });
+    cards.push({ label: "Failed payments", value: String(k.paymentFailures), warn: true });
   }
   kpiGrid.replaceChildren();
   for (const c of cards) {
@@ -96,111 +61,4 @@ export function renderRevenueKpis(revenue, kpiGrid, computeMemberKpis) {
   }
 }
 
-async function refreshBookings() {
-  if (!els.bookingsBody) return;
-  els.bookingsBody.replaceChildren(tr("Loading…", 7));
-  try {
-    const status = els.bookingFilter?.value || "all";
-    const data = await fetchBookings(status);
-    const rows = data.bookings || [];
-    els.bookingsBody.replaceChildren();
-    if (!rows.length) {
-      els.bookingsBody.append(tr("No bookings from the old online booking.", 7));
-      return;
-    }
-    for (const b of rows) {
-      els.bookingsBody.append(buildBookingRow(b));
-    }
-    labelCells(els.bookingsBody);
-  } catch (err) {
-    els.bookingsBody.replaceChildren(tr(`Could not load bookings (${err.message}). Check your connection, then open this tab again.`, 7, "is-error"));
-  }
-}
-
-function buildBookingRow(b) {
-  const row = document.createElement("tr");
-  const nameCell = document.createElement("td");
-  const strong = document.createElement("strong");
-  strong.textContent = b.customerName || "";
-  const br = document.createElement("br");
-  const muted = document.createElement("span");
-  muted.className = "cell-muted";
-  muted.textContent = b.customerEmail || "";
-  nameCell.append(strong, br, muted);
-
-  const cells = [
-    nameCell,
-    td(labelOffering(b.offeringId)),
-    td(b.slotDate),
-    td(b.priceLabel),
-    td(b.platformFeeLabel),
-    tdBadge(b.status),
-    td(formatWhen(b.createdAt))
-  ];
-  for (const c of cells) row.append(c);
-  return row;
-}
-
-async function refreshPayments() {
-  if (!els.paymentsBody) return;
-  els.paymentsBody.replaceChildren(tr("Loading…", 5));
-  try {
-    const data = await fetchPayments();
-    const rows = data.events || [];
-    els.paymentsBody.replaceChildren();
-    if (!rows.length) {
-      els.paymentsBody.append(tr("No card payments from the old online checkout. Square payments are in your Square dashboard.", 5));
-      return;
-    }
-    for (const p of rows) {
-      const row = document.createElement("tr");
-      row.append(
-        td(formatWhen(p.createdAt)),
-        td(p.source),
-        td(p.amountLabel),
-        td(p.platformFeeLabel),
-        td(p.customerEmail || "—")
-      );
-      els.paymentsBody.append(row);
-    }
-    labelCells(els.paymentsBody);
-  } catch (err) {
-    els.paymentsBody.replaceChildren(tr(`Could not load payments (${err.message}). Check your connection, then open this tab again.`, 5, "is-error"));
-  }
-}
-
-function td(text) {
-  const cell = document.createElement("td");
-  cell.textContent = text ?? "";
-  return cell;
-}
-
-function tdBadge(status) {
-  const cell = document.createElement("td");
-  const span = document.createElement("span");
-  span.className = `badge badge--${status || "pending"}`;
-  span.textContent = status || "";
-  cell.append(span);
-  return cell;
-}
-
-function tr(text, colspan, className = "") {
-  const row = document.createElement("tr");
-  const cell = document.createElement("td");
-  cell.colSpan = colspan;
-  cell.className = `empty-cell ${className}`.trim();
-  cell.textContent = text;
-  row.append(cell);
-  return row;
-}
-
-function formatWhen(iso) {
-  if (!iso) return "—";
-  try {
-    return new Date(iso).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" });
-  } catch {
-    return iso;
-  }
-}
-
-export { setTab, refreshBookings, refreshPayments };
+export { setTab };
