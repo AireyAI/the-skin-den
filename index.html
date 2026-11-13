@@ -127,7 +127,10 @@ document.documentElement.className = document.documentElement.className.replace(
   .hero {
     overflow: hidden; display: grid; align-items: end;
     min-height: clamp(640px, 100vh, 1100px); min-height: clamp(640px, 100svh, 1100px);
+    /* A .panel like the cream sections, but flush with the top of the page (the nav sits on it): inset at
+       the sides, with the same rounded corners at the bottom */
     margin-top: calc(-1 * var(--nav-h));
+    border-radius: 0 0 var(--panel-radius) var(--panel-radius);
     padding-block: calc(var(--nav-h) + 24px) clamp(28px, 4.6vh, 56px);
   }
   .hero__media {
@@ -149,7 +152,7 @@ document.documentElement.className = document.documentElement.className.replace(
   @media (prefers-reduced-motion: reduce) { .hero__film { display: none; } }
   /* On phones: a veil of steam the words sit in. It thins upwards so the room stays clear above it. */
   .hero__steam { display: none; position: absolute; z-index: -1; inset: auto 0 0; height: 66%; pointer-events: none;
-    background: linear-gradient(to top, var(--c-ivory) 0%, rgba(253, 248, 238, 0.92) 16%, rgba(253, 248, 238, 0.66) 46%, rgba(253, 248, 238, 0.3) 74%, rgba(253, 248, 238, 0) 100%); }
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255, 255, 255, 0.92) 16%, rgba(255, 255, 255, 0.66) 46%, rgba(255, 255, 255, 0.3) 74%, rgba(255, 255, 255, 0) 100%); }
   .hero__inner { position: relative; width: 100%; }
   .hero__label { margin-bottom: clamp(14px, 2.2vh, 24px); }
   .hero__title { font-size: clamp(44px, min(5.1vw, 10.4vh), 88px); line-height: 0.96; letter-spacing: -0.032em; color: inherit; text-wrap: wrap; }
@@ -178,29 +181,31 @@ document.documentElement.className = document.documentElement.className.replace(
       --sign-foot: max(var(--room-h) * 0.415, 73vw);
       align-items: start; min-height: 0;
       padding-block: calc(var(--nav-h) + var(--sign-foot)) 26px;
-      background: linear-gradient(180deg, var(--c-wall) 0, var(--c-wall) 40%, var(--c-ivory) 40%);
-      color: var(--c-charcoal);
+      background: linear-gradient(180deg, var(--c-wall) 0, var(--c-wall) 40%, #FFFFFF 40%);
+      color: var(--ink);
     }
     .hero.wall::before { display: none; }
     .hero__media { top: var(--nav-h); left: 0; bottom: auto; height: var(--room-h); aspect-ratio: auto; }
     .hero__media::after { background: linear-gradient(180deg, var(--c-wall) 0, rgba(122, 102, 92, 0) 7%); }
     .hero__steam { display: block; inset: auto 0 0; height: auto; top: calc(var(--nav-h) + var(--sign-foot) - 12vh);
-      background: linear-gradient(to bottom, rgba(253, 248, 238, 0) 0, rgba(253, 248, 238, 0.32) 14%, rgba(253, 248, 238, 0.46) 38%, rgba(253, 248, 238, 0.74) 62%, rgba(253, 248, 238, 0.93) 80%, var(--c-ivory) 94%); }
-    .hero .label { color: var(--c-charcoal); }
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.32) 14%, rgba(255, 255, 255, 0.48) 38%, rgba(255, 255, 255, 0.76) 62%, rgba(255, 255, 255, 0.94) 80%, #FFFFFF 94%); }
+    .hero .label { color: var(--ink); }
     .hero__label { margin-bottom: 12px; }
     .hero__title { font-size: clamp(38px, 11.4vw, 64px); }
     .hero__title .line { white-space: normal; }
     .hero__foot { margin-top: 16px; }
     .hero__ctas { margin-top: 18px; gap: 8px 20px; }
     .hero__cta { padding-inline: 24px; }
-    .hero__cta { background: var(--c-charcoal); color: var(--c-ivory); }
-    .hero__cta:hover { background: var(--c-charcoal-soft); }
-    .hero .link { text-decoration-color: var(--c-charcoal); }
-    .hero :focus-visible { outline-color: var(--c-charcoal); }
+    .hero__cta { background: var(--ink); color: #FFFFFF; }
+    .hero__cta:hover { background: #2B2926; }
+    .hero .link { text-decoration-color: var(--ink); }
+    .hero :focus-visible { outline-color: var(--ink); }
     .trust { margin-top: 22px; padding-top: 14px; border-top-color: var(--c-line-strong); font-size: var(--t-small); }
     .trust li + li { margin-left: 14px; padding-left: 14px; border-left-color: var(--c-line-strong); }
   }
   @media (max-width: 380px) { .trust li + li { margin-left: 10px; padding-left: 10px; } .trust { font-size: 12.5px; } }
+  /* Phones: the hero runs edge to edge from the top of the screen */
+  @media (max-width: 600px) { .hero { border-radius: 0; } }
   /* Short phones: tighten so the booking button stays on the first screen */
   @media (max-width: 900px) and (max-height: 700px) {
     .hero__label { margin-bottom: 8px; }
@@ -227,10 +232,9 @@ document.documentElement.className = document.documentElement.className.replace(
   @keyframes line-rise { from { transform: translateY(112%); } }
   @keyframes settle { from { opacity: 0; translate: 0 12px; } }
 
-  /* ── Photographs stand tall and narrow, like the boards of the wall ─── */
-  .frame { position: relative; margin: 0; overflow: hidden; background: var(--c-wood); border-radius: 2px; }
+  /* ── Photographs: tall, with softly rounded corners ───────────────── */
+  .frame { position: relative; margin: 0; overflow: hidden; background: var(--c-wood); border-radius: clamp(18px, 1.6vw, 26px); }
   .frame img { width: 100%; height: 100%; object-fit: cover; }
-  .mount { outline: 1px solid var(--c-rule-wood); outline-offset: 10px; border-radius: 2px; }
   /* A slight lens pull as a photograph scrolls in. Browsers without scroll-driven animation show it still. */
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
@@ -241,7 +245,7 @@ document.documentElement.className = document.documentElement.className.replace(
 
   /* ── Every treatment starts with your skin ────────────────────────── */
   .room__grid { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 40px clamp(40px, 6vw, 96px); align-items: end; }
-  .statement { max-width: 11ch; font-size: clamp(44px, 5.6vw + 12px, 112px); font-weight: 600; font-variation-settings: "opsz" 144; line-height: 0.96; letter-spacing: -0.035em; }
+  .statement { max-width: 12ch; font-size: var(--t-section); font-weight: 600; font-variation-settings: "opsz" 144; line-height: 0.98; letter-spacing: -0.032em; }
   .room__copy { padding-bottom: 0.6vw; }
   .room__copy .lead { max-width: 36ch; }
   .room__copy .link { margin-top: 18px; }
@@ -260,45 +264,40 @@ document.documentElement.className = document.documentElement.className.replace(
   }
 
   /* ── Meet Rachel ──────────────────────────────────────────────────── */
-  .rachel { background: var(--c-cream); }
+  /* .rachel is a .panel (see site.css): the one cream ground in the upper half of the page */
   .rachel__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px clamp(48px, 8vw, 128px); align-items: center; }
-  .rachel__copy h2 { margin-bottom: clamp(24px, 3vw, 40px); font-size: clamp(54px, 5vw + 26px, 120px); }
-  .rachel__lead { max-width: 24ch; font: 300 clamp(26px, 1.5vw + 19px, 42px)/1.2 var(--font-serif); font-variation-settings: "opsz" 144; letter-spacing: -0.022em; color: var(--c-charcoal); text-wrap: pretty; }
-  .rachel__body { display: grid; gap: 16px; max-width: 54ch; margin-top: clamp(24px, 3vw, 36px); color: var(--c-charcoal-soft); }
+  .rachel__copy h2 { margin-bottom: clamp(24px, 3vw, 40px); font-size: var(--t-section); }
+  .rachel__lead { max-width: 28ch; font: 400 var(--t-serif-lead)/1.3 var(--font-serif); letter-spacing: -0.015em; color: var(--ink); text-wrap: pretty; }
+  .rachel__body { display: grid; gap: 16px; max-width: 54ch; margin-top: clamp(20px, 2.4vw, 32px); color: var(--ink-soft); }
   .rachel__links { display: flex; flex-wrap: wrap; gap: 0 36px; margin-top: 20px; }
   .rachel__portrait { justify-self: end; width: min(100%, 440px); margin: 0 clamp(0px, 2vw, 24px) 0 0; }
   .rachel__portrait .frame { aspect-ratio: 4 / 5; }
   /* Crops to Rachel and the plaque, leaving the opening-day balloons, socket and bed outside the frame */
   .rachel__portrait .frame img { object-position: 50% 0; transform: scale(1.75); transform-origin: 74% 59%; }
-  .rachel__portrait figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; padding-top: 26px; font: italic 300 26px/1.2 var(--font-serif); color: var(--c-charcoal); }
-  .rachel__portrait figcaption span { font: 400 var(--t-small)/1.5 var(--font-sans); color: var(--c-gold-text); }
+  .rachel__portrait figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; padding-top: 18px; font: 600 var(--t-ui)/1.3 var(--font-sans); color: var(--ink); }
+  .rachel__portrait figcaption span { font: 400 var(--t-small)/1.5 var(--font-sans); color: var(--ink-soft); }
   @media (max-width: 900px) {
     .rachel__grid { grid-template-columns: 1fr; gap: 56px; }
     .rachel__portrait { justify-self: start; width: min(78%, 400px); margin: 0 0 0 10px; }
   }
 
-  /* ── Treatments & prices: a white sheet ─────────────────────────────
-     The section is one white sheet with soft rounded corners, laid over the page between the cream
-     "Meet Rachel" band and the ivory reviews, so it bridges the two. Black text, one material for the
-     category switcher, and the price list set as clean rows. */
+  /* ── Treatments & prices ────────────────────────────────────────────
+     On the white page, with one material for the category switcher and the price list set as clean
+     rows. The sheet wrapper only provides the padding the pinned switcher measures against. */
   .treatments {
-    --t-ink: #111111;
-    --t-body: #55514C;      /* 7.9:1 on white */
+    --t-ink: var(--ink);
+    --t-body: var(--ink-soft);
     --t-muted: #6E6A65;     /* 4.8:1 on the switcher track */
-    --t-line: rgba(17, 17, 17, 0.09);
+    --t-line: var(--line-ink);
     --t-track: #F2F1EE;
-    --inset: clamp(8px, 1.4vw, 20px);
-    position: relative; padding: var(--inset);
-    background: linear-gradient(180deg, var(--c-cream) 0, var(--c-ivory) 100%);
-    color: var(--t-ink);
+    --inset: 0px;
+    position: relative; padding: 0; background: var(--page); color: var(--t-ink);
   }
   .treatments__sheet {
     /* Inner padding that lines the content up with the rest of the page's container */
     --sheet-pad: max(20px, calc(max(var(--gutter), (100vw - var(--container)) / 2) - var(--inset)));
     position: relative; overflow: clip;
-    padding: clamp(64px, 7vw, 128px) var(--sheet-pad) clamp(48px, 6vw, 112px);
-    background: #FFFFFF; border-radius: clamp(28px, 2.6vw, 44px);
-    box-shadow: 0 1px 0 rgba(42, 33, 23, 0.04), 0 40px 90px -50px rgba(42, 33, 23, 0.32);
+    padding: clamp(72px, 5.6vw + 44px, 140px) var(--sheet-pad) clamp(56px, 5vw + 32px, 120px);
   }
   .treatments :focus-visible { outline-color: var(--t-ink); }
   .treatments__head {
@@ -307,7 +306,7 @@ document.documentElement.className = document.documentElement.className.replace(
     margin-bottom: var(--nav-h);
   }
   /* The bottom padding keeps the tail of the p inside the title's box, clear of the switcher's frosted band */
-  .treatments__title { padding-bottom: 0.18em; font-size: clamp(44px, 3.6vw + 20px, 88px); color: var(--t-ink); }
+  .treatments__title { padding-bottom: 0.18em; font-size: var(--t-section); color: var(--t-ink); }
   .treatments .btn--primary { background: var(--t-ink); color: #FFFFFF; }
   .treatments .btn--primary:hover { background: #2B2926; }
 
@@ -399,9 +398,6 @@ document.documentElement.className = document.documentElement.className.replace(
     .treatments__cta { display: none; }
   }
   @media (max-width: 600px) {
-    /* Phones: the sheet runs edge to edge, its rounded corners still showing the cream and ivory */
-    .treatments { --inset: 0px; }
-    .treatments__sheet { border-radius: 28px; }
     .tabs { display: flex; -webkit-mask-image: linear-gradient(90deg, #000 86%, transparent); mask-image: linear-gradient(90deg, #000 86%, transparent); }
     .tab { min-height: 44px; padding: 0 16px; font-size: 14.5px; }
     .tab__from { display: none; }
@@ -464,17 +460,20 @@ document.documentElement.className = document.documentElement.className.replace(
 
   /* ── Client reviews: three pull-quotes ────────────────────────────── */
   .reviews__grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 40px clamp(48px, 7vw, 112px); align-items: start; }
-  .reviews__title { font-size: clamp(48px, 3.4vw + 30px, 92px); }
+  /* Treatments and reviews share the white ground, so a hairline marks where one ends */
+  .reviews { padding-top: 0; }
+  .reviews > .container > .reviews__grid { padding-top: clamp(56px, 5vw, 88px); border-top: 1px solid var(--line-ink); }
+  .reviews__title { font-size: var(--t-section); }
   @media (min-width: 901px) and (min-height: 700px) { .reviews__title { position: sticky; top: calc(var(--nav-h) + 28px); } }
-  .quote { margin: 0; padding: clamp(28px, 3vw, 44px) 0; border-top: 1px solid var(--c-rule-wood); }
+  .quote { margin: 0; padding: clamp(28px, 3vw, 40px) 0; border-top: 1px solid var(--line-ink); }
   .quote:first-child { padding-top: 0; border-top: 0; }
   .quote:last-child { padding-bottom: 0; }
   /* Quotation marks hang in the margin so the words align */
-  .quote blockquote { margin: 0; font: 300 clamp(24px, 1.5vw + 17px, 40px)/1.28 var(--font-serif); font-variation-settings: "opsz" 144; letter-spacing: -0.02em; color: var(--c-charcoal); text-indent: -0.42em; text-wrap: pretty; }
+  .quote blockquote { margin: 0; font: 400 var(--t-serif-lead)/1.34 var(--font-serif); letter-spacing: -0.012em; color: var(--ink); text-indent: -0.42em; text-wrap: pretty; }
   .quote blockquote::before { content: "“"; }
   .quote blockquote::after { content: "”"; }
-  .quote figcaption { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; margin-top: 22px; font-size: var(--t-ui); font-weight: 600; color: var(--c-charcoal); }
-  .quote__role { font-size: var(--t-meta); font-weight: 400; color: var(--c-gold-text); }
+  .quote figcaption { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; margin-top: 18px; font-size: var(--t-ui); font-weight: 600; color: var(--ink); }
+  .quote__role { font-size: var(--t-meta); font-weight: 400; color: var(--ink-soft); }
   .quote:nth-child(2) { --reveal-delay: 120ms; }
   .quote:nth-child(3) { --reveal-delay: 240ms; }
   @media (max-width: 900px) {
@@ -482,20 +481,19 @@ document.documentElement.className = document.documentElement.className.replace(
     .quote blockquote { margin-left: 0.42em; }
   }
 
-  /* ── Booking: back on the wall ────────────────────────────────────── */
+  /* ── Booking: the second cream panel ──────────────────────────────── */
+  .book { margin-bottom: var(--panel-inset); }
   .book__grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 32px clamp(48px, 7vw, 112px); align-items: center; }
-  .book__title { max-width: 8ch; font-size: clamp(52px, 4.6vw + 26px, 120px); color: var(--c-on-wall); }
-  .panel__copy { max-width: 36ch; margin-bottom: 28px; font: 300 clamp(22px, 0.8vw + 18px, 29px)/1.32 var(--font-serif); letter-spacing: -0.015em; color: var(--c-on-wall); }
+  .book__title { max-width: 8ch; font-size: var(--t-section); }
+  .panel__copy { max-width: 36ch; margin-bottom: 28px; font: 400 var(--t-serif-lead)/1.32 var(--font-serif); letter-spacing: -0.012em; color: var(--ink); }
   .panel__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
-  .panel__help { max-width: 50ch; margin-top: 16px; font-size: var(--t-meta); line-height: 1.55; color: var(--c-on-wall); }
+  .panel__help { max-width: 50ch; margin-top: 16px; font-size: var(--t-meta); line-height: 1.55; color: var(--ink-soft); }
   .panel__links { display: flex; flex-wrap: wrap; gap: 0 32px; margin-top: 8px; font-size: 16px; }
-  .policy { margin-top: clamp(56px, 7vw, 104px); padding-top: 32px; border-top: 1px solid var(--c-line-on-wall); }
-  .policy__title { margin-bottom: 22px; font: 500 var(--t-ui)/1.4 var(--font-sans); color: var(--c-on-wall); }
+  .policy { margin-top: clamp(56px, 7vw, 104px); padding-top: 32px; border-top: 1px solid var(--line-ink); }
+  .policy__title { margin-bottom: 22px; font: 600 var(--t-ui)/1.4 var(--font-sans); color: var(--ink); }
   .policy .tiers { max-width: 920px; }
-  .book .tier { border-left-color: var(--c-gold-soft); }
-  .book .tier__h, .book .tier__p { color: var(--c-on-wall); }
-  .policy__note { max-width: 78ch; margin-top: 24px; font-size: var(--t-ui); line-height: 1.6; color: var(--c-on-wall); }
-  .policy__note a { color: inherit; font-weight: 500; text-decoration: underline; text-decoration-color: var(--c-gold-soft); text-underline-offset: 4px; }
+  .policy__note { max-width: 78ch; margin-top: 24px; font-size: var(--t-ui); line-height: 1.6; color: var(--ink-soft); }
+  .policy__note a { color: var(--ink); font-weight: 500; text-decoration: underline; text-decoration-color: var(--c-gold); text-underline-offset: 4px; }
   .policy__note a:hover { text-decoration-thickness: 2px; }
   @media (max-width: 900px) {
     .book__grid { grid-template-columns: 1fr; }
@@ -503,6 +501,8 @@ document.documentElement.className = document.documentElement.className.replace(
   }
   @media (max-width: 600px) {
     .panel__ctas .btn { width: 100%; }
+    /* Edge to edge on phones: square at the bottom so it meets the footer cleanly */
+    .book { border-radius: var(--panel-radius) var(--panel-radius) 0 0; }
   }
 
   /* Glass falls back to solid surfaces when transparency is reduced or more contrast is requested */
@@ -579,7 +579,7 @@ document.documentElement.className = document.documentElement.className.replace(
 <!-- The hero is Rachel's own photograph of her treatment room. Once the page has loaded, a short silent loop
      of the same frame fades in over it: the photograph, with only the steam moving. The photograph stays
      if the film cannot play, and for anyone who prefers reduced motion or has data saver on. -->
-<section class="hero wall on-wall" id="top">
+<section class="hero wall on-wall panel" id="top">
   <figure class="hero__media">
     <picture>
       <source type="image/webp" srcset="brand_assets/room-poster.webp">
@@ -621,7 +621,7 @@ document.documentElement.className = document.documentElement.className.replace(
   </div>
 </section>
 
-<section class="section rachel" id="about" aria-labelledby="about-title">
+<section class="section rachel panel" id="about" aria-labelledby="about-title">
   <div class="container rachel__grid">
     <div class="rachel__copy">
       <h2 class="display" id="about-title">Meet Rachel.</h2>
@@ -636,7 +636,7 @@ document.documentElement.className = document.documentElement.className.replace(
       </div>
     </div>
     <figure class="rachel__portrait">
-      <div class="frame mount">
+      <div class="frame">
         <img src="brand_assets/photos/rachel.jpg" width="1024" height="1536" alt="Rachel, the skincare practitioner behind The Skin Den, standing in her Carlisle clinic" loading="lazy" decoding="async">
       </div>
       <figcaption>Rachel <span>Skincare practitioner &amp; acne specialist</span></figcaption>
@@ -798,7 +798,7 @@ document.documentElement.className = document.documentElement.className.replace(
   </div>
 </section>
 
-<section class="section book wall on-wall" id="book" aria-labelledby="book-title">
+<section class="section book panel" id="book" aria-labelledby="book-title">
   <div class="container">
     <div class="book__grid">
       <h2 class="book__title display" id="book-title">Book a consultation</h2>
@@ -807,8 +807,8 @@ document.documentElement.className = document.documentElement.className.replace(
         <p class="panel__copy" id="booking-copy">Message Rachel on WhatsApp for the quickest reply, or check live availability online.</p>
 
         <div class="panel__ctas" id="booking-ctas">
-          <a class="btn btn--light" href="https://wa.me/447568602861?text=Hi%20Rachel%2C%20I%27d%20like%20to%20book%20a%20consultation%20at%20The%20Skin%20Den" target="_blank" rel="noopener">Book on WhatsApp</a>
-          <a class="btn btn--outline-light" href="https://clockwork-bookings.vercel.app/m/the-skin-den/book" target="_blank" rel="noopener">Check online availability</a>
+          <a class="btn btn--primary" href="https://wa.me/447568602861?text=Hi%20Rachel%2C%20I%27d%20like%20to%20book%20a%20consultation%20at%20The%20Skin%20Den" target="_blank" rel="noopener">Book on WhatsApp</a>
+          <a class="btn btn--secondary" href="https://clockwork-bookings.vercel.app/m/the-skin-den/book" target="_blank" rel="noopener">Check online availability</a>
         </div>
         <p class="panel__help">Online booking opens in a new tab. If it is unavailable, use WhatsApp and Rachel can arrange your appointment directly.</p>
 

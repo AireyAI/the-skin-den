@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#FDF8EE">
+<meta name="theme-color" content="#FFFFFF">
 <title>FAQ · The Skin Den</title>
 <meta name="description" content="Things worth knowing before you book a personalised skin treatment at The Skin Den in Carlisle.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -19,15 +19,15 @@
 
 <style>
   /* FAQ — shared components and the .page layout live in site.css */
-  .faq__list { margin-top: clamp(32px, 4vw, 56px); border-top: 1px solid var(--c-rule-wood); }
-  .faq__item { border-bottom: 1px solid var(--c-rule-wood); }
+  .faq__list { margin-top: clamp(32px, 4vw, 56px); border-top: 1px solid var(--line-ink); }
+  .faq__item { border-bottom: 1px solid var(--line-ink); }
   .faq__item summary {
     position: relative; display: block; padding: 26px 56px 26px 0; cursor: pointer; list-style: none;
-    font: 300 clamp(22px, 1vw + 18px, 32px)/1.2 var(--font-serif); font-variation-settings: "opsz" 144; letter-spacing: -0.02em; color: var(--c-charcoal);
+    font: 400 clamp(21px, 0.8vw + 17px, 28px)/1.25 var(--font-serif); letter-spacing: -0.012em; color: var(--ink);
     transition: color var(--d-fast) var(--ease);
   }
   .faq__item summary::-webkit-details-marker { display: none; }
-  .faq__item summary:hover { color: var(--c-gold-text); }
+  .faq__item summary:hover { color: var(--ink-soft); }
   /* A plus that closes to a minus when the answer is open */
   .faq__item summary::before, .faq__item summary::after {
     content: ""; position: absolute; right: 8px; top: 50%; width: 18px; height: 1px;
@@ -35,8 +35,8 @@
   }
   .faq__item summary::after { transform: rotate(90deg); }
   .faq__item[open] summary::after { transform: none; }
-  .faq__body { max-width: 62ch; padding: 0 56px 30px 0; font-size: var(--t-body); line-height: 1.7; color: var(--c-charcoal-soft); }
-  .faq__body strong { font-weight: 600; color: var(--c-charcoal); }
+  .faq__body { max-width: 62ch; padding: 0 56px 30px 0; font-size: var(--t-body); line-height: 1.7; color: var(--ink-soft); }
+  .faq__body strong { font-weight: 600; color: var(--ink); }
 </style>
 <script type="application/ld+json">
 {
