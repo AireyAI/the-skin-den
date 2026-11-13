@@ -63,10 +63,10 @@ const STEPS = [
     tab: "payments"
   },
   {
-    target: "#stripe-banner",
-    title: "Online payouts",
+    target: "#pay-banner",
+    title: "Square payments",
     body:
-      "Card deposits are paused while we move to a new payments platform. This banner stays until payouts are live again — there is no Stripe Express button for now.",
+      "Need a deposit or payment? Open Square payment links, make a link for the amount, and send it to your client on WhatsApp. Payments land in your Square account.",
     tab: "members",
     skipIfHidden: true
   },

@@ -677,7 +677,7 @@ body.drawer-open {
   .admin-main,
   .live-status,
   .site-quick-links,
-  .stripe-banner,
+  .pay-banner,
   .admin-toast {
     padding-inline: var(--space-3);
     margin-inline: 0;
@@ -816,7 +816,7 @@ body.drawer-open {
   outline-offset: 2px;
 }
 
-.stripe-banner {
+.pay-banner {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -829,12 +829,12 @@ body.drawer-open {
   border: 1px solid color-mix(in srgb, var(--color-accent) 35%, transparent);
 }
 
-.stripe-banner__copy {
+.pay-banner__copy {
   flex: 1 1 14rem;
   min-width: 0;
 }
 
-.stripe-banner__title {
+.pay-banner__title {
   margin: 0 0 var(--space-1);
   font-family: var(--font-display, inherit);
   font-size: var(--fs-h5);
@@ -842,28 +842,29 @@ body.drawer-open {
   letter-spacing: -0.02em;
 }
 
-.stripe-banner__lede {
+.pay-banner__lede {
   margin: 0;
   font-size: var(--fs-small);
   line-height: 1.55;
   color: var(--color-muted);
 }
 
-.stripe-banner__cta {
+.pay-banner__cta {
   flex: 0 0 auto;
   min-width: 11rem;
+  text-decoration: none;
   padding: var(--space-3) var(--space-5);
   font-size: var(--fs-body);
   font-weight: 700;
 }
 
 @media (max-width: 520px) {
-  .stripe-banner__cta {
+  .pay-banner__cta {
     width: 100%;
   }
 }
 
-.stripe-banner p {
+.pay-banner p {
   margin: 0;
   font-size: var(--fs-small);
   line-height: 1.5;
@@ -1252,14 +1253,4 @@ label,
     outline: 2px solid var(--color-accent);
     outline-offset: 3px;
   }
-}
-.stripe-connect-error {
-  margin: 0 var(--space-5) var(--space-4);
-  padding: var(--space-3) var(--space-4);
-  font-size: var(--fs-small);
-  line-height: 1.5;
-  color: color-mix(in srgb, #c44 92%, var(--color-text));
-  background: color-mix(in srgb, #c44 12%, var(--color-surface));
-  border: 1px solid color-mix(in srgb, #c44 35%, transparent);
-  border-radius: var(--radius-md);
 }

@@ -1,4 +1,4 @@
-import { fetchDashboardSnapshot, markMemberContacted, setAdminToken, getAdminToken, setBookingToken, signInToBookingSystem } from "./api.js";
+import { fetchDashboardSnapshot, markMemberContacted, setAdminToken, getAdminToken } from "./api.js";
 import {
   computeInsights,
   computeKpis,
@@ -8,11 +8,11 @@ import {
   whatsAppLink
 } from "./insights.js";
 import { createCopilot } from "./copilot.js";
-import { initLedgerPanel, refreshStripeBanner, renderRevenueKpis } from "./ledger.js";
+import { initLedgerPanel, renderRevenueKpis } from "./ledger.js";
 import { initCheckinPanel } from "./checkin-panel.js";
 import { prepareAriaCoachContext, initAriaOpenControl } from "./aria-admin.js";
 import { initOnboardingTour, maybeStartOnboarding, isAppReady } from "./onboarding.js";
-import { renderClientStatus, handleStripeReturnQuery } from "./site-strip.js";
+import { renderClientStatus } from "./site-strip.js";
 import { initSchedulePanel, hydrateScheduleFromDashboard } from "./schedule-panel.js";
 
 const state = {
@@ -101,13 +101,6 @@ async function boot() {
       }
       if (!res.ok) throw new Error(data.error || `Login failed (${res.status})`);
       setAdminToken(data.token);
-      // Payout setup lives on the booking system; mint its token with the same
-      // credentials so "Set up payouts" never needs a second password prompt.
-      try {
-        await signInToBookingSystem(email, password);
-      } catch (bookingErr) {
-        console.error("[admin] booking system sign-in failed", bookingErr);
-      }
       if (statusEl) { statusEl.textContent = ""; statusEl.className = "gate-status"; }
       showApp();
       void load().catch((loadErr) => console.error("[admin] load after login", loadErr));
@@ -137,7 +130,6 @@ async function boot() {
   if (!window.SITE_CONFIG?.admin?.hideScanner) initCheckinPanel();
   initOnboardingTour();
   initSchedulePanel();
-  handleStripeReturnQuery();
   copilot = createCopilot({
     panel: document.getElementById("copilot-panel"),
     messagesEl: document.getElementById("copilot-messages"),
@@ -174,7 +166,6 @@ async function load() {
     renderClientStatus(snapshot);
     renderKpis();
     renderTable();
-    await refreshStripeBanner();
     await prepareAriaCoachContext(snapshot, { email: window.SITE_CONFIG?.contact?.email });
     initAriaOpenControl();
     copilot?.setContext(state.members);
@@ -184,7 +175,6 @@ async function load() {
     console.error(err);
     if (String(err.message || "").includes("Session expired")) {
       setAdminToken(null);
-      setBookingToken(null);
       els.app.hidden = true;
       els.gate.hidden = false;
       const statusEl = document.getElementById("gate-status");
