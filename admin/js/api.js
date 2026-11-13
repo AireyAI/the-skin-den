@@ -69,6 +69,47 @@ async function adminGet(path) {
   return res.json();
 }
 
+/** Square routes on the studio API. Errors carry the server's message and code. */
+async function squareCall(method, path, payload) {
+  const base = window.KK_ADMIN_API_BASE?.replace(/\/$/, "");
+  if (!base) {
+    const err = new Error("The studio server isn't configured. Hard-refresh the page.");
+    err.code = "no_api";
+    throw err;
+  }
+  let res;
+  try {
+    res = await fetch(`${base}/square${path}`, {
+      method,
+      headers: { ...authHeaders(), ...(payload ? { "Content-Type": "application/json" } : {}) },
+      credentials: "include",
+      body: payload ? JSON.stringify(payload) : undefined
+    });
+  } catch {
+    const err = new Error("Couldn't reach the studio server. Check your connection and try again.");
+    err.code = "network";
+    throw err;
+  }
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const err = new Error(data.error || `Square request failed (${res.status})`);
+    err.status = res.status;
+    err.code = data.code || "";
+    throw err;
+  }
+  return data;
+}
+
+export const squareApi = {
+  status: () => squareCall("GET", "/status"),
+  connect: () => squareCall("POST", "/connect", {}),
+  complete: (code, state) => squareCall("POST", "/complete", { code, state }),
+  disconnect: () => squareCall("POST", "/disconnect", {}),
+  links: () => squareCall("GET", "/payment-links"),
+  createLink: (input) => squareCall("POST", "/payment-links", input),
+  checkLink: (id) => squareCall("POST", `/payment-links/${encodeURIComponent(id)}/check`, {})
+};
+
 export function fetchCheckIns() {
   return adminGet("/check-ins");
 }

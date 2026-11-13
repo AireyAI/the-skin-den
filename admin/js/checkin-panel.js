@@ -107,6 +107,9 @@ function loadJsQr() {
     jsQrPromise = new Promise((resolve, reject) => {
       const s = document.createElement("script");
       s.src = "https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js";
+      // Pinned: the browser refuses the file if the CDN copy ever changes.
+      s.integrity = "sha384-hStSInNIZ8ljtOVrmrgf7zdHMapaLBWoSnPTtF0nzsybp4+LuhDz6sHuEVpWIX8o";
+      s.crossOrigin = "anonymous";
       s.onload = () => resolve();
       s.onerror = () => reject(new Error("Could not load QR scanner"));
       document.head.appendChild(s);

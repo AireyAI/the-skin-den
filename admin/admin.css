@@ -394,6 +394,151 @@ label,
   padding: 0 24px;
 }
 
+.pay-banner__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-3);
+  margin: 0 0 var(--s-2);
+  font: 500 var(--t-read) / 1.4 var(--font-body);
+  color: var(--ink);
+}
+
+.pay-banner__msg {
+  margin: var(--s-3) 0 0;
+  font: 500 var(--t-read) / 1.5 var(--font-body);
+  color: var(--ink);
+}
+
+.pay-banner__msg.is-error {
+  color: var(--fail);
+}
+
+.pay-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.pay-banner__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--ink);
+  font: 500 var(--t-read) / 1.3 var(--font-body);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.pay-banner__link:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* Request a payment: a short form under the Square card */
+.square-request {
+  margin: var(--s-4) 0 var(--s-2);
+  padding: clamp(20px, 2.4vw, 28px) clamp(20px, 2.8vw, 36px);
+  border: 1px solid var(--line-ink);
+  border-radius: var(--r-panel);
+  background: var(--page);
+}
+
+.square-request__title {
+  margin: 0 0 var(--s-4);
+  font: 600 var(--t-panel-title) / 1.2 var(--font-display);
+  color: var(--ink);
+}
+
+.square-request__form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: var(--s-4);
+  align-items: start;
+}
+
+.square-field label {
+  display: block;
+  margin-bottom: var(--s-2);
+  font: 500 14px / 1.3 var(--font-body);
+  color: var(--ink);
+}
+
+.square-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--field-edge);
+  border-radius: var(--r-field);
+  background: var(--page);
+  color: var(--ink);
+  font: 400 16px / 1.3 var(--font-body);
+}
+
+.square-input:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+  border-color: var(--ink);
+}
+
+.square-amount {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font: 500 16px / 1 var(--font-body);
+  color: var(--ink-soft);
+}
+
+.square-hint {
+  margin: var(--s-2) 0 0;
+  font-size: var(--t-label);
+  color: var(--ink-soft);
+}
+
+.square-form-msg {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--fail);
+  font: 500 var(--t-read) / 1.5 var(--font-body);
+}
+
+.square-request__actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-2);
+}
+
+.square-request__actions .btn {
+  min-height: 48px;
+  text-decoration: none;
+}
+
+.square-result {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.square-result__lead {
+  margin: 0;
+  font: 500 var(--t-read) / 1.5 var(--font-body);
+  color: var(--ink);
+}
+
+.row-actions__group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--s-2);
+}
+
+.badge--quiet {
+  background: var(--quiet-tint);
+  color: var(--ink-soft);
+}
+
 /* Sections: a segmented switch, kept in reach while scrolling */
 .tab-dock {
   position: sticky;

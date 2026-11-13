@@ -17,6 +17,7 @@ import {
   postAdminBackup
 } from "./admin-routes.mjs";
 import { startBackupSchedule } from "./backup.mjs";
+import { handleSquareAdminRoutes, handleSquareWebhookRoute, startSquareMaintenance } from "./square-routes.mjs";
 
 function corsHeaders(origin) {
   const allowed = config.corsOrigins;
@@ -89,6 +90,17 @@ async function route(req, res) {
     }
     const { handleStripeWebhook } = await import("./stripe-webhook.mjs");
     const result = handleStripeWebhook(req, raw);
+    send(res, result.status, result.json, origin);
+    return;
+  }
+
+  if (req.method === "POST" && path === "/v1/square/webhook") {
+    const raw = await readRawLimited(req);
+    if (raw === BODY_TOO_LARGE) {
+      send(res, 413, { error: "Payload too large" }, origin);
+      return;
+    }
+    const result = await handleSquareWebhookRoute(req, raw);
     send(res, result.status, result.json, origin);
     return;
   }
@@ -386,6 +398,12 @@ async function route(req, res) {
     return;
   }
 
+  const squareResult = await handleSquareAdminRoutes(req.method, path, body, req);
+  if (squareResult) {
+    send(res, squareResult.status, squareResult.json, origin);
+    return;
+  }
+
   const memberAction = path.match(/^\/v1\/admin\/members\/([^/]+)\/(contacted|link|unlink|credits)$/);
   if (req.method === "POST" && memberAction) {
     const [, memberId, action] = memberAction;
@@ -469,6 +487,7 @@ async function stripeBootHealthCheck() {
 export function startServer() {
   bootstrap();
   startBackupSchedule();
+  startSquareMaintenance();
   stripeBootHealthCheck().catch((e) => console.error("[platform-api] BOOT HEALTH crashed:", e.message));
   const server = createServer((req, res) => {
     route(req, res).catch((err) => {

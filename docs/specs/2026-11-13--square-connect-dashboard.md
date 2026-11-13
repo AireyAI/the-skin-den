@@ -1,6 +1,6 @@
 # Square payments connected to the staff dashboard
 
-Status: **proposed. Awaiting Kyle's approval.** Nothing has been built, configured or deployed for this yet.
+Status: **accepted by Kyle on 2026-11-13 ("Yes, both").** Built and tested locally on branch `payments/square-connect`. Not deployed, and no Square credentials yet.
 Date: 2026-11-13 · ADR: `docs/adr/0002-square-connect-in-platform-api.md` · Plan: `tasks/plan.md`
 
 ## Request
@@ -89,6 +89,14 @@ What stays the same: booking by WhatsApp, and no payment on the public site or c
 - **Sandbox path.** The sandbox app's redirect is the local dashboard (`http://localhost:4327/admin/`), with a local `platform-api` pointed at the sandbox. The live API is never pointed at the sandbox. Locally, payment status is confirmed with **Check with Square**. Webhook verification is covered by tests, and in production by Square's "send test event".
 - **Renewal timer** runs at boot and then every 24 hours, as `backup.mjs` does, on a single Railway replica.
 - **Rachel's phone.** Test the connection on her phone, including from a home-screen shortcut. The site's manifest can open `/admin/` as a standalone app, which may not keep the sign-in through Square's redirect.
+
+## Known risk (accepted)
+- **The first connection.** Before Rachel's first connection there is no merchant lock yet. Someone who stole a dashboard sign-in token within 15 minutes of it being issued could connect a different Square account. The lock would then block Rachel's.
+- **How it is reduced:**
+  - The dashboard page has a strict Content Security Policy.
+  - The scanner script is pinned with an integrity hash.
+  - Rachel connects straight after go-live (S7), and Kyle confirms the business name the dashboard shows.
+- **If it ever happened:** Kyle clears the lock with `scripts/square-clear-merchant-lock.mjs` and Rachel connects again.
 
 ## What Rachel must do
 1. Have a normal UK Square account for The Skin Den, with identity and bank checks complete. She does **not** need a developer account and never shares her password or bank details.

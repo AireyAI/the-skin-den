@@ -7,6 +7,7 @@ include:
 # Everything the public pages, /account and /admin load at runtime stays published.
 exclude:
   - tasks
+  - tests
   - docs
   - CLAUDE.md
   - SPEC.md

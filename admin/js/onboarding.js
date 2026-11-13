@@ -38,7 +38,7 @@ const STEPS = [
     target: "#pay-banner",
     title: "Square payments",
     body:
-      "Need a deposit or payment? Open Square payment links, make a link for the amount, and send it to your client on WhatsApp. Payments land in your Square account.",
+      "Connect your Square account once. Then tap Request a payment, choose the client and amount, and send the link on WhatsApp. It shows as Paid once Square confirms it, and the money goes straight to your Square account.",
     tab: "members",
     skipIfHidden: true
   },

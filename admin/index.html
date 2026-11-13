@@ -2,6 +2,23 @@
 <html lang="en-GB">
 <head>
   <meta charset="utf-8">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-8TJyltXefuIHbeXNbx1teVtLkm3LsKXY8h1I1WlonYg=' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://platform-api-production-3d5f.up.railway.app http://localhost:3220; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <script id="square-return">
+    // Square returns here with a one-time code. Take it out of the address before
+    // anything else loads, so it never lingers in history or reaches another request.
+    (function () {
+      try {
+        var url = new URL(location.href);
+        var p = url.searchParams;
+        if (!p.has("code") && !p.has("error")) return;
+        window.__squareReturn = { code: p.get("code"), state: p.get("state"), error: p.get("error") };
+        ["code", "state", "error", "error_description", "response_type"].forEach(function (k) { p.delete(k); });
+        var rest = p.toString();
+        history.replaceState(null, "", url.pathname + (rest ? "?" + rest : "") + url.hash);
+      } catch (e) {}
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow">
   <meta name="theme-color" content="#FFFFFF">
@@ -11,8 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Same font request as the public site, so the two share the browser cache -->
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400..600&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400..600&display=swap" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400..600&display=swap"></noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400..600&display=swap">
   <link rel="stylesheet" href="../tokens.css">
   <link rel="stylesheet" href="./admin-tokens.css">
   <link rel="stylesheet" href="./admin.css">
@@ -56,15 +72,58 @@
     <div id="pay-banner" class="pay-banner" role="region" aria-labelledby="pay-banner-heading">
       <div class="pay-banner__copy">
         <p id="pay-banner-heading" class="pay-banner__title">Take a payment with Square</p>
-        <p class="pay-banner__lede">Create a payment link for a deposit or treatment, then send it to your client on WhatsApp. The money goes straight to your Square account. You can also make links in the Square app on your phone.</p>
+        <p id="pay-banner-meta" class="pay-banner__meta" hidden></p>
+        <p id="pay-banner-text" class="pay-banner__lede">Create a payment link for a deposit or treatment, then send it to your client on WhatsApp. The money goes straight to your Square account. You can also make links in the Square app on your phone.</p>
+        <p id="pay-banner-msg" class="pay-banner__msg" role="status" hidden></p>
       </div>
-      <a class="btn btn--primary pay-banner__cta" href="https://app.squareup.com/dashboard/payment-links" target="_blank" rel="noopener noreferrer">Open Square payment links<span class="sr-only"> (opens in a new tab)</span></a>
+      <div id="pay-banner-actions" class="pay-banner__actions">
+        <a class="btn btn--primary pay-banner__cta" href="https://app.squareup.com/dashboard/payment-links" target="_blank" rel="noopener noreferrer">Open Square payment links<span class="sr-only"> (opens in a new tab)</span></a>
+      </div>
     </div>
+
+    <section id="square-request" class="square-request" hidden aria-labelledby="square-request-title">
+      <h2 id="square-request-title" class="square-request__title">Request a payment</h2>
+      <form id="square-request-form" class="square-request__form" novalidate>
+        <div class="square-field">
+          <label for="sq-client">Client</label>
+          <select id="sq-client" class="square-input"></select>
+        </div>
+        <div class="square-field" id="sq-client-name-field" hidden>
+          <label for="sq-client-name">Client name</label>
+          <input id="sq-client-name" class="square-input" type="text" maxlength="80" autocomplete="off">
+        </div>
+        <div class="square-field">
+          <label for="sq-description">What it's for</label>
+          <input id="sq-description" class="square-input" type="text" maxlength="120" placeholder="Deposit: Profhilo" autocomplete="off" required>
+        </div>
+        <div class="square-field square-field--amount">
+          <label for="sq-amount">Amount</label>
+          <div class="square-amount"><span aria-hidden="true">£</span><input id="sq-amount" class="square-input" type="text" inputmode="decimal" autocomplete="off" placeholder="50.00" required aria-describedby="sq-amount-hint"></div>
+          <p id="sq-amount-hint" class="square-hint">Between £1 and £2,000.</p>
+        </div>
+        <p id="sq-form-msg" class="square-form-msg" role="alert" hidden></p>
+        <div class="square-request__actions">
+          <button type="submit" class="btn btn--primary" id="sq-create">Create link</button>
+          <button type="button" class="btn btn--ghost" id="sq-cancel">Cancel</button>
+        </div>
+      </form>
+      <div id="square-result" class="square-result" hidden>
+        <p class="square-result__lead">Link ready. Send it to your client:</p>
+        <label for="sq-link-url" class="sr-only">Payment link</label>
+        <input id="sq-link-url" class="square-input" type="text" readonly>
+        <div class="square-request__actions">
+          <button type="button" class="btn btn--primary" id="sq-copy">Copy link</button>
+          <a class="btn btn--ghost" id="sq-whatsapp" href="#" target="_blank" rel="noopener noreferrer">Send on WhatsApp<span class="sr-only"> (opens in a new tab)</span></a>
+          <button type="button" class="btn btn--ghost" id="sq-done">Done</button>
+        </div>
+      </div>
+    </section>
 
     <div class="tab-dock" hidden>
       <nav id="admin-tab-bar" class="admin-tab-bar" role="tablist" aria-label="Admin sections">
         <button type="button" class="admin-tab is-active" data-tab="members" role="tab" aria-selected="true">Clients</button>
         <button type="button" class="admin-tab admin-tab--hidden" data-tab="checkin" hidden role="tab" aria-selected="false">Scanner</button>
+        <button type="button" class="admin-tab" data-tab="payments" id="tab-payments" hidden role="tab" aria-selected="false">Payments</button>
       </nav>
     </div>
 
@@ -101,6 +160,31 @@
                 </tr>
               </thead>
               <tbody id="members-body"><tr><td colspan="6" class="empty-cell">Loading clients…</td></tr></tbody>
+            </table>
+          </div>
+        </section>
+        </div>
+
+        <div id="panel-square-payments" hidden>
+        <section class="section-block" aria-labelledby="square-payments-heading">
+          <div class="section-head-row">
+            <h2 id="square-payments-heading" class="section-title">Payments</h2>
+            <button type="button" class="btn btn--primary btn--sm" id="sq-request-open-2">Request a payment</button>
+          </div>
+          <p class="section-lede">Payment links you've sent through Square. A link shows as Paid once Square confirms the payment. Refunds are made in your Square dashboard.</p>
+          <div class="table-wrap">
+            <table class="members-table stack-table square-table">
+              <thead>
+                <tr>
+                  <th scope="col">Client</th>
+                  <th scope="col">For</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Sent</th>
+                  <th scope="col"><span class="sr-only">Actions</span></th>
+                </tr>
+              </thead>
+              <tbody id="square-links-body"><tr><td colspan="6" class="empty-cell">Loading payments…</td></tr></tbody>
             </table>
           </div>
         </section>
@@ -187,20 +271,6 @@
   </aside>
 
   <script src="../platform-client.js"></script>
-  <script type="module">
-    import { SITE_CONFIG } from "../site-config.js";
-    window.SITE_CONFIG = SITE_CONFIG;
-    const h = location.hostname;
-    let apiUrl = (SITE_CONFIG.platformApiUrl || "").replace(/\/$/, "");
-    if (h === "localhost" || h === "127.0.0.1") {
-      apiUrl = "http://localhost:3220";
-    }
-    if (apiUrl) {
-      window.KK_PLATFORM_API = apiUrl;
-      window.KK_ADMIN_API_BASE = `${apiUrl}/v1/admin`;
-    }
-    window.__kkApplyPlatformConfig?.();
-    import "./js/app.js";
-  </script>
+  <script type="module" src="./js/boot.js"></script>
 </body>
 </html>

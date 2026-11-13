@@ -1,6 +1,6 @@
 # ADR 0002: Connect Rachel's Square account to the staff dashboard through the Skin Den platform-api
 
-- Status: **Proposed 2026-11-13.** Extends ADR 0001 (Clockwork removed; Square payment links). It replaces 0001's "no integration" point if accepted.
+- Status: **Accepted 2026-11-13** (Kyle: "Yes, both"). Extends ADR 0001 (Clockwork removed; Square payment links), and replaces its "no integration" point.
 - Spec: `docs/specs/2026-11-13--square-connect-dashboard.md`
 
 ## Context

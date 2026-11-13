@@ -160,6 +160,68 @@ function migrate(database) {
       processed_at TEXT NOT NULL
     )`
   );
+  // Square: one connected seller (Rachel), single-use OAuth states, a lock on which
+  // merchant may connect, and the payment links she sends.
+  runSql(
+    database,
+    `CREATE TABLE IF NOT EXISTS square_connection (
+      id INTEGER PRIMARY KEY CHECK (id = 1),
+      application_id TEXT NOT NULL,
+      environment TEXT NOT NULL,
+      merchant_id TEXT NOT NULL,
+      merchant_name TEXT,
+      location_id TEXT NOT NULL,
+      location_name TEXT,
+      tokens_cipher TEXT NOT NULL,
+      access_expires_at TEXT NOT NULL,
+      refreshed_at TEXT NOT NULL,
+      connected_at TEXT NOT NULL
+    )`
+  );
+  runSql(
+    database,
+    `CREATE TABLE IF NOT EXISTS square_oauth_states (
+      state_hash TEXT PRIMARY KEY,
+      coach_id TEXT NOT NULL,
+      jti_hash TEXT NOT NULL,
+      application_id TEXT NOT NULL,
+      environment TEXT NOT NULL,
+      redirect_uri TEXT NOT NULL,
+      expires_at INTEGER NOT NULL
+    )`
+  );
+  runSql(
+    database,
+    `CREATE TABLE IF NOT EXISTS square_merchant_lock (
+      environment TEXT PRIMARY KEY,
+      merchant_id TEXT NOT NULL,
+      locked_at TEXT NOT NULL
+    )`
+  );
+  runSql(
+    database,
+    `CREATE TABLE IF NOT EXISTS square_payment_links (
+      id TEXT PRIMARY KEY,
+      member_id TEXT,
+      client_name TEXT,
+      description TEXT NOT NULL,
+      amount_pence INTEGER NOT NULL,
+      currency TEXT NOT NULL DEFAULT 'GBP',
+      status TEXT NOT NULL,
+      merchant_id TEXT,
+      location_id TEXT,
+      square_link_id TEXT,
+      square_order_id TEXT UNIQUE,
+      square_payment_id TEXT UNIQUE,
+      url TEXT,
+      refunded_pence INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL,
+      paid_at TEXT,
+      checked_at TEXT,
+      updated_at TEXT NOT NULL
+    )`
+  );
+  runSql(database, "CREATE INDEX IF NOT EXISTS idx_square_links_status ON square_payment_links(status, created_at)");
   runSql(
     database,
     `CREATE TABLE IF NOT EXISTS tenant_settings (

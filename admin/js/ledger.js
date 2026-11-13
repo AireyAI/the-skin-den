@@ -1,5 +1,6 @@
 import { showCheckinPanel, teardownCheckinPanel } from "./checkin-panel.js";
 import { isSalonAdmin } from "./treatment-catalog.js";
+import { refreshSquareLinks } from "./square-panel.js";
 
 let els = {};
 
@@ -7,7 +8,8 @@ export function initLedgerPanel() {
   els = {
     tabBar: document.getElementById("admin-tab-bar"),
     panelMembers: document.getElementById("panel-members"),
-    panelCheckin: document.getElementById("panel-checkin")
+    panelCheckin: document.getElementById("panel-checkin"),
+    panelPayments: document.getElementById("panel-square-payments")
   };
 
   els.tabBar?.addEventListener("click", (e) => {
@@ -33,13 +35,15 @@ function setTab(tab) {
   });
   if (els.panelMembers) els.panelMembers.hidden = tab !== "members";
   if (els.panelCheckin) els.panelCheckin.hidden = tab !== "checkin";
+  if (els.panelPayments) els.panelPayments.hidden = tab !== "payments";
   if (tab === "checkin") showCheckinPanel();
+  if (tab === "payments") void refreshSquareLinks();
 }
 
-/** Overview figures from the client list only; the old website checkout ledger is no longer shown. */
-export function renderOverviewKpis(kpiGrid, k) {
+/** Overview figures: client numbers, plus Square takings once Square is connected. */
+export function renderOverviewKpis(kpiGrid, k, extraCards = []) {
   if (!kpiGrid || !k) return;
-  const cards = [{ label: "Clients", value: String(k.totalMembers) }];
+  const cards = [{ label: "Clients", value: String(k.totalMembers) }, ...extraCards];
   if (!isSalonAdmin()) {
     cards.push({ label: "Active subs", value: String(k.activeSubscriptions) });
   }

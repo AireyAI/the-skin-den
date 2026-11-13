@@ -1,6 +1,10 @@
 # The Skin Den: dashboard clean-up, then Square connected to the staff dashboard
 
-Status: **awaiting Kyle's approval.** Spec: `docs/specs/2026-11-13--square-connect-dashboard.md` · ADR: `docs/adr/0002-square-connect-in-platform-api.md`. The previous plan (remove Clockwork) was released as merge `2da2586`.
+Status (2026-11-13): **approved by Kyle ("Yes, both").**
+- S0 is live (merge `a46baa9`).
+- S2–S4 are built and tested locally on branch `payments/square-connect`. They are uncommitted, not deployed, and have no Square credentials yet.
+- Next is S1 (Kyle creates the Square application), then S5 (sandbox test).
+- **Release note:** Railway's `platform-api` service deploys automatically from GitHub `main` (root `platform-api`). Merging to `main` therefore deploys the backend as well as the dashboard. Without the `SQUARE_*` variables, Square stays switched off and the dashboard keeps its plain button. Spec: `docs/specs/2026-11-13--square-connect-dashboard.md` · ADR: `docs/adr/0002-square-connect-in-platform-api.md`. The previous plan (remove Clockwork) was released as merge `2da2586`.
 
 ## Working rules
 - **Where:** worktree `.claude/worktrees/nice-mahavira-1e361e`. Never touch the main checkout, which holds Kyle's uncommitted work.
@@ -116,13 +120,14 @@ Branch `admin/remove-unused`.
 2. Run `platform-api` locally and the dashboard at `localhost:4327`.
 3. Connect a sandbox seller.
 4. Create a link and pay it with a Square sandbox test card.
-5. Check with Square shows Paid.
+5. Check with Square shows Paid. Also confirm that the paid payment's `order_id` equals the link's order. If it doesn't, rely on the reference-ID fallback, and note that Check with Square can't see the payment.
 6. Refund in the sandbox dashboard and confirm it shows Refunded.
 7. Disconnect, and confirm revocation works.
 
 Webhooks are proven by the S3 tests. No real money.
 
 ## S6: Production release (Kyle approves each step)
+0. Take a backup first: `POST /v1/admin/backups` while signed in as the studio owner. Merging to `main` redeploys `platform-api`, which creates the new Square tables on boot.
 1. Run `code-reviewer` and `security-auditor` on the diff, then `release-check`.
 2. Set the Square variables on the Railway `skin-den-platform` service, Production only. Confirm `KK_CORS_ORIGINS` includes `https://theskinden.co.uk`.
 3. Deploy `platform-api` on Railway. Check `/health` and that the Square status route returns 401 without sign-in.

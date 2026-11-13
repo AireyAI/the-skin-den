@@ -7,11 +7,12 @@ import {
   defaultOutreachMessage,
   whatsAppLink
 } from "./insights.js";
-import { initLedgerPanel, renderOverviewKpis } from "./ledger.js";
+import { initLedgerPanel, renderOverviewKpis, setTab } from "./ledger.js";
 import { initCheckinPanel } from "./checkin-panel.js";
 import { initOnboardingTour } from "./onboarding.js";
 import { renderClientStatus } from "./site-strip.js";
 import { labelCells } from "./table-labels.js";
+import { initSquarePanel, refreshSquare, squareKpiCards } from "./square-panel.js";
 
 const state = {
   members: [],
@@ -125,6 +126,14 @@ async function boot() {
   initLedgerPanel();
   if (!window.SITE_CONFIG?.admin?.hideScanner) initCheckinPanel();
   initOnboardingTour();
+  initSquarePanel({
+    getMembers: () => state.members,
+    onChange: renderKpis,
+    // Leaving the Payments tab when Square is disconnected, so the Clients view is never stranded.
+    onNotConnected: () => {
+      if (!document.getElementById("panel-square-payments")?.hidden) setTab("members");
+    }
+  });
 }
 
 function showApp() {
@@ -148,6 +157,7 @@ async function load() {
     renderClientStatus(snapshot);
     renderKpis();
     renderTable();
+    void refreshSquare();
     if (state.selectedId) openDrawer(state.selectedId);
   } catch (err) {
     console.error(err);
@@ -170,7 +180,7 @@ async function load() {
 }
 
 function renderKpis() {
-  renderOverviewKpis(els.kpis, computeKpis(state.members));
+  renderOverviewKpis(els.kpis, computeKpis(state.members), squareKpiCards());
 }
 
 function statusBadge(member) {
