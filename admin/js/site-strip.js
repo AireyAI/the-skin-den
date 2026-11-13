@@ -1,10 +1,7 @@
 /**
- * Live status, quick links, activity row, Stripe return handling.
+ * Live status, quick links and activity row.
  */
-import { refreshStripeBanner } from "./ledger.js";
 import { ga4ReportUrl } from "./analytics-url.mjs";
-
-let toastTimer;
 
 function origin() {
   return (
@@ -12,47 +9,6 @@ function origin() {
     window.SITE_CONFIG?.publicOrigin ||
     "https://theskinden.co.uk"
   ).replace(/\/$/, "");
-}
-
-function showToast(message) {
-  let el = document.getElementById("admin-toast");
-  if (!el) {
-    el = document.createElement("p");
-    el.id = "admin-toast";
-    el.className = "admin-toast";
-    el.setAttribute("role", "status");
-    document.getElementById("admin-app")?.prepend(el);
-  }
-  el.textContent = message;
-  el.hidden = false;
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => {
-    el.hidden = true;
-  }, 6000);
-}
-
-export function handleStripeReturnQuery() {
-  const params = new URLSearchParams(window.location.search);
-  const stripe = params.get("stripe");
-  if (!stripe) return;
-  const clean = window.location.pathname + window.location.hash;
-  window.history.replaceState({}, "", clean);
-  if (window.SITE_CONFIG?.payments?.stripeConnectEnabled !== true) {
-    showToast("Online payouts are paused — Stripe Express is not available.");
-    return;
-  }
-  if (stripe === "return") {
-    showToast("Checking payout setup…");
-    void refreshStripeBanner().then((ready) => {
-      if (ready) {
-        showToast("Payments are live — you’re connected. No further setup needed.");
-      } else {
-        showToast("If Stripe asked for more info, tap Set up payouts again to finish.");
-      }
-    });
-  } else if (stripe === "refresh") {
-    showToast("That link expired — tap Set up payouts again.");
-  }
 }
 
 export function renderClientStatus(snapshot) {
@@ -77,10 +33,9 @@ function renderQuickLinks(websiteAnalytics) {
     ga4ReportUrl(window.SITE_CONFIG?.analytics);
   wrap.replaceChildren();
 
-  const bookUrl = window.SITE_CONFIG?.booking?.clockworkBookUrl || `${base}/studio.html#book`;
   const links = [
     { href: `${base}/studio.html`, label: "View website" },
-    { href: bookUrl, label: "Book treatments (public)", external: Boolean(window.SITE_CONFIG?.booking?.clockworkBookUrl) },
+    { href: `${base}/#book`, label: "Booking section (public)" },
     { href: "./reviews.html", label: "Review moderation" },
     { href: analyticsHref, label: "Website visits (Analytics)", external: true }
   ];

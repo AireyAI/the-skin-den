@@ -4,18 +4,13 @@ import { labelOffering, isSalonAdmin } from "./treatment-catalog.js";
 import {
   authHeaders,
   fetchBookings,
-  fetchPayments,
-  fetchStripeStatus,
-  requestStripeConnectLink
+  fetchPayments
 } from "./api.js";
 
 let els = {};
 
 export function initLedgerPanel() {
   els = {
-    banner: document.getElementById("stripe-banner"),
-    bannerText: document.getElementById("stripe-banner-text"),
-    connectBtn: document.getElementById("stripe-connect-btn"),
     tabBar: document.getElementById("admin-tab-bar"),
     panelMembers: document.getElementById("panel-members"),
     panelBookings: document.getElementById("panel-bookings"),
@@ -34,55 +29,7 @@ export function initLedgerPanel() {
   });
 
   els.bookingFilter?.addEventListener("change", () => refreshBookings());
-  els.connectBtn?.addEventListener("click", () => {
-    void goStripeSetup(els.connectBtn);
-  });
 }
-
-function stripeConnectEnabled() {
-  return window.SITE_CONFIG?.payments?.stripeConnectEnabled === true;
-}
-
-async function goStripeSetup(btn) {
-  if (!btn) return;
-  const errEl = document.getElementById("stripe-connect-error");
-  if (!stripeConnectEnabled()) {
-    if (errEl) {
-      errEl.hidden = false;
-      errEl.textContent =
-        "Stripe Express is disabled — the previous payments account is closed. A new payouts platform is being set up.";
-    }
-    btn.disabled = true;
-    return;
-  }
-  btn.disabled = true;
-  const label = btn.textContent;
-  btn.textContent = "Opening Stripe…";
-  if (errEl) {
-    errEl.hidden = true;
-    errEl.textContent = "";
-  }
-  try {
-    const data = await requestStripeConnectLink();
-    if (data.readyForCheckout && data.linkKind === "express_dashboard") {
-      await refreshStripeBanner();
-    }
-    if (!data.url) throw new Error("No Stripe link returned — try again or contact support.");
-    window.location.href = data.url;
-  } catch (err) {
-    const msg = err.message || "Could not open payout setup.";
-    if (errEl) {
-      errEl.hidden = false;
-      errEl.textContent = msg;
-    } else {
-      alert(msg);
-    }
-    btn.disabled = false;
-    btn.textContent = label;
-  }
-}
-
-export { goStripeSetup };
 
 let activeTab = "members";
 
@@ -107,47 +54,6 @@ function setTab(tab) {
   if (tab === "schedule") showSchedulePanel();
   if (tab === "checkin") showCheckinPanel();
   if (tab === "payments") refreshPayments();
-}
-
-export async function refreshStripeBanner() {
-  if (!els.banner || !window.KK_ADMIN_API_BASE) return false;
-
-  // Platform Stripe account closed — never offer Express onboarding.
-  if (!stripeConnectEnabled()) {
-    const pay = window.SITE_CONFIG?.payments || {};
-    const title = document.getElementById("stripe-banner-heading");
-    if (title) title.textContent = pay.bannerTitle || "Online payouts paused";
-    els.banner.hidden = false;
-    els.bannerText.textContent =
-      pay.bannerLede ||
-      "Card deposits are paused while we move to a new payments platform.";
-    if (els.connectBtn) {
-      els.connectBtn.hidden = true;
-      els.connectBtn.disabled = true;
-    }
-    return false;
-  }
-
-  try {
-    const status = await fetchStripeStatus();
-    if (status.readyForCheckout) {
-      els.banner.hidden = true;
-      return true;
-    }
-    els.banner.hidden = false;
-    const needsMore =
-      status.detailsSubmitted && !status.readyForCheckout;
-    els.bannerText.textContent = needsMore
-      ? "Stripe needs a few more details before you can take payments. Tap the button to finish — usually under five minutes."
-      : "One step left: tell Stripe where to send your treatment payments. Bank details and ID — about five minutes, then you’re live.";
-    els.connectBtn.hidden = !status.configured;
-    els.connectBtn.disabled = false;
-    els.connectBtn.textContent = needsMore ? "Finish payout setup" : "Set up payouts";
-    return false;
-  } catch {
-    els.banner.hidden = true;
-    return false;
-  }
 }
 
 export function renderRevenueKpis(revenue, kpiGrid, computeMemberKpis) {

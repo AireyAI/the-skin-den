@@ -69,7 +69,7 @@ body {
   letter-spacing: 0.06em;
 }
 
-.stripe-banner {
+.pay-banner {
   background: var(--c-cream-light);
   border: 1px solid color-mix(in srgb, var(--c-gold) 35%, transparent);
   border-radius: var(--r-md, 8px);

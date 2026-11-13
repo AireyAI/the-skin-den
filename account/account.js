@@ -10,7 +10,6 @@ import {
 } from "./membership-dates.js";
 import { renderMemberBookings } from "./member-bookings.js";
 import { fetchMemberBookings } from "../member-session.js";
-import { mountAccountBooking } from "./account-book.js";
 import {
   TOKEN_KEY,
   setMemberToken,
@@ -361,7 +360,7 @@ function showMember(data, bookingsPayload) {
   const summaryEl = document.getElementById("member-summary");
   if (summaryEl) {
     summaryEl.textContent = salonAccountMode()
-      ? "Your upcoming and past treatment appointments."
+      ? "To book or change an appointment, message Rachel on WhatsApp."
       : memberSummaryLine(m);
   }
 
@@ -373,17 +372,11 @@ function showMember(data, bookingsPayload) {
     renderMembershipFacts(m, document.getElementById("membership-facts"));
   }
 
-  const bookingsRoot = document.getElementById("member-bookings");
-  renderMemberBookings(bookingsPayload, bookingsRoot);
-
-  const bookRoot = document.getElementById("account-book");
-  if (bookRoot && salonAccountMode()) {
-    void mountAccountBooking(bookRoot, {
-      user,
-      onBooked: () => {
-        void refresh();
-      }
-    });
+  // Salon appointments are arranged with Rachel directly, so no system holds them to list here.
+  const bookingsPanel = document.getElementById("member-bookings-panel");
+  if (bookingsPanel) bookingsPanel.hidden = salonAccountMode();
+  if (!salonAccountMode()) {
+    renderMemberBookings(bookingsPayload, document.getElementById("member-bookings"));
   }
 }
 
@@ -396,8 +389,10 @@ async function refresh() {
   try {
     const data = await platformFetch("/v1/member/me");
     showMember(data, { upcoming: [], past: [] });
-    const bookingsPayload = await fetchMemberBookings().catch(() => ({ upcoming: [], past: [] }));
-    showMember(data, bookingsPayload);
+    if (!salonAccountMode()) {
+      const bookingsPayload = await fetchMemberBookings().catch(() => ({ upcoming: [], past: [] }));
+      showMember(data, bookingsPayload);
+    }
   } catch (err) {
     if (err.status === 401 || err.status === 404) {
       setToken(null);

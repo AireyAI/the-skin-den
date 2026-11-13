@@ -41,31 +41,6 @@ export async function fetchMemberProfile() {
   return memberPlatformFetch("/v1/member/me");
 }
 
-function clockworkBookingsUrl() {
-  const cfg = SITE_CONFIG.clientAccount?.bookingsUrl;
-  if (cfg) return cfg.replace(/\/$/, "");
-  const api = (SITE_CONFIG.booking?.apiUrl || "").replace(/\/$/, "");
-  const slug = SITE_CONFIG.booking?.slug || "";
-  if (api && slug) return `${api}/api/m/${encodeURIComponent(slug)}/member/bookings`;
-  return "";
-}
-
 export async function fetchMemberBookings() {
-  const cw = clockworkBookingsUrl();
-  if (cw) {
-    const token = getMemberToken();
-    if (!token) throw new Error("Not signed in");
-    const res = await fetch(cw, {
-      headers: { Authorization: "Bearer " + token },
-      credentials: "omit"
-    });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) {
-      const err = new Error(data.error || "Could not load appointments");
-      err.status = res.status;
-      throw err;
-    }
-    return data;
-  }
   return memberPlatformFetch("/v1/member/bookings");
 }

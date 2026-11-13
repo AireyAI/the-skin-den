@@ -52,14 +52,13 @@
     <p id="live-status" class="live-status" hidden role="status">Live studio data</p>
     <nav id="site-quick-links" class="site-quick-links" aria-label="Public site links"></nav>
 
-    <div id="stripe-banner" class="stripe-banner" hidden role="region" aria-labelledby="stripe-banner-heading">
-      <div class="stripe-banner__copy">
-        <p id="stripe-banner-heading" class="stripe-banner__title">Connect your bank</p>
-        <p id="stripe-banner-text" class="stripe-banner__lede"></p>
+    <div id="pay-banner" class="pay-banner" role="region" aria-labelledby="pay-banner-heading">
+      <div class="pay-banner__copy">
+        <p id="pay-banner-heading" class="pay-banner__title">Take a payment with Square</p>
+        <p class="pay-banner__lede">Create a payment link for a deposit or treatment, then send it to your client on WhatsApp. The money goes straight to your Square account. You can also make links in the Square app on your phone.</p>
       </div>
-      <button type="button" class="btn btn--primary stripe-banner__cta" id="stripe-connect-btn">Set up payouts</button>
+      <a class="btn btn--primary pay-banner__cta" href="https://app.squareup.com/dashboard/payment-links" target="_blank" rel="noopener noreferrer">Open Square payment links<span class="sr-only"> (opens in a new tab)</span></a>
     </div>
-    <p id="stripe-connect-error" class="stripe-connect-error" hidden role="alert"></p>
 
     <nav id="admin-tab-bar" class="admin-tab-bar" role="tablist" aria-label="Admin sections">
       <button type="button" class="admin-tab is-active" data-tab="members" role="tab" aria-selected="true">Clients</button>

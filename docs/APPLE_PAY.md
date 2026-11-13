@@ -1,5 +1,7 @@
 # Apple Pay / card deposits — The Skin Den
 
+> **2026-11-13: superseded.** Clockwork is no longer used by The Skin Den, and the site and client account take no payments. Rachel takes payments with Square payment links she makes in her own Square account; the staff dashboard has an "Open Square payment links" button. See `docs/adr/0001-square-payment-links-no-clockwork.md`. The notes below are history.
+
 **Status (2026-07-29): Online payouts paused.** The Clockwork Stripe platform account is closed. Stripe Express Connect is **disabled** for `the-skin-den` until a replacement payments provider is wired.
 
 ## Admin UI
