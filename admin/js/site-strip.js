@@ -16,6 +16,7 @@ export function renderClientStatus(snapshot) {
 
   if (live) {
     live.hidden = false;
+    live.dataset.mode = snapshot?.mode === "demo" ? "demo" : "live";
     live.textContent =
       snapshot?.mode === "demo" ? "Preview mode — demo data (connect platform-api for live)" : "Live studio data";
   }
@@ -34,9 +35,8 @@ function renderQuickLinks(websiteAnalytics) {
   wrap.replaceChildren();
 
   const links = [
-    { href: `${base}/studio.html`, label: "View website" },
+    { href: `${base}/`, label: "View website" },
     { href: `${base}/#book`, label: "Booking section (public)" },
-    { href: "./reviews.html", label: "Review moderation" },
     { href: analyticsHref, label: "Website visits (Analytics)", external: true }
   ];
 

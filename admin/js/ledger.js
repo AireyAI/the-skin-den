@@ -1,6 +1,7 @@
 import { showSchedulePanel } from "./schedule-panel.js";
 import { showCheckinPanel, teardownCheckinPanel } from "./checkin-panel.js";
 import { labelOffering, isSalonAdmin } from "./treatment-catalog.js";
+import { labelCells } from "./table-labels.js";
 import {
   authHeaders,
   fetchBookings,
@@ -104,14 +105,15 @@ async function refreshBookings() {
     const rows = data.bookings || [];
     els.bookingsBody.replaceChildren();
     if (!rows.length) {
-      els.bookingsBody.append(tr("No bookings yet.", 7));
+      els.bookingsBody.append(tr("No bookings from the old online booking.", 7));
       return;
     }
     for (const b of rows) {
       els.bookingsBody.append(buildBookingRow(b));
     }
+    labelCells(els.bookingsBody);
   } catch (err) {
-    els.bookingsBody.replaceChildren(tr(err.message, 7));
+    els.bookingsBody.replaceChildren(tr(`Could not load bookings (${err.message}). Check your connection, then open this tab again.`, 7, "is-error"));
   }
 }
 
@@ -147,7 +149,7 @@ async function refreshPayments() {
     const rows = data.events || [];
     els.paymentsBody.replaceChildren();
     if (!rows.length) {
-      els.paymentsBody.append(tr("No payment events yet — completed checkouts appear here.", 5));
+      els.paymentsBody.append(tr("No card payments from the old online checkout. Square payments are in your Square dashboard.", 5));
       return;
     }
     for (const p of rows) {
@@ -161,8 +163,9 @@ async function refreshPayments() {
       );
       els.paymentsBody.append(row);
     }
+    labelCells(els.paymentsBody);
   } catch (err) {
-    els.paymentsBody.replaceChildren(tr(err.message, 5));
+    els.paymentsBody.replaceChildren(tr(`Could not load payments (${err.message}). Check your connection, then open this tab again.`, 5, "is-error"));
   }
 }
 
@@ -181,10 +184,11 @@ function tdBadge(status) {
   return cell;
 }
 
-function tr(text, colspan) {
+function tr(text, colspan, className = "") {
   const row = document.createElement("tr");
   const cell = document.createElement("td");
   cell.colSpan = colspan;
+  cell.className = `empty-cell ${className}`.trim();
   cell.textContent = text;
   row.append(cell);
   return row;
