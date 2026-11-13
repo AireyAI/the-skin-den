@@ -123,3 +123,17 @@ Kyle asked for a more modern, more beautiful section, "all white with black text
 - Removed: the round RestoraPlex photo that sat under the old side column.
 - Unchanged: all 17 treatments, prices and descriptions, tags, notes, before-and-after photos, every id and deep link, the JSON-LD.
 - Checks: 31 interaction checks pass; contrast clean; content diff identical; no horizontal scroll at 375, 390, 768, 1024, 1280, 1440; keyboard focus visible on the switcher; no-JS shows every category with its heading; high-contrast and reduced-transparency modes get a solid white band.
+
+## v3 "clean" system (2026-11-12, branch `redesign/v3-clean`, not committed or live)
+
+Kyle: "keep trying to make it look more modern, clean and professional." Designed directly by Opus 5.5 in this session, not routed to `designer`. The approved real-room hero and its film are unchanged except for the inset frame below.
+
+Rules (tokens in `site.css`; `tokens.css` and `--c-charcoal` are untouched because `/account` and `/admin` use them):
+- **Grounds:** white page (`--page`), one warm panel (`--panel`, the brand cream) for "Meet Rachel" and booking only, charcoal footer. The hero keeps her wall colour as the photo's ground.
+- **Panels:** `.panel` = inset `--panel-inset` (8–20px, 0 on phones) with `--panel-radius` (28–44px), no shadow. Its container is narrowed by the inset so content lines up with every other section. The hero uses the same side inset on tablet and desktop but stays flush with the top of the page (the nav's pill sits on it), so only its bottom corners are rounded. On phones the booking panel is square at the bottom where it meets the footer.
+- **Ink:** `--ink` #111 for all text and buttons on light grounds, `--ink-soft` #55514C for body copy, `--line-ink` for every rule. Gold is kept only for link underlines and footer labels; the hero and footer keep ivory text on their dark grounds.
+- **Type:** headlines Fraunces 600 at one size (`--t-section`); large running serif text (leads, quotes, booking copy, FAQ questions, footer line) Fraunces 400 at `--t-serif-lead`. No more 300-weight serif.
+- **Frames:** photos have rounded corners; the offset outline mounts are gone.
+- **Rhythm:** section padding one step tighter; a hairline separates treatments and reviews, which share the white ground. Footer is two columns up to 1100px.
+
+Checks: `node tasks/checks/site-checks.mjs` (new, one script covering the earlier interaction, cookie, contrast, keyboard, no-JS and app checks): 51/51 on the live site before the change; 47/47 on the branch locally, with the two app checks live-only. Words, links, ids, images, the 17 treatment rows and the JSON-LD are identical on all four pages.
