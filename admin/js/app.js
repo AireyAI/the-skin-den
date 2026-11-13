@@ -7,19 +7,17 @@ import {
   defaultOutreachMessage,
   whatsAppLink
 } from "./insights.js";
-import { initLedgerPanel, renderRevenueKpis } from "./ledger.js";
+import { initLedgerPanel, renderOverviewKpis } from "./ledger.js";
 import { initCheckinPanel } from "./checkin-panel.js";
-import { initOnboardingTour, maybeStartOnboarding, isAppReady } from "./onboarding.js";
+import { initOnboardingTour } from "./onboarding.js";
 import { renderClientStatus } from "./site-strip.js";
-import { initSchedulePanel, hydrateScheduleFromDashboard } from "./schedule-panel.js";
 import { labelCells } from "./table-labels.js";
 
 const state = {
   members: [],
   insights: [],
   filter: "attention",
-  selectedId: null,
-  revenue: null
+  selectedId: null
 };
 
 const els = {
@@ -127,7 +125,6 @@ async function boot() {
   initLedgerPanel();
   if (!window.SITE_CONFIG?.admin?.hideScanner) initCheckinPanel();
   initOnboardingTour();
-  initSchedulePanel();
 }
 
 function showApp() {
@@ -148,13 +145,10 @@ async function load() {
       });
     }
     state.insights = computeInsights(state.members);
-    state.revenue = snapshot.revenue || null;
-    hydrateScheduleFromDashboard(snapshot.schedule);
     renderClientStatus(snapshot);
     renderKpis();
     renderTable();
     if (state.selectedId) openDrawer(state.selectedId);
-    if (isAppReady()) maybeStartOnboarding({ mode: snapshot.mode === "demo" ? "demo" : "live" });
   } catch (err) {
     console.error(err);
     if (String(err.message || "").includes("Session expired")) {
@@ -176,7 +170,7 @@ async function load() {
 }
 
 function renderKpis() {
-  renderRevenueKpis(state.revenue, els.kpis, () => computeKpis(state.members));
+  renderOverviewKpis(els.kpis, computeKpis(state.members));
 }
 
 function statusBadge(member) {

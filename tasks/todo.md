@@ -1,11 +1,13 @@
-# Todo: Square payment link, no Clockwork (see `tasks/plan.md`)
+# Todo (see `tasks/plan.md`)
 
-- [x] Remove Clockwork from the public booking section
-- [x] Remove Clockwork/Stripe config
-- [x] Remove the account booking screen and Clockwork appointments
-- [x] Staff dashboard: Square payment-links card replaces the Stripe banner
-- [x] Removal check red → green; site checks 0 failed
-- [ ] Kyle approves commit + go-live
-- [ ] Optional: switch off the Skin Den venue in Clockwork (approval)
-- [ ] Optional: hide the unused Payments (Stripe ledger) tab
-- [ ] Rachel: Square account ready
+- [x] S0 dashboard clean-up built and checked locally
+- [ ] S0 go live (Kyle's OK)
+- [ ] Kyle approves the Square spec, ADR and plan
+- [ ] S1 Kyle creates the Square app "The Skin Den" (sandbox redirect, then production redirect and webhook)
+- [ ] S2 backend connection + tests
+- [ ] S3 payment links + webhook + tests
+- [ ] S4 dashboard Square card, request form, Payments tab
+- [ ] S5 sandbox end to end
+- [ ] S6 production release (Railway variables, deploys)
+- [ ] S7 Rachel connects; £1 live test; payout seen
+- [ ] S8 docs and memory

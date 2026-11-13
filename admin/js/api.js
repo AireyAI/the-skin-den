@@ -69,15 +69,6 @@ async function adminGet(path) {
   return res.json();
 }
 
-export function fetchBookings(status = "all") {
-  const q = status && status !== "all" ? `?status=${encodeURIComponent(status)}` : "";
-  return adminGet(`/bookings${q}`);
-}
-
-export function fetchPayments() {
-  return adminGet("/payments");
-}
-
 export function fetchCheckIns() {
   return adminGet("/check-ins");
 }
@@ -125,35 +116,6 @@ export function adjustCredits(memberId, { delta, setTo, note } = {}) {
 
 export function createMember(payload) {
   return adminPost("/members", payload);
-}
-
-export function fetchSchedule() {
-  return adminGet("/schedule");
-}
-
-export async function resetScheduleFromSeed() {
-  const base = window.KK_ADMIN_API_BASE?.replace(/\/$/, "");
-  if (!base) throw new Error("Admin API not configured");
-  const res = await fetch(`${base}/schedule/reset-from-seed`, {
-    method: "POST",
-    headers: authHeaders()
-  });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || `API ${res.status}`);
-  return data;
-}
-
-export async function saveSchedule(doc) {
-  const base = window.KK_ADMIN_API_BASE?.replace(/\/$/, "");
-  if (!base) throw new Error("Admin API not configured");
-  const res = await fetch(`${base}/schedule`, {
-    method: "PUT",
-    headers: { ...authHeaders(), "Content-Type": "application/json" },
-    body: JSON.stringify(doc)
-  });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || `API ${res.status}`);
-  return data;
 }
 
 const ADMIN_TOKEN_KEY = "kk-admin-token";
