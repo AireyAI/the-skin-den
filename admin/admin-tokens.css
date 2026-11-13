@@ -1,41 +1,60 @@
 /*
- * Studio admin — token bridge for admin.css on The Skin Den marketing site.
- * Salon desk uses the same ivory / cream palette as the public site.
+ * Studio desk tokens. The desk follows the public site's v3 system (site.css): a white page,
+ * one cream panel, one near-black ink. Those values live in site.css, which the desk does not
+ * load, so they are repeated here. Brand colours, fonts and radii still come from ../tokens.css.
  */
 :root {
-  --color-primary: var(--c-gold-deep);
-  --color-primary-dark: var(--c-wood-shadow);
-  --color-primary-light: var(--c-gold-soft);
-  --color-accent: var(--c-sage-deep);
-  --color-bg: var(--c-ivory);
-  --color-surface: var(--c-cream-light);
-  --color-text: var(--c-charcoal);
-  --color-muted: var(--c-text-muted);
+  /* Grounds */
+  --page: #FFFFFF;
+  --panel: var(--c-cream);             /* the plaque cream; one panel per view */
+  --panel-soft: #FAF7F2;               /* table heads, hovered rows, read-only wells */
 
+  /* Ink: every piece of text and every button on a light ground */
+  --ink: #111111;                      /* 18.9:1 on white */
+  --ink-soft: #55514C;                 /* supporting text: 7.9:1 on white, 6.7:1 on cream */
+  --ink-quiet: #6B665F;                /* labels and meta: 5.7:1 on white */
+  --line-ink: rgba(17, 17, 17, 0.1);
+  --line-ink-strong: rgba(17, 17, 17, 0.22);
+  --field-edge: rgba(17, 17, 17, 0.52);  /* input and select outlines: 3:1 on white and on cream */
+  --gold-rule: var(--c-gold);          /* link underlines only, as on the public site */
+
+  /* Status: text colours pass 4.5:1 on their own tint and on white */
+  --ok: #2F6B45;        --ok-tint: #E8F2EA;
+  --due: #8A4B00;       --due-tint: #FBEFD9;
+  --fail: #A3301C;      --fail-tint: #FBE9E5;
+  --quiet-tint: #F1EEE9;
+
+  /* Type: Fraunces for headings and figures, Inter for everything you read or tap */
   --font-display: var(--font-serif);
   --font-body: var(--font-sans);
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --t-figure-lg: clamp(30px, 1.2vw + 24px, 38px);
+  --t-figure: clamp(24px, 0.6vw + 20px, 28px);
+  --t-heading: clamp(22px, 0.5vw + 19px, 26px);
+  --t-panel-title: clamp(20px, 0.4vw + 18px, 23px);
+  --t-read: 15px;
+  --t-label: 13px;
 
-  --fs-h1: clamp(2.5rem, 6vw, 4rem);
-  --fs-h2: clamp(1.75rem, 4vw, 2.75rem);
-  --fs-h3: clamp(1.25rem, 2.5vw, 1.75rem);
-  --fs-h4: 1.25rem;
-  --fs-h5: 1.0625rem;
-  --fs-body: 1rem;
-  --fs-small: 0.8125rem;
-  --leading-body: 1.55;
-  --tracking-display-uppercase: 0.04em;
+  /* Space: 4px steps */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --gutter-desk: clamp(16px, 3.4vw, 32px);
+  --desk-max: 1240px;
 
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 16px;
-  --space-4: 24px;
-  --space-5: 32px;
-  --space-6: 48px;
+  /* Radius: pill controls (as on the public site), soft fields, rounder containers */
+  --r-control: var(--r-pill);
+  --r-field: 10px;
+  --r-box: 16px;
+  --r-panel: clamp(20px, 1.6vw, 28px);
 
-  --shadow-sm: 0 1px 2px color-mix(in srgb, var(--c-charcoal) 6%, transparent);
-  --shadow-md: 0 8px 24px color-mix(in srgb, var(--c-charcoal) 8%, transparent);
-  --shadow-lg: 0 16px 40px color-mix(in srgb, var(--c-charcoal) 10%, transparent);
-  --border-hairline: 1px solid var(--c-line);
-  --border-thick: 1px solid color-mix(in srgb, var(--c-gold) 40%, transparent);
+  /* Depth: hairlines everywhere; one soft lift for things that float over the page */
+  --lift: 0 0 0 1px rgba(17, 17, 17, 0.06), 0 12px 32px -12px rgba(17, 17, 17, 0.22), 0 4px 10px -6px rgba(17, 17, 17, 0.1);
+  --scrim: rgba(17, 17, 17, 0.36);
+
+  --tap: 44px;
+  --ease-desk: cubic-bezier(0.23, 1, 0.32, 1);
 }

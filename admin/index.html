@@ -4,13 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow">
-  <meta name="theme-color" content="#FDF8EE">
+  <meta name="theme-color" content="#FFFFFF">
   <title>Studio admin | The Skin Den</title>
   <link rel="icon" href="../favicon.svg" sizes="any">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=optional" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=optional"></noscript>
+  <!-- Same font request as the public site, so the two share the browser cache -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400..600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400..600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400..600&display=swap"></noscript>
   <link rel="stylesheet" href="../tokens.css">
   <link rel="stylesheet" href="./admin-tokens.css">
   <link rel="stylesheet" href="./admin.css">
@@ -19,9 +21,9 @@
 <body>
   <div id="admin-gate" class="gate" hidden>
     <div class="gate-card">
-      <img src="../apple-touch-icon.png" width="88" height="88" alt="">
-      <h1>The Skin Den</h1>
-      <p class="gate-lede">Your studio desk — clients, treatment bookings, and payouts. Same look and menu as theskinden.co.uk.</p>
+      <svg class="gate-wordmark" role="img" aria-label="The Skin Den" focusable="false"><use href="../brand_assets/logo.svg#line"/></svg>
+      <h1>Studio desk</h1>
+      <p class="gate-lede">Sign in to see your clients, bookings, treatments and payments.</p>
       <form id="gate-form" novalidate>
         <label class="gate-field" for="gate-email">Email</label>
         <input class="gate-input" type="email" id="gate-email" autocomplete="username" value="rachel@theskinden.co.uk" required>
@@ -30,18 +32,15 @@
         <button type="submit" class="btn btn--primary btn--block">Sign in</button>
         <p id="gate-status" class="gate-status" role="status"></p>
       </form>
-      <p class="gate-foot"><a href="../studio.html">← Public site</a></p>
+      <p class="gate-foot"><a href="../">Back to the website</a></p>
     </div>
   </div>
 
   <div id="admin-app" class="admin-shell" hidden>
     <header class="admin-top">
       <div class="admin-brand">
-        <img src="../apple-touch-icon.png" width="40" height="40" alt="">
-        <div>
-          <p class="admin-eyebrow">Advanced skincare · Carlisle</p>
-          <p class="admin-title">The Skin Den</p>
-        </div>
+        <svg class="admin-wordmark" role="img" aria-label="The Skin Den" focusable="false"><use href="../brand_assets/logo.svg#line"/></svg>
+        <p class="admin-eyebrow">Studio desk</p>
       </div>
       <div class="admin-top-actions">
         <button type="button" class="btn btn--ghost" id="tour-btn">Guide</button>
@@ -49,8 +48,10 @@
       </div>
     </header>
 
-    <p id="live-status" class="live-status" hidden role="status">Live studio data</p>
-    <nav id="site-quick-links" class="site-quick-links" aria-label="Public site links"></nav>
+    <div class="desk-meta">
+      <p id="live-status" class="live-status" hidden role="status">Live studio data</p>
+      <nav id="site-quick-links" class="site-quick-links" aria-label="Public site links"></nav>
+    </div>
 
     <div id="pay-banner" class="pay-banner" role="region" aria-labelledby="pay-banner-heading">
       <div class="pay-banner__copy">
@@ -60,17 +61,19 @@
       <a class="btn btn--primary pay-banner__cta" href="https://app.squareup.com/dashboard/payment-links" target="_blank" rel="noopener noreferrer">Open Square payment links<span class="sr-only"> (opens in a new tab)</span></a>
     </div>
 
-    <nav id="admin-tab-bar" class="admin-tab-bar" role="tablist" aria-label="Admin sections">
-      <button type="button" class="admin-tab is-active" data-tab="members" role="tab" aria-selected="true">Clients</button>
-      <button type="button" class="admin-tab admin-tab--hidden" data-tab="checkin" hidden role="tab" aria-selected="false">Scanner</button>
-      <button type="button" class="admin-tab" data-tab="bookings" role="tab" aria-selected="false">Bookings</button>
-      <button type="button" class="admin-tab" data-tab="schedule" role="tab" aria-selected="false">Treatments</button>
-      <button type="button" class="admin-tab" data-tab="payments" role="tab" aria-selected="false">Payments</button>
-    </nav>
+    <div class="tab-dock">
+      <nav id="admin-tab-bar" class="admin-tab-bar" role="tablist" aria-label="Admin sections">
+        <button type="button" class="admin-tab is-active" data-tab="members" role="tab" aria-selected="true">Clients</button>
+        <button type="button" class="admin-tab admin-tab--hidden" data-tab="checkin" hidden role="tab" aria-selected="false">Scanner</button>
+        <button type="button" class="admin-tab" data-tab="bookings" role="tab" aria-selected="false">Bookings</button>
+        <button type="button" class="admin-tab" data-tab="schedule" role="tab" aria-selected="false">Treatments</button>
+        <button type="button" class="admin-tab" data-tab="payments" role="tab" aria-selected="false">Payments</button>
+      </nav>
+    </div>
 
     <div class="admin-layout">
       <main class="admin-main">
-        <section class="section-block" aria-labelledby="kpi-heading">
+        <section class="section-block section-block--overview" aria-labelledby="kpi-heading">
           <h2 id="kpi-heading" class="section-title">Overview</h2>
           <div id="kpi-grid" class="kpi-grid"></div>
           <h3 class="subsection-title">Recent studio activity</h3>
@@ -91,7 +94,7 @@
             </div>
           </div>
           <div class="table-wrap">
-            <table class="members-table">
+            <table class="members-table stack-table">
               <thead>
                 <tr>
                   <th scope="col">Client</th>
@@ -102,13 +105,13 @@
                   <th scope="col"><span class="sr-only">Actions</span></th>
                 </tr>
               </thead>
-              <tbody id="members-body"></tbody>
+              <tbody id="members-body"><tr><td colspan="6" class="empty-cell">Loading clients…</td></tr></tbody>
             </table>
           </div>
         </section>
         </div>
 
-        
+
         <div id="panel-schedule" hidden>
         <section class="section-block" aria-labelledby="schedule-heading">
           <div class="section-head-row">
@@ -119,12 +122,18 @@
               <button type="button" class="btn btn--primary btn--sm" id="schedule-save-btn">Save to website</button>
             </div>
           </div>
-          <p class="section-lede">Match Rachel’s treatment list and prices on <a href="../studio.html#treatments">the public menu</a>. Slots power <a href="../studio.html#book">Book a treatment</a>. Online card deposits are paused until the new payments platform is live.</p>
+          <p class="section-lede">Your treatments and prices as they appear on <a href="../#treatments">the website menu</a>. Clients now book with you on WhatsApp and pay with a Square link you send them.</p>
           <div id="treatment-menu-ref" class="treatment-menu-ref" hidden></div>
-          <label class="schedule-meta-label" for="schedule-venue">Venue line</label>
-          <input class="schedule-meta-input" type="text" id="schedule-venue" autocomplete="off">
-          <label class="schedule-meta-label" for="schedule-policy">Cancellation policy</label>
-          <textarea class="schedule-meta-input" id="schedule-policy" rows="2"></textarea>
+          <div class="schedule-meta">
+            <div class="schedule-meta-field">
+              <label class="schedule-meta-label" for="schedule-venue">Venue line</label>
+              <input class="schedule-meta-input" type="text" id="schedule-venue" autocomplete="off">
+            </div>
+            <div class="schedule-meta-field">
+              <label class="schedule-meta-label" for="schedule-policy">Cancellation policy</label>
+              <textarea class="schedule-meta-input" id="schedule-policy" rows="2"></textarea>
+            </div>
+          </div>
           <p id="schedule-status" class="schedule-status" role="status"></p>
           <div class="table-wrap">
             <table class="members-table schedule-table">
@@ -159,8 +168,9 @@
               </select>
             </label>
           </div>
+          <p class="section-lede">Bookings made through the website’s old online booking. New bookings come to you on WhatsApp, so they are not listed here.</p>
           <div class="table-wrap">
-            <table class="members-table">
+            <table class="members-table stack-table">
               <thead>
                 <tr>
                   <th scope="col">Customer</th>
@@ -240,9 +250,9 @@
         <div id="panel-payments" hidden>
         <section class="section-block" aria-labelledby="payments-heading">
           <h2 id="payments-heading" class="section-title">Payment ledger</h2>
-          <p class="section-lede">Every completed checkout and webhook-settled charge (newest first).</p>
+          <p class="section-lede">Card payments taken through the website’s old online checkout, newest first. Square payments are not recorded here; your Square dashboard has those.</p>
           <div class="table-wrap">
-            <table class="members-table">
+            <table class="members-table stack-table">
               <thead>
                 <tr>
                   <th scope="col">When</th>
@@ -259,34 +269,18 @@
         </div>
       </main>
 
-      <aside id="copilot-panel" class="copilot-panel" aria-label="Aria priorities">
-        <header class="copilot-header">
-          <h2>Aria</h2>
-          <p>Today’s priorities from your live data. Aria only opens when you choose — she won’t pop up on her own.</p>
-          <button type="button" class="btn btn--primary btn--sm" id="aria-open-btn">Open Aria chat</button>
-        </header>
-        <div id="copilot-messages" class="copilot-messages" role="log" aria-live="polite"></div>
-        <div class="copilot-compose" hidden>
-          <label class="sr-only" for="copilot-input">Message copilot</label>
-          <textarea id="copilot-input" rows="2" placeholder="Ask: Who needs chasing today?"></textarea>
-          <div class="copilot-compose-actions">
-            <button type="button" class="btn btn--ghost btn--icon" id="copilot-voice" aria-label="Speak" aria-pressed="false" title="Voice input (Chrome / Safari)">
-              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 14a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v5a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2Z"/></svg>
-            </button>
-            <button type="button" class="btn btn--primary" id="copilot-send">Send</button>
-          </div>
-        </div>
-      </aside>
     </div>
   </div>
 
   <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
   <aside id="member-drawer" class="member-drawer" hidden aria-labelledby="drawer-name">
-    <button type="button" class="drawer-close" id="drawer-close" aria-label="Close">×</button>
+    <button type="button" class="drawer-close" id="drawer-close" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
     <h2 id="drawer-name"></h2>
     <div id="drawer-meta"></div>
     <div id="drawer-insight" class="drawer-insight" hidden>
-      <p class="drawer-insight-label">Copilot note</p>
+      <p class="drawer-insight-label">Note</p>
       <p id="drawer-insight-text"></p>
     </div>
     <dl id="drawer-facts" class="drawer-facts"></dl>

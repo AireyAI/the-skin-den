@@ -65,10 +65,10 @@ export function computeInsights(members) {
         priority: 3,
         type: "pack_low",
         memberId: m.id,
-        title: `1 class left — ${m.name}`,
+        title: `1 session left — ${m.name}`,
         detail: m.packExpiresAt
           ? `Pack expires ${formatShort(m.packExpiresAt)} (${m.packExpiresIn} days).`
-          : "Suggest a 10-class pack or unlimited.",
+          : "Suggest booking their next course.",
         suggestedAction: "whatsapp",
         urgency: "this_week"
       });
@@ -152,16 +152,16 @@ export function whatsAppLink(phone, message) {
 export function defaultOutreachMessage(member, insight) {
   const first = member.name.split(" ")[0];
   if (insight?.type === "payment_failed") {
-    return `Hi ${first}, it's Rachel at The Skin Den. Your payment didn't go through — want me to help you update your card so you don't lose your spot?`;
+    return `Hi ${first}, it's Rachel at The Skin Den. Your last payment didn't go through. Would you like me to send you a new payment link?`;
   }
   if (insight?.type === "expiring_soon" || insight?.type === "payment_pending") {
     return `Hi ${first}, your treatment plan renews soon. Want to book your next session or adjust your plan? Happy to help.`;
   }
   if (insight?.type === "pack_low") {
-    return `Hi ${first}, you've got one class left on your pack. Want to top up with another pack or try unlimited?`;
+    return `Hi ${first}, it's Rachel at The Skin Den. You've got one session left on your course. Would you like to book your next one?`;
   }
   if (insight?.type === "lapsed") {
-    return `Hi ${first}, we've missed you at Atlas Works. Fancy coming back for a session? First visit back we'd love to see you in the room.`;
+    return `Hi ${first}, it's Rachel at The Skin Den. It's been a while since your last treatment. Would you like to book in?`;
   }
   return `Hi ${first}, it's Rachel at The Skin Den — just checking in. Can I help with your membership or booking?`;
 }

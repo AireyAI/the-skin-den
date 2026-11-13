@@ -21,7 +21,13 @@ function paintTreatmentMenuRef() {
   const ul = document.createElement("ul");
   for (const t of TREATMENT_MENU) {
     const li = document.createElement("li");
-    li.innerHTML = `${t.title} — <span class="price">${t.priceLabel || `£${t.price}`}</span>`;
+    const name = document.createElement("span");
+    name.className = "menu-ref__name";
+    name.textContent = t.title;
+    const price = document.createElement("span");
+    price.className = "price";
+    price.textContent = t.priceLabel || `£${t.price}`;
+    li.append(name, price);
     ul.append(li);
   }
   details.append(ul);
@@ -88,8 +94,8 @@ async function loadSchedule(force) {
     paintForm(docCache);
     setStatus("");
   } catch (err) {
-    setStatus(err.message || "Could not load schedule", true);
-    els.body.replaceChildren(row(err.message, 7));
+    setStatus(`Could not load treatment slots (${err.message || "unknown error"}). Check your connection, then tap Reload.`, true);
+    els.body.replaceChildren(row("Treatment slots could not be loaded.", 7));
   }
 }
 
@@ -237,7 +243,7 @@ async function persistSchedule() {
   setStatus("Saving…");
   try {
     docCache = await saveSchedule(docCache);
-    setStatus("Saved — the public booking page will show these treatments and times.");
+    setStatus("Saved.");
     paintForm(docCache);
   } catch (err) {
     setStatus(err.message || "Save failed", true);
@@ -256,6 +262,7 @@ function row(text, cols) {
   const tr = document.createElement("tr");
   const td = document.createElement("td");
   td.colSpan = cols;
+  td.className = "empty-cell";
   td.textContent = text;
   tr.append(td);
   return tr;

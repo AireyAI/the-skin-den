@@ -10,56 +10,56 @@ const STEPS = [
     target: "#kpi-heading",
     title: "Welcome to your studio dashboard",
     body:
-      "This is your control room for The Skin Den — clients, treatment bookings, and payments in one place. Everything here updates from the live platform when you tap Refresh.",
+      "Your clients, bookings, treatment menu and payments in one place. Tap Refresh to load the latest.",
     tab: "members"
   },
   {
     target: "#kpi-grid",
     title: "Overview numbers",
     body:
-      "Treatment revenue and online booking fees (last 30 days), paid bookings, pending checkouts, active subscriptions, and failed payments.",
+      "Figures from the website’s old online booking and checkout over the last 30 days, plus any failed payments. Square payments are not counted here.",
     tab: "members"
   },
   {
     target: "#admin-tab-bar",
     title: "Tabs",
     body:
-      "Clients, Bookings, Treatments (menu and slots on the public site), and Payments.",
+      "Switch between Clients, Bookings, Treatments and Payments.",
     tab: "members"
   },
   {
     target: "#filter-bar",
     title: "Client filters",
     body:
-      "Start with Needs attention for renewals, failed payments, and low pack credits.",
+      "Start with Needs attention: failed payments, courses running low and plans about to end.",
     tab: "members"
   },
   {
     target: "#panel-members .members-table",
     title: "Client list",
     body:
-      "Tap a row to see details, suggested messages, WhatsApp, and Mark contacted.",
+      "Tap a client to see their details, message them on WhatsApp or mark them as contacted.",
     tab: "members"
   },
   {
     target: "#schedule-heading",
     title: "Treatment menu and slots",
     body:
-      "Set days, times, prices, and capacity. Save to website updates the public booking page.",
+      "Your treatments and prices, with days, times and spots. Tap Save to website to keep your changes.",
     tab: "schedule"
   },
   {
     target: "#bookings-heading",
     title: "Treatment bookings",
     body:
-      "Website bookings appear here — Pending until Stripe checkout completes, then Paid.",
+      "Bookings from the website’s old online booking. New bookings come to you on WhatsApp.",
     tab: "bookings"
   },
   {
     target: "#payments-heading",
     title: "Payment ledger",
     body:
-      "Completed checkouts with customer amount and booking fee (5%). Match to Stripe if you reconcile.",
+      "Card payments from the website’s old online checkout. Payments made with Square links are in your Square dashboard.",
     tab: "payments"
   },
   {
@@ -71,17 +71,10 @@ const STEPS = [
     skipIfHidden: true
   },
   {
-    target: "#copilot-panel",
-    title: "Aria priorities",
-    body:
-      "Summarises who to contact today. Tap Open Aria chat when you want her — she stays closed until then.",
-    tab: "members"
-  },
-  {
     target: "#refresh-btn",
     title: "Keep data fresh",
     body:
-      "After a booking or payment on the site, tap Refresh. Reopen this tour anytime from Guide.",
+      "Tap Refresh to load the latest. Tap Guide to see this tour again.",
     tab: "members"
   }
 ];
@@ -217,7 +210,9 @@ async function renderStep() {
   if (progressEl) progressEl.textContent = `Step ${index + 1} of ${STEPS.length}`;
 
   if (target && isVisible(target)) {
-    target.scrollIntoView({ block: "nearest", behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    // On phones and tablets the card docks at the bottom, so jump the target to the top of the screen
+    const mobile = isMobileTour();
+    target.scrollIntoView({ block: mobile ? "start" : "nearest", behavior: prefersReducedMotion() || mobile ? "auto" : "smooth" });
     await wait(prefersReducedMotion() ? 0 : 120);
   }
 

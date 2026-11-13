@@ -7,13 +7,12 @@ import {
   defaultOutreachMessage,
   whatsAppLink
 } from "./insights.js";
-import { createCopilot } from "./copilot.js";
 import { initLedgerPanel, renderRevenueKpis } from "./ledger.js";
 import { initCheckinPanel } from "./checkin-panel.js";
-import { prepareAriaCoachContext, initAriaOpenControl } from "./aria-admin.js";
 import { initOnboardingTour, maybeStartOnboarding, isAppReady } from "./onboarding.js";
 import { renderClientStatus } from "./site-strip.js";
 import { initSchedulePanel, hydrateScheduleFromDashboard } from "./schedule-panel.js";
+import { labelCells } from "./table-labels.js";
 
 const state = {
   members: [],
@@ -35,7 +34,6 @@ const els = {
   refreshBtn: document.getElementById("refresh-btn")
 };
 
-let copilot;
 
 function platformAdminBase() {
   return window.KK_ADMIN_API_BASE?.replace(/\/$/, "") || "";
@@ -74,7 +72,7 @@ async function boot() {
     const email = document.getElementById("gate-email")?.value?.trim() || "";
     const password = document.getElementById("gate-password")?.value || "";
     if (!email) {
-      if (statusEl) { statusEl.textContent = "Enter your coach email."; statusEl.className = "gate-status is-error"; }
+      if (statusEl) { statusEl.textContent = "Enter your email."; statusEl.className = "gate-status is-error"; }
       return;
     }
     if (!password) {
@@ -130,17 +128,6 @@ async function boot() {
   if (!window.SITE_CONFIG?.admin?.hideScanner) initCheckinPanel();
   initOnboardingTour();
   initSchedulePanel();
-  copilot = createCopilot({
-    panel: document.getElementById("copilot-panel"),
-    messagesEl: document.getElementById("copilot-messages"),
-    inputEl: document.getElementById("copilot-input"),
-    sendBtn: document.getElementById("copilot-send"),
-    voiceBtn: document.getElementById("copilot-voice"),
-    onAction: (action) => {
-      if (action.type === "open_member") openDrawer(action.memberId);
-      if (action.type === "contacted") load();
-    }
-  });
 }
 
 function showApp() {
@@ -166,9 +153,6 @@ async function load() {
     renderClientStatus(snapshot);
     renderKpis();
     renderTable();
-    await prepareAriaCoachContext(snapshot, { email: window.SITE_CONFIG?.contact?.email });
-    initAriaOpenControl();
-    copilot?.setContext(state.members);
     if (state.selectedId) openDrawer(state.selectedId);
     if (isAppReady()) maybeStartOnboarding({ mode: snapshot.mode === "demo" ? "demo" : "live" });
   } catch (err) {
@@ -200,12 +184,13 @@ function statusBadge(member) {
     active: "Active",
     expiring: "Expiring",
     payment_failed: "Payment failed",
-    pack_low: "1 credit left",
+    past_due: "Payment overdue",
+    pack_low: "1 session left",
     lapsed: "Lapsed"
   };
   const span = document.createElement("span");
   span.className = `badge badge--${member.status}`;
-  span.textContent = map[member.status] || member.status;
+  span.textContent = map[member.status] || String(member.status || "").replace(/_/g, " ");
   return span;
 }
 
@@ -230,6 +215,7 @@ function renderTable() {
   for (const m of rows) {
     els.tableBody.append(buildMemberRow(m));
   }
+  labelCells(els.tableBody);
 }
 
 function buildMemberRow(m) {
@@ -298,7 +284,7 @@ function paymentPill(status) {
     span.textContent = "Pending";
   } else {
     span.className = "pay pay--ok";
-    span.textContent = "OK";
+    span.textContent = "Paid";
   }
   return span;
 }
@@ -317,13 +303,18 @@ function openDrawer(id) {
   const meta = document.getElementById("drawer-meta");
   clearChildren(meta);
   const line1 = document.createElement("p");
-  line1.append(document.createTextNode(`${m.plan} · `), statusBadge(m));
+  line1.className = "drawer-plan";
+  const plan = document.createElement("span");
+  plan.textContent = m.plan;
+  line1.append(plan, statusBadge(m));
   const line2 = document.createElement("p");
   line2.className = "drawer-contact";
   const mail = document.createElement("a");
   mail.href = `mailto:${m.email}`;
   mail.textContent = m.email;
-  line2.append(mail, document.createTextNode(` · ${m.phone}`));
+  const phone = document.createElement("span");
+  phone.textContent = m.phone;
+  line2.append(mail, phone);
   meta.append(line1, line2);
 
   const factsEl = document.getElementById("drawer-facts");
@@ -337,7 +328,7 @@ function openDrawer(id) {
         ? m.renewalDate
           ? `${formatDate(m.renewalDate)} · auto-renew ${m.autoRenew ? "on" : "off"}`
           : "—"
-        : `${m.packCredits ?? 0} credits left`
+        : `${m.packCredits ?? 0} sessions left`
     ],
     ["Last payment", m.lastPaymentAt ? formatDate(m.lastPaymentAt) : "—"],
     ["Payment status", m.lastPaymentStatus || "—"],
